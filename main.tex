@@ -1,0 +1,73 @@
+\documentclass[12pt]{infommthesis}
+\include{macros}
+
+\title{Optimisation under uncertainty}
+\author{Asbj{\o}rn Nilsen Riseth}
+\college{Trinity College}
+
+\renewcommand{\submittedtext}{\vspace{-2em}
+  Supervisors: Jeff Dewynne and Chris Farmer}
+\degree{Confirmation of Status thesis}     %the degree
+\degreedate{Michaelmas 2017}         %the degree date
+
+
+\def\biblio{\bibliographystyle{plainnat}\bibliography{references}}
+\begin{document}
+\def\biblio{} % Creates sub-bibliographies only when subfiles are
+% compiled directly
+
+% this baselineskip gives sufficient line spacing for an examiner to easily
+% markup the thesis with comments
+\baselineskip=18pt plus1pt
+
+% set the number of sectioning levels that get number and appear in the contents
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+\maketitle                  % create a title page from the preamble info
+\begin{dedication}
+  \subfile{dedication}        % include a dedication.tex file
+\end{dedication}
+
+% \begin{acknowlegements}
+\begin{acknowledgementslong}
+  \subfile{acknowledgements}   % include an acknowledgements.tex file
+\end{acknowledgementslong}
+% \end{acknowlegements}
+
+\begin{abstractseparate}
+  \subfile{abstract}          % include the abstract
+\end{abstractseparate}
+
+\begin{originalitylong}
+  \subfile{originality}
+\end{originalitylong}
+
+\begin{romanpages}          % start roman page numbering
+  \listoftodos[Notes]
+  \tableofcontents            % generate and include a table of contents
+  \listoffigures              % generate and include a list of figures
+  \listoftables               % generate and include a list of tables
+\end{romanpages}            % end roman page numbering
+
+
+\subfile{ch_introduction}
+\subfile{ch_conclusion}
+
+
+\appendix
+
+% Bibliography:
+\addcontentsline{toc}{chapter}{Bibliography}
+% uncomment next line to change bibliography name to references
+% \renewcommand{\bibname}{References}
+\bibliographystyle{plainnat}
+\bibliography{../references}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "main"
+%%% TeX-command-extra-options: "--shell-escape"
+%%% End:
