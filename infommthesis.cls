@@ -104,7 +104,7 @@
   \null\vfill
   \begin{center}
     { \Huge {\bfseries {\@title}} \par}
-{\large \vspace*{25mm} {\logo \par} \vspace*{25mm}}
+{\large \vspace*{20mm} {\logo \par} \vspace*{20mm}}
     {{\Large \@author} \par}
 {\large \vspace*{1ex}
     {{\@college} \par}
