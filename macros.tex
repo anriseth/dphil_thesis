@@ -1,63 +1,13 @@
-\usepackage[l2tabu, orthodox]{nag}
-\usepackage{todonotes}
-\usepackage{subfiles}
-
-\usepackage{amsmath,amsfonts,amssymb,amsthm}
-\usepackage{natbib}
-\usepackage{booktabs}
-\usepackage{hyperref}
-\usepackage{algorithm}
-\usepackage[noend]{algpseudocode}
-\usepackage{siunitx}
-
-\usepackage{pgfplots}
-\usepackage{tikzscale}
-
-\usepackage[noabbrev]{cleveref}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Settings for packages
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\setcitestyle{square,numbers} % natbib
-
-\setlength{\marginparwidth}{2.8cm} % For todonotes
-
-\graphicspath{{./img/}}
-\pgfplotsset{compat=1.13}
-\usetikzlibrary{external}
-\tikzexternalize[prefix=figures]
-
-\sisetup{
-    group-digits=true,
-    group-separator={\,},
-}
-
+% $https://tex.stackexchange.com/questions/249041/currency-formatting-with-siunitx
+\renewcommand{\mathsterling}{\mathrm{\mathchar"70A3}}
 
 \theoremstyle{definition}
 \newtheorem{example}{Example}[chapter]
 \newtheorem*{remark}{Remark}
 
+\newcommand{\polfn}{\alpha}
+\newcommand{\valfn}{v}
 
-\makeatletter
-% Fix problem with tikz-externalize and todonotes
-% https://tex.stackexchange.com/questions/42486/todonotes-and-tikzexternalize
-\renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
-
-% Fix problem with hyperref + algpseudocode
-% https://tex.stackexchange.com/questions/177025/hyperref-cleveref-and-algpseudocode-same-identifier-warning
-\newcounter{algorithmicH}% New algorithmic-like hyperref counter
-\let\oldalgorithmic\algorithmic
-\renewcommand{\algorithmic}{%
-  \stepcounter{algorithmicH}% Step counter
-  \oldalgorithmic}% Do what was always done with algorithmic environment
-\renewcommand{\theHALG@line}{ALG@line.\thealgorithmicH.\arabic{ALG@line}}
-
-
-% INPUT simplification for paper submission
-\def\input@path{{./img/},{./}}
-
-\makeatother
 
 %%% Local Variables:
 %%% mode: latex
