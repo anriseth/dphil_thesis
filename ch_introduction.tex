@@ -43,31 +43,166 @@ A notable resource with more mathematical focus, which
 cover both theoretical and practical
 perspectives, is that of those of \citet{talluri2006theory}.
 Other approaches to pricing of retail products more akin to the
-mathematical modelling community can, for example, be found in \cite{butler2014customer}.
+mathematical modelling community can, for example, be found in~\cite{butler2014customer}.
+\todo[inline]{Mention proprietary knowledge, cite talluri}
 
 \section{Outline of the thesis}
-
-\todo[inline]{Write introduction}
+\textbf{TODO:} Just use the stuff in ``Making decisions'' below?
 
 \section{Making decisions}
+The approach to decision making considered in this thesis consists of
+five general steps, of which each chapter will touch on a subset.
+The steps are summarised as follows:
+\begin{enumerate}
+\item Objective --- statement of what the decision maker wants to achieve.
+\item Model of the system --- mathematical modelling of relevant aspects
+  needed to achieve the objective.
+\item Data assimilation --- incorporation of available observations in
+  the mathematical model.
+\item Risk preferences --- mathematical modelling of the decision makers risk
+  preferences.
+\item Optimization --- algorithms and approximations required to
+  evaluate different decisions.
+\end{enumerate}
+In \Cref{ch:onestage} we focus on the general discussion of the
+Objective, Risk preferences, and Optimization.
+Following that, \Cref{ch:discrete_control} and
+\Cref{ch:cts_control} discuss  aspects of the steps Model of the system, Risk
+preferences, and Optimization.
+These three chapters are closely linked to the application of pricing
+in retail, whilst the remaining chapters have a mathematical focus
+independent of particular application.
+\Cref{ch:koopestim} looks at a novel way to handle the Data
+assimilation step. Finally, \Cref{ch:objaccel} presents a new
+algorithm to improve the Optimization step.\todo{Necessary?}
+
+
+The objectives we focus on in this thesis are aspects
+of sales, revenue, and profit targets that can be influenced by
+pricing decisions.\todo{Move to section?}
+At the core of such decisions lies models connecting price and demand of products.
+In \Cref{sec:intro_model_demand} we summarise the classic approaches
+to demand modelling in revenue management, for reference in later
+chapters.
+The demand models often include unobservable parameters that are
+inferred from data.
+These models are used to forecast future demand, sometimes months in
+the future.
+The uncertainty of future events, and estimates of model
+parameters, will be described as random variables within a probability
+theoretical framework. \Cref{sec:intro_prob_rvs} covers preliminary
+theory of probability, random variables and stochastic
+processes.\todo{Move to section?}
+
+\section{Modelling demand}\label{sec:intro_model_demand}
+We define demand as the quantity of a product that people are willing
+to buy per time period, at a particular price. For the purpose of our
+work, demand may change over time, even if the price is constant.
+Time-dependent aspects of demand include periodic effects, such as
+seasonality and longer term trends.
+The relationship between price and demand are often described in a
+continuum fashion, rather than at discrete levels such as pounds or
+pence. We are interested in retailers with large-scale sales and
+aggregate demand models where treating the demand as a continuum gives
+a reasonable approximation.
+In both academia and industry, simple demand curves often used to
+model the price-demand relationship of
+products. See~\cite[Ch.~7.3]{talluri2006theory} or~\cite{phillips2005pricing}
+for a discussion of the most popular demand curves. They are often
+chosen in order to simplify the parameter
+estimation procedure, in practice, or simplify the analysis, for academic purposes.
+
+We denote the demand for a given product at price $a\geq 0$, holding
+other aspects such as time and competitor product prices constant, by $q(a)$.
+This thesis will make use of a range of demand curves, in particular
+\begin{align}\label{eq:demand_fun_lin}
+  q(a) &= q^{(1)}-q^{(2)}a,&q^{(1)},q^{(2)}&>0,&\text{linear demand}&,\\
+  q(a) &= e^{q^{(1)}-q^{(2)}a},&q^{(1)}\in\mathbb{R},q^{(2)}&>0,&\text{exponential
+                                                                  demand}&\text{, and}\\
+  q(a) &= q^{(1)}a^{-q^{(2)}},&q^{(1)},q^{(2)}&>0,&\text{power demand}&.\label{eq:demand_fun_pow}
+\end{align}
+Note that these functions can only be considered as local
+approximations to demand. That is, we use these models to predict
+aggregate demand responses in a neighborhood of the current
+price. Care must especially be taken if one is to use the power demand
+function: The demand goes to infinity as price goes to zero, and
+revenues go to infinity as price goes to infinity for products with $q^{(2)}\in(0,1)$.
+\Cref{fig:demandfun_comparison} provides a comparison of the three
+demand curves, and shows that they behave very similarly close to the
+current price, $a=1$.
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[baseline]
+    \begin{axis}[
+      xlabel={Price},
+      ylabel={Demand},
+      legend cell align=left,
+      ]
+      \addplot+[domain=0.5:1.5, mark=none] {2-x};
+      \addlegendentry{Linear}
+      \addplot+[domain=0.5:1.5, mark=none] {exp(1-x)};
+      \addlegendentry{Exponential}
+      \addplot+[domain=0.5:1.5, mark=none] {1/x};
+      \addlegendentry{Power}
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Comparison of demand curves. The units of price and time
+    have been re-scaled so that $q(1)=1$.}\label{fig:demandfun_comparison}
+\end{figure}
+
+In cases where we believe that the price of one product affects the
+demand of another product, we introduce cross-effects on the demand
+functions. For products $j=1,2,\dots,J$, denote their respective prices by
+$a=(a_1,a_2,\dots,a_J)$, and their demands by $q_j(a)$.
+One way to extend the demand curves in~\eqref{eq:demand_fun_lin}
+to~\eqref{eq:demand_fun_pow} to a multi-product case is, according to \cite{talluri2006theory},
+\begin{align}
+  q_j(a)&=q_{j}^{(1)}-\sum_{l=1}^Jq_{j,l}^{(2)}a_l,
+  &\text{linear demand}&,\\
+  q_j(a)&=\exp\left( q_{j}^{(1)}-\sum_{l=1}^Jq_{j,l}^{(2)}a_l
+          \right),
+  &\text{exponential demand}&\text{, and}\\
+  q_j(a)&=q_j^{(1)}\prod_{l=1}^Ja_l^{-q_{j,l}^{(2)}},
+  &\text{power demand}&.
+\end{align}
+The valid domains of the parameters vary. For example, a linear demand
+model where we believe that increasing the price of product $l$ has a
+positive effect on the demand of product $j$ constrains
+$q_{j,l}^{(2)}$ to be negative. \Cref{fig:demand_exponential_two}
+gives an example of demand for a given product, with one competing
+product, using the exponential demand function.
+
+\todo[inline]{Introduce my model, if we need it in chapter on
+  one-stage}
+\todo[inline]{Plot contour for exponential?}
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      domain=0.5:1.5,
+      xlabel={Price (product 1)},
+      ylabel={Price (product 2)},
+      zlabel={Demand (product 1)},
+      view={40}{20},
+      colormap/viridis
+      ]
+      \addplot3[surf]
+      {exp(1-0.2-1*x+0.2*y)};
+    \end{axis}
+  \end{tikzpicture}
+  \caption{Exponential demand function for product $1$, with one
+    competing product $j=2$.
+    Units are rescaled so that $q_1(\vecbracks{1,1})=1$.
+  }\label{fig:demand_exponential_two}
+\end{figure}
+
 
 \begin{itemize}
-\item Objective
-\item Model of system
-\item Data assimilation
-\item Uncertainty: risk attitude/preferences
-\item Optimization process: approximations and algorithms
-\end{itemize}
-
-
-\section{Modelling demand}
-\begin{itemize}
-\item Describe models (Talluri + my own)
 \item Parameter fitting
 \item Description of parameters as random variables
 \end{itemize}
 
-\section{Probability and random variables}
+\section{Probability and random variables}\label{sec:intro_prob_rvs}
 \begin{itemize}
 \item Describe random variable, prob space, expectation, variance
 \item Stochastic processes
@@ -80,7 +215,7 @@ mathematical modelling community can, for example, be found in \cite{butler2014c
 \item Constraints
 \item Primer on unconstrained optimization: First-order condition
 \item Steepest descent, Newton, Quasi-Newton
-\item Constraint conditions: KKT et.\ al.
+\item Constraint conditions: KKT et al.
 \end{itemize}
 
 \biblio{} % Bibliography when standalone
