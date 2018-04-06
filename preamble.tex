@@ -1,4 +1,5 @@
 \usepackage[l2tabu, orthodox]{nag}
+\usepackage{microtype}
 \usepackage{todonotes}
 \usepackage{subfiles}
 
@@ -14,12 +15,11 @@
 \usepackage{pgfplots}
 \usepackage{tikzscale}
 
-\usepackage[noabbrev]{cleveref}
+\usepackage[noabbrev,capitalise]{cleveref}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Settings for packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 
 \onehalfspacing{}
@@ -31,7 +31,7 @@
 \graphicspath{{./img/}}
 \pgfplotsset{compat=1.13}
 \usetikzlibrary{external}
-\tikzexternalize[prefix=figures]
+\tikzexternalize[prefix=figures/]
 
 \sisetup{
     group-digits=true,
