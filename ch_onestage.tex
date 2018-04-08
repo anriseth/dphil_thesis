@@ -134,8 +134,19 @@ theory of decisions that use expected utilities is covered in
 \end{example}
 
 For a given utility function that models a decision maker's measure of
-benefit for the outcomes of $f$, one can formulate a well-defined
-optimisation problem.
+benefit for the outcomes of $f$, one can define an ordering
+between random variables that decides which of any two decisions
+$x_1,x_2\in\mathcal{X}$ is better.
+\begin{mydef}[Expected utility ordering]
+  A utility function $u(x)$ defines an ordering $\preceq$ between random
+  variables $X$ and $Y$,
+  \begin{equation}
+    X\preceq Y \Leftrightarrow \mathbb E[u(X)] \leq \mathbb E[u(Y)].
+  \end{equation}
+\end{mydef}
+
+We can therefore formulate a well-defined optimisation problem by
+modelling the decision maker's attitude to risk with utility functions.
 
 \begin{problem}[Expected utility]
   The optimal choice to maximise a given utility of $f$ is the
@@ -216,7 +227,7 @@ problem.
     \min_{x\in\mathcal{X}}\{(\mathbb E[f(x,\cdot)],-\mathbb D[f(x,\cdot)])\}.
   \end{align}
 \end{problem}
-The bi-objective problem can be approached from a multiobjective
+We can approach the bi-objective problem from a multiobjective
 optimisation theory point of view.
 The review in \citep{marler2004survey} covers some of the theory,
 discusses what optimality means and introduces approaches to solve them.
@@ -228,11 +239,13 @@ defined as
   x(\mathbb D,\lambda)=\argmax_{x\in\mathcal{X}}\{\mathbb
   E[f(x,\cdot)]-\lambda \mathbb D[f(x,\cdot)]\}.
 \end{align}
+This implicitly defines an ordering of random variables based on
+the functional $X\mapsto \mathbb{E}[X]-\lambda \mathbb{D}[X]$.
 If $f$ is nonlinear, then $x(\mathbb D,\lambda)$ can be unstable to
-small changes in $\lambda$. So small errors in determining the best
+small changes in $\lambda$. Small errors in determining the best
 $\lambda$ to represent a decision-maker can cause large changes in
-either of the objectives. More robust methods are covered in
-\citep{marler2004survey}.
+either of the objectives. The review \citep{marler2004survey} covers
+more robust methods.
 
 \subsection{Nonlinear expectations}\label{sec:nonlinear_expectations}
 A general framework that covers most of the remaining
@@ -274,10 +287,10 @@ $\rho(X) = -\mathbb U[X]$.
   programming. If there is an attached probability space on $\Omega$,
   we use the essential infimum.
 
-  For some deviation measures $\mathbb D$, like the lower
+  For some deviation measures $\mathbb D$, such as the lower
   semi-deviation, the functional $\mathbb U(X)=\mathbb E[X]-\mathbb
   D[X]$ defines a nonlinear expectation. Note that for a general space
-  of random variables the symmetric deviation measure, like the
+  of random variables the symmetric deviation measure, such as the
   standard deviation, do not give rise to a nonlinear
   expectation: They can violate the monotonicity requirement.
 
@@ -301,7 +314,7 @@ $\rho(X) = -\mathbb U[X]$.
   \end{align}
 \end{problem}
 
-\emph{Remark:} The solutions of the nonlinear expectation and expected
+Note that the solutions of the nonlinear expectation and expected
 utility problems coincide if one uses the entropic measure and the exponential
 utility respectively.
 
@@ -311,11 +324,11 @@ X\to\mathbb R$. In the deterministic setting, where
 the parameter $y\in\mathcal{Y}$ is known, one often considers problems
 of the form
 \begin{align}
-  \min_{x\in\mathcal{X}}\{g(x)\mid f(x,y)\geq f_{min} \},\;
-  \text{ for some } f_{min}\in\mathbb R.
+  \min_{x\in\mathcal{X}}\{g(x)\mid f(x,y)\geq f_{\textnormal{min}} \},\;
+  \text{ for some } f_{\textnormal{min}}\in\mathbb R.
 \end{align}
-Then $f\geq f_{min}$ is considered a constraint, which restricts the
-decision space to $\{x\in\mathcal{X}\mid f(x,y)\geq f_{min}\}$.
+Then $f\geq f_{\textnormal{min}}$ is considered a constraint, which restricts the
+decision space to $\{x\in\mathcal{X}\mid f(x,y)\geq f_{\textnormal{min}}\}$.
 When there is uncertainty about the right parameter-value, this set is
 not defined at the time of decision, but depends on the realisation of
 the parameter.
@@ -323,10 +336,31 @@ the parameter.
 In the engineering community it is popular to
 reinterpret non-deterministic ``constraints'' as deterministic via
 expected utilities, mean-deviation methods or nonlinear
-expectations~\cite{tyrrell2015engineering}.
-This approach treats what was previously considered a hard constraint
-in terms of marginalised values that allow decisions $x\in\mathcal{X}$
-that can violate the original constraint for some values of the random
+expectations
+\citep{rockafellar2007coherent,rockafellar2015engineering}.
+Such a reinterpretation defines an acceptance set $\mathcal{A}$ that
+tries to represent what a decision maker deems to be feasible in a
+risk-adjusted way, and results in the optimisation problem
+$\min_{x\in\mathcal{A}} g(x)$.
+The acceptance set approach was one of the motivations for a formal
+framework for risk measures, in introduced in \citep{artzner1999coherent}.
+\begin{example}[Acceptance sets]
+  Popular choices of acceptance sets for the constraint $f(x,y)\geq
+  f_{\textnormal{min}}$ are
+  \begin{align}
+    \mathcal{A}&=\{x\in\mathcal X \mid
+                 \mathbb E_y[f(x,y)]\geq f_{\textnormal{min}}\}, \\
+    \mathcal{A}&=\{x\in\mathcal X \mid
+                 \inf_{\omega\in\Omega}f(x,y(\omega))\geq f_{\textnormal{min}}\},\\
+    \mathcal{A} &= \{x\in\mathcal X\mid
+                  \mathbb P_y(f(x,y)\geq f_{\textnormal{min}})\geq \epsilon\},
+                  \text{ given }\epsilon\in(0,1).
+  \end{align}
+\end{example}
+
+The acceptance set approach treats what was previously considered a
+hard constraint in terms of marginalised values that allow decisions $x\in\mathcal{X}$
+that may violate the originally intended constraint for some values of the random
 variable $y$. We argue that a better approach is to take one step back
 and model the trade-off between $g(x)$ and the outcomes of $f(x,y)$.
 
