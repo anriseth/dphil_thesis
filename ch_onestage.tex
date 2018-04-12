@@ -453,7 +453,7 @@ theoretical properties of the different formulations.
   deterministic and defined by the functions
   \begin{align}
     q_1(x) &= e^{-2x_1}(1-e^{-10x_2}),
-    &q_2(x)&= 0.9e^{-1.8x_1}(1-e^{-4x_2})
+    &q_2(x)&= 0.9e^{-1.8x_2}(1-e^{-4x_1})
   \end{align}
   respectively.
   The term $e^{-2x_1}$  models the impact of price
@@ -463,11 +463,26 @@ theoretical properties of the different formulations.
   \Cref{fig:total_volume_2d} shows the total demand $q_1+q_2$.
   \begin{figure}[htbp]
     \centering
-    \includegraphics{total_volume_2d}
-    \caption{The sum $q_1+q_2$ shows the total demand for the two products.
+    \begin{tikzpicture}
+      \begin{axis}[
+        % domain=0.0:1.5,
+        xlabel={$x_1$},
+        ylabel={$x_2$},
+        zlabel={$q_1(x)+q_2(x)$},
+        view={0}{90},
+        colormap/viridis,
+        colorbar,
+        xtick = {0,0.5,1,1.5}
+        ]
+        \addplot3[
+        mesh, samples=60,domain=0:1.5,
+        contour filled={number = 25,labels={false}}, thick]
+        {exp(-2*x)*(1-exp(-10*y)) + 0.9*exp(-1.8*y)*(1-exp(-4*x))};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{The sum $q_1(x)+q_2(x)$ shows the total demand for the two products.
       Note that in the retail setting, the values near $x=(0,0)$ seem
       nonsensical.}\label{fig:total_volume_2d}
-    \todo[inline]{Update plot}
   \end{figure}
 
   Given unit costs $y=(y_1,y_2)$, the profit $f(x,y)$ is then
@@ -515,24 +530,32 @@ theoretical properties of the different formulations.
   priced in-store.
   \begin{figure}[htbp]
     \centering
-    \includegraphics[width=\textwidth]{util_meandev_2d}
-    \caption{The right plot shows the $\ell_2$-norm difference between the decision made
+    \begin{subfigure}[t]{.5\textwidth}
+      \includegraphics[width=\textwidth,axisratio=1.3]{util_meandev_2d_x}
+    \end{subfigure}%
+    \begin{subfigure}[t]{.5\textwidth}
+      \includegraphics[width=\textwidth,axisratio=1.3]{util_meandev_2d_l}
+    \end{subfigure}
+    \caption{The left plot shows the $\ell_2$-norm difference between the decision made
       from the mean-deviation and exponential utility methods defined in
       \Cref{eq:optim_formulations}, using the corresponding
-      $(\mu,\lambda)$-pairs from the left plot.
+      $(\mu,\lambda)$-pairs from the right plot.
     }\label{fig:util_meandev_2d}
-    \todo[inline]{update plot}
   \end{figure}
 
   \begin{figure}[hbtp]
     \centering
-    \includegraphics[width=\textwidth]{cvar_meandev_2d}
-    \caption{The right plot shows the $\ell_2$-norm difference between the decision made
+    \begin{subfigure}[t]{.5\textwidth}
+      \includegraphics[width=\textwidth,axisratio=1.3]{cvar_meandev_2d_x}
+    \end{subfigure}%
+    \begin{subfigure}[t]{.5\textwidth}
+      \includegraphics[width=\textwidth,axisratio=1.3]{cvar_meandev_2d_l}
+    \end{subfigure}
+    \caption{The left plot shows the $\ell_2$-norm difference between the decision made
       from the mean-deviation and super-quantile methods defined in
       \Cref{eq:optim_formulations}, using the corresponding
-      $(\gamma,\lambda)$-pairs from the left plot.
+      $(\gamma,\lambda)$-pairs from the right plot.
     }\label{fig:cvar_meandev_2d}
-    \todo[inline]{update plot}
   \end{figure}
 \end{example}
 
