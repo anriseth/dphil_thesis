@@ -1,11 +1,11 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
+\chtodolist{}
 
 \chapter{One-stage optimisation}\label{ch:onestage}
 
-\todo[inline]{Write one-stage chapter}
-
+% \chtodolist{} % List of todos when standalone
 The aim of this chapter is to discuss approaches to modelling a
 decision problem in the form of a mathematical optimisation problem
 that computer algorithms can solve.
@@ -643,7 +643,7 @@ Relevant concepts for multiobjective optimisation are defined in
 \Cref{sec:multi_terminology}.  The main contribution of this work to
 practitioners is a software package that enables users to formulate
 multiobjective optimisation problems.  An example in
-\Cref{sec:multi_multijump} shows how it is used to create the data for
+\Cref{sec:one_multijump} shows how it is used to create the data for
 the figures in this report.  The package approximates the Pareto with
 with three methods: Weighted sums, objective
 constraints, and the Normal Boundary Intersection method covered in
@@ -940,7 +940,6 @@ formulation makes use of the convex hull of the individual minima
     \caption{The Normal Boundary Intersection method. It traces out the
       Pareto front by moving from points of the CHIM along the normal
       direction $\hat n$.}\label{fig:nbi_drawing2}
-    \todo[inline]{Use $\underline{x_1}$}
   \end{figure}
 \end{example}
 
@@ -1044,18 +1043,18 @@ Pareto optimal.
   Solutions to this problem are local, weakly Pareto optimal.
 \end{mydef}
 
-The NBI method is a special case of the
-scalarisation methods for vector-optimisation formulated by
-\citet{pascoletti1984scalarizing}. The NBI extension
-fits within the Pascoletti-Serafini framework in such a way that it guarantees
-local Pareto optimality. \Cref{ex:pareto_disconnected} show some issues that
-arise with a disconnected Pareto front.
-The example also shows that the NBI extension implemented in
-\texttt{MultiJuMP} finds the same point multiple times on the border
-of disconnected components of the Pareto front.
-\citet{eichfelder2009adaptive} has devised an
-adaptive algorithm based on Pascoletti-Serafini scalarisation that can
-better handle non-convex and disconnected Pareto fronts.
+The NBI method is a special case of the scalarisation methods for
+vector-optimisation formulated by
+\citet{pascoletti1984scalarizing}. The NBI extension fits within the
+Pascoletti-Serafini framework in such a way that it guarantees local
+Pareto optimality. \Cref{ex:pareto_disconnected} show some issues that
+arise with a disconnected Pareto front.  The example also shows that
+the NBI extension implemented in the package MultiJuMP, described in
+\Cref{sec:one_multijump}, finds the same point multiple times on the
+border of disconnected components of the Pareto front.
+\citet{eichfelder2009adaptive} has devised an adaptive algorithm based
+on Pascoletti-Serafini scalarisation that can better handle non-convex
+and disconnected Pareto fronts.
 \begin{example}[Disconnected Pareto front]\label{ex:pareto_disconnected}
   Define
   $F:{[0,5]}^2\to\mathbb{R}^2$, by $F=(f_1,f_2)$ with $f_i(x)=x_i$.
@@ -1167,27 +1166,21 @@ multiobjective optimisation problems involving randomness.
 
 
 \subsection{Approximating Pareto fronts with
-  MultiJuMP}\label{sec:multi_multijump}
-As part of the work on multiobjective optimisation, I
-have created a software package called MultiJuMP.
-It is available online at
-\url{https://github.com/anriseth/MultiJuMP.jl.git}.
-MultiJuMP helps users to quickly approximate Pareto fronts in a
-numerical solver-independent environment.
-The three methods for generating Pareto points discussed
-in \Cref{sec:multi_pareto_front} have all been implemented.
-The package is written in Julia, a recently invented
-programming language for numerical computing \citep{bezanson2017julia}.
-In Julia there is a package called JuMP that provides a modelling
-language for mathematical programming \citep{dunning2017jump}. It
-separates the challenge of
-expressing an optimisation problem, from the algorithm-specific
-decision of solving the problem. \Cref{lst:multijump} shows an example
-of how one can easily express functions with the JuMP routines, and
-set up a multiobjective optimisation model with the MultiJuMP
-routines. The code works for any number of objectives, although visualising
-a Pareto front for more than three objectives becomes difficult.
-
+  MultiJuMP}\label{sec:one_multijump}
+As part of the work on multiobjective optimisation, I have created a
+software package called MultiJuMP.  It is available online at
+\url{https://github.com/anriseth/MultiJuMP.jl.git}.  MultiJuMP
+approximates Pareto fronts in a numerical solver-independent
+environment, using the four methods discussed in
+\Cref{sec:multi_pareto_front}.  The package is written in the Julia
+programming language \citep{bezanson2017julia}, and based on the
+mathematical programming modelling package JuMP
+\citep{dunning2017jump}. It separates the challenge of expressing an
+optimisation problem, from the algorithm-specific decision of solving
+the problem. \Cref{lst:multijump} shows an example of how to set up a
+multiobjective optimisation model with the MultiJuMP routines. The
+code works for any number of objectives, however, visualising a Pareto
+front for more than three objectives becomes difficult.
 \begin{listing}[htbp]
   \inputminted{julia}{./include/multijump.jl}
   \caption{Code used to generate one of the figures in

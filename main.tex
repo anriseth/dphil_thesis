@@ -19,9 +19,11 @@
 
 
 \def\biblio{\bibliographystyle{plainnat}\bibliography{references}}
+\def\chtodolist{\listoftodos}
 \begin{document}
 \def\biblio{} % Creates sub-bibliographies only when subfiles are
 % compiled directly
+\def\chtodolist{}
 
 % this baselineskip gives sufficient line spacing for an examiner to easily
 % markup the thesis with comments
@@ -54,7 +56,7 @@
 \end{originalitylong}
 
 \begin{romanpages}          % start roman page numbering
-  \listoftodos[Notes]
+  \listoftodos
   \tableofcontents            % generate and include a table of contents
   \listoffigures              % generate and include a list of figures
   \listoftables               % generate and include a list of tables
