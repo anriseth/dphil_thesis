@@ -1,6 +1,5 @@
 \documentclass[main.tex]{subfiles}
 
-
 \begin{document}
 
 \chapter{One-stage optimisation}\label{ch:onestage}
@@ -13,7 +12,8 @@ that computer algorithms can solve.
 We focus on one-stage optimisation problems here, which means that
 we do not consider any temporal structure in the order of decisions.
 The key concepts for defining an optimisation problem are~(i) a
-collection of allowed decisions and~(ii) an ordering between all decisions.
+collection of allowed decisions and~(ii) an ordering between all
+decisions.
 
 If there is a deterministic relationship between allowed decisions
 $x\in\mathcal{X}$ and one, well-defined, objective
@@ -52,9 +52,9 @@ In this section, we consider situations where there is one
 well-defined objective that depends on  information we do not know
 with certainty at the time we make the decision.
 
-Define a decision-space $\mathcal{X}\subset \mathbb R^n$ and a
-parameter-space $\mathcal{Y}\subset \mathbb R^k$.
-Let $f:\mathcal{X}\times\mathcal{Y}\to\mathbb R$ be a twice continuously
+Define a decision-space $\mathcal{X}\subset \mathbb{R}^n$ and a
+parameter-space $\mathcal{Y}\subset \mathbb{R}^k$.
+Let $f:\mathcal{X}\times\mathcal{Y}\to\mathbb{R}$ be a twice continuously
 differentiable function.
 The aim is to choose $x\in\mathcal{X}$ in order to maximise $f$.
 In the deterministic setting, we know the parameter
@@ -77,7 +77,7 @@ that are random variables.
 \subsection{Expected utilities}
 % Over all realisations of the parameter $y$, the average value of a
 % choice $x\in\mathcal{X}$ is given by the expected value
-% $\mathbb E[f(x,\cdot)]$. If the same optimisation is to be performed
+% $\mathbb{E}[f(x,\cdot)]$. If the same optimisation is to be performed
 % many times, and there is no danger of e.g.~bankruptcy, the choice that
 % maximises expected value might be considered the optimal.
 % In many problems, one only experiences one realisation of the
@@ -92,8 +92,8 @@ A family of such measures of benefit are utility functions. The formal
 theory of decisions that use expected utilities is covered in
 \citep[Ch.~2]{follmer2004stochastic}.
 \begin{mydef}[Utility function]
-  A continuous function $u:\mathcal S\to\mathbb R$ on a set of outcomes
-  $\mathcal S\subset \mathbb R$ defines a utility if
+  A continuous function $u:\mathcal{S}\to\mathbb{R}$ on a set of outcomes
+  $\mathcal{S}\subset \mathbb{R}$ defines a utility if
   it is increasing and concave.
   A \emph{risk-neutral} decision
   model is one where $u$ is linear, whilst a strictly concave utility function defines a
@@ -104,7 +104,7 @@ theory of decisions that use expected utilities is covered in
   Two popular utility functions are the exponential family
   $u_1(x)=1-e^{-\lambda x}$ with $\lambda>0$ and the logarithmic
   utility $u_2(x)=\log(1+x)$.
-  The exponential utility is defined on $\mathcal S =\mathbb R$,
+  The exponential utility is defined on $\mathcal{S} =\mathbb{R}$,
   whilst the logarithmic utility is only valid on $\mathcal
   S=[-1,\infty)$.
   \Cref{fig:example_utilities} shows behaviour near the origin.
@@ -141,7 +141,7 @@ $x_1,x_2\in\mathcal{X}$ is better.
   A utility function $u(x)$ defines an ordering $\preceq$ between random
   variables $X$ and $Y$,
   \begin{equation}
-    X\preceq Y \Leftrightarrow \mathbb E[u(X)] \leq \mathbb E[u(Y)].
+    X\preceq Y \Leftrightarrow \mathbb{E}[u(X)] \leq \mathbb{E}[u(Y)].
   \end{equation}
 \end{mydef}
 
@@ -152,7 +152,7 @@ modelling the decision maker's attitude to risk with utility functions.
   The optimal choice to maximise a given utility of $f$ is the
   solution of
   \begin{align}
-    x(u)=\argmax_{x\in\mathcal{X}} \mathbb E[u(f(x,\cdot))].
+    x(u)=\argmax_{x\in\mathcal{X}} \mathbb{E}[u(f(x,\cdot))].
   \end{align}
 \end{problem}
 
@@ -168,11 +168,11 @@ deviation from the mean of $f$ when $x$ is chosen.
 The mean-deviation approach aims to balance the expected value of $f$
 with uncertainty represented by a deviation measure.
 \begin{mydef}[Deviation measure]
-  A functional $\mathbb D$ on a linear space of random
+  A functional $\mathbb{D}$ on a linear space of random
   variables containing the real numbers defines a deviation measure, if:
   \begin{enumerate}
-  \item $\mathbb D[C] = 0$ for any constant $C$,
-  \item $\mathbb D[X]>0$ for non-constant random variables $X$.
+  \item $\mathbb{D}[C] = 0$ for any constant $C$,
+  \item $\mathbb{D}[X]>0$ for non-constant random variables $X$.
   \end{enumerate}
   This work will mainly consider convex deviation measures.
 \end{mydef}
@@ -182,7 +182,7 @@ with uncertainty represented by a deviation measure.
   a particular case of the deviation measures defined by
   the $L^p$-norms:
   \begin{align}
-    X\mapsto \|X-\mathbb EX\|_p,\; p\geq 1.
+    X\mapsto \|X-\mathbb{E}X\|_p,\; p\geq 1.
     && \text{($L^p$-deviations)}
   \end{align}
 
@@ -192,27 +192,27 @@ with uncertainty represented by a deviation measure.
   The lower semi-deviation measure only investigates
   worse-than-expected outcomes:
   \begin{align}
-    X\mapsto \mathbb E[\max(\mathbb E[X]-X,0)].
+    X\mapsto \mathbb{E}[\max(\mathbb{E}[X]-X,0)].
     &&\text{(Lower semi-deviation)}
   \end{align}
 
   One can also combine two deviation-measures in order to capture
   different aspects of a random variable.
-  If $\mathbb D_1,\dots,\mathbb D_k$ are $k$ deviation measures and
+  If $\mathbb{D}_1,\dots,\mathbb{D}_k$ are $k$ deviation measures and
   $\lambda_i>0$, then the following is also
   is also a deviation measure:
   \begin{align}
-    \mathbb D[X]=\sum_{i=1}^k\lambda_i\mathbb D[X].
+    \mathbb{D}[X]=\sum_{i=1}^k\lambda_i\mathbb{D}[X].
     &&\text{(Weighted deviations)}
   \end{align}
 
-  If $\mathbb U$ is a nonlinear expectation from
-  \Cref{sec:nonlinear_expectations} with $\mathbb U[X]< \mathbb
+  If $\mathbb{U}$ is a nonlinear expectation from
+  \Cref{sec:nonlinear_expectations} with $\mathbb{U}[X]< \mathbb
   E[X]$ for all non-constant $X$,
   then one can
   construct a deviation measure with the functional
-  $\mathbb D[X]=\mathbb E[X]-\mathbb U[X]$.
-  This is equal to $X\mapsto -\mathbb U[X-\mathbb E[X]]$ in all the
+  $\mathbb{D}[X]=\mathbb{E}[X]-\mathbb{U}[X]$.
+  This is equal to $X\mapsto -\mathbb{U}[X-\mathbb{E}[X]]$ in all the
   examples given below.
 \end{example}
 
@@ -221,10 +221,10 @@ need for stability, one can formulate a bi-objective optimisation
 problem.
 \begin{problem}[Mean-deviation]
   An optimal decision that maximises the expected value of $f$ whilst
-  minimising the deviation $\mathbb D$ of $f$, is a minimiser to the
+  minimising the deviation $\mathbb{D}$ of $f$, is a minimiser to the
   bi-objective optimisation problem
   \begin{align}
-    \min_{x\in\mathcal{X}}\{(-\mathbb E[f(x,\cdot)],\,\mathbb D[f(x,\cdot)])\}.
+    \min_{x\in\mathcal{X}}\{(-\mathbb{E}[f(x,\cdot)],\,\mathbb{D}[f(x,\cdot)])\}.
   \end{align}
 \end{problem}
 We can approach the bi-objective problem from a multiobjective
@@ -237,12 +237,12 @@ the expected value with a deviation-penalty, weighted by some
 parameter $\lambda>0$. The optimal decision in $\mathcal{X}$ is then
 defined as
 \begin{equation}\label{eq:mean_dev_weighted}
-  x(\mathbb D,\lambda)=\argmax_{x\in\mathcal{X}}\{\mathbb
-  E[f(x,\cdot)]-\lambda \mathbb D[f(x,\cdot)]\}.
+  x(\mathbb{D},\lambda)=\argmax_{x\in\mathcal{X}}\{\mathbb
+  E[f(x,\cdot)]-\lambda \mathbb{D}[f(x,\cdot)]\}.
 \end{equation}
 This implicitly defines an ordering of random variables based on
 the functional $X\mapsto \mathbb{E}[X]-\lambda \mathbb{D}[X]$.
-If $f$ is nonlinear, then $x(\mathbb D,\lambda)$ can be unstable to
+If $f$ is nonlinear, then $x(\mathbb{D},\lambda)$ can be unstable to
 small changes in $\lambda$. Small errors in determining the best
 $\lambda$ to represent a decision-maker can cause large changes in
 either of the objectives. The review \citep{marler2004survey} covers
@@ -257,16 +257,16 @@ risk measures, see
 e.g.~\citep[Ch.~4]{follmer2004stochastic}.
 Risk measures are used in a minimisation setting related to losses,
 and we will use the term nonlinear expectations in the maximisation
-setting. The examples of nonlinear expectations $\mathbb U$ considered
+setting. The examples of nonlinear expectations $\mathbb{U}$ considered
 in this section give rise to well-known risk measures $\rho$, by using the mapping
-$\rho(X) = -\mathbb U[X]$.
+$\rho(X) = -\mathbb{U}[X]$.
 
 \begin{mydef}[Nonlinear expectation]
-  A nonlinear expectation $\mathbb U$ is a functional on a linear space of random
+  A nonlinear expectation $\mathbb{U}$ is a functional on a linear space of random
   variables containing the real numbers, such that:
   \begin{enumerate}
-  \item $\mathbb U[C] = C$ for any constant $C$,
-  \item $\mathbb U[X]\leq \mathbb U[Y]$ whenever $X\leq Y$ almost surely.
+  \item $\mathbb{U}[C] = C$ for any constant $C$,
+  \item $\mathbb{U}[X]\leq \mathbb{U}[Y]$ whenever $X\leq Y$ almost surely.
   \end{enumerate}
   This work will mainly consider concave nonlinear expectations, that
   is, nonlinear expectations $\mathbb{U}$ such that
@@ -276,11 +276,11 @@ $\rho(X) = -\mathbb U[X]$.
 \end{mydef}
 
 \begin{example}[Nonlinear expectations]
-  The functional $\mathbb U_\lambda[X]=-\frac{1}{\lambda}\log\mathbb
+  The functional $\mathbb{U}_\lambda[X]=-\frac{1}{\lambda}\log\mathbb
   E[e^{-\lambda X}]$, is called the entropic nonlinear expectation,
   with $\lambda>0$.
   It is connected to the exponential utility function $u_\lambda$, since
-  $\mathbb U_\lambda[X]= u_\lambda^{-1}(\mathbb E[u_\lambda(X)])$.
+  $\mathbb{U}_\lambda[X]= u_\lambda^{-1}(\mathbb{E}[u_\lambda(X)])$.
 
   The worst-case nonlinear expectation on the sample space $\Omega$,
   defined by
@@ -288,22 +288,22 @@ $\rho(X) = -\mathbb U[X]$.
   programming. If there is an attached probability space on $\Omega$,
   we use the essential infimum.
 
-  For some deviation measures $\mathbb D$, such as the lower
-  semi-deviation, the functional $\mathbb U(X)=\mathbb E[X]-\mathbb
+  For some deviation measures $\mathbb{D}$, such as the lower
+  semi-deviation, the functional $\mathbb{U}(X)=\mathbb{E}[X]-\mathbb
   D[X]$ defines a nonlinear expectation. Note that for a general space
   of random variables the symmetric deviation measure, such as the
   standard deviation, do not give rise to a nonlinear
   expectation: They can violate the monotonicity requirement.
 
   The quantile operator
-  $q_\lambda[X] = \inf\{x\mid\mathbb P(X\leq x)>
+  $q_\lambda[X] = \inf\{x\mid\mathbb{P}(X\leq x)>
   \lambda\}$ satisfies the properties of a nonlinear expectation.
   Note that the operator is not necessarily concave, which has
   implications for the resulting optimisation problem.
   A concave lower bound on the quantile operator is
   the lower super-quantile.
   \begin{equation}\label{eq:def_avar}
-    \mathbb U_\lambda[X]=\frac{1}{\lambda}\int_0^\lambda q_t[X]\,\dt.
+    \mathbb{U}_\lambda[X]=\frac{1}{\lambda}\int_0^\lambda q_t[X]\,\dt.
   \end{equation}
   Another name for the quantile operator is Value at Risk.
   The risk measures related to the lower super-quantile operator are also referred to as
@@ -318,7 +318,7 @@ $\rho(X) = -\mathbb U[X]$.
   The optimal choice to maximise a nonlinear expectation
   of $f$ is given by
   \begin{align}
-    x(\mathbb U)=\argmax_{x\in\mathcal{X}} \mathbb U[f(x,\cdot)].
+    x(\mathbb{U})=\argmax_{x\in\mathcal{X}} \mathbb{U}[f(x,\cdot)].
   \end{align}
 \end{problem}
 
@@ -328,11 +328,11 @@ utility respectively.
 \begin{example}[Lower super-quantile]
   Following \citep{ben2007old}, we can reformulate the lower
   super-quantile optimisation problem arising from~\eqref{eq:def_avar}
-  by introducing an auxiliary variable $\eta\in\mathbb R$.
+  by introducing an auxiliary variable $\eta\in\mathbb{R}$.
   \begin{equation}\label{eq:opt_avar}
     x_{sq}({\gamma})
-    =\argmax_{x\in\mathcal X,\eta\in\mathbb R}
-    \{\eta - \frac{1}{\gamma}\mathbb E[\max(\eta-f(x,\cdot),0)]\}.
+    =\argmax_{x\in\mathcal{X},\eta\in\mathbb{R}}
+    \{\eta - \frac{1}{\gamma}\mathbb{E}[\max(\eta-f(x,\cdot),0)]\}.
   \end{equation}
   Note that the objective is not necessarily smooth, due to the
   $\max(\eta-f(x,\cdot),0)$ term. Theory of non-smooth optimisation
@@ -402,18 +402,18 @@ lower super-quantile $\mathbb{U}_\gamma$.
 \begin{subequations}\label{eq:optim_formulations}
   \begin{align}
     x_{md}(\lambda)
-    &=\argmax_{x\in\mathcal X}\{\mathbb
+    &=\argmax_{x\in\mathcal{X}}\{\mathbb
       E[f(x,\cdot)]-\lambda\sqrt{\mbox{Var}[f(x,\cdot)]}\}
     &\lambda\geq 0,\\
     % &&\text{(mean-deviation)},\\
     x_{eu}(\mu)
-    &=\argmax_{x\in\mathcal X}\{
-      \mathbb E[1-e^{-\mu f(x,\cdot)}]\}
+    &=\argmax_{x\in\mathcal{X}}\{
+      \mathbb{E}[1-e^{-\mu f(x,\cdot)}]\}
     &\mu>0,\\
     % &&\text{(exponential utility)},\\
     x_{sq}(\gamma)
-    &=\argmax_{x\in\mathcal X}
-      \{\mathbb U_\gamma[f(x,\cdot)]\}
+    &=\argmax_{x\in\mathcal{X}}
+      \{\mathbb{U}_\gamma[f(x,\cdot)]\}
     &\gamma\in(0,1].
     % &&\text{(lower super-quantile)}.
   \end{align}
@@ -448,7 +448,7 @@ theoretical properties of the different formulations.
   decisions of~\eqref{eq:optim_formulations}.
   We must choose the prices $x_1$, $x_2$ of two products in order to
   maximise the total profit for some time period.
-  Assume that the model for product demand $q=(q_1,q_2)$ for the two products in
+  Assume that the model for product demand $q=(q_1,q_2)$ for the two products over
   this period is
   deterministic and defined by the functions
   \begin{align}
@@ -573,11 +573,11 @@ with Taylor series and do not need to sample from $\mathcal{Y}$.
 
 \section{Randomness and constraints}
 Let us introduce another, deterministic, objective $g:\mathcal
-X\to\mathbb R$. In the deterministic setting, with a known parameter
+X\to\mathbb{R}$. In the deterministic setting, with a known parameter
 $y\in\mathcal{Y}$, one often considers problems of the form
 \begin{align}
   \min_{x\in\mathcal{X}}\{g(x)\mid f(x,y)\geq f_{\textnormal{min}} \},\;
-  \text{ for some } f_{\textnormal{min}}\in\mathbb R.
+  \text{ for some } f_{\textnormal{min}}\in\mathbb{R}.
 \end{align}
 Then $f\geq f_{\textnormal{min}}$ is considered a constraint, which restricts the
 decision space to $\{x\in\mathcal{X}\mid f(x,y)\geq f_{\textnormal{min}}\}$.
@@ -600,12 +600,12 @@ framework for risk measures, in introduced in \citep{artzner1999coherent}.
   Popular choices of acceptance sets for the constraint $f(x,y)\geq
   f_{\textnormal{min}}$ are
   \begin{align}
-    \mathcal{A}&=\{x\in\mathcal X \mid
-                 \mathbb E_y[f(x,y)]\geq f_{\textnormal{min}}\}, \\
-    \mathcal{A}&=\{x\in\mathcal X \mid
+    \mathcal{A}&=\{x\in\mathcal{X} \mid
+                 \mathbb{E}_y[f(x,y)]\geq f_{\textnormal{min}}\}, \\
+    \mathcal{A}&=\{x\in\mathcal{X} \mid
                  \inf_{\omega\in\Omega}f(x,y(\omega))\geq f_{\textnormal{min}}\},\\
-    \mathcal{A} &= \{x\in\mathcal X\mid
-                  \mathbb P_y(f(x,y)\geq f_{\textnormal{min}})\geq \epsilon\},
+    \mathcal{A} &= \{x\in\mathcal{X}\mid
+                  \mathbb{P}_y(f(x,y)\geq f_{\textnormal{min}})\geq \epsilon\},
                   \text{ given }\epsilon\in(0,1).
   \end{align}
 \end{example}
@@ -618,15 +618,586 @@ and model the trade-off between $g(x)$ and the outcomes of $f(x,y)$,
 which is a multiobjective optimisation approach.
 
 \section{Multiobjective optimisation}\label{sec:one_multiobjective}
+\todo[inline]{Show that mean-std of revenue with uncertain sales
+  generates a non-convex Pareto front (\textbf{BAD for weighted sum
+    approach}). Mean-Var should work
+}
 
-\begin{itemize}
-\item Copy stuff from transfer thesis
-\item Include (and update) MultiJuMP example
-\item Show example of mean-std with revenue: Pareto is not convex
-\end{itemize}
+Competing objectives often appear in a decision process, and chapter
+has made multiple references to multiobjective optimisation.  Assume
+there are $m$ competing objectives
+$f_1,\dots,f_m:\mathcal{X}\to\mathbb{R}$ that are to be
+minimised\footnote{We choose to work within a minimisation-framework
+  for the multiobjective theory in order to follow the standards in
+  optimisation literature. Any objective $f_i$ that is to be maximised
+  can be redefined by $f_i\leftarrow -f_i$.  } on the decision space
+$\mathcal{X}$. The two main challenges that arise are how to understand
+the trade-offs between the objectives, and to define an ordering
+between decisions $x\in\mathcal{X}$.  One approach to the first
+challenge is to find the Pareto front, or efficient
+frontier for the objectives, which is covered in
+\Cref{sec:multi_pareto_front}. The second challenge is more difficult,
+as it involves modelling the decision maker's preferences.
 
-\todo[inline]{Say that optimisation with random outcomes is a possibly
-  infinite-number-of-objectives problem}
+Relevant concepts for multiobjective optimisation are defined in
+\Cref{sec:multi_terminology}.  The main contribution of this work to
+practitioners is a software package that enables users to formulate
+multiobjective optimisation problems.  An example in
+\Cref{sec:multi_multijump} shows how it is used to create the data for
+the figures in this report.  The package approximates the Pareto with
+with three methods: Weighted sums, objective
+constraints, and the Normal Boundary Intersection method covered in
+\Cref{sec:multi_apriori,sec:multi_pareto_front}.  A broader range of
+approaches to multiobjective optimisation can be found in the survey
+by \citet{marler2004survey}.  The multiobjective ordering problem is
+discussed in \Cref{sec:multi_apriori}, where it is argued that an
+approximation of a decision maker's preferences for multiple
+objectives can be made by combining the objectives' utilities. In an
+optimisation setting involving randomness, one might already have
+defined utility functions for different objectives, so multiple
+objectives easily fit within the existing theory.
+
+
+\subsection{Terminology}\label{sec:multi_terminology}
+A key concept for multiobjective optimisation is the partial
+ordering of outcomes known as Pareto dominance. If a decision leads to
+an outcome that is not dominated by any other feasible outcome, it is
+optimal in the Pareto sense.
+\begin{mydef}[Pareto optimality]
+  A point $x\in\mathcal{X}$ is Pareto optimal if there are no
+  $x^*\in\mathcal{X}$ such that
+  \begin{align}
+    f_i(x^*)&\leq f_i(x) &&\text{ for all } i = 1,\dots,m, \text{ and}\\
+    f_j(x^*)&<f_j(x) &&\text{ for at least one } j \in \{1,\dots,m\}.
+  \end{align}
+\end{mydef}
+Pareto optimality therefore means that we cannot decrease the value of
+one objective without increasing another.
+The point $x$ is locally Pareto optimal if it is Pareto optimal in
+some neighbourhood around $x$.
+\begin{mydef}[Pareto front]
+  Define $F(x) = (f_1(x),\dots,f_m(x))$.
+  The Pareto front, or efficient frontier $\mathcal{P}\subset
+  \mathbb{R}^m$, is the set of
+  Pareto optimal objective values,
+  \begin{align}
+    \mathcal{P} = \{F(x) \mid x \text{ is Pareto optimal}\}.
+  \end{align}
+\end{mydef}
+
+\begin{example}[Two-dimensional Pareto front]
+  \Cref{fig:multi_map} provides a visual representation of the
+  multiobjective concepts for a two-dimensional problem
+  $F:\mathcal{X}\to\mathbb{R}^2$.
+  \begin{figure}[htbp]
+    \centering
+    \begin{tikzpicture}[scale=1.5]
+      \coordinate (d0) at (0,0);
+      \coordinate (d1) at (2.5,0);
+      \coordinate (d2) at (0,2.5);
+      \coordinate (f0) at (4,0);
+      \coordinate (f1) at (6.5,0);
+      \coordinate (f2) at (4,2.5);
+      % \draw[help lines,step=.5] (0,0) grid (6,3.5);
+      \draw [<->,thick] (d2) node (yaxis) [above] {$x_2$}
+      |- (d1) node (xaxis) [right] {$x_1$};
+      \draw plot [smooth cycle] coordinates
+      {(0.4,.2)(1.4,.2)(2.2,.5)(2.3,1.5)(2.1,2.2)(1.2,2.1)(0.4,0.8)} node
+      at (1.5,1.3) {$\mathcal{X}$};
+
+      \path[->] (1.3,1.8) edge [bend left] node[above] {$F$} (4.80,1.8);
+      \draw [<->,thick] (f2) node (yaxis) [above] {$f_2$}
+      |- (f1) node (xaxis) [right] {$f_1$};
+      \draw plot [smooth cycle] coordinates
+      {(6,0.25) (6,2) (4.5,2) (4.75, 1) (5,0.5)};
+      \begin{scope}
+        \clip (4,0) rectangle (5.9,1.9);
+        \draw[ultra thick, blue] plot [smooth cycle] coordinates
+        {(6,0.25) (6,2) (4.5,2) (4.75, 1) (5,0.5)};
+      \end{scope}
+      \path[->, color=blue] (3.,1) edge node[left,color=blue,align=center] {Pareto\\front} (4.73,1);
+    \end{tikzpicture}
+
+    \caption{An example of two objectives $f_1,f_2$ and the mapping
+      $F:\mathcal{X}\to\mathbb{R}^2$ given by $x\mapsto (f_1(x),f_2(x))$.
+      The Pareto front is visualised by the bold line segment on the
+      image $F(\mathcal{X})$.
+    }\label{fig:multi_map}
+  \end{figure}
+\end{example}
+
+In a similar fashion to the difficulties with global optimisation for
+single-objective problems, algorithms can at best guarantee to find
+local, weakly Pareto optimal points in the general case.
+\begin{mydef}[Weak Pareto optimality]
+  The point $x$ is a weakly Pareto optimal point if
+  there is no $x^*$ such that
+  \begin{align}
+    f_i(x^*)&<f_i(x) \text{ for all } i=1,\dots,m.
+  \end{align}
+  This is weaker in the sense that all Pareto optimal points are weakly
+  Pareto optimal.
+\end{mydef}
+
+\begin{mydef}[Convexity]
+  The Pareto-front is said to be convex if the following set is convex.
+  \begin{align}
+    \overline{\mathcal{P}} = \{t\in\mathbb{R}^m\mid F(x)\leq t \text{ for
+    some feasible } x\}.
+  \end{align}
+\end{mydef}
+
+Algorithms often make use of particular points describing extremal
+values of the objectives on the Pareto front.
+\begin{mydef}
+  Denote $\underline{x_i}$ as the individual minimiser of $f_i$, and
+  $\underline{f_i}=f_i(\underline {x_i})$.
+  The utopia point $\underline
+  F=(\underline{f_1},\dots,\underline{f_m})$
+  is the vector containing all individual minima.
+  Define the worst outcome for $f_i$ on the Pareto front as
+  $\overline{f_i}=\max_{1\leq j\leq m}\{f_i(\underline{x_j})\}$.
+  The nadir point is the vector $\overline F =\nobreak
+  (\overline{f_1}, \dots, \overline{f_m})$.
+  The bounding box is the hypercube bounded below and above by the
+  utopia and nadir points.
+\end{mydef}
+
+\begin{example}[Two-dimensional bounding box]
+  \Cref{fig:pareto_drawing} illustrates an example of the utopia and nadir
+  points together with the bounding box for a two-dimensional problem $F:\mathcal{X}\to\mathbb{R}^2$.
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{pareto_drawing}
+    \caption{An example Pareto front $\mathcal{P}$ of two objectives. The utopia and
+      nadir points represent the lower and upper bound of what values
+      $f_1$ and $f_2$ can take on $\mathcal{P}$.}\label{fig:pareto_drawing}
+  \end{figure}
+\end{example}
+
+\begin{example}[Retail application]\label{ex:retail_pareto}
+  The Pareto front can be used in the retail setting in order to understand the
+  trade-offs between different objectives.
+  We consider two situations, both illustrated in
+  \Cref{fig:pareto_std_prof_rev}.
+  First, say a manager wants to understand the balance between
+  maximising expected profit and minimising the profit standard
+  deviation.
+  Second, the Pareto front can tell how much an increase in revenue
+  decreases the expected profit.
+  \begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[h]{.5\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[width=0.9\textwidth,
+          xlabel=Standard deviation,
+          ylabel=Expected profit,
+          scaled ticks = false,
+          xticklabel style={
+            /pgf/number format/precision=3,
+            /pgf/number format/fixed,
+            /pgf/number format/fixed zerofill,
+          }]
+          \addplot[thick] table {./data/pareto_std_prof_2_nbi.dat};
+        \end{axis}
+      \end{tikzpicture}
+    \end{subfigure}%
+    \begin{subfigure}[h]{.5\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[width=0.9\textwidth,
+          xlabel=Revenue,
+          ylabel=Expected profit]
+          \addplot[thick] table {./data/pareto_prof_rev_nbi.dat};
+        \end{axis}
+      \end{tikzpicture}
+    \end{subfigure}
+    \caption{The two plots show the Pareto front between two competing
+      objectives. The left figure compares the expected profit of three
+      products, compared to the standard deviation of profit.
+      On the right, one can see the trade-offs that are made between
+      a risk-neutral profit maximisation and a revenue maximisation.
+    }\label{fig:pareto_std_prof_rev}
+  \end{figure}
+
+  Assume that the model for product demand $q=(q_1,q_2,q_3)$ for the
+  three products over a given period is
+  deterministic and defined by
+  \begin{align}
+    q_i(x) = \alpha_i\prod_{j=1}^3x_j^{\beta_{ij}},
+  \end{align}
+  in a region $0.8x_0\leq x\leq 1.2x_0$ around $x_0=(2.25,2.4,2.21)$.
+  We model the unit cost as a random variable $y$, distributed
+  according to $\mathcal{N}(m_y,C_y)$.
+  The particular values of $\alpha$, $\beta$, $m_y$, and $C_y$ are
+  \begin{align}
+    \alpha
+    &= \left( \begin{array}{c} 1\\1.5\\1.2
+              \end{array}\right)_,
+    & \beta
+    &= \begin{pmatrix}
+      -2 & 0.23 & 0\\
+      0.15 &-2.1 &0.04\\
+      0.1 &0& -3
+    \end{pmatrix}_,\\[0.5em]
+    m_y
+    &=
+      \left( \begin{array}{c} 1.5\\1.2\\1.3
+             \end{array}\right)_,
+    & C_y
+    &= \begin{pmatrix}
+      0.065&0.31&0\\
+      0.31 & 0.058 &0 \\
+      0&0&0.017
+    \end{pmatrix}_.
+  \end{align}
+
+  Total revenue and profit are defined as
+  $f_1(x) = \langle x, q(x)\rangle$ and
+  $f_2(x,y)= \langle x-y, q(x) \rangle$ respectively.
+  The expected profit is $\mathbb{E}[f_2(x,\cdot)] = \langle x-m_y,
+  q(x) \rangle$, and the variance is
+  $\mbox{Var}[f_2(x,\cdot)]= \langle q(x), C_y q(x) \rangle$.
+
+  We make two observations from the Pareto fronts in
+  \Cref{fig:pareto_std_prof_rev}.
+  There is a sharp drop in expected profit near
+  the minimal standard deviation, so the gain from decreasing the risk is
+  potentially larger than the losses of expected profit in this region.
+  Relative changes in revenue have a much larger impact on maximum expected
+  profit compared to changing the standard deviation.
+  The code used to generate the left Pareto front is given in
+  \Cref{lst:multijump}.
+\end{example}
+
+\subsection{Approximating the Pareto front}\label{sec:multi_pareto_front}
+The Pareto front contains all the information about trade-offs between the
+objectives. A decision $x$ to the multiobjective problem
+should be a Pareto optimal point, so the
+optimisation problem becomes one of searching over the manifold
+$\mathcal{P}$ of co-dimension one. If $\mathcal{X}$ or the objectives are non-convex,
+$\mathcal{P}$ can have non-convex regions and be
+disconnected.
+There are several ways to approximate the Pareto front. The simplest
+methods use a weighted sum, or vary constraints on the objectives.
+
+\begin{mydef}[Weighted sums]
+  For $\lambda \in {[0,1]}^m$ with $\sum_{j=1}^m\lambda_j = 1$, solve
+  \begin{equation}
+    \min_{x\in\mathcal{X}} \sum_{j=1}^m \lambda_i f_i(x).
+  \end{equation}
+  Solutions to this equation are weakly Pareto optimal.
+\end{mydef}
+The weighted sum method explores the Pareto front by solving a series
+of sub-minimisation problems for the function $\sum_{i=1}^m\lambda_i f_i$.
+The $\lambda_i$ represent the relative weighting of each
+objective. By varying $\lambda$  we may find new points on the Pareto front.
+This approach often works better if the objectives are normalised by the
+mapping $f_i\leftarrow (f_i-\underline
+{f_i})/(\overline{f_i}-\underline{f_i})$.
+There are two major problems with the weighted sum approach. First,
+it cannot find Pareto points on non-convex parts of the Pareto
+front \citep{messac2000aggregate}.
+Second, when the objectives are nonlinear, the solution to the
+optimisation problem reacts nonlinearly to changes in $\lambda$.
+The Pareto front approximation can therefore miss out important
+information, and will
+have a non-uniform spread of points.
+
+\begin{mydef}[Constraint method]
+  Choose
+  $\epsilon_i\in(\underline{f_i},\overline{f_i})$ for $i=2,\dots,m$, and
+  solve the minimisation problem
+  \begin{align}
+    \min_x\{f_1(x)\mid f_i(x)\leq \epsilon_i,\, i=2,\dots,m\}.
+  \end{align}
+  Solutions to this problem are weakly Pareto optimal.
+\end{mydef}
+The constraint method can find Pareto points in non-convex regions of
+$\mathcal{P}$, and gives us control of the spread of points on the Pareto front
+along the axes of $f_2,\dots,f_m$. In general, the points will not be
+uniformly distributed along the $f_1$-axis.
+
+The Normal Boundary Intersection (NBI) method by \citet{das1998normal} can
+create a more uniform spread of the Pareto points in both convex and
+non-convex regions of the Pareto front. Its optimisation problem
+formulation makes use of the convex hull of the individual minima
+(CHIM), defined below.
+\begin{mydef}[Convex hull of individual minima]
+  Define a matrix $\Phi\in\mathbb{R}^{m\times m}$ with columns
+  $\Phi_j = F(\underline{x_j})-\underline{F}$.
+  The CHIM is the set
+  \begin{equation}\textstyle
+    \{\Phi\beta + \underline{F} \mid \beta\in\mathbb{R}_{\geq 0}^m,\;\sum_{j=1}^m\beta_j = 1\}.
+  \end{equation}
+\end{mydef}
+
+\begin{example}
+  \Cref{fig:nbi_drawing2} provides an example of the CHIM for a
+  bi-objective problem $F:\mathcal{X}\to\mathbb{R}^2$.
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.5\textwidth]{nbi_drawing2}
+    \caption{The Normal Boundary Intersection method. It traces out the
+      Pareto front by moving from points of the CHIM along the normal
+      direction $\hat n$.}\label{fig:nbi_drawing2}
+    \todo[inline]{Use $\underline{x_1}$}
+  \end{figure}
+\end{example}
+
+\begin{mydef}[Normal Boundary Intersection]
+  Let $\hat{n}$ denote the unit normal to the CHIM pointing in the
+  direction of smaller values in $\mathbb{R}^m$.
+  Given $\beta\in\mathbb{R}_{\geq 0}^m$ such that
+  $\sum_{j=1}^m\beta_j=1$, solve
+  \begin{equation}
+    \max_{x\in\mathcal{X},\,t\in\mathbb{R}} \{t \mid \Phi\beta +
+    t\hat{n} = F(x) - \underline{F}\}.
+  \end{equation}
+\end{mydef}
+
+\begin{example}[Pareto front generation comparison]
+  Let us look at how the approximation of the Pareto front of
+  expected profit vs.~standard deviation from \Cref{ex:retail_pareto}
+  performs with the three methods defined above.
+  All the three methods, weighted sum, varying constraints, and NBI define
+  a subproblem parameterised by a value $\lambda\in{[0,1]}^{m}$. Without any
+  a priori knowledge or adaptivity, we wish to approximate the Pareto front
+  with 30 uniformly spaced parameter values.
+  In \Cref{fig:pareto_method_comparison} one can see how the three
+  methods compare at creating a uniform spread of points along the
+  Pareto front. It is clear that the varying constraint method has the
+  points uniformly spread along the axis of standard deviation, but
+  does a poor job along the expected profit axis.
+  Weighted sums cluster a large proportion of the points near the
+  kink. NBI provides a uniform spread that gives us the most
+  information for the same number of sub-problem optimisations.
+
+  \begin{figure}[hbt]
+    \centering
+    \begin{subfigure}[t]{.5\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[width=0.9\textwidth,
+          xlabel=Standard deviation,
+          ylabel=Expected profit,
+          scaled ticks = false,
+          xticklabel style={
+            /pgf/number format/precision=3,
+            /pgf/number format/fixed,
+            /pgf/number format/fixed zerofill,
+          }]
+          \addplot[only marks, mark size=0.5] table {./data/pareto_std_prof_2_ws.dat};
+        \end{axis}
+      \end{tikzpicture}
+      \caption{Weighted sum}
+    \end{subfigure}%
+    \begin{subfigure}[t]{.5\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[width=0.9\textwidth,
+          xlabel=Standard deviation,
+          ylabel=Expected profit,
+          scaled ticks = false,
+          xticklabel style={
+            /pgf/number format/precision=3,
+            /pgf/number format/fixed,
+            /pgf/number format/fixed zerofill,
+          }]
+          \addplot[only marks, mark size=0.5] table {./data/pareto_std_prof_2_eps.dat};
+        \end{axis}
+      \end{tikzpicture}
+      \caption{Varying constraint on standard deviation.}
+    \end{subfigure}\\[1em]
+    \begin{subfigure}[b]{.5\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[width=0.9\textwidth,
+          xlabel=Standard deviation,
+          ylabel=Expected profit,
+          scaled ticks = false,
+          xticklabel style={
+            /pgf/number format/precision=3,
+            /pgf/number format/fixed,
+            /pgf/number format/fixed zerofill,
+          }]
+          \addplot[only marks, mark size=0.5] table {./data/pareto_std_prof_2_nbi.dat};
+        \end{axis}
+      \end{tikzpicture}
+      \caption{Normal Boundary Intersection method}
+    \end{subfigure}
+    \caption{Approximating the Pareto front from
+      \Cref{ex:retail_pareto} with 30 points. The plots compare the weighted
+      sum, varying constraint, and NBI methods. It is clear that NBI
+      gives the best representation of the Pareto front for a given
+      number of points.}\label{fig:pareto_method_comparison}
+  \end{figure}
+\end{example}
+
+When the Pareto front is disconnected, the NBI method can find
+points that are not weakly, Pareto optimal, even locally.
+We can extend the NBI method so that solutions are local, weakly
+Pareto optimal.
+\begin{mydef}[NBI extension]
+  Given $\beta\in\mathbb{R}_{\geq 0}^m$ with $\sum_{j=1}^m\beta_j=1$,
+  solve
+  \begin{equation}
+    \max_{x\in\mathcal{X},\,t\in\mathbb{R}} \{t \mid \Phi\beta +
+    t\hat{n} \geq F(x) - \underline{F}\}.
+  \end{equation}
+  Solutions to this problem are local, weakly Pareto optimal.
+\end{mydef}
+
+The NBI method is a special case of the
+scalarisation methods for vector-optimisation formulated by
+\citet{pascoletti1984scalarizing}. The NBI extension
+fits within the Pascoletti-Serafini framework in such a way that it guarantees
+local Pareto optimality. \Cref{ex:pareto_disconnected} show some issues that
+arise with a disconnected Pareto front.
+The example also shows that the NBI extension implemented in
+\texttt{MultiJuMP} finds the same point multiple times on the border
+of disconnected components of the Pareto front.
+\citet{eichfelder2009adaptive} has devised an
+adaptive algorithm based on Pascoletti-Serafini scalarisation that can
+better handle non-convex and disconnected Pareto fronts.
+\begin{example}[Disconnected Pareto front]\label{ex:pareto_disconnected}
+  Define
+  $F:{[0,5]}^2\to\mathbb{R}^2$, by $F=(f_1,f_2)$ with $f_i(x)=x_i$.
+  Consider the bi-objective problem
+  \begin{align}
+    \min_{x\in{[0,5]}^2}\{F(x)\mid
+    5e^{-x_1}+2e^{-\frac{1}{2}{(x_1-3)}^2} \leq x_2\}.
+  \end{align}
+  The Pareto front is disconnected and contains points that are
+  locally, but not globally, Pareto optimal.
+  In \Cref{fig:pareto_disconnected}, we compare the 60 point Pareto
+  front approximation that we get with
+  the NBI method and the NBI extension.
+  \begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[t]{.5\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[width=0.9\textwidth,
+          xlabel=$f_1$,
+          ylabel=$f_2$,
+          ]
+          \addplot[only marks, mark size=0.5] table {./data/pareto_disconnected_eq.dat};
+        \end{axis}
+      \end{tikzpicture}
+      \caption{NBI}
+    \end{subfigure}%
+    \begin{subfigure}[t]{.5\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[width=0.9\textwidth,
+          xlabel=$f_1$,
+          ylabel=$f_2$,
+          ]
+          \addplot[only marks, mark size=0.5] table
+          {./data/pareto_disconnected_ineq.dat};
+          \draw [red] (axis cs:1.59,1.75) circle [radius=0.09]
+          node[below] {5 points};
+        \end{axis}
+      \end{tikzpicture}
+      \caption{NBI extension}
+    \end{subfigure}
+    \caption{Approximations of a disconnected Pareto front. The NBI
+      algorithm finds points that are not Pareto optimal, whilst the
+      NBI extension will only generate local Pareto
+      optimal points. There are five points lying on top of each other
+      in (b) because the current algorithm is not adaptive.
+    }\label{fig:pareto_disconnected}
+  \end{figure}
+\end{example}
+
+
+\subsection{Ordering decision points a-priori}\label{sec:multi_apriori}
+We have currently described a process for making a decision
+$x\in\mathcal{X}$ that involves approximating the Pareto
+front.
+The cost of the approximation stage increases exponentially with the
+number of objectives. The preferred position on the Pareto front is
+subjective and prone to change depending on the presentation of
+$\mathcal{P}$. With more than two objectives, it is difficult to
+present the Pareto front without losing some information.
+Given the same Pareto front, presented in
+$k$ different ways, the variation of decisions $x^1,\dots,x^k$ is likely to
+increase with the number of objectives.
+Ideally one would like to create an ordering between decisions, so
+that the optimal decision is the same every time the same optimisation
+problem is run.
+
+Simple approaches to creating an ordering include the weighted sum
+and constrained objectives methods.
+With weighted sums, the ordering will be based on
+an ordering defined by the function $u(x)=\sum_{i=1}^n\lambda_if_i(x)$.
+The challenge is then to decide the relative weights of the objectives. The
+nonlinear response of $\lambda$ in the weighted sum method means that
+the defined ordering can be unstable to small perturbations of $\lambda$.
+One can instead define upper bounds for $f_2,\dots,f_m$ and minimise
+$f_1$.
+Given the upper bounds
+$\epsilon_i\in[\underline{f_i},\overline{f_i}]$,
+the ordering is only on the value of the first objective.
+Small changes in $\epsilon$ can turn an optimal decision $x$
+infeasible. There is no room for the optimisation algorithm to
+look at trade-offs between objectives, although one could get some
+understanding of trade-offs from the
+Lagrange multipliers of the constraints.
+
+To define an ordering of decisions, one should find a way to express
+the total value $u:\mathbb{R}^m\to\mathbb{R}$ of the multiobjective
+function $F$.
+\citet{messac1996physical} attempts to create a total value function
+with an approach he calls \emph{Physical Programming}. The decision
+maker defines what a ``desirable'', ``tolerable'',
+``undesirable'' value corresponds to for each objective. The implementation of this method
+is much more complicated than the other approaches considered, but
+may give us an easier framework to approximate a decision maker's preferences.
+
+The total value function $u(F)$ can be thought of as a
+multivariate utility function. To ensure that an optimal decision
+according to $u$ is also Pareto-optimal, impose that $u$ is
+strictly increasing in all of its arguments.
+If the decision problem involves randomness, one may already have
+tried to model the decision maker's risk-aversion for each objective.
+With the expected utility approach to risk-aversion, that would mean
+that utility functions $u_i$ are readily available. One can then make
+a simple approximation of
+the total value $u(F)$ with the mapping $F\mapsto \sum_{i=1}^n u_i(f_i)$.
+If the $u_i$ are concave, then $u$ defines a multivariate risk-averse
+utility \citep[Sec. 2.3.2]{campi2011multivariate}.
+This could provide a good first approximation to orderings in
+multiobjective optimisation problems involving randomness.
+
+
+\subsection{Approximating Pareto fronts with
+  MultiJuMP}\label{sec:multi_multijump}
+As part of the work on multiobjective optimisation, I
+have created a software package called MultiJuMP.
+It is available online at
+\url{https://github.com/anriseth/MultiJuMP.jl.git}.
+MultiJuMP helps users to quickly approximate Pareto fronts in a
+numerical solver-independent environment.
+The three methods for generating Pareto points discussed
+in \Cref{sec:multi_pareto_front} have all been implemented.
+The package is written in Julia, a recently invented
+programming language for numerical computing \citep{bezanson2017julia}.
+In Julia there is a package called JuMP that provides a modelling
+language for mathematical programming \citep{dunning2017jump}. It
+separates the challenge of
+expressing an optimisation problem, from the algorithm-specific
+decision of solving the problem. \Cref{lst:multijump} shows an example
+of how one can easily express functions with the JuMP routines, and
+set up a multiobjective optimisation model with the MultiJuMP
+routines. The code works for any number of objectives, although visualising
+a Pareto front for more than three objectives becomes difficult.
+
+\begin{listing}[htbp]
+  \inputminted{julia}{./include/multijump.jl}
+  \caption{Code used to generate one of the figures in
+    \Cref{ex:retail_pareto}.
+    The functions \mintinline{julia}{MultiModel()},
+    \mintinline{julia}{getMultiData()},
+    \mintinline{julia}{SingleObjective()} and \mintinline{julia}{solve()}
+    were created as part of the work on MultiJuMP.
+  }\label{lst:multijump}
+\end{listing}
 
 
 
