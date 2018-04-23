@@ -69,7 +69,7 @@ Thus, it is no longer straightforward to order two decisions $x_1$ and
 $x_2$ by comparing $f(x_1,\cdot)$ to $f(x_2,\cdot)$.
 We will present three classes of optimisation problems that attempt to
 address the randomness of $f(x,\cdot)$. They are \emph{expected
-  utilites}, \emph{mean-deviation procedures} and \emph{nonlinear
+  utilities}, \emph{mean-deviation procedures} and \emph{nonlinear
   expectations}.
 At the end, we comment on classic optimisation problems with constraints
 that are random variables.
@@ -119,7 +119,7 @@ theory of decisions that use expected utilities is covered in
         ymin=-3.5
         ]
         \addplot+[mark=none] {x}
-        node[pos=0.92, pin={[black]180:Risk neutral}]{};
+        node[pos=0.92, pin={[black]180:Risk-neutral}]{};
         \addplot+[mark=none] {1-exp(-x)}
         node[pos=0.92, pin={[black]-92:$u(x)=1-e^{-x}$}] {};
         \addplot+[mark=none] {ln(1+x)}
@@ -145,7 +145,7 @@ $x_1,x_2\in\mathcal{X}$ is better.
   \end{equation}
 \end{mydef}
 
-We can therefore formulate a well-defined optimisation problem by
+We can, therefore, formulate a well-defined optimisation problem by
 modelling the decision maker's attitude to risk with utility functions.
 
 \begin{problem}[Expected utility]
@@ -163,7 +163,7 @@ After one makes a decision $x\in\mathcal{X}$, the realisation of the
 parameter in $\mathcal{Y}$ only happens once. If there is a large
 uncertainty in $f(x,\cdot)$, the average value may not be a good
 representation for the realised value of $f$.
-It can therefore be useful to take into account some measure of
+It can, therefore, be useful to take into account some measure of
 deviation from the mean of $f$ when $x$ is chosen.
 The mean-deviation approach aims to balance the expected value of $f$
 with uncertainty represented by a deviation measure.
@@ -228,7 +228,7 @@ problem.
   \end{align}
 \end{problem}
 We can approach the bi-objective problem from a multiobjective
-optimisation theory point of view, and will do so in
+optimisation theory point of view and will do so in
 \Cref{sec:one_multiobjective}.
 The review in \citep{marler2004survey} covers some of the theory,
 discusses what optimality means and introduces approaches to solve them.
@@ -336,7 +336,7 @@ utility respectively.
   \end{equation}
   Note that the objective is not necessarily smooth, due to the
   $\max(\eta-f(x,\cdot),0)$ term. Theory of non-smooth optimisation
-  can address this, but may require heavy mathematical machinery, as
+  can address this but may require heavy mathematical machinery, as
   exemplified in~\cite{kouri2016risk}.
 \end{example}
 
@@ -347,7 +347,7 @@ optimisation formulations introduced in the previous section.
 Can the mean-deviation formulation give the
 same result as the expected utility and nonlinear expectation methods?
 If $f(x,\cdot)$ is normally distributed for each value of
-$x\in\mathcal{X}$, then the properties of the random variable is fully
+$x\in\mathcal{X}$, then the properties of the random variable are fully
 described by the mean and variance functions $x\mapsto
 \mathbb{E}[f(x,\cdot)]$ and $x\mapsto \mbox{Var}[f(x,\cdot)]$. This
 indicates that all the approaches above implicitly define a
@@ -366,7 +366,7 @@ optimisation problem.
   \end{equation}
   Note that $\mathbb{U}_\gamma[Z]\leq 0$ for each $\gamma\in[0,1]$,
   with equality only when $\gamma=1$.
-  The lower super-quantile optimisation problem is therefore
+  The lower super-quantile optimisation problem is, therefore,
   a special case of the mean-deviation optimisation problem
   with $\mathbb{D}[X]=\sqrt{\mbox{Var}[X]}$,
   using the weighted sum ordering from~\eqref{eq:mean_dev_weighted} and
@@ -507,7 +507,7 @@ theoretical properties of the different formulations.
   one only needs information about the two first moments of $y$ to perform
   the optimisation.
 
-  For this particular example we model the unit costs $y$ as a log-normally
+  For this particular example, we model the unit costs $y$ as a log-normally
   distributed random variable with mean and covariance
   \begin{align}
     m_y
@@ -537,7 +537,7 @@ theoretical properties of the different formulations.
       \includegraphics[width=\textwidth,axisratio=1.3]{util_meandev_2d_l}
     \end{subfigure}
     \caption{The left plot shows the $\ell_2$-norm difference between the decision made
-      from the mean-deviation and exponential utility methods defined in
+      by the mean-deviation and exponential utility methods defined in
       \Cref{eq:optim_formulations}, using the corresponding
       $(\mu,\lambda)$-pairs from the right plot.
     }\label{fig:util_meandev_2d}
@@ -579,8 +579,8 @@ variance, and then argue that the units of these objects do not
 coincide.
 
 The exponential utility and lower super-quantile are often more costly
-to compute or approximate than the mean and variance, and requires a
-full description of the distribution of $y$. If, for a given $\mu$ (or
+to compute or approximate than the mean and variance and require a
+full description of the distribution of $y$. If for a given $\mu$ (or
 $\gamma$), it is possible to find a $\lambda$ such that
 $x_{md}(\lambda)$ is close to $x_{eu}(\mu)$ (or $x_{sq}(\gamma)$), then the
 mean-deviation formulation may be preferable in practical settings.
@@ -605,20 +605,20 @@ $y\in\mathcal{Y}$, one often considers problems of the form
 Then $f\geq f_{\textnormal{min}}$ is considered a constraint, which restricts the
 decision space to $\{x\in\mathcal{X}\mid f(x,y)\geq f_{\textnormal{min}}\}$.
 When there is uncertainty about the right parameter-value, this set is
-not defined at the time of decision, but depends on future knowledge
+not defined at the time of the decision but depends on future knowledge
 of the parameter.
 
-In the engineering community it is popular to
+In the engineering community, it is popular to
 reinterpret non-deterministic ``constraints'' as deterministic via
 expected utilities, mean-deviation methods or nonlinear
 expectations
 \citep{rockafellar2007coherent,rockafellar2015engineering}.
 Such a reinterpretation defines an acceptance set $\mathcal{A}$ that
 tries to represent what a decision maker deems to be feasible in a
-risk-adjusted way, and results in the optimisation problem
+risk-adjusted way and results in the optimisation problem
 $\min_{x\in\mathcal{A}} g(x)$.
 The acceptance set approach was one of the motivations for a formal
-framework for risk measures, in introduced in \citep{artzner1999coherent}.
+framework for risk measures, introduced in \citep{artzner1999coherent}.
 \begin{example}[Acceptance sets]
   Popular choices of acceptance sets for the constraint $f(x,y)\geq
   f_{\textnormal{min}}$ are
@@ -646,14 +646,14 @@ which is a multiobjective optimisation approach.
 %     approach}). Mean-Var should work
 % }
 
-Competing objectives often appear in a decision process, and chapter
+Competing objectives often appear in a decision process, and the chapter
 has made multiple references to multiobjective optimisation.  Assume
 there are $m$ competing objectives
-$f_1,\dots,f_m:\mathcal{X}\to\mathbb{R}$ that are to be
-minimised\footnote{We choose to work within a minimisation-framework
+$f_1,\dots,f_m:\mathcal{X}\to\mathbb{R}$ that we wish to
+minimise\footnote{We choose to work within a minimisation-framework
   for the multiobjective theory in order to follow the standards in
   optimisation literature. Any objective $f_i$ that is to be maximised
-  can be redefined by $f_i\leftarrow -f_i$.  } on the decision space
+  can be redefined by $f_i\leftarrow -f_i$.  } over the decision space
 $\mathcal{X}$. The two main challenges that arise are how to understand
 the trade-offs between the objectives, and to define an ordering
 between decisions $x\in\mathcal{X}$.  One approach to the first
@@ -668,7 +668,7 @@ practitioners is a software package that enables users to formulate
 multiobjective optimisation problems.  An example in
 \Cref{sec:one_multijump} shows how it is used to create the data for
 the figures in this report.  The package approximates the Pareto with
-with three methods: Weighted sums, objective
+three methods: Weighted sums, objective
 constraints, and the Normal Boundary Intersection method covered in
 \Cref{sec:multi_apriori,sec:multi_pareto_front}.  A broader range of
 approaches to multiobjective optimisation can be found in the survey
@@ -687,14 +687,14 @@ ordering of outcomes known as Pareto dominance. If a decision leads to
 an outcome that is not dominated by any other feasible outcome, it is
 optimal in the Pareto sense.
 \begin{mydef}[Pareto optimality]
-  A point $x\in\mathcal{X}$ is Pareto optimal if there are no
+  A point $x\in\mathcal{X}$ is Pareto optimal if there is no
   $x^*\in\mathcal{X}$ such that
   \begin{align}
     f_i(x^*)&\leq f_i(x) &&\text{ for all } i = 1,\dots,m, \text{ and}\\
     f_j(x^*)&<f_j(x) &&\text{ for at least one } j \in \{1,\dots,m\}.
   \end{align}
 \end{mydef}
-Pareto optimality therefore means that we cannot decrease the value of
+Pareto optimality, therefore, means that we cannot decrease the value of
 one objective without increasing another.
 The point $x$ is locally Pareto optimal if it is Pareto optimal in
 some neighbourhood around $x$.
@@ -901,7 +901,7 @@ $\mathcal{P}$ of co-dimension one. If $\mathcal{X}$ or the objectives are non-co
 $\mathcal{P}$ can have non-convex regions and be
 disconnected.
 There are several ways to approximate the Pareto front. The simplest
-methods use a weighted sum, or vary constraints on the objectives.
+methods use a weighted sum or vary constraints on the objectives.
 
 \begin{mydef}[Weighted sums]
   For $\lambda \in {[0,1]}^m$ with $\sum_{j=1}^m\lambda_j = 1$, solve
@@ -922,7 +922,7 @@ it cannot find Pareto points on non-convex parts of the Pareto
 front \citep{messac2000aggregate}.
 Second, when the objectives are nonlinear, the solution to the
 optimisation problem reacts nonlinearly to changes in $\lambda$.
-The Pareto front approximation can therefore miss out important
+The Pareto front approximation can, therefore, miss out important
 information, and will
 have a non-uniform spread of points.
 
@@ -1066,7 +1066,7 @@ Pareto optimal.
   Solutions to this problem are local, weakly Pareto optimal.
 \end{mydef}
 
-The NBI method is a special case of the scalarisation methods for
+The NBI method is a special case of the scalarization methods for
 vector-optimisation formulated by
 \citet{pascoletti1984scalarizing}. The NBI extension fits within the
 Pascoletti-Serafini framework in such a way that it guarantees local
@@ -1076,7 +1076,7 @@ the NBI extension implemented in the package MultiJuMP, described in
 \Cref{sec:one_multijump}, finds the same point multiple times on the
 border of disconnected components of the Pareto front.
 \citet{eichfelder2009adaptive} has devised an adaptive algorithm based
-on Pascoletti-Serafini scalarisation that can better handle non-convex
+on Pascoletti-Serafini scalarization that can better handle non-convex
 and disconnected Pareto fronts.
 \begin{example}[Disconnected Pareto front]\label{ex:pareto_disconnected}
   Define
@@ -1128,7 +1128,7 @@ and disconnected Pareto fronts.
 \end{example}
 
 
-\subsection{Ordering decision points a-priori}\label{sec:multi_apriori}
+\subsection{Ordering decision points a priori}\label{sec:multi_apriori}
 We have currently described a process for making a decision
 $x\in\mathcal{X}$ that involves approximating the Pareto
 front.
@@ -1140,7 +1140,7 @@ present the Pareto front without losing some information.
 Given the same Pareto front, presented in
 $k$ different ways, the variation of decisions $x^1,\dots,x^k$ is likely to
 increase with the number of objectives.
-Ideally one would like to create an ordering between decisions, so
+Ideally one would like to create an ordering between decisions so
 that the optimal decision is the same every time the same optimisation
 problem is run.
 
@@ -1169,7 +1169,7 @@ function $F$.
 with an approach he calls \emph{Physical Programming}. The decision
 maker defines what a ``desirable'', ``tolerable'',
 ``undesirable'' value corresponds to for each objective. The implementation of this method
-is much more complicated than the other approaches considered, but
+is much more complicated than the other approaches considered but
 may give us an easier framework to approximate a decision maker's preferences.
 
 The total value function $u(F)$ can be thought of as a
