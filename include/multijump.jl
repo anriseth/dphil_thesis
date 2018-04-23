@@ -1,4 +1,5 @@
 using JuMP, MultiJuMP
+using Ipopt # Use Ipopt as the underlying nonlinear solver
 # Define parameters
 α     = [1, 1.5, 1.2]
 β     = [-2 0.23 0; 0.15 -2.1 0.04; 0.1 0 -3.]
@@ -10,7 +11,7 @@ x0    = [1.5, 2.0, 1.7].*μy
 n     = length(x0)
 
 # Set up Multiobjective model
-m = MultiModel()
+m = MultiModel(solver = IpoptSolver())
 
 # JuMP commands create functions
 @variable(m, x[i=1:n] >= 0, start=x0[i])

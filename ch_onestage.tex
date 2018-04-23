@@ -33,18 +33,22 @@ We will argue that the second point arises when people try to add
 non-determinism to a deterministic model without reconsidering the
 modelling of the problem. One can view the first point as a decision
 problem with a possibly infinite number of objectives.
-\Cref{sec:one_optim_random_outcomes} summarises common ways to
-model decision maker's that face non-deterministic outcomes modelled
-with random variables, and \Cref{sec:one_multiobjective} summarises
-the theory of multiobjective optimisation.
+\Cref{sec:one_optim_random_outcomes,sec:one_comparison_orderings,sec:one_randomness_constraints}
+discuss common ways to model decision makers who face
+non-deterministic outcomes modelled with random variables, and
+\Cref{sec:one_multiobjective} summarises the theory of multiobjective
+optimisation.
 
-The ways to model an ordering between decisions have different
-strengths and weaknesses. Often, the approaches that are appealing
+
+The different models for ordering decisions that we discuss in
+\Cref{sec:one_optim_random_outcomes} have distinct strengths and
+weaknesses. Often, the models that are appealing
 from a theoretical point of view may be more expensive to compute and
 approximate. There are situations where these methods can reach the
 same decisions, with carefully adjusted parameters, as we show an
-example of in \Cref{sec:one_comparison_orderings}. The take-home message from this chapter is
-therefore to critically evaluate the complexity of the system we want
+example of in \Cref{sec:one_comparison_orderings}. The take-home
+message from this chapter is
+that we should critically evaluate the complexity of the system we want
 to control before formulating the mathematical optimisation problem.
 
 \section{Optimisation with random outcomes}\label{sec:one_optim_random_outcomes}
@@ -61,9 +65,9 @@ In the deterministic setting, we know the parameter
 $y\in\mathcal{Y}$ and can therefore find the optimal $x$ by optimising
 $f(\cdot,y)$.
 Say there is uncertainty in the correct value of the parameter that
-we model using an underlying probability distribution
-on the Borel space of $\mathcal{Y}$, absolutely continuous with respect
-to the Lebesgue measure.
+we model using an underlying probability distribution on $\mathcal{Y}$.
+%on the Borel space of $\mathcal{Y}$, absolutely continuous with respect
+%to the Lebesgue measure.
 For a given $x\in\mathcal{X}$, $f(x,\cdot)$ is now a random variable.
 Thus, it is no longer straightforward to order two decisions $x_1$ and
 $x_2$ by comparing $f(x_1,\cdot)$ to $f(x_2,\cdot)$.
@@ -135,7 +139,7 @@ theory of decisions that use expected utilities is covered in
 
 For a given utility function that models a decision maker's measure of
 benefit for the outcomes of $f$, one can define an ordering
-between random variables that decides which of any two decisions
+between random variables that decides which of two decisions
 $x_1,x_2\in\mathcal{X}$ is better.
 \begin{mydef}[Expected utility ordering]
   A utility function $u(x)$ defines an ordering $\preceq$ between random
@@ -160,7 +164,7 @@ modelling the decision maker's attitude to risk with utility functions.
 \subsection{Mean-deviation problems}
 The expected utility approach considers the mean outcome of a choice.
 After one makes a decision $x\in\mathcal{X}$, the realisation of the
-parameter in $\mathcal{Y}$ only happens once. If there is a large
+parameter in $\mathcal{Y}$ only occurs once. If there is a large
 uncertainty in $f(x,\cdot)$, the average value may not be a good
 representation for the realised value of $f$.
 It can, therefore, be useful to take into account some measure of
@@ -169,7 +173,7 @@ The mean-deviation approach aims to balance the expected value of $f$
 with uncertainty represented by a deviation measure.
 \begin{mydef}[Deviation measure]
   A functional $\mathbb{D}$ on a linear space of random
-  variables containing the real numbers defines a deviation measure, if:
+  variables containing the real numbers defines a deviation measure if
   \begin{enumerate}
   \item $\mathbb{D}[C] = 0$ for any constant $C$,
   \item $\mathbb{D}[X]>0$ for non-constant random variables $X$.
@@ -179,7 +183,7 @@ with uncertainty represented by a deviation measure.
 
 \begin{example}[Deviation measures]
   The classic measure of deviation is the standard deviation, which is
-  a particular case of the deviation measures defined by
+  the  particular case $p=2$ of the deviation measures defined by
   the $L^p$-norms:
   \begin{align}
     X\mapsto \|X-\mathbb{E}X\|_p,\; p\geq 1.
@@ -190,7 +194,7 @@ with uncertainty represented by a deviation measure.
   realisations of $f$ that are larger than its mean, especially if the
   random variable is not symmetric.
   The lower semi-deviation measure only investigates
-  worse-than-expected outcomes:
+  worse-than-expected outcomes,
   \begin{align}
     X\mapsto \mathbb{E}[\max(\mathbb{E}[X]-X,0)].
     &&\text{(Lower semi-deviation)}
@@ -200,7 +204,7 @@ with uncertainty represented by a deviation measure.
   different aspects of a random variable.
   If $\mathbb{D}_1,\dots,\mathbb{D}_k$ are $k$ deviation measures and
   $\lambda_i>0$, then the following is also
-  is also a deviation measure:
+  is also a deviation measure.
   \begin{align}
     \mathbb{D}[X]=\sum_{i=1}^k\lambda_i\mathbb{D}[X].
     &&\text{(Weighted deviations)}
@@ -231,7 +235,8 @@ We can approach the bi-objective problem from a multiobjective
 optimisation theory point of view and will do so in
 \Cref{sec:one_multiobjective}.
 The review in \citep{marler2004survey} covers some of the theory,
-discusses what optimality means and introduces approaches to solve them.
+discusses what optimality means and introduces approaches to solve
+such problems.
 A simple approach is to define a single objective function that combines
 the expected value with a deviation-penalty, weighted by some
 parameter $\lambda>0$. The optimal decision in $\mathcal{X}$ is then
@@ -249,7 +254,7 @@ either of the objectives. The review \citep{marler2004survey} covers
 more robust methods.
 
 \subsection{Nonlinear expectations}\label{sec:nonlinear_expectations}
-A general framework that covers most of the remaining
+A general framework that covers most of the remaining models
 in optimisation under uncertainty makes use of a class of functionals
 called nonlinear expectations.
 The theory was developed in finance to study financial positions using
@@ -263,7 +268,7 @@ $\rho(X) = -\mathbb{U}[X]$.
 
 \begin{mydef}[Nonlinear expectation]
   A nonlinear expectation $\mathbb{U}$ is a functional on a linear space of random
-  variables containing the real numbers, such that:
+  variables containing the real numbers, such that
   \begin{enumerate}
   \item $\mathbb{U}[C] = C$ for any constant $C$,
   \item $\mathbb{U}[X]\leq \mathbb{U}[Y]$ whenever $X\leq Y$ almost surely.
@@ -284,16 +289,16 @@ $\rho(X) = -\mathbb{U}[X]$.
 
   The worst-case nonlinear expectation on the sample space $\Omega$,
   defined by
-  $X\mapsto  \inf_{\omega\in\Omega}X(\omega)$, connects this theory with robust
-  programming. If there is an attached probability space on $\Omega$,
+  $X\mapsto  \inf_{\omega\in\Omega}X(\omega)$, connects this theory to robust
+  optimization \citep{ben2009robust}. If there is an attached probability space on $\Omega$,
   we use the essential infimum.
 
   For some deviation measures $\mathbb{D}$, such as the lower
   semi-deviation, the functional $\mathbb{U}(X)=\mathbb{E}[X]-\mathbb
   D[X]$ defines a nonlinear expectation. Note that for a general space
-  of random variables the symmetric deviation measure, such as the
+  of random variables, symmetric deviation measures such as the
   standard deviation, do not give rise to a nonlinear
-  expectation: They can violate the monotonicity requirement.
+  expectation because they violate the monotonicity requirement.
 
   The quantile operator
   $q_\lambda[X] = \inf\{x\mid\mathbb{P}(X\leq x)>
@@ -342,8 +347,8 @@ utility respectively.
 
 
 \section{Different approaches lead to the same decision}\label{sec:one_comparison_orderings}
-The aim of this section is to compare the
-optimisation formulations introduced in the previous section.
+% The aim of this section is to compare the
+% optimisation formulations introduced in the previous section.
 Can the mean-deviation formulation give the
 same result as the expected utility and nonlinear expectation methods?
 If $f(x,\cdot)$ is normally distributed for each value of
@@ -387,7 +392,7 @@ optimisation problem.
     \min_{x\in\mathcal{X}}  e^{-\mu\mathbb{E}[f(x,\cdot)]}
     \mathbb{E} \left[ e^{-\mu \mathbb{D}[f(x,\cdot)] Z} \right].
   \end{equation}
-  In the context of multiobjective optimisation, this is equivalent to
+  In the context of multiobjective optimisation, this arises from
   a particular choice of ordering of the mean-standard deviation problem.
 \end{example}
 
@@ -446,7 +451,7 @@ theoretical properties of the different formulations.
 \begin{example}[Pricing problem]
   Let us consider a particular decision problem and compare the
   decisions of~\eqref{eq:optim_formulations}.
-  We must choose the prices $x_1$, $x_2$ of two products in order to
+  We must choose the prices $x=(x_1,x_2)$ of two products in order to
   maximise the total profit for some time period.
   Assume that the model for product demand $q=(q_1,q_2)$ for the two products over
   this period is
@@ -526,8 +531,8 @@ theoretical properties of the different formulations.
   corresponding values $\lambda(\mu)$ and $\lambda(\gamma)$, together
   with the difference in the objectives. The values of $\lambda$
   are stable to small changes in $\mu$ and $\gamma$, and the
-  price differences are unlikely to have a practical effect when
-  priced in-store.
+  reported price differences are unlikely to have an effect when
+  the products are priced in-store.
   \begin{figure}[htbp]
     \centering
     \begin{subfigure}[t]{.5\textwidth}
@@ -566,7 +571,7 @@ the last ten years
 These articles argue for super-quantiles and dismiss
 optimisation formulations that use the mean and standard deviation
 on the grounds that they penalise better-than-expected outcomes.
-Distributions of profit in revenue management do in practice, however,
+Distributions of profit in revenue management do in practice
 have a more significant lower tail than upper tail, due to inventory
 restrictions, which alleviates such problems.
 None of these references discuss to what extent super-quantiles change the
@@ -588,13 +593,13 @@ Two articles illustrating this are
 \citep{kouri2016risk,alexanderian2017mean}, who address optimisation problems
 where each value $y\in\mathcal{Y}$ require the solution to partial
 differential equations.
-For example,~\cite{kouri2016risk}
-need to draw samples from $\mathcal{Y}$ and find ways to smooth the lower super-quantile,
+The lower super-quantile approach of~\cite{kouri2016risk}
+require the authors to draw samples from $\mathcal{Y}$ and find ways to smooth the objective,
 whilst~\cite{alexanderian2017mean} approximate mean and variance
 with Taylor series and do not need to sample from $\mathcal{Y}$.
 
 
-\section{Randomness and constraints}
+\section{Randomness and constraints}\label{sec:one_randomness_constraints}
 Let us introduce another, deterministic, objective $g:\mathcal
 X\to\mathbb{R}$. In the deterministic setting, with a known parameter
 $y\in\mathcal{Y}$, one often considers problems of the form
@@ -618,7 +623,7 @@ tries to represent what a decision maker deems to be feasible in a
 risk-adjusted way and results in the optimisation problem
 $\min_{x\in\mathcal{A}} g(x)$.
 The acceptance set approach was one of the motivations for a formal
-framework for risk measures, introduced in \citep{artzner1999coherent}.
+framework for risk measures introduced in \citep{artzner1999coherent}.
 \begin{example}[Acceptance sets]
   Popular choices of acceptance sets for the constraint $f(x,y)\geq
   f_{\textnormal{min}}$ are
@@ -658,16 +663,17 @@ $\mathcal{X}$. The two main challenges that arise are how to understand
 the trade-offs between the objectives, and to define an ordering
 between decisions $x\in\mathcal{X}$.  One approach to the first
 challenge is to find the Pareto front, or efficient
-frontier for the objectives, which is covered in
+frontier, of the objectives, which we cover in
 \Cref{sec:multi_pareto_front}. The second challenge is more difficult,
 as it involves modelling the decision maker's preferences.
 
 Relevant concepts for multiobjective optimisation are defined in
 \Cref{sec:multi_terminology}.  The main contribution of this work to
-practitioners is a software package that enables users to formulate
+practitioners is a software package that lets users formulate
 multiobjective optimisation problems.  An example in
 \Cref{sec:one_multijump} shows how it is used to create the data for
-the figures in this report.  The package approximates the Pareto with
+the figures in this section.  The package approximates the Pareto
+front with
 three methods: Weighted sums, objective
 constraints, and the Normal Boundary Intersection method covered in
 \Cref{sec:multi_apriori,sec:multi_pareto_front}.  A broader range of
@@ -675,10 +681,11 @@ approaches to multiobjective optimisation can be found in the survey
 by \citet{marler2004survey}.  The multiobjective ordering problem is
 discussed in \Cref{sec:multi_apriori}, where it is argued that an
 approximation of a decision maker's preferences for multiple
-objectives can be made by combining the objectives' utilities. In an
-optimisation setting involving randomness, one might already have
-defined utility functions for different objectives, so multiple
-objectives easily fit within the existing theory.
+objectives can be made by combining the objectives' utilities.
+% In an
+% optimisation setting involving randomness, one might already have
+% defined utility functions for different objectives, so multiple
+% objectives easily fit within the existing theory.
 
 
 \subsection{Terminology}\label{sec:multi_terminology}
@@ -889,7 +896,7 @@ values of the objectives on the Pareto front.
   Relative changes in revenue have a much larger impact on maximum expected
   profit compared to changing the standard deviation.
   The code used to generate the left Pareto front is given in
-  \Cref{lst:multijump}.
+  \Cref{lst:multijump} later in the chapter.
 \end{example}
 
 \subsection{Approximating the Pareto front}\label{sec:multi_pareto_front}
@@ -981,12 +988,12 @@ formulation makes use of the convex hull of the individual minima
   Let us look at how the approximation of the Pareto front of
   expected profit vs.~standard deviation from \Cref{ex:retail_pareto}
   performs with the three methods defined above.
-  All the three methods, weighted sum, varying constraints, and NBI define
-  a subproblem parameterised by a value $\lambda\in{[0,1]}^{m}$. Without any
+  All the three methods, weighted sum, varying constraints, and NBI, define
+  subproblems parameterised by a value $\lambda\in{[0,1]}^{m}$. Without any
   a priori knowledge or adaptivity, we wish to approximate the Pareto front
   with 30 uniformly spaced parameter values.
   In \Cref{fig:pareto_method_comparison} one can see how the three
-  methods compare at creating a uniform spread of points along the
+  perform in creating a uniform spread of points along the
   Pareto front. It is clear that the varying constraint method has the
   points uniformly spread along the axis of standard deviation, but
   does a poor job along the expected profit axis.
@@ -1053,7 +1060,7 @@ formulation makes use of the convex hull of the individual minima
 \end{example}
 
 When the Pareto front is disconnected, the NBI method can find
-points that are not weakly, Pareto optimal, even locally.
+points that are not local, weakly Pareto optimal.
 We can extend the NBI method so that solutions are local, weakly
 Pareto optimal.
 \begin{mydef}[NBI extension]
@@ -1070,7 +1077,7 @@ The NBI method is a special case of the scalarization methods for
 vector-optimisation formulated by
 \citet{pascoletti1984scalarizing}. The NBI extension fits within the
 Pascoletti-Serafini framework in such a way that it guarantees local
-Pareto optimality. \Cref{ex:pareto_disconnected} show some issues that
+Pareto optimality. \Cref{ex:pareto_disconnected} shows some issues that
 arise with a disconnected Pareto front.  The example also shows that
 the NBI extension implemented in the package MultiJuMP, described in
 \Cref{sec:one_multijump}, finds the same point multiple times on the
@@ -1129,7 +1136,7 @@ and disconnected Pareto fronts.
 
 
 \subsection{Ordering decision points a priori}\label{sec:multi_apriori}
-We have currently described a process for making a decision
+Up to now, we have described a process for making a decision
 $x\in\mathcal{X}$ that involves approximating the Pareto
 front.
 The cost of the approximation stage increases exponentially with the
@@ -1164,9 +1171,10 @@ Lagrange multipliers of the constraints.
 
 To define an ordering of decisions, one should find a way to express
 the total value $u:\mathbb{R}^m\to\mathbb{R}$ of the multiobjective
-function $F$.
+function $F$. The survey by \citet{marler2004survey} describes
+different choices of the function $u$ that has been used in the literature.
 \citet{messac1996physical} attempts to create a total value function
-with an approach he calls \emph{Physical Programming}. The decision
+with an approach he calls Physical Programming. The decision
 maker defines what a ``desirable'', ``tolerable'',
 ``undesirable'' value corresponds to for each objective. The implementation of this method
 is much more complicated than the other approaches considered but
@@ -1174,7 +1182,7 @@ may give us an easier framework to approximate a decision maker's preferences.
 
 The total value function $u(F)$ can be thought of as a
 multivariate utility function. To ensure that an optimal decision
-according to $u$ is also Pareto-optimal, impose that $u$ is
+according to $u$ is also Pareto optimal, impose that $u$ is
 strictly increasing in all of its arguments.
 If the decision problem involves randomness, one may already have
 tried to model the decision maker's risk-aversion for each objective.
