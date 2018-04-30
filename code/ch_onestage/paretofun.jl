@@ -3,8 +3,8 @@ using Distributions
 using Plots
 using JLD2
 
-varprof = true
-saveimg = true
+varprof = false
+saveimg = false
 savedata = true
 savedir = "./data/"
 method = :NBI # or :EPS or :WS

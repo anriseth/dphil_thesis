@@ -1,28 +1,25 @@
 using JuMP, MultiJuMP
-using Ipopt # Use Ipopt as the underlying nonlinear solver
 # Define parameters
-α     = [1, 1.5, 1.2]
-β     = [-2 0.23 0; 0.15 -2.1 0.04; 0.1 0 -3.]
-μy    = [1.5, 1.2, 1.3]
-σy    = [0.17, 0.2, 0.1].*μy
-corry = [1 0.5 0; 0.5 1 0 ; 0 0 1]
-covy  = corry .* (σy * σy')
-x0    = [1.5, 2.0, 1.7].*μy
+a     = [1, 0.9, 1.2]
+B     = [2 10 0; 4 1.8 40; 15 0 2]
+μy    = [0.5, 0.5, 0.65]
+Cy  = [0.0025 -0.00075 0; -0.00075 0.0025 0; 0 0 0.0042]
+x0    = [1, 1, 1.3]
 n     = length(x0)
 
 # Set up Multiobjective model
-m = MultiModel(solver = IpoptSolver())
+m = MultiModel()
 
 # JuMP commands create functions
 @variable(m, x[i=1:n] >= 0, start=x0[i])
 @NLexpressions m begin
-    demand[i=1:n],  α[i]*prod(x[k]^β[i,k] for k=1:n)
+    demand[i=1:n],  (a[i]*exp(-B[i,i]*x[i])*prod(1-exp(-x[j]*B[i,j])
+                    for j=1:n if (j != i) && !iszero(B[i,j])))
     profit[i=1:n],  (x[i]-μy[i])*demand[i]
     totalProfit,    sum(profit[i] for i=1:n)
-    stdeviation,    sqrt(sum(covy[i,j]*demand[i]*demand[j]
-                             for j=1:n for i=1:n))
+    stdeviation,    (sqrt(sum(Cy[i,j]*demand[i]*demand[j]
+                              for j=1:n for i=1:n)))
 end
-@constraint(m, moveconstr[i=1:n], 0.80x0[i] <= x[i] <= 1.20x0[i])
 
 # Define two objectives
 md              = getMultiData(m)
