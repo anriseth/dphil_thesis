@@ -5,7 +5,6 @@
 
 \chapter{One-stage optimisation}\label{ch:onestage}
 
-
 The aim of this chapter is to discuss approaches to modelling a
 decision problem in the form of a mathematical optimisation problem
 that computer algorithms can solve.
@@ -26,7 +25,7 @@ as the optimisation problem\footnote{Maximisation problems can
   equivalently be solved as minimisation problems of the negative
   objective, $\min_{x\in\mathcal{X}}-f(x)$. We change between the two
   depending on the application.}
-\begin{equation}
+\begin{equation}\label{eq:deterministic_setting}
   \max_{x\in\mathcal{X}} f(x).
 \end{equation}
 In this chapter, however, we will discuss three ways that
@@ -60,10 +59,117 @@ this chapter is
 that we should critically think about the complexity of the system we want
 to control before formulating the mathematical optimisation problem.
 
+\section{Motivating example}\label{sec:one_motivating_example}
+We will present a toy-problem in pricing three retail products, in
+order to motivate the three deviations from
+the deterministic, well-defined setting
+of~\eqref{eq:deterministic_setting} that we consider in this chapter.
+
+Consider a product manager who is in charge of three products.
+The manager can change the prices
+$x=(x_1,x_2,x_3)$
+of the products in order to improve the profit or revenue for the next
+time period.
+To calculate the profit and revenue, we need to model the product
+demands as well as the costs associated with selling the products.
+For simplicity we will assume that the quantities we work with have
+been non-dimensionalised.
+Assume that the model for product demand $q(x)=(q_1(x),q_2(x),q_3(x))$
+for the three products over the next period is
+deterministic and defined by the functions
+\begin{align}
+  q_1(x) &= e^{-2x_1}(1-e^{-10x_2}),\\
+  q_2(x) &= 0.9e^{-1.8x_2}(1-e^{-4x_1})(1-e^{-40x_3}),\\
+  q_3(x) &= 1.2e^{-2x_3}(1-e^{-15x_1})
+\end{align}
+respectively.
+The term $e^{-2x_1}$  models the impact of price
+changes for product one, keeping product two's price constant.
+The term $1-e^{-10x_2}$ models the proportion of product one's
+demand that product two takes at price $x_2$.
+\Cref{fig:total_volume_2d} shows the demand $q_1(x)+q_2(x)$ when $x_3=1$.
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[
+      % domain=0.0:1.5,
+      xlabel={$x_1$},
+      ylabel={$x_2$},
+      zlabel={$q_1(x)+q_2(x)$},
+      view={0}{90},
+      colormap/viridis,
+      colorbar,
+      xtick = {0,0.5,1,1.5}
+      ]
+      \addplot3[
+      mesh, samples=60,domain=0:1.5,
+      contour filled={number = 25,labels={false}}, thick]
+      {exp(-2*x)*(1-exp(-10*y)) + 0.9*exp(-1.8*y)*(1-exp(-4*x))*(1-exp(-40))};
+    \end{axis}
+  \end{tikzpicture}
+  \caption{The sum $q_1(x)+q_2(x)$ shows the demand for products one
+    and two with $x_3=1$.
+    The model is unlikely to be valid when $x_1=x_2=0$, as it predicts
+    zero demand for free products.}\label{fig:total_volume_2d}
+\end{figure}
+
+Let us further model the costs associated with sales according to per-unit
+costs $y=(y_1,y_2,y_3)$.
+From the demand model we can define functions for the revenue $g(x)$ and profit
+$f(x,y)$ according to
+\begin{align}
+  g(x)&=\langle x,q(x) \rangle,\\
+  f(x,y)
+      &=\langle x-y,q(x) \rangle,
+        \qquad\textnormal{where }\langle \cdot,\cdot \rangle
+        \textnormal{ is the usual inner product on } \mathbb{R}^n.
+\end{align}
+
+Retailers must often decide the product price before they know the
+unit costs. We assume that we can model the costs with a random
+variable $y\in\mathbb{R}^3$, based on prior knowledge and data.
+Throughout the chapter, we  assume that $y$ is a log-normally
+distributed random variable with mean and covariance
+\begin{align}
+  m_y
+  &= (0.5,0.5),
+  &C_y
+  &=\begin{pmatrix}
+    2.5&-0.75\\
+    -0.75&2.5
+  \end{pmatrix}
+           \times 10^{-3}.
+\end{align}
+\Cref{fig:example_profit_distributions} show
+
+\begin{figure}[htb]
+  \centering
+  \todo[inline]{Plot profit for two or three prices}
+  \caption{The probability distribution of profit for three
+    combinations of prices.}\label{fig:example_profit_distributions}
+\end{figure}
+
+The following three decision problems require further modelling of a
+decision maker's preferences in order to set up a mathematical
+optimisation problem.
+\begin{enumerate}
+\item Maximise profit.
+\item Maximise revenue and ensure that profit is positive.
+\item Maximise both revenue and profit.
+\end{enumerate}
+They are all examples of decision problems with random outcomes.
+The third problem is easily identified as a decision problem with
+multiple objectives, however, the other examples can also be
+formulated as multi-objective optimisation problems.
+
 \section{Optimisation with random outcomes}\label{sec:one_optim_random_outcomes}
 In this section, we consider situations where there is one
 well-defined objective that depends on  information we do not know
 with certainty at the time we make the decision.
+The theory discussed here can be used to formulate an optimisation problem
+for the example in the previous section where the product manager
+wants to maximise the profit, which we do in
+\Cref{sec:one_comparison_orderings}.
 
 Define a decision-space $\mathcal{X}\subset \mathbb{R}^n$ and a
 parameter-space $\mathcal{Y}\subset \mathbb{R}^k$.
@@ -74,14 +180,15 @@ In the deterministic setting, we know the parameter
 $y\in\mathcal{Y}$ and can therefore find the optimal $x$ by optimising
 $f(\cdot,y)$.
 Say there is uncertainty in the correct value of the parameter $y$ that
-we model using an underlying probability distribution on $\mathcal{Y}$.
+we model using an as a random variable in $\mathcal{Y}$.
 % on the Borel space of $\mathcal{Y}$, absolutely continuous with respect
 % to the Lebesgue measure.
-For a given $x\in\mathcal{X}$, $f(x,\cdot)$ is now a random variable.
+For a given $x\in\mathcal{X}$, $f(x,y)$ is now a random variable.
 Thus, it is no longer straightforward to order two decisions $x_1$ and
-$x_2$ by comparing $f(x_1,\cdot)$ to $f(x_2,\cdot)$.
+$x_2$ by comparing $f(x_1,y)$ to $f(x_2,y)$, as illustrated in
+\Cref{fig:example_profit_distributions}.
 We will present three classes of optimisation problems that attempt to
-address the randomness of $f(x,\cdot)$. They are \emph{expected
+address the randomness of $f(x,y)$. They are \emph{expected
   utilities}, \emph{mean-deviation procedures} and \emph{nonlinear
   expectations}.
 At the end, we comment on classic optimisation problems with constraints
@@ -185,7 +292,7 @@ modelling the decision maker's attitude to risk with utility functions.
   The optimal choice to maximise a given utility of $f$ is the
   solution of
   \begin{align}
-    x(u)=\argmax_{x\in\mathcal{X}} \mathbb{E}[u(f(x,\cdot))].
+    x(u)=\argmax_{x\in\mathcal{X}} \mathbb{E}[u(f(x,y))].
   \end{align}
 \end{problem}
 
@@ -194,7 +301,7 @@ modelling the decision maker's attitude to risk with utility functions.
 The expected utility approach considers the mean outcome of a choice.
 After one makes a decision $x\in\mathcal{X}$, the realisation of the
 parameter in $\mathcal{Y}$ only occurs once. If there is a large
-uncertainty in $f(x,\cdot)$, or, if the distribution is bimodal, the
+uncertainty in $f(x,y)$, or, if the distribution is bimodal, the
 average value may not be a good representation for the realised value of $f$.
 It can, therefore, be useful to take into account some measure of
 deviation from the mean of $f$ when $x$ is chosen.
@@ -254,7 +361,7 @@ is less strict on the properties of $\mathbb{D}$.
   minimising the deviation $\mathbb{D}$ of $f$, is a minimiser to the
   bi-objective optimisation problem
   \begin{align}
-    \max_{x\in\mathcal{X}}\{(\mathbb{E}[f(x,\cdot)],\,-\mathbb{D}[f(x,\cdot)])\}.
+    \max_{x\in\mathcal{X}}\{(\mathbb{E}[f(x,y)],\,-\mathbb{D}[f(x,y)])\}.
   \end{align}
 \end{problem}
 For a given deviation measure that models the decision maker's
@@ -271,8 +378,8 @@ the expected value with a deviation-penalty, weighted by some
 parameter $\lambda>0$. The optimal decision in $\mathcal{X}$ is then
 defined as
 \begin{equation}\label{eq:mean_dev_weighted}
-  x(\mathbb{D},\lambda)=\argmax_{x\in\mathcal{X}}\{\mathbb
-  E[f(x,\cdot)]-\lambda \mathbb{D}[f(x,\cdot)]\}.
+  x(\mathbb{D},\lambda)=\argmax_{x\in\mathcal{X}}\{\mathbb{E}[f(x,y)]-\lambda
+  \mathbb{D}[f(x,y)]\}.
 \end{equation}
 This implicitly defines an ordering of random variables based on
 the functional $X\mapsto \mathbb{E}[X]-\lambda \mathbb{D}[X]$.
@@ -319,8 +426,9 @@ Further connections between nonlinear expectations and deviation
 measures are discussed by \citet{rockafellar2013fundamental}.
 
 \begin{example}[Nonlinear expectations]
-  The functional $\mathbb{U}_\lambda[X]=-\frac{1}{\lambda}\log\mathbb
-  E[e^{-\lambda X}]$, is called an entropic nonlinear expectation,
+  The functional
+  $\mathbb{U}_\lambda[X]=-\frac{1}{\lambda}\log\mathbb{E}[e^{-\lambda
+    X}]$, is called an entropic nonlinear expectation,
   with $\lambda>0$.
   It is connected to the exponential utility function $u_\lambda$, since
   $\mathbb{U}_\lambda[X]= u_\lambda^{-1}(\mathbb{E}[u_\lambda(X)])$.
@@ -356,7 +464,7 @@ measures are discussed by \citet{rockafellar2013fundamental}.
   The optimal choice to maximise a nonlinear expectation
   of $f$ is given by
   \begin{align}
-    x(\mathbb{U})=\argmax_{x\in\mathcal{X}} \mathbb{U}[f(x,\cdot)].
+    x(\mathbb{U})=\argmax_{x\in\mathcal{X}} \mathbb{U}[f(x,y)].
   \end{align}
 \end{problem}
 
@@ -367,10 +475,10 @@ measures are discussed by \citet{rockafellar2013fundamental}.
   \begin{equation}\label{eq:opt_avar}
     x_{sq}({\gamma})
     =\argmax_{x\in\mathcal{X},\eta\in\mathbb{R}}
-    \{\eta - \frac{1}{\gamma}\mathbb{E}[\max(\eta-f(x,\cdot),0)]\}.
+    \left\{\eta - \frac{1}{\gamma}\mathbb{E}[\max(\eta-f(x,y),0)]\right\}.
   \end{equation}
   Note that the objective is not necessarily smooth, due to the
-  $\max(\eta-f(x,\cdot),0)$ term. Theory of non-smooth optimisation
+  $\max(\eta-f(x,y),0)$ term. Theory of non-smooth optimisation
   can address this but may require sophisticated mathematical techniques, as
   exemplified in \citep{kouri2016risk}.
 \end{example}
@@ -422,10 +530,10 @@ coincide.
 
 
 \subsection{Equivalence for the normal distribution}
-If $f(x,\cdot)$ is normally distributed for each value of
+If $f(x,y)$ is normally distributed for each value of
 $x\in\mathcal{X}$, then the properties of the random variable are fully
 described by the mean and variance functions $x\mapsto
-\mathbb{E}[f(x,\cdot)]$ and $x\mapsto \mbox{Var}[f(x,\cdot)]$. This
+\mathbb{E}[f(x,y)]$ and $x\mapsto \mbox{Var}[f(x,y)]$. This
 indicates that all the approaches above implicitly define a
 choice of ordering for the bi-objective mean-standard deviation
 optimisation problem.
@@ -457,11 +565,11 @@ optimisation problem.
     u(X) = 1 - e^{-\mu (\mathbb{E}[X] +
       \mathbb{D}[X] Z)}.
   \end{equation}
-  If $f(x,\cdot)$ is normally distributed, the expected utility
+  If $f(x,y)$ is normally distributed, the expected utility
   optimisation for $u$ is then equivalent to solving
   \begin{equation}
-    \min_{x\in\mathcal{X}}  e^{-\mu\mathbb{E}[f(x,\cdot)]}
-    \mathbb{E} \left[ e^{-\mu \mathbb{D}[f(x,\cdot)] Z} \right].
+    \min_{x\in\mathcal{X}}  e^{-\mu\mathbb{E}[f(x,y)]}
+    \mathbb{E} \left[ e^{-\mu \mathbb{D}[f(x,y)] Z} \right].
   \end{equation}
   In the context of multi-objective optimisation, this arises from
   a particular choice of ordering of the mean-standard deviation
@@ -481,18 +589,17 @@ lower super-quantile $\mathbb{U}_\gamma$.
 \begin{subequations}\label{eq:optim_formulations}
   \begin{align}\label{eq:optim_formulations_md}
     x_{md}(\lambda)
-    &=\argmax_{x\in\mathcal{X}}\{\mathbb
-      E[f(x,\cdot)]-\lambda\sqrt{\mbox{Var}[f(x,\cdot)]}\}
+    &=\argmax_{x\in\mathcal{X}}\{\mathbb{E}[f(x,y)]-\lambda\sqrt{\mbox{Var}[f(x,y)]}\}
     &\lambda\geq 0,\\
     % &&\text{(mean-deviation)},\\
     x_{eu}(\mu)
     &=\argmax_{x\in\mathcal{X}}\{
-      \mathbb{E}[1-e^{-\mu f(x,\cdot)}]\}
+      \mathbb{E}[1-e^{-\mu f(x,y)}]\}
     &\mu>0,\\
     % &&\text{(exponential utility)},\\
     x_{sq}(\gamma)
     &=\argmax_{x\in\mathcal{X}}
-      \{\mathbb{U}_\gamma[f(x,\cdot)]\}
+      \{\mathbb{U}_\gamma[f(x,y)]\}
     &\gamma\in(0,1].
     % &&\text{(lower super-quantile)}.
   \end{align}
@@ -520,54 +627,10 @@ on their practical implications instead of solely focusing on
 theoretical properties of the different formulations.
 
 \begin{example}[Pricing problem]
+  \todo[inline]{Smooth out transition}
   Let us consider a particular decision problem and compare the
   decisions of~\eqref{eq:optim_formulations}.
-  We must choose the prices $x=(x_1,x_2)$ of two products in order to
-  maximise the total profit for some time period.
-  Assume that the model for product demand $q(x)=(q_1(x),q_2(x))$ for the two products over
-  this period is
-  deterministic and defined by the functions
-  \begin{align}
-    q_1(x) &= e^{-2x_1}(1-e^{-10x_2}),
-    &q_2(x)&= 0.9e^{-1.8x_2}(1-e^{-4x_1})
-  \end{align}
-  respectively.\todo{Note non-dimensionalised model}
-  The term $e^{-2x_1}$  models the impact of price
-  changes for product one, keeping product two's price constant.
-  The term $1-e^{-10x_2}$ models the proportion of product one's
-  demand that product two takes at price $x_2$.
-  \Cref{fig:total_volume_2d} shows the total demand $q_1+q_2$.
-  \begin{figure}[htbp]
-    \centering
-    \begin{tikzpicture}
-      \begin{axis}[
-        % domain=0.0:1.5,
-        xlabel={$x_1$},
-        ylabel={$x_2$},
-        zlabel={$q_1(x)+q_2(x)$},
-        view={0}{90},
-        colormap/viridis,
-        colorbar,
-        xtick = {0,0.5,1,1.5}
-        ]
-        \addplot3[
-        mesh, samples=60,domain=0:1.5,
-        contour filled={number = 25,labels={false}}, thick]
-        {exp(-2*x)*(1-exp(-10*y)) + 0.9*exp(-1.8*y)*(1-exp(-4*x))};
-      \end{axis}
-    \end{tikzpicture}
-    \caption{The sum $q_1(x)+q_2(x)$ shows the total demand for the two products.
-      Note that in the retail setting, the values near $x=(0,0)$ seem
-      nonsensical.}\label{fig:total_volume_2d}
-  \end{figure}
 
-  Given unit costs $y=(y_1,y_2)$, the profit $f(x,y)$ is then
-  \begin{equation}
-    f(x)
-    =\langle x-y,q(x) \rangle,
-    \qquad\textnormal{where }\langle \cdot,\cdot \rangle
-      \textnormal{ is the usual inner product on } \mathbb{R}^n.
-  \end{equation}
   Retailers often face uncertain unit costs for their products, which
   we model with a random variable $y\in\mathbb{R}^2$.
   Denote the mean and covariance of
@@ -578,23 +641,12 @@ theoretical properties of the different formulations.
     &\mbox{Var}[f(x,y)]
     &= \langle q(x),C_y q(x) \rangle.
   \end{align}
+
+
   Thus, the mean-deviation method with
   $\mathbb{D}[X]=\sqrt{\mbox{Var}[X]}$ has a closed form objective and
   one only needs information about the two first moments of $y$ to solve
   the mean-deviation problem~\eqref{eq:optim_formulations_md}.
-
-  For this particular example, we model the unit costs $y$ as a log-normally
-  distributed random variable with mean and covariance
-  \begin{align}
-    m_y
-    &= (0.5,0.5),
-    &C_y
-    &=\begin{pmatrix}
-      2.5&-0.75\\
-      -0.75&2.5
-    \end{pmatrix}
-             \times 10^{-3}.
-  \end{align}
 
   We solve the optimisation problems in~\eqref{eq:min_xmd_xeu_xsq}
   uniformly spaced values $\mu\in[0,100]$ and $\gamma\in[1/100, 1]$.
@@ -638,8 +690,14 @@ theoretical properties of the different formulations.
 
 
 
-\section{Randomness and constraints}\label{sec:one_randomness_constraints}
-Let us introduce another, deterministic, objective $g:\mathcal
+\section{Randomness and
+  constraints}\label{sec:one_randomness_constraints}
+We briefly discuss the situation arising from the
+second decision problem posed in \Cref{sec:one_motivating_example},
+where the decision maker wants to maximise revenue but ensure that
+profit is positive.
+
+Introduce a deterministic, objective $g:\mathcal
 X\to\mathbb{R}$. In the deterministic setting, with a known parameter
 $y\in\mathcal{Y}$, one often considers problems of the form
 \begin{align}
@@ -668,14 +726,14 @@ framework for risk measures introduced by \citet{artzner1999coherent}.
   f_{\textnormal{min}}$ are
   \begin{align}
     \mathcal{A}&=\{x\in\mathcal{X} \mid
-                 \mathbb{E}_y[f(x,y)]\geq f_{\textnormal{min}}\},
+                 \mathbb{E}[f(x,y)]\geq f_{\textnormal{min}}\},
     &\textnormal{(Expectation)}\\
     \mathcal{A}&=\{x\in\mathcal{X} \mid
                  \inf_{\omega\in\Omega}f(x,y(\omega))\geq
                  f_{\textnormal{min}}\},
     &\textnormal{(Worst-case)}\\
     \mathcal{A} &= \{x\in\mathcal{X}\mid
-                  \mathbb{P}_y(f(x,y)\geq f_{\textnormal{min}})\geq \epsilon\},
+                  \mathbb{P}(f(x,y)\geq f_{\textnormal{min}})\geq \epsilon\},
                   \text{ given }\epsilon\in(0,1).
     &\textnormal{(Quantile)}
   \end{align}
@@ -693,7 +751,6 @@ which is a multi-objective optimisation approach.
 % generates a non-convex Pareto front (\textbf{BAD for weighted sum
 % approach}). Mean-Var should work
 % }
-
 Competing objectives often appear in a decision process, and the chapter
 has already made multiple references to multi-objective optimisation.  Assume
 there are $m$ competing objectives
@@ -802,20 +859,67 @@ some neighbourhood around $x$, see.\todo{reference fig}
     }\label{fig:multi_map}
   \end{figure}
 \end{example}
-\todo[inline]{Picture of weak Pareto optimal}
 
-In a similar fashion to the difficulties with global optimisation for
-single-objective problems, algorithms can at best guarantee to find
-local, weakly Pareto optimal points in the general case.
-\begin{mydef}[Weak Pareto optimality]
-  The point $x$ is a weakly Pareto optimal point if
-  there is no $x^*$ such that
-  \begin{align}
-    f_i(x^*)&<f_i(x) \text{ for all } i=1,\dots,m.
-  \end{align}
-  This is weaker in the sense that all Pareto optimal points are weakly
-  Pareto optimal.
-\end{mydef}
+\begin{example}[Retail application]\label{ex:retail_pareto}
+  Consider the model from the retail problem described in
+  \Cref{sec:one_motivating_example}.
+  The Pareto front can be used in the retail setting in order to understand the
+  trade-offs between different objectives.
+  We consider two situations, both illustrated in
+  \Cref{fig:pareto_std_prof_rev}.
+  First, say the manager wants to understand the balance between
+  maximising expected profit and minimising the profit standard
+  deviation.
+  Second, the Pareto front can tell how much an increase in revenue
+  decreases the expected profit.
+  \begin{figure}[htbp]
+    \centering
+    \begin{subfigure}[h]{.5\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[width=0.9\textwidth,
+          xlabel=Standard deviation,
+          ylabel=Expected profit,
+          xtick={0, 0.005, 0.01},
+          scaled ticks = false,
+          xticklabel style={
+            /pgf/number format/precision=3,
+            /pgf/number format/fixed,
+            % /pgf/number format/fixed zerofill,
+          }
+          ]
+          \addplot[thick] table {./data/pareto_std_prof_3_nbi.dat};
+        \end{axis}
+      \end{tikzpicture}
+    \end{subfigure}%
+    \begin{subfigure}[h]{.5\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[width=0.9\textwidth,
+          xlabel=Revenue,
+          ylabel=Expected profit]
+          \addplot[thick] table {./data/pareto_prof_rev_nbi.dat};
+        \end{axis}
+      \end{tikzpicture}
+    \end{subfigure}
+    \caption{The two plots show the Pareto front between two competing
+      objectives. The left figure compares the expected profit of three
+      products, compared to the standard deviation of profit.
+      On the right, one can see the trade-offs that are made between
+      a risk-neutral profit maximisation and a revenue maximisation.
+      The code used to generate the left Pareto front is given in
+      \Cref{lst:multijump} later in the chapter.
+    }\label{fig:pareto_std_prof_rev}
+  \end{figure}
+  % We make two observations from the Pareto fronts in
+  % \Cref{fig:pareto_std_prof_rev}.
+  % Reducing the standard deviation has an order of magnitude higher
+  % cost on expected value in the middle of the Pareto front, and a
+  % better trade-off is likely to be closer to the top-right region.
+  % There is a sharp drop in expected profit near
+  % the minimal standard deviation, so the gain from decreasing the risk is
+  % potentially larger than the losses of expected profit in this region.
+  % Relative changes in revenue have a much larger impact on maximum expected
+  % profit compared to changing the standard deviation.
+\end{example}
 
 \begin{mydef}[Convexity]
   The Pareto-front is said to be convex if the following set is convex.
@@ -841,109 +945,17 @@ values of the objectives on the Pareto front.
 \end{mydef}
 
 \begin{example}[Two-dimensional bounding box]
-  \Cref{fig:pareto_drawing} illustrates an example of the utopia and nadir
-  points together with the bounding box for a two-dimensional problem $F:\mathcal{X}\to\mathbb{R}^2$.
+  \Cref{fig:pareto_drawing} illustrates an example of the utopia and
+  nadir points $\underline{F}$ and $\overline{F}$,
+  together with the bounding box for a two-dimensional problem $F:\mathcal{X}\to\mathbb{R}^2$.
   \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.5\textwidth]{pareto_drawing}
     \caption{An example Pareto front $\mathcal{P}$ of two objectives. The utopia and
-      nadir points represent the lower and upper bound of what values
+      nadir points $\underline{F}$ and $\overline{F}$ represent the
+      lower and upper bound of what values
       $f_1$ and $f_2$ can take on $\mathcal{P}$.}\label{fig:pareto_drawing}
   \end{figure}
-\end{example}
-
-\begin{example}[Retail application]\label{ex:retail_pareto}
-  The Pareto front can be used in the retail setting in order to understand the
-  trade-offs between different objectives.
-  We consider two situations, both illustrated in
-  \Cref{fig:pareto_std_prof_rev}.
-  First, say a manager wants to understand the balance between
-  maximising expected profit and minimising the profit standard
-  deviation.
-  Second, the Pareto front can tell how much an increase in revenue
-  decreases the expected profit.
-  \begin{figure}[htbp]
-    \centering
-    \begin{subfigure}[h]{.5\textwidth}
-      \begin{tikzpicture}
-        \begin{axis}[width=0.9\textwidth,
-          xlabel=Standard deviation,
-          ylabel=Expected profit,
-          scaled ticks = false,
-          xticklabel style={
-            /pgf/number format/precision=3,
-            /pgf/number format/fixed,
-            /pgf/number format/fixed zerofill,
-          }]
-          \addplot[thick] table {./data/pareto_std_prof_2_nbi.dat};
-        \end{axis}
-      \end{tikzpicture}
-    \end{subfigure}%
-    \begin{subfigure}[h]{.5\textwidth}
-      \begin{tikzpicture}
-        \begin{axis}[width=0.9\textwidth,
-          xlabel=Revenue,
-          ylabel=Expected profit]
-          \addplot[thick] table {./data/pareto_prof_rev_nbi.dat};
-        \end{axis}
-      \end{tikzpicture}
-    \end{subfigure}
-    \caption{The two plots show the Pareto front between two competing
-      objectives. The left figure compares the expected profit of three
-      products, compared to the standard deviation of profit.
-      On the right, one can see the trade-offs that are made between
-      a risk-neutral profit maximisation and a revenue maximisation.
-    }\label{fig:pareto_std_prof_rev}
-  \end{figure}
-
-  Assume that the model for product demand $q(x)=(q_1(x),q_2(x),q_3(x))$ for the
-  three products over a given period is
-  deterministic and defined by
-  \begin{align}
-    q_i(x) = \alpha_i\prod_{j=1}^3x_j^{\beta_{ij}},
-  \end{align}
-  in a region $0.8x_0\leq x\leq 1.2x_0$ around $x_0=(2.25,2.4,2.21)$.
-  We model the unit cost as a random variable $y$, distributed
-  according to $\mathcal{N}(m_y,C_y)$.
-  In what follows, the particular values of $\alpha$, $\beta$, $m_y$, and $C_y$ are
-  \begin{align}
-    \alpha
-    &= \left( \begin{array}{c} 1\\1.5\\1.2
-              \end{array}\right)_,
-    & \beta
-    &= \begin{pmatrix}
-      -2 & 0.23 & 0\\
-      0.15 &-2.1 &0.04\\
-      0.1 &0& -3
-    \end{pmatrix}_,\\[0.5em]
-    m_y
-    &=
-      \left( \begin{array}{c} 1.5\\1.2\\1.3
-             \end{array}\right)_,
-    & C_y
-    &= \begin{pmatrix}
-      0.065&0.031&0\\
-      0.031 & 0.058 &0 \\
-      0&0&0.017
-    \end{pmatrix}_.
-  \end{align}
-
-  Total revenue and profit are defined as
-  $f_1(x) = \langle x, q(x)\rangle$ and
-  $f_2(x,y)= \langle x-y, q(x) \rangle$ respectively.
-  The expected profit is $\mathbb{E}[f_2(x,\cdot)] = \langle x-m_y,
-  q(x) \rangle$, and the variance is
-  $\mbox{Var}[f_2(x,\cdot)]= \langle q(x), C_y q(x) \rangle$.
-
-  We make two observations from the Pareto fronts in
-  \Cref{fig:pareto_std_prof_rev}.
-  There is a sharp drop in expected profit near
-  the minimal standard deviation, so the gain from decreasing the risk is
-  potentially larger than the losses of expected profit in this region.
-  Relative changes in revenue have a much larger impact on maximum expected
-  profit compared to changing the standard deviation.
-  The code used to generate the left Pareto front is given in
-  \Cref{lst:multijump} later in the chapter.
 \end{example}
 
 \subsection{Approximating the Pareto front}\label{sec:multi_pareto_front}
@@ -962,7 +974,6 @@ methods use a weighted sum or vary constraints on the objectives.
   \begin{equation}
     \min_{x\in\mathcal{X}} \sum_{j=1}^m \lambda_i f_i(x).
   \end{equation}
-  Solutions to this equation are weakly Pareto optimal.
 \end{mydef}
 The weighted sum method explores the Pareto front by solving a series
 of sub-minimisation problems for the function $\sum_{i=1}^m\lambda_i f_i$.
@@ -984,10 +995,9 @@ have a non-uniform spread of points.
   Choose
   $\epsilon_i\in(\underline{f_i},\overline{f_i})$ for $i=2,\dots,m$, and
   solve the minimisation problem
-  \begin{align}
+  \begin{equation}\label{eq:pareto_constraint_method}
     \min_x\{f_1(x)\mid f_i(x)\leq \epsilon_i,\, i=2,\dots,m\}.
-  \end{align}
-  Solutions to this problem are weakly Pareto optimal.
+  \end{equation}
 \end{mydef}
 The constraint method can find Pareto points in non-convex regions of
 $\mathcal{P}$, and gives us control of the spread of points on the Pareto front
@@ -1031,109 +1041,11 @@ formulation makes use of the convex hull of the individual minima
   \end{equation}
 \end{mydef}
 
-\begin{example}[Pareto front generation comparison]
-  Let us look at how the approximation of the Pareto front of
-  expected profit vs.~standard deviation from \Cref{ex:retail_pareto}
-  performs with the three methods defined above.
-  All the three methods, weighted sum, varying constraints, and NBI, define
-  subproblems parameterised by a value $\lambda\in{[0,1]}^{m}$. Without any
-  a priori knowledge or adaptivity, we wish to approximate the Pareto front
-  with 30 uniformly spaced parameter values.
-  In \Cref{fig:pareto_method_comparison} one can see how the three
-  perform in creating a uniform spread of points along the
-  Pareto front. It is clear that the varying constraint method has the
-  points uniformly spread along the axis of standard deviation, but
-  does a poor job along the expected profit axis.
-  Weighted sums cluster a large proportion of the points near the
-  kink. NBI provides a uniform spread that gives us the most
-  information for the same number of sub-problem optimisations.
-
-  \begin{figure}[hbt]
-    \centering
-    \begin{subfigure}[t]{.5\textwidth}
-      \begin{tikzpicture}
-        \begin{axis}[width=0.9\textwidth,
-          xlabel=Standard deviation,
-          ylabel=Expected profit,
-          scaled ticks = false,
-          xticklabel style={
-            /pgf/number format/precision=3,
-            /pgf/number format/fixed,
-            /pgf/number format/fixed zerofill,
-          }]
-          \addplot[only marks, mark size=0.5] table {./data/pareto_std_prof_2_ws.dat};
-        \end{axis}
-      \end{tikzpicture}
-      \caption{Weighted sum}
-    \end{subfigure}%
-    \begin{subfigure}[t]{.5\textwidth}
-      \begin{tikzpicture}
-        \begin{axis}[width=0.9\textwidth,
-          xlabel=Standard deviation,
-          ylabel=Expected profit,
-          scaled ticks = false,
-          xticklabel style={
-            /pgf/number format/precision=3,
-            /pgf/number format/fixed,
-            /pgf/number format/fixed zerofill,
-          }]
-          \addplot[only marks, mark size=0.5] table {./data/pareto_std_prof_2_eps.dat};
-        \end{axis}
-      \end{tikzpicture}
-      \caption{Varying constraint on standard deviation.}
-    \end{subfigure}\\[1em]
-    \begin{subfigure}[b]{.5\textwidth}
-      \begin{tikzpicture}
-        \begin{axis}[width=0.9\textwidth,
-          xlabel=Standard deviation,
-          ylabel=Expected profit,
-          scaled ticks = false,
-          xticklabel style={
-            /pgf/number format/precision=3,
-            /pgf/number format/fixed,
-            /pgf/number format/fixed zerofill,
-          }]
-          \addplot[only marks, mark size=0.5] table {./data/pareto_std_prof_2_nbi.dat};
-        \end{axis}
-      \end{tikzpicture}
-      \caption{Normal Boundary Intersection method}
-    \end{subfigure}
-    \caption{Approximating the Pareto front from
-      \Cref{ex:retail_pareto} with 30 points. The plots compare the weighted
-      sum, varying constraint, and NBI methods. It is clear that NBI
-      gives the best representation of the Pareto front for a given
-      number of points.}\label{fig:pareto_method_comparison}
-  \end{figure}
-\end{example}
-
-When the Pareto front is disconnected, the NBI method can find
-points that are not local, weakly Pareto optimal.
-We can extend the NBI method so that solutions are local, weakly
-Pareto optimal.
-\begin{mydef}[NBI extension]
-  Given $\beta\in{[0,1]}^m$ with $\sum_{j=1}^m\beta_j=1$,
-  solve
-  \begin{equation}
-    \max_{x\in\mathcal{X},\,t\in\mathbb{R}} \{t \mid \Phi\beta +
-    t\hat{n} \geq F(x) - \underline{F}\}.
-  \end{equation}
-  Solutions to this problem are local, weakly Pareto optimal.
-\end{mydef}
-
-The NBI method is a special case of the scalarization methods for
-vector-optimisation formulated by
-\citet{pascoletti1984scalarizing}. The NBI extension fits within the
-Pascoletti-Serafini framework in such a way that it guarantees local
-Pareto optimality. \Cref{ex:pareto_disconnected} shows some issues that
-arise with a disconnected Pareto front.  The example also shows that
-the NBI extension implemented in the package MultiJuMP, described in
-\Cref{sec:one_multijump}, finds the same point multiple times on the
-border of disconnected components of the Pareto front.
-\citet{eichfelder2009adaptive} has devised an adaptive algorithm based
-on Pascoletti-Serafini scalarization that can better handle non-convex
-and disconnected Pareto fronts.
-\begin{example}[Disconnected Pareto front]\label{ex:pareto_disconnected}
-  Define
+\begin{example}[Comparison of Pareto front
+  approximations]\label{ex:pareto_disconnected}
+  We will now investigate the approximations of the Pareto
+  front on a toy example using the three different methods.
+  Define the function
   $F:{[0,5]}^2\to\mathbb{R}^2$, by $F=(f_1,f_2)$ with $f_i(x)=x_i$.
   Consider the bi-objective problem
   \begin{align}
@@ -1141,10 +1053,16 @@ and disconnected Pareto fronts.
     5e^{-x_1}+2e^{-\frac{1}{2}{(x_1-3)}^2} \leq x_2\}.
   \end{align}
   The Pareto front is disconnected and contains points that are
-  locally, but not globally, Pareto optimal.
-  In \Cref{fig:pareto_disconnected}, we compare the 60 point Pareto
-  front approximation that we get with
-  the NBI method and the NBI extension.
+  locally, but not globally, Pareto optimal.\todo{plot this as example
+    above and reword this sentence}
+
+  All the three methods, weighted sum, varying constraints, and NBI, define
+  subproblems parameterised by a value $\lambda\in{[0,1]}^{m}$. Without any
+  a priori knowledge or adaptivity, we wish to approximate the Pareto front
+  with \num{40} uniformly spaced parameter values.
+  In \Cref{fig:pareto_disconnected} one can see how the three
+  perform in creating a uniform spread of points along the
+  Pareto front.
   \begin{figure}[htbp]
     \centering
     \begin{subfigure}[t]{.5\textwidth}
@@ -1153,11 +1071,23 @@ and disconnected Pareto fronts.
           xlabel=$f_1$,
           ylabel=$f_2$,
           ]
-          \addplot[only marks, mark size=0.5] table {./data/pareto_disconnected_eq.dat};
+          \addplot[only marks, mark size=0.5] table {./data/pareto_disconnected_nbi_eq.dat};
         \end{axis}
       \end{tikzpicture}
-      \caption{NBI}
+      \caption{NBI}\label{fig:pareto_disconnected_nbi_eq}
     \end{subfigure}%
+\begin{subfigure}[t]{.5\textwidth}
+      \begin{tikzpicture}
+        \begin{axis}[width=0.9\textwidth,
+          xlabel=$f_1$,
+          ylabel=$f_2$,
+          ]
+          \addplot[only marks, mark size=0.5] table
+          {./data/pareto_disconnected_eps.dat};
+        \end{axis}
+      \end{tikzpicture}
+      \caption{Varying constraint on $f_1$}
+    \end{subfigure}\\[1em]
     \begin{subfigure}[t]{.5\textwidth}
       \begin{tikzpicture}
         \begin{axis}[width=0.9\textwidth,
@@ -1165,21 +1095,91 @@ and disconnected Pareto fronts.
           ylabel=$f_2$,
           ]
           \addplot[only marks, mark size=0.5] table
-          {./data/pareto_disconnected_ineq.dat};
-          \draw [red] (axis cs:1.59,1.75) circle [radius=0.09]
-          node[below] {5 points};
+          {./data/pareto_disconnected_ws.dat};
+          \draw [red] (axis cs:0,5) circle [radius=0.09]
+          node[right] {7 points};
+          \draw [red] (axis cs:5,0.3) circle [radius=0.09]
+          node[left] {16 points\;\;};
         \end{axis}
       \end{tikzpicture}
-      \caption{NBI extension}
+      \caption{Weighted sums}
     \end{subfigure}
-    \caption{Approximations of a disconnected Pareto front. The NBI
-      algorithm finds points that are not Pareto optimal, whilst the
-      NBI extension will only generate local Pareto
-      optimal points. There are five points lying on top of each other
-      in (b) because the current algorithm is not adaptive.
+    \todo[inline]{Add Pareto front curve}
+    \caption{Approximations of a disconnected Pareto front.
+      The NBI algorithm finds points that are not Pareto optimal, but
+      is otherwise providing the best approximation of the Pareto front.
     }\label{fig:pareto_disconnected}
   \end{figure}
+
+  The weighted sum method provides the least information about the
+  Pareto front, and many of the points are clustered on top of each
+  other at the two ends of the Pareto front.
+  The varying constraint method misses a portion of the Pareto front,
+  and instead produces some points that are only
+  locally Pareto optimal. This is because the underlying optimisation
+  algorithm for each sub-problem finds local solutions
+  to~\eqref{eq:pareto_constraint_method}.
+  NBI provides a uniform spread that gives us the most
+  information for the same number of sub-problem optimisations,
+  however, it also produces some points that are not locally
+  Pareto optimal.
 \end{example}
+
+When the Pareto front is disconnected, \Cref{ex:pareto_disconnected}
+shows that the NBI method can find
+points that are not locally Pareto optimal.
+We can modify the method so that the method produces
+locally optimal points.
+\begin{mydef}[NBI extension]
+  Given $\beta\in{[0,1]}^m$ with $\sum_{j=1}^m\beta_j=1$,
+  solve
+  \begin{equation}
+    \max_{x\in\mathcal{X},\,t\in\mathbb{R}} \{t \mid \Phi\beta +
+    t\hat{n} \geq F(x) - \underline{F}\}.
+  \end{equation}
+\end{mydef}
+
+\begin{example}[Disconnected Pareto front with NBI extension]\label{ex:pareto_disconnected_nbi_ineq}
+  Consider the bi-objective optimisation problem from
+  \Cref{ex:pareto_disconnected}.
+  \Cref{fig:pareto_disconnected_nbi_ineq}
+  shows $\num{40}$ points approximating the Pareto front using the NBI
+  extension, which are all locally Pareto optimal.
+  \begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}
+      \begin{axis}[width=0.45\textwidth,
+        xlabel=$f_1$,
+        ylabel=$f_2$,
+        ]
+        \addplot[only marks, mark size=0.5] table
+        {./data/pareto_disconnected_nbi_ineq.dat};
+        \draw [red] (axis cs:1.59,1.75) circle [radius=0.09]
+        node[below] {4 points};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{The NBI extension creates only locally Pareto optimal
+      points, in contrast to the NBI method, as seen in
+      \Cref{fig:pareto_disconnected_nbi_eq}.
+      There are four points lying on top of each other
+      because the current algorithm is not adaptive.}\label{fig:pareto_disconnected_nbi_ineq}
+  \end{figure}
+\end{example}
+
+The NBI method is a special case of the scalarization methods for
+vector-optimisation formulated by
+\citet{pascoletti1984scalarizing}. The NBI extension fits within the
+Pascoletti-Serafini framework in such a way that it guarantees local
+Pareto optimality. \Cref{fig:pareto_disconnected,fig:pareto_disconnected_nbi_ineq} show
+issues that arise with a disconnected Pareto front.
+The NBI extension implemented in the package MultiJuMP, described in
+\Cref{sec:one_multijump}, finds the same point multiple times on the
+border of disconnected components of the Pareto front, as illustrated
+in \Cref{fig:pareto_disconnected_nbi_ineq}.
+\citet{eichfelder2009adaptive} has devised an adaptive algorithm based
+on Pascoletti-Serafini scalarization that can better handle non-convex
+and disconnected Pareto fronts.
+
 
 
 \subsection{Ordering decision points a priori}\label{sec:multi_apriori}
