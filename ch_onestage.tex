@@ -11,44 +11,53 @@ decision problem in the form of a mathematical optimisation problem
 that computer algorithms can solve.
 We focus on one-stage optimisation problems here, which means that
 we do not consider any temporal structure in the order of decisions.
-The key concepts for defining an optimisation problem are~(i) a
-collection of allowed decisions and~(ii) an ordering between all
-decisions.
+The key concepts for defining an optimisation problem are
+\begin{itemize}
+\item a
+  collection of allowed decisions, and
+\item an ordering between all
+  decisions.
+\end{itemize}
 
-If there is a deterministic relationship between allowed decisions
+If there is a deterministic relationship between decisions
 $x\in\mathcal{X}$ and one, well-defined, objective
 $f:\mathcal{X}\to\mathbb{R}$, then we can model the decision problem
-as the optimisation problem
+as the optimisation problem\footnote{Maximisation problems can
+  equivalently be solved as minimisation problems of the negative
+  objective, $\min_{x\in\mathcal{X}}-f(x)$. We change between the two
+  depending on the application.}
 \begin{equation}
-  \min_{x\in\mathcal{X}} f(x).
+  \max_{x\in\mathcal{X}} f(x).
 \end{equation}
 In this chapter, however, we will discuss three ways that
 decision problems with random outcomes may deviate from this setting.
-One, if there is a non-deterministic relationship between a decision
-$x$ and outcomes of the system. Two, if we cannot
-deterministically determine the allowed decisions
-$\mathcal{X}$ at the time we make the decision. Three, if there are
-multiple objectives.
+\begin{enumerate}
+\item If there is a non-deterministic relationship between a decision
+  $x$ and outcomes of the system.
+\item If we cannot  deterministically determine the allowed decisions
+  $\mathcal{X}$ at the time we make the decision.
+\item If there are multiple objectives.
+\end{enumerate}
 We will argue that the second point arises when people try to add
-non-determinism to a deterministic model without reconsidering the
+randomness to a deterministic model without reconsidering the
 modelling of the problem. One can view the first point as a decision
 problem with a possibly infinite number of objectives.
 \Cref{sec:one_optim_random_outcomes,sec:one_comparison_orderings,sec:one_randomness_constraints}
 discuss common ways to model decision makers who face
 non-deterministic outcomes modelled with random variables, and
-\Cref{sec:one_multiobjective} summarises the theory of multiobjective
+\Cref{sec:one_multi-objective} summarises the theory of multi-objective
 optimisation.
 
 
 The different models for ordering decisions that we discuss in
 \Cref{sec:one_optim_random_outcomes} have distinct strengths and
-weaknesses. Often, the models that are appealing
+weaknesses. The models that are appealing
 from a theoretical point of view may be more expensive to compute and
 approximate. There are situations where these methods can reach the
-same decisions, with carefully adjusted parameters, as we show an
-example of in \Cref{sec:one_comparison_orderings}. The take-home
-message from this chapter is
-that we should critically evaluate the complexity of the system we want
+same decisions as one another, with carefully adjusted parameters, as we show an
+example of in \Cref{sec:one_comparison_orderings}. The message of
+this chapter is
+that we should critically think about the complexity of the system we want
 to control before formulating the mathematical optimisation problem.
 
 \section{Optimisation with random outcomes}\label{sec:one_optim_random_outcomes}
@@ -58,16 +67,16 @@ with certainty at the time we make the decision.
 
 Define a decision-space $\mathcal{X}\subset \mathbb{R}^n$ and a
 parameter-space $\mathcal{Y}\subset \mathbb{R}^k$.
-Let $f:\mathcal{X}\times\mathcal{Y}\to\mathbb{R}$ be a twice continuously
-differentiable function.
+Let $f:\mathcal{X}\times\mathcal{Y}\to\mathbb{R}$ be a function that
+is twice continuously differentiable on $\mathcal{X}$.
 The aim is to choose $x\in\mathcal{X}$ in order to maximise $f$.
 In the deterministic setting, we know the parameter
 $y\in\mathcal{Y}$ and can therefore find the optimal $x$ by optimising
 $f(\cdot,y)$.
-Say there is uncertainty in the correct value of the parameter that
+Say there is uncertainty in the correct value of the parameter $y$ that
 we model using an underlying probability distribution on $\mathcal{Y}$.
-%on the Borel space of $\mathcal{Y}$, absolutely continuous with respect
-%to the Lebesgue measure.
+% on the Borel space of $\mathcal{Y}$, absolutely continuous with respect
+% to the Lebesgue measure.
 For a given $x\in\mathcal{X}$, $f(x,\cdot)$ is now a random variable.
 Thus, it is no longer straightforward to order two decisions $x_1$ and
 $x_2$ by comparing $f(x_1,\cdot)$ to $f(x_2,\cdot)$.
@@ -88,30 +97,44 @@ that are random variables.
 % parameter. For this realisation, the mean might not be a good
 % representation of what a decision maker seeks.
 One way to compare decisions in $\mathcal{X}$ is to consider a weighted
-sum of all the realisations of the parameter in $\mathcal{Y}$.
+sum, or integral, of all the realisations of the parameter in $\mathcal{Y}$.
 Expected utilities weigh the different realisations by combining the
 probability of an outcome with a measure of the benefit of $f$ for that
 outcome.
 A family of such measures of benefit are utility functions. The formal
 theory of decisions that use expected utilities is covered in
-\citep[Ch.~2]{follmer2004stochastic}.
+\citet[Ch.~2]{follmer2004stochastic}.
 \begin{mydef}[Utility function]
-  A continuous function $u:\mathcal{S}\to\mathbb{R}$ on a set of outcomes
+  A function $u:\mathcal{S}\to\mathbb{R}$ on a set of outcomes
   $\mathcal{S}\subset \mathbb{R}$ defines a utility if
-  it is increasing and concave.
-  A \emph{risk-neutral} decision
-  model is one where $u$ is linear, whilst a strictly concave utility function defines a
-  \emph{risk-averse} decision model.
+  it is non-decreasing.
+\end{mydef}
+
+\begin{mydef}[Convexity]
+  We say that $u(x)$ is \emph{convex} if
+  \begin{equation}
+    u(\lambda x + (1-\lambda)x)\leq
+    \lambda u(x) + (1-\lambda) u(x)\qquad \textnormal{for $\lambda\in[0,1]$ and
+      $x\in\mathcal{S}$}
+  \end{equation}
+  If $-u(x)$ is convex, then we say that $u$ is
+  \emph{concave}.
+  The properties of $u(x)$ give rise to different types of decision models.
+  A \emph{risk-seeking} decision model is one where $u(x)$
+  is strictly convex, a \emph{risk-neutral} decision model in one where $u(x)$ is
+  linear, and
+  if $u(x)$ is strictly concave it is called a \emph{risk-averse} decision model.
 \end{mydef}
 
 \begin{example}[Utility functions]
   Two popular utility functions are the exponential family
-  $u_1(x)=1-e^{-\lambda x}$ with $\lambda>0$ and the logarithmic
+  $u_1(x)=(1-e^{-\lambda x})/\lambda$ with $\lambda>0$ and the logarithmic
   utility $u_2(x)=\log(1+x)$.
   The exponential utility is defined on $\mathcal{S} =\mathbb{R}$,
-  whilst the logarithmic utility is only valid on $\mathcal
-  S=[-1,\infty)$.
-  \Cref{fig:example_utilities} shows behaviour near the origin.
+  whilst the logarithmic utility is only valid on
+  $\mathcal{S}=[-1,\infty)$.
+  \Cref{fig:example_utilities} shows the behaviour of the functions
+  near the origin.
   \begin{figure}[htbp]
     \centering
     \begin{tikzpicture}
@@ -148,6 +171,12 @@ $x_1,x_2\in\mathcal{X}$ is better.
     X\preceq Y \Leftrightarrow \mathbb{E}[u(X)] \leq \mathbb{E}[u(Y)].
   \end{equation}
 \end{mydef}
+\begin{remark}
+  Utility-orderings are preserved by positive affine transformations.
+  That is, the ordering defined by $u(x)$ is equivalent to the
+  ordering defined by $x\mapsto au(x)+b$ for  $a>0$ and $b\in\mathbb{R}$.
+\end{remark}
+
 
 We can, therefore, formulate a well-defined optimisation problem by
 modelling the decision maker's attitude to risk with utility functions.
@@ -165,38 +194,46 @@ modelling the decision maker's attitude to risk with utility functions.
 The expected utility approach considers the mean outcome of a choice.
 After one makes a decision $x\in\mathcal{X}$, the realisation of the
 parameter in $\mathcal{Y}$ only occurs once. If there is a large
-uncertainty in $f(x,\cdot)$, the average value may not be a good
-representation for the realised value of $f$.
+uncertainty in $f(x,\cdot)$, or, if the distribution is bimodal, the
+average value may not be a good representation for the realised value of $f$.
 It can, therefore, be useful to take into account some measure of
 deviation from the mean of $f$ when $x$ is chosen.
 The mean-deviation approach aims to balance the expected value of $f$
 with uncertainty represented by a deviation measure.
 \begin{mydef}[Deviation measure]
-  A functional $\mathbb{D}$ on a linear space of random
-  variables containing the real numbers defines a deviation measure if
+  Let $\mathbb{D}$ be a functional on a linear space of random
+  variables which is closed under taking absolute values and contains
+  the real numbers.
+  Then $\mathbb{D}$ is a deviation measure if
   \begin{enumerate}
-  \item $\mathbb{D}[C] = 0$ for any constant $C$,
+  \item $\mathbb{D}[C] = 0$ for any constant $C$, and
   \item $\mathbb{D}[X]>0$ for non-constant random variables $X$.
   \end{enumerate}
-  This work will mainly consider convex deviation measures.
 \end{mydef}
+Deviation measures on $L^2$ random variables were introduced by
+\citet{rockafellar2006generalized}, however, the definition used in this thesis
+is less strict on the properties of $\mathbb{D}$.
 
 \begin{example}[Deviation measures]
-  The classic measure of deviation is the standard deviation, which is
-  the  particular case $p=2$ of the deviation measures defined by
-  the $L^p$-norms:
-  \begin{align}
-    X\mapsto \|X-\mathbb{E}X\|_p,\; p\geq 1.
-    && \text{($L^p$-deviations)}
-  \end{align}
+  The classic measure of deviation is the standard deviation.
+  Define the $L^p$ norm ${\|X\|}_p := {\left( \mathbb{E}[{|X|}^p]
+    \right)}^{1/p}$.
+  The standard deviation is
+  the particular case $p=2$ of the deviation measures defined by
+  the $L^p$-norms,
+  \begin{equation}
+    X\mapsto
+    \|X-\mathbb{E}[X]\|_p.
+    \qquad\qquad \text{($L^p$-deviations)}
+  \end{equation}
 
-  In a maximisation setting, one might not be worried about
+  In some maximisation settings, one might not be worried about
   realisations of $f$ that are larger than its mean, especially if the
   random variable is not symmetric.
   The lower semi-deviation measure only investigates
   worse-than-expected outcomes,
   \begin{align}
-    X\mapsto \mathbb{E}[\max(\mathbb{E}[X]-X,0)].
+    X\mapsto \mathbb{E}[\min(\mathbb{E}[X]-X,0)].
     &&\text{(Lower semi-deviation)}
   \end{align}
 
@@ -206,36 +243,28 @@ with uncertainty represented by a deviation measure.
   $\lambda_i>0$, then the following is also
   is also a deviation measure.
   \begin{align}
-    \mathbb{D}[X]=\sum_{i=1}^k\lambda_i\mathbb{D}[X].
+    \mathbb{D}[X]=\sum_{i=1}^k\lambda_i\mathbb{D}_i[X].
     &&\text{(Weighted deviations)}
   \end{align}
-
-  If $\mathbb{U}$ is a nonlinear expectation from
-  \Cref{sec:nonlinear_expectations} with $\mathbb{U}[X]< \mathbb
-  E[X]$ for all non-constant $X$,
-  then one can
-  construct a deviation measure with the functional
-  $\mathbb{D}[X]=\mathbb{E}[X]-\mathbb{U}[X]$.
-  This is equal to $X\mapsto -\mathbb{U}[X-\mathbb{E}[X]]$ in all the
-  examples given below.
 \end{example}
 
-For a given deviation measure that models the decision maker's
-need for stability, one can formulate a bi-objective optimisation
-problem.
+
 \begin{problem}[Mean-deviation]
   An optimal decision that maximises the expected value of $f$ whilst
   minimising the deviation $\mathbb{D}$ of $f$, is a minimiser to the
   bi-objective optimisation problem
   \begin{align}
-    \min_{x\in\mathcal{X}}\{(-\mathbb{E}[f(x,\cdot)],\,\mathbb{D}[f(x,\cdot)])\}.
+    \max_{x\in\mathcal{X}}\{(\mathbb{E}[f(x,\cdot)],\,-\mathbb{D}[f(x,\cdot)])\}.
   \end{align}
 \end{problem}
-We can approach the bi-objective problem from a multiobjective
+For a given deviation measure that models the decision maker's
+need for stability, one can formulate a bi-objective optimisation
+problem.
+We can approach the bi-objective problem from a multi-objective
 optimisation theory point of view and will do so in
-\Cref{sec:one_multiobjective}.
-The review in \citep{marler2004survey} covers some of the theory,
-discusses what optimality means and introduces approaches to solve
+\Cref{sec:one_multi-objective}.
+The review by \citet{marler2004survey} covers some of the theory,
+discusses what optimality means, and introduces approaches to solve
 such problems.
 A simple approach is to define a single objective function that combines
 the expected value with a deviation-penalty, weighted by some
@@ -248,9 +277,9 @@ defined as
 This implicitly defines an ordering of random variables based on
 the functional $X\mapsto \mathbb{E}[X]-\lambda \mathbb{D}[X]$.
 If $f$ is nonlinear, then $x(\mathbb{D},\lambda)$ can be unstable to
-small changes in $\lambda$. Small errors in determining the best
+small changes in $\lambda$.\todo{Reference example} Small errors in determining the best
 $\lambda$ to represent a decision-maker can cause large changes in
-either of the objectives. The review \citep{marler2004survey} covers
+either of the objectives. \citet{marler2004survey} cover
 more robust methods.
 
 \subsection{Nonlinear expectations}\label{sec:nonlinear_expectations}
@@ -258,8 +287,8 @@ A general framework that covers most of the remaining models
 in optimisation under uncertainty makes use of a class of functionals
 called nonlinear expectations.
 The theory was developed in finance to study financial positions using
-risk measures, see
-e.g.~\citep[Ch.~4]{follmer2004stochastic}.
+risk measures, see,
+for example, \citet[Ch.~4]{follmer2004stochastic}.
 Risk measures are used in a minimisation setting related to losses,
 and we will use the term nonlinear expectations in the maximisation
 setting. The examples of nonlinear expectations $\mathbb{U}$ considered
@@ -267,22 +296,31 @@ in this section give rise to well-known risk measures $\rho$, by using the mappi
 $\rho(X) = -\mathbb{U}[X]$.
 
 \begin{mydef}[Nonlinear expectation]
-  A nonlinear expectation $\mathbb{U}$ is a functional on a linear space of random
-  variables containing the real numbers, such that
+  Let $\mathbb{U}$ be a functional on a linear space of random
+  variables which is closed under taking absolute values and contains
+  the real numbers.
+  Then $\mathbb{U}$ is a nonlinear expectation if
   \begin{enumerate}
-  \item $\mathbb{U}[C] = C$ for any constant $C$,
+  \item $\mathbb{U}[C] = C$ for any constant $C$, and
   \item $\mathbb{U}[X]\leq \mathbb{U}[Y]$ whenever $X\leq Y$ almost surely.
   \end{enumerate}
-  This work will mainly consider concave nonlinear expectations, that
-  is, nonlinear expectations $\mathbb{U}$ such that
-  $\mathbb{U}[\lambda X + (1-\lambda)Y]\geq \lambda\mathbb{U}[X] +
-  (1-\lambda) \mathbb{U}[Y]$ for any $\lambda\in[0,1]$ and random
-  variables $X,Y$.
 \end{mydef}
+Note that the classic, linear expectation $\mathbb{E}$ also satisfies
+the properties of a nonlinear expectation.
+
+\todo[inline]{Define sublinear expectation}
+
+If $\mathbb{U}$ is a nonlinear expectation
+with $\mathbb{U}[X] < \mathbb{E}[X]$ for all non-constant $X$,
+then one can
+construct a deviation measure with the functional
+$\mathbb{D}[X]=\mathbb{E}[X]-\mathbb{U}[X]$.
+Further connections between nonlinear expectations and deviation
+measures are discussed by \citet{rockafellar2013fundamental}.
 
 \begin{example}[Nonlinear expectations]
   The functional $\mathbb{U}_\lambda[X]=-\frac{1}{\lambda}\log\mathbb
-  E[e^{-\lambda X}]$, is called the entropic nonlinear expectation,
+  E[e^{-\lambda X}]$, is called an entropic nonlinear expectation,
   with $\lambda>0$.
   It is connected to the exponential utility function $u_\lambda$, since
   $\mathbb{U}_\lambda[X]= u_\lambda^{-1}(\mathbb{E}[u_\lambda(X)])$.
@@ -290,15 +328,9 @@ $\rho(X) = -\mathbb{U}[X]$.
   The worst-case nonlinear expectation on the sample space $\Omega$,
   defined by
   $X\mapsto  \inf_{\omega\in\Omega}X(\omega)$, connects this theory to robust
-  optimization \citep{ben2009robust}. If there is an attached probability space on $\Omega$,
-  we use the essential infimum.
-
-  For some deviation measures $\mathbb{D}$, such as the lower
-  semi-deviation, the functional $\mathbb{U}(X)=\mathbb{E}[X]-\mathbb
-  D[X]$ defines a nonlinear expectation. Note that for a general space
-  of random variables, symmetric deviation measures such as the
-  standard deviation, do not give rise to a nonlinear
-  expectation because they violate the monotonicity requirement.
+  optimization \citep{ben2009robust}. If there is an attached
+  probability space on $\Omega$,
+  we use the essential infimum.\todo{define?}
 
   The quantile operator
   $q_\lambda[X] = \inf\{x\mid\mathbb{P}(X\leq x)>
@@ -306,18 +338,19 @@ $\rho(X) = -\mathbb{U}[X]$.
   Note that the operator is not necessarily concave, which has
   implications for the resulting optimisation problem.
   A concave lower bound on the quantile operator is
-  the lower super-quantile.
+  the lower super-quantile,
   \begin{equation}\label{eq:def_avar}
     \mathbb{U}_\lambda[X]=\frac{1}{\lambda}\int_0^\lambda q_t[X]\,\dt.
   \end{equation}
   Another name for the quantile operator is Value at Risk.
   The risk measures related to the lower super-quantile operator are also referred to as
-  the Expected Shortfall, Average Value at Risk, and Conditional Value at Risk.
-  \citep{artzner1999coherent,rockafellar2002conditional,follmer2004stochastic}.
+  the Expected Shortfall, Average Value at Risk, and Conditional Value at Risk
+  \citep{artzner1999coherent,rockafellar2002conditional,follmer2004stochastic,rockafellar2013fundamental}.
   Their definitions all coincide with~\eqref{eq:def_avar} when the
   cumulative distribution function of $X$ is continuous, however, in
   the general case they handle discontinuities differently.
 \end{example}
+
 
 \begin{problem}[Nonlinear expectation]
   The optimal choice to maximise a nonlinear expectation
@@ -327,11 +360,8 @@ $\rho(X) = -\mathbb{U}[X]$.
   \end{align}
 \end{problem}
 
-Note that the solutions of the nonlinear expectation and expected
-utility problems coincide if one uses the entropic measure and the exponential
-utility respectively.
 \begin{example}[Lower super-quantile]
-  Following \citep{ben2007old}, we can reformulate the lower
+  Following \citet{ben2007old}, we can reformulate the lower
   super-quantile optimisation problem arising from~\eqref{eq:def_avar}
   by introducing an auxiliary variable $\eta\in\mathbb{R}$.
   \begin{equation}\label{eq:opt_avar}
@@ -341,8 +371,8 @@ utility respectively.
   \end{equation}
   Note that the objective is not necessarily smooth, due to the
   $\max(\eta-f(x,\cdot),0)$ term. Theory of non-smooth optimisation
-  can address this but may require heavy mathematical machinery, as
-  exemplified in~\cite{kouri2016risk}.
+  can address this but may require sophisticated mathematical techniques, as
+  exemplified in \citep{kouri2016risk}.
 \end{example}
 
 
@@ -351,6 +381,47 @@ utility respectively.
 % optimisation formulations introduced in the previous section.
 Can the mean-deviation formulation give the
 same result as the expected utility and nonlinear expectation methods?
+In this section we argue that there are cases where they do,
+focusing on the mean and standard deviation, exponential
+utility, and lower super-quantile.
+
+The exponential utility and lower super-quantile are often more costly
+to compute or approximate than the mean and variance and require a
+full description of the distribution of $y$.
+Say a given nonlinear expectation $\mathbb{U}$, or utility $u$,
+implies that the decision $x^*$ is optimal. Further, assume that we can get a
+decision close to $x^*$ from a bi-objective formulation using mean and standard
+deviation. Then the mean-deviation formulation may then be preferable in
+practical settings.
+This is, for example, illustrated in the articles by
+\citet{kouri2016risk} and \citet{alexanderian2017mean}, who address optimisation problems
+where each value $y\in\mathcal{Y}$ require the solution to partial
+differential equations.
+The lower super-quantile approach of \citet{kouri2016risk}
+requires the authors to draw samples from $\mathcal{Y}$ and find ways
+to smooth the objective,
+whilst \citet{alexanderian2017mean} approximate mean and variance
+with Taylor series and do not need to sample from $\mathcal{Y}$.
+
+
+The use of super-quantiles in revenue management has become popular
+the last ten years
+\citep{wu2014risk,xue2015optimal,zhou2008optimal,ahmed2007coherent}.
+All of these articles argue for super-quantiles and dismiss
+optimisation formulations that use the mean and standard deviation
+on the grounds that they penalise better-than-expected outcomes.
+Distributions of profit in revenue management do in practice
+have a more significant lower tail than upper tail, due to inventory
+restrictions and fixed costs, which alleviates such problems.
+None of these references discuss to what extent super-quantiles change the
+optimal decisions for their presented problems compared to a
+mean-deviation approach. \citet{choi2011multiproduct}
+dismiss the mean-deviation problem by formulating it in terms of the weighted sum of mean and
+variance, and then argue that the units of these objects do not
+coincide.
+
+
+\subsection{Equivalence for the normal distribution}
 If $f(x,\cdot)$ is normally distributed for each value of
 $x\in\mathcal{X}$, then the properties of the random variable are fully
 described by the mean and variance functions $x\mapsto
@@ -369,7 +440,7 @@ optimisation problem.
     \mathbb{U}_\gamma[X] =  \mathbb{E}[X]
     + \sqrt{\mbox{Var}[X]} \mathbb{U}_\gamma[Z].
   \end{equation}
-  Note that $\mathbb{U}_\gamma[Z]\leq 0$ for each $\gamma\in[0,1]$,
+  Note that $\mathbb{U}_\gamma[Z]\leq 0$ for each $\gamma\in(0,1]$,
   with equality only when $\gamma=1$.
   The lower super-quantile optimisation problem is, therefore,
   a special case of the mean-deviation optimisation problem
@@ -392,20 +463,23 @@ optimisation problem.
     \min_{x\in\mathcal{X}}  e^{-\mu\mathbb{E}[f(x,\cdot)]}
     \mathbb{E} \left[ e^{-\mu \mathbb{D}[f(x,\cdot)] Z} \right].
   \end{equation}
-  In the context of multiobjective optimisation, this arises from
-  a particular choice of ordering of the mean-standard deviation problem.
+  In the context of multi-objective optimisation, this arises from
+  a particular choice of ordering of the mean-standard deviation
+  problem \citep{marler2004survey}.
 \end{example}
 
-The review \citep{nadarajah2014estimation} of estimation methods for
+The review by \citet{nadarajah2014estimation} on estimation methods for
 lower super-quantiles provide further evidence that people use
 the first two moments of a random variable to estimate nonlinear
 expectations for more generic distributions.
 
+
+\subsection{Finding equivalent mean-deviation formulations}
 Consider now the decisions that arise from the following
 optimisation problems of mean-deviation, exponential utility, and
 lower super-quantile $\mathbb{U}_\gamma$.
 \begin{subequations}\label{eq:optim_formulations}
-  \begin{align}
+  \begin{align}\label{eq:optim_formulations_md}
     x_{md}(\lambda)
     &=\argmax_{x\in\mathcal{X}}\{\mathbb
       E[f(x,\cdot)]-\lambda\sqrt{\mbox{Var}[f(x,\cdot)]}\}
@@ -423,20 +497,17 @@ lower super-quantile $\mathbb{U}_\gamma$.
     % &&\text{(lower super-quantile)}.
   \end{align}
 \end{subequations}
-One may ask if there are triples of $(\lambda,\mu,\gamma)$ that give rise
-to the same decisions, $x_{md}=x_{eu}=x_{sq}$?
-We can investigate this question in the following way.
+We want to understand whether there are triples $(\lambda,\mu,\gamma)$ that give rise
+to the same decisions, $x_{md}=x_{eu}=x_{sq}$, and investigate this in
+the following way.
 For a given value $\mu>0$ or $\gamma\in(0,1]$, find the minimisers
 $\lambda(\mu)$ and $\lambda(\gamma)$ of
-
-\begin{subequations}\label{eq:min_xmd_xeu_xsq}
-  \begin{align}
-    \label{eq:min_xmd_xeu}
-    &\min_{\lambda\geq 0}\{{\|x_{md}(\lambda)-x_{eu}(\mu)\|}_2\},
-      \textnormal{ and}\\
-    &\min_{\lambda\geq 0}\{{\|x_{md}(\lambda)-x_{sq}(\gamma)\|}_2\}.
-  \end{align}
-\end{subequations}
+\begin{equation}\label{eq:min_xmd_xeu_xsq}
+  \min_{\lambda\geq 0}\left\{\frac{{\|x_{md}(\lambda)-x_{eu}(\mu)\|}_2}{{{\|x_{eu}(\mu)}\|}_2}\right\},\quad
+  \textnormal{ and}\quad
+  \min_{\lambda\geq 0}\left\{\frac{{\|x_{md}(\lambda)-x_{sq}(\gamma)\|}_2}{{{\|x_{sq}(\gamma)}\|}_2}\right\}.
+\end{equation}
+If the denominators are zero, we minimise the absolute differences instead.
 If the minimum is close to zero, it is an indication that either method
 can be used to model the risk-preferences of a particular decision maker.
 \Cref{fig:util_meandev_2d} shows the result of such an investigation,
@@ -453,14 +524,14 @@ theoretical properties of the different formulations.
   decisions of~\eqref{eq:optim_formulations}.
   We must choose the prices $x=(x_1,x_2)$ of two products in order to
   maximise the total profit for some time period.
-  Assume that the model for product demand $q=(q_1,q_2)$ for the two products over
+  Assume that the model for product demand $q(x)=(q_1(x),q_2(x))$ for the two products over
   this period is
   deterministic and defined by the functions
   \begin{align}
     q_1(x) &= e^{-2x_1}(1-e^{-10x_2}),
     &q_2(x)&= 0.9e^{-1.8x_2}(1-e^{-4x_1})
   \end{align}
-  respectively.
+  respectively.\todo{Note non-dimensionalised model}
   The term $e^{-2x_1}$  models the impact of price
   changes for product one, keeping product two's price constant.
   The term $1-e^{-10x_2}$ models the proportion of product one's
@@ -491,26 +562,26 @@ theoretical properties of the different formulations.
   \end{figure}
 
   Given unit costs $y=(y_1,y_2)$, the profit $f(x,y)$ is then
-  \begin{align}
+  \begin{equation}
     f(x)
-    &=\langle x-y,q(x) \rangle,
-    &\langle \cdot,\cdot \rangle
-      \textnormal{ is the inner product on } \mathbb{R}^n.
-  \end{align}
+    =\langle x-y,q(x) \rangle,
+    \qquad\textnormal{where }\langle \cdot,\cdot \rangle
+      \textnormal{ is the usual inner product on } \mathbb{R}^n.
+  \end{equation}
   Retailers often face uncertain unit costs for their products, which
   we model with a random variable $y\in\mathbb{R}^2$.
   Denote the mean and covariance of
   $y$ by $m_y$ and $C_y$ respectively. Then
   \begin{align}
     \mathbb{E}[f(x,y)]
-    &= \langle x-m_y,v(x) \rangle,
+    &= \langle x-m_y,q(x) \rangle,
     &\mbox{Var}[f(x,y)]
-    &= \langle v(x),C_y v(x) \rangle.
+    &= \langle q(x),C_y q(x) \rangle.
   \end{align}
   Thus, the mean-deviation method with
   $\mathbb{D}[X]=\sqrt{\mbox{Var}[X]}$ has a closed form objective and
-  one only needs information about the two first moments of $y$ to perform
-  the optimisation.
+  one only needs information about the two first moments of $y$ to solve
+  the mean-deviation problem~\eqref{eq:optim_formulations_md}.
 
   For this particular example, we model the unit costs $y$ as a log-normally
   distributed random variable with mean and covariance
@@ -564,39 +635,7 @@ theoretical properties of the different formulations.
   \end{figure}
 \end{example}
 
-\subsection{Discussion}
-The use of super-quantiles in revenue management has become popular
-the last ten years
-\citep{wu2014risk,xue2015optimal,zhou2008optimal,ahmed2007coherent}.
-These articles argue for super-quantiles and dismiss
-optimisation formulations that use the mean and standard deviation
-on the grounds that they penalise better-than-expected outcomes.
-Distributions of profit in revenue management do in practice
-have a more significant lower tail than upper tail, due to inventory
-restrictions, which alleviates such problems.
-None of these references discuss to what extent super-quantiles change the
-optimal decisions for their presented problems compared to a
-mean-deviation approach.
-The authors of \citep{choi2011multiproduct}
-dismiss the mean-deviation
-problem by formulating it in terms of the weighted sum of mean and
-variance, and then argue that the units of these objects do not
-coincide.
 
-The exponential utility and lower super-quantile are often more costly
-to compute or approximate than the mean and variance and require a
-full description of the distribution of $y$. If for a given $\mu$ (or
-$\gamma$), it is possible to find a $\lambda$ such that
-$x_{md}(\lambda)$ is close to $x_{eu}(\mu)$ (or $x_{sq}(\gamma)$), then the
-mean-deviation formulation may be preferable in practical settings.
-Two articles illustrating this are
-\citep{kouri2016risk,alexanderian2017mean}, who address optimisation problems
-where each value $y\in\mathcal{Y}$ require the solution to partial
-differential equations.
-The lower super-quantile approach of~\cite{kouri2016risk}
-require the authors to draw samples from $\mathcal{Y}$ and find ways to smooth the objective,
-whilst~\cite{alexanderian2017mean} approximate mean and variance
-with Taylor series and do not need to sample from $\mathcal{Y}$.
 
 
 \section{Randomness and constraints}\label{sec:one_randomness_constraints}
@@ -618,47 +657,51 @@ reinterpret non-deterministic ``constraints'' as deterministic via
 expected utilities, mean-deviation methods or nonlinear
 expectations
 \citep{rockafellar2007coherent,rockafellar2015engineering}.
-Such a reinterpretation defines an acceptance set $\mathcal{A}$ that
-tries to represent what a decision maker deems to be feasible in a
+Such a reinterpretation defines an acceptance set $\mathcal{A}$
+which represents what a decision maker deems to be feasible in a
 risk-adjusted way and results in the optimisation problem
 $\min_{x\in\mathcal{A}} g(x)$.
 The acceptance set approach was one of the motivations for a formal
-framework for risk measures introduced in \citep{artzner1999coherent}.
+framework for risk measures introduced by \citet{artzner1999coherent}.
 \begin{example}[Acceptance sets]
   Popular choices of acceptance sets for the constraint $f(x,y)\geq
   f_{\textnormal{min}}$ are
   \begin{align}
     \mathcal{A}&=\{x\in\mathcal{X} \mid
-                 \mathbb{E}_y[f(x,y)]\geq f_{\textnormal{min}}\}, \\
+                 \mathbb{E}_y[f(x,y)]\geq f_{\textnormal{min}}\},
+    &\textnormal{(Expectation)}\\
     \mathcal{A}&=\{x\in\mathcal{X} \mid
-                 \inf_{\omega\in\Omega}f(x,y(\omega))\geq f_{\textnormal{min}}\},\\
+                 \inf_{\omega\in\Omega}f(x,y(\omega))\geq
+                 f_{\textnormal{min}}\},
+    &\textnormal{(Worst-case)}\\
     \mathcal{A} &= \{x\in\mathcal{X}\mid
                   \mathbb{P}_y(f(x,y)\geq f_{\textnormal{min}})\geq \epsilon\},
                   \text{ given }\epsilon\in(0,1).
+    &\textnormal{(Quantile)}
   \end{align}
 \end{example}
 
 The acceptance set approach treats what was previously considered a
 hard constraint in terms of marginalised values that allow decisions $x\in\mathcal{X}$
 that may violate the originally intended constraint for some values of the random
-variable $y$. We believe that a better approach is to take one step back
-and model the trade-off between $g(x)$ and the outcomes of $f(x,y)$,
-which is a multiobjective optimisation approach.
+variable $y$. We believe that a better approach is to address this
+properly by modelling the trade-off between $g(x)$ and the outcomes of $f(x,y)$,
+which is a multi-objective optimisation approach.
 
-\section{Multiobjective optimisation}\label{sec:one_multiobjective}
+\section{Multi-objective optimisation}\label{sec:one_multi-objective}
 % \todo[inline]{Show that mean-std of revenue with uncertain sales
-%   generates a non-convex Pareto front (\textbf{BAD for weighted sum
-%     approach}). Mean-Var should work
+% generates a non-convex Pareto front (\textbf{BAD for weighted sum
+% approach}). Mean-Var should work
 % }
 
 Competing objectives often appear in a decision process, and the chapter
-has made multiple references to multiobjective optimisation.  Assume
+has already made multiple references to multi-objective optimisation.  Assume
 there are $m$ competing objectives
 $f_1,\dots,f_m:\mathcal{X}\to\mathbb{R}$ that we wish to
 minimise\footnote{We choose to work within a minimisation-framework
-  for the multiobjective theory in order to follow the standards in
+  for the multi-objective theory in order to follow the standards in
   optimisation literature. Any objective $f_i$ that is to be maximised
-  can be redefined by $f_i\leftarrow -f_i$.  } over the decision space
+  can be redefined by $f_i\leftarrow -f_i$.} over the decision space
 $\mathcal{X}$. The two main challenges that arise are how to understand
 the trade-offs between the objectives, and to define an ordering
 between decisions $x\in\mathcal{X}$.  One approach to the first
@@ -667,18 +710,18 @@ frontier, of the objectives, which we cover in
 \Cref{sec:multi_pareto_front}. The second challenge is more difficult,
 as it involves modelling the decision maker's preferences.
 
-Relevant concepts for multiobjective optimisation are defined in
-\Cref{sec:multi_terminology}.  The main contribution of this work to
-practitioners is a software package that lets users formulate
-multiobjective optimisation problems.  An example in
+Relevant concepts for multi-objective optimisation are defined in
+\Cref{sec:multi_terminology}.  The main contribution from this section
+is a software package that lets users formulate
+multi-objective optimisation problems.  An example in
 \Cref{sec:one_multijump} shows how it is used to create the data for
 the figures in this section.  The package approximates the Pareto
 front with
 three methods: Weighted sums, objective
 constraints, and the Normal Boundary Intersection method covered in
 \Cref{sec:multi_apriori,sec:multi_pareto_front}.  A broader range of
-approaches to multiobjective optimisation can be found in the survey
-by \citet{marler2004survey}.  The multiobjective ordering problem is
+approaches to multi-objective optimisation can be found in the survey
+by \citet{marler2004survey}.  The multi-objective ordering problem is
 discussed in \Cref{sec:multi_apriori}, where it is argued that an
 approximation of a decision maker's preferences for multiple
 objectives can be made by combining the objectives' utilities.
@@ -689,12 +732,16 @@ objectives can be made by combining the objectives' utilities.
 
 
 \subsection{Terminology}\label{sec:multi_terminology}
-A key concept for multiobjective optimisation is the partial
+A key concept for multi-objective optimisation is the partial
 ordering of outcomes known as Pareto dominance. If a decision leads to
 an outcome that is not dominated by any other feasible outcome, it is
 optimal in the Pareto sense.
 \begin{mydef}[Pareto optimality]
-  A point $x\in\mathcal{X}$ is Pareto optimal if there is no
+  A point $x\in\mathcal{X}$ is Pareto optimal for the problem
+  \begin{equation}
+    \min_{x\in\mathcal{X}}\{f_1(x),\dots,f_m(x)\}
+  \end{equation}
+  if there is no
   $x^*\in\mathcal{X}$ such that
   \begin{align}
     f_i(x^*)&\leq f_i(x) &&\text{ for all } i = 1,\dots,m, \text{ and}\\
@@ -704,7 +751,7 @@ optimal in the Pareto sense.
 Pareto optimality, therefore, means that we cannot decrease the value of
 one objective without increasing another.
 The point $x$ is locally Pareto optimal if it is Pareto optimal in
-some neighbourhood around $x$.
+some neighbourhood around $x$, see.\todo{reference fig}
 \begin{mydef}[Pareto front]
   Define $F(x) = (f_1(x),\dots,f_m(x))$.
   The Pareto front, or efficient frontier $\mathcal{P}\subset
@@ -717,7 +764,7 @@ some neighbourhood around $x$.
 
 \begin{example}[Two-dimensional Pareto front]
   \Cref{fig:multi_map} provides a visual representation of the
-  multiobjective concepts for a two-dimensional problem
+  multi-objective concepts for a two-dimensional problem
   $F:\mathcal{X}\to\mathbb{R}^2$.
   \begin{figure}[htbp]
     \centering
@@ -755,6 +802,7 @@ some neighbourhood around $x$.
     }\label{fig:multi_map}
   \end{figure}
 \end{example}
+\todo[inline]{Picture of weak Pareto optimal}
 
 In a similar fashion to the difficulties with global optimisation for
 single-objective problems, algorithms can at best guarantee to find
@@ -782,8 +830,7 @@ values of the objectives on the Pareto front.
 \begin{mydef}
   Denote $\underline{x_i}$ as the individual minimiser of $f_i$, and
   $\underline{f_i}=f_i(\underline {x_i})$.
-  The utopia point $\underline
-  F=(\underline{f_1},\dots,\underline{f_m})$
+  The utopia point $\underline{F}=(\underline{f_1},\dots,\underline{f_m})$
   is the vector containing all individual minima.
   Define the worst outcome for $f_i$ on the Pareto front as
   $\overline{f_i}=\max_{1\leq j\leq m}\{f_i(\underline{x_j})\}$.
@@ -849,7 +896,7 @@ values of the objectives on the Pareto front.
     }\label{fig:pareto_std_prof_rev}
   \end{figure}
 
-  Assume that the model for product demand $q=(q_1,q_2,q_3)$ for the
+  Assume that the model for product demand $q(x)=(q_1(x),q_2(x),q_3(x))$ for the
   three products over a given period is
   deterministic and defined by
   \begin{align}
@@ -858,7 +905,7 @@ values of the objectives on the Pareto front.
   in a region $0.8x_0\leq x\leq 1.2x_0$ around $x_0=(2.25,2.4,2.21)$.
   We model the unit cost as a random variable $y$, distributed
   according to $\mathcal{N}(m_y,C_y)$.
-  The particular values of $\alpha$, $\beta$, $m_y$, and $C_y$ are
+  In what follows, the particular values of $\alpha$, $\beta$, $m_y$, and $C_y$ are
   \begin{align}
     \alpha
     &= \left( \begin{array}{c} 1\\1.5\\1.2
@@ -901,9 +948,9 @@ values of the objectives on the Pareto front.
 
 \subsection{Approximating the Pareto front}\label{sec:multi_pareto_front}
 The Pareto front contains all the information about trade-offs between the
-objectives. A decision $x$ to the multiobjective problem
+objectives. A decision $x$ to the multi-objective problem
 should be a Pareto optimal point, so the
-optimisation problem becomes one of searching over the manifold
+optimisation problem becomes one of searching over the set
 $\mathcal{P}$ of co-dimension one. If $\mathcal{X}$ or the objectives are non-convex,
 $\mathcal{P}$ can have non-convex regions and be
 disconnected.
@@ -952,12 +999,12 @@ create a more uniform spread of the Pareto points in both convex and
 non-convex regions of the Pareto front. Its optimisation problem
 formulation makes use of the convex hull of the individual minima
 (CHIM), defined below.
-\begin{mydef}[Convex hull of individual minima]
+\begin{mydef}[Convex hull of individual minima (CHIM)]
   Define a matrix $\Phi\in\mathbb{R}^{m\times m}$ with columns
   $\Phi_j = F(\underline{x_j})-\underline{F}$.
   The CHIM is the set
   \begin{equation}\textstyle
-    \{\Phi\beta + \underline{F} \mid \beta\in\mathbb{R}_{\geq 0}^m,\;\sum_{j=1}^m\beta_j = 1\}.
+    \{\Phi\beta + \underline{F} \mid \beta\in{[0,1]}^m,\;\sum_{j=1}^m\beta_j = 1\}.
   \end{equation}
 \end{mydef}
 
@@ -976,7 +1023,7 @@ formulation makes use of the convex hull of the individual minima
 \begin{mydef}[Normal Boundary Intersection]
   Let $\hat{n}$ denote the unit normal to the CHIM pointing in the
   direction of smaller values in $\mathbb{R}^m$.
-  Given $\beta\in\mathbb{R}_{\geq 0}^m$ such that
+  Given $\beta\in{[0,1]}^m$ such that
   $\sum_{j=1}^m\beta_j=1$, solve
   \begin{equation}
     \max_{x\in\mathcal{X},\,t\in\mathbb{R}} \{t \mid \Phi\beta +
@@ -1064,7 +1111,7 @@ points that are not local, weakly Pareto optimal.
 We can extend the NBI method so that solutions are local, weakly
 Pareto optimal.
 \begin{mydef}[NBI extension]
-  Given $\beta\in\mathbb{R}_{\geq 0}^m$ with $\sum_{j=1}^m\beta_j=1$,
+  Given $\beta\in{[0,1]}^m$ with $\sum_{j=1}^m\beta_j=1$,
   solve
   \begin{equation}
     \max_{x\in\mathcal{X},\,t\in\mathbb{R}} \{t \mid \Phi\beta +
@@ -1170,7 +1217,7 @@ understanding of trade-offs from the
 Lagrange multipliers of the constraints.
 
 To define an ordering of decisions, one should find a way to express
-the total value $u:\mathbb{R}^m\to\mathbb{R}$ of the multiobjective
+the total value $u:\mathbb{R}^m\to\mathbb{R}$ of the multi-objective
 function $F$. The survey by \citet{marler2004survey} describes
 different choices of the function $u$ that has been used in the literature.
 \citet{messac1996physical} attempts to create a total value function
@@ -1193,12 +1240,12 @@ the total value $u(F)$ with the mapping $F\mapsto \sum_{i=1}^n u_i(f_i)$.
 If the $u_i$ are concave, then $u$ defines a multivariate risk-averse
 utility \citep[Sec. 2.3.2]{campi2011multivariate}.
 This could provide a good first approximation to orderings in
-multiobjective optimisation problems involving randomness.
+multi-objective optimisation problems involving randomness.
 
 
 \subsection{Approximating Pareto fronts with
   MultiJuMP}\label{sec:one_multijump}
-As part of the work on multiobjective optimisation, I have created a
+As part of the work on multi-objective optimisation, I have created a
 software package called MultiJuMP.  It is available online at
 \url{https://github.com/anriseth/MultiJuMP.jl.git}.  MultiJuMP
 approximates Pareto fronts in a numerical solver-independent
@@ -1209,7 +1256,7 @@ mathematical programming modelling package JuMP
 \citep{dunning2017jump}. It separates the challenge of expressing an
 optimisation problem, from the algorithm-specific decision of solving
 the problem. \Cref{lst:multijump} shows an example of how to set up a
-multiobjective optimisation model with the MultiJuMP routines. The
+multi-objective optimisation model with the MultiJuMP routines. The
 code works for any number of objectives, however, visualising a Pareto
 front for more than three objectives becomes difficult.
 \begin{listing}[htbp]
