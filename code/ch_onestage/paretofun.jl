@@ -3,7 +3,7 @@ using Distributions
 using Plots
 using JLD2
 
-varprof = false
+varprof = true
 saveimg = false
 savedata = true
 savedir = "./data/"

@@ -23,15 +23,16 @@ function data3d()
     return ModelData(a3d,B3d), MvLogNormal(locy3d, scaley3d)
 end
 
-function profit(x::Vector,y::Vector,data::ModelData)
+function profitfun(x::Vector,y::Vector,data::ModelData)
     a = data.a
     B = data.B
     n = length(a)
 
     profit = sum((x[i]-y[i])*a[i]*exp(-B[i,i]*x[i])*
-                 prod(1-exp(-x[j]*B[i,j]) for j=1:n) for i = 1:n)
+                 prod(1-exp(-x[j]*B[i,j]) for j=1:n if (i!=j) && !iszero(B[i,j]))
+                 for i = 1:n)
 end
 
 function profitsample(x,y::Distribution,data::ModelData)
-    profit(x, rand(y), data)
+    profitfun(x, rand(y), data)
 end

@@ -92,18 +92,18 @@ demand that product two takes at price $x_2$.
   \centering
   \begin{tikzpicture}
     \begin{axis}[
-      % domain=0.0:1.5,
+      domain=0.1:1.25,
       xlabel={$x_1$},
       ylabel={$x_2$},
       zlabel={$q_1(x)+q_2(x)$},
       view={0}{90},
       colormap/viridis,
       colorbar,
-      xtick = {0,0.5,1,1.5}
+      %xtick = {0.25,0.5,0.75,1,1.25}
       ]
       \addplot3[
-      mesh, samples=60,domain=0:1.5,
-      contour filled={number = 25,labels={false}}, thick]
+      %samples=100,
+      contour gnuplot={number = 40,labels={false}}, thick]
       {exp(-2*x)*(1-exp(-10*y)) + 0.9*exp(-1.8*y)*(1-exp(-4*x))*(1-exp(-40))};
     \end{axis}
   \end{tikzpicture}
@@ -132,22 +132,27 @@ Throughout the chapter, we  assume that $y$ is a log-normally
 distributed random variable with mean and covariance
 \begin{align}
   m_y
-  &= (0.5,0.5),
+  &= (0.5,0.5,0.65),
   &C_y
   &=\begin{pmatrix}
-    2.5&-0.75\\
-    -0.75&2.5
+    2.5&-0.75&0\\
+    -0.75&2.5&0\\
+    0&0&4.2
   \end{pmatrix}
            \times 10^{-3}.
 \end{align}
-\Cref{fig:example_profit_distributions} show
-
+\Cref{fig:example_profit_distributions} shows the distribution of
+profit for three combinations of prices. There is not a given outcome
+for each price, and the decision maker must therefore take into
+account all the outcomes that can happen with each decision.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.7\textwidth,axisratio=1.6]{montecarlo_profit_dist}
-  \todo[inline]{Find better prices?}
-  \caption{The probability distribution of profit for three
-    sets of prices.}\label{fig:example_profit_distributions}
+  \caption{The probability distribution of profit $f(x,y)$ for three
+    sets of prices $x$.
+    The decision maker should decide which decision is preferable by comparing
+    several properties of the distributions.
+  }\label{fig:example_profit_distributions}
 \end{figure}
 
 The following three decision problems require further modelling of a
@@ -385,7 +390,9 @@ defined as
 This implicitly defines an ordering of random variables based on
 the functional $X\mapsto \mathbb{E}[X]-\lambda \mathbb{D}[X]$.
 If $f$ is nonlinear, then $x(\mathbb{D},\lambda)$ can be unstable to
-small changes in $\lambda$.\todo{Reference example} Small errors in determining the best
+small changes in $\lambda$. This is illustrated in
+\Cref{ex:pareto_disconnected} of \Cref{sec:one_multi-objective}.
+Small errors in determining the best
 $\lambda$ to represent a decision-maker can cause large changes in
 either of the objectives. \citet{marler2004survey} cover
 more robust methods.
@@ -393,12 +400,15 @@ more robust methods.
 \subsection{Nonlinear expectations}\label{sec:nonlinear_expectations}
 A general framework that covers most of the remaining models
 in optimisation under uncertainty makes use of a class of functionals
-called nonlinear expectations.
-The theory was developed in finance to study financial positions using
+called nonlinear expectations. The term nonlinear expectation is used
+by \citet{peng2010nonlinear} to generalise stochastic calculus to
+distributional uncertainty.
+The theory was inspired by work in finance for the of study financial
+positions using
 risk measures, see,
 for example, \citet[Ch.~4]{follmer2004stochastic}.
 Risk measures are used in a minimisation setting related to losses,
-and we will use the term nonlinear expectations in the maximisation
+but we will use the term nonlinear expectations in the maximisation
 setting. The examples of nonlinear expectations $\mathbb{U}$ considered
 in this section give rise to well-known risk measures $\rho$, by using the mapping
 $\rho(X) = -\mathbb{U}[X]$.
@@ -415,8 +425,17 @@ $\rho(X) = -\mathbb{U}[X]$.
 \end{mydef}
 Note that the classic, linear expectation $\mathbb{E}$ also satisfies
 the properties of a nonlinear expectation.
-
-\todo[inline]{Define sublinear expectation}
+A more restricted class of functionals called superlinear expectations
+relate to the coherent risk measures from mathematical finance.
+\begin{mydef}[Superlinear expectation]
+  A nonlinear expectation $\mathbb{U}$ is superlinear if
+  \begin{enumerate}
+    \item[3.] $\mathbb{U}[X+Y]\geq \mathbb{U}[X] +\mathbb{U}{Y}$ for
+      each $X,Y$, and
+    \item[4.] $\mathbb{U}[\lambda X] = \lambda\mathbb{U}[X]$ for
+      $\lambda\geq 0$.
+  \end{enumerate}
+\end{mydef}
 
 If $\mathbb{U}$ is a nonlinear expectation
 with $\mathbb{U}[X] < \mathbb{E}[X]$ for all non-constant $X$,
@@ -427,30 +446,32 @@ Further connections between nonlinear expectations and deviation
 measures are discussed by \citet{rockafellar2013fundamental}.
 
 \begin{example}[Nonlinear expectations]
-  The functional
+  With $\lambda>0$, the functional
   $\mathbb{U}_\lambda[X]=-\frac{1}{\lambda}\log\mathbb{E}[e^{-\lambda
-    X}]$, is called an entropic nonlinear expectation,
-  with $\lambda>0$.
+    X}]$, is called an entropic nonlinear expectation.
   It is connected to the exponential utility function $u_\lambda$, since
   $\mathbb{U}_\lambda[X]= u_\lambda^{-1}(\mathbb{E}[u_\lambda(X)])$.
 
   The worst-case nonlinear expectation on the sample space $\Omega$,
   defined by
-  $X\mapsto  \inf_{\omega\in\Omega}X(\omega)$, connects this theory to robust
-  optimization \citep{ben2009robust}. If there is an attached
-  probability space on $\Omega$,
-  we use the essential infimum.\todo{define?}
+  $X\mapsto  \inf_{\omega\in\Omega}X(\omega)$, is superlinear and
+  connects this theory to robust optimization \citep{ben2009robust}.
+  % If there is an attached
+  % probability space on $\Omega$,
+  % we use the essential infimum.\todo{Define}
 
   The quantile operator
   $q_\lambda[X] = \inf\{x\mid\mathbb{P}(X\leq x)>
-  \lambda\}$ satisfies the properties of a nonlinear expectation.
+  \lambda\}$, with $\lambda\in[0,1]$, satisfies the properties of a
+  nonlinear expectation.
   Note that the operator is not necessarily concave, which has
   implications for the resulting optimisation problem.
   A concave lower bound on the quantile operator is
   the lower super-quantile,
   \begin{equation}\label{eq:def_avar}
-    \mathbb{U}_\lambda[X]=\frac{1}{\lambda}\int_0^\lambda q_t[X]\,\dt.
+    \mathbb{U}_\lambda[X]=\frac{1}{\lambda}\int_0^\lambda q_t[X]\,\dt,
   \end{equation}
+  which defines a superlinear expectation for $\lambda\in(0,1]$.
   Another name for the quantile operator is Value at Risk.
   The risk measures related to the lower super-quantile operator are also referred to as
   the Expected Shortfall, Average Value at Risk, and Conditional Value at Risk
@@ -628,6 +649,7 @@ on their practical implications instead of solely focusing on
 theoretical properties of the different formulations.
 
 \begin{example}[Pricing problem]
+  Let us investigate the implication of
   \todo[inline]{Smooth out transition}
   Let us consider a particular decision problem and compare the
   decisions of~\eqref{eq:optim_formulations}.

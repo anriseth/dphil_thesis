@@ -4,7 +4,7 @@ include("modeldata.jl")
 
 data, y = data3d()
 N = Int(5e6)
-xarr = [[1,1,1.0], [0.8,1,0.9], [1.3,1.1, 1.0]]
+xarr = [[1.02,1.05,1.15], [1,1,1.], [1.06,1.1, 1.25]]
 
 function getsamples(x, y::Distribution, data::ModelData, N::Int)
     # Make this a pmap
@@ -26,7 +26,7 @@ function createplots(xarr, y::Distribution, data::ModelData, N::Int,
         density!(plt, montedists[j])
     end
     plt = plot(plt, xlabel="\$f(x,y)\$", ylabel="Density",
-               xlim=(0.03, 0.085),
+               xlim=(0.15, 0.245),
                legend = :topleft,
                labels = reshape(["\$x=$(string(xarr[j]))\$"
                                  for j=1:numplts], 1,numplts))
