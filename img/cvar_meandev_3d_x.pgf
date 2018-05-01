@@ -1,5 +1,5 @@
 \begin{tikzpicture}[]
-\begin{axis}[ylabel = {$\|x(\gamma)-x(\lambda)\| \,/\, \|x(\gamma)\|$},
+\begin{axis}[ylabel = {${\|x(\mu)-x(\lambda)\|}_2\, /\, {\|x(\mu)\|}_2$},
   xmin = {0.0}, xmax = {1.0}, ymax = {0.002050634668566148}, xlabel =
   {$\gamma$}, unbounded coords=jump,scaled x ticks = false,xticklabel
   style={rotate = 0},xmajorgrids = true,xtick align = inside,axis lines* = left,scaled

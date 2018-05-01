@@ -99,10 +99,10 @@ demand that product two takes at price $x_2$.
       view={0}{90},
       colormap/viridis,
       colorbar,
-      %xtick = {0.25,0.5,0.75,1,1.25}
+      % xtick = {0.25,0.5,0.75,1,1.25}
       ]
       \addplot3[
-      %samples=100,
+      % samples=100,
       contour gnuplot={number = 40,labels={false}}, thick]
       {exp(-2*x)*(1-exp(-10*y)) + 0.9*exp(-1.8*y)*(1-exp(-4*x))*(1-exp(-40))};
     \end{axis}
@@ -132,14 +132,15 @@ Throughout the chapter, we  assume that $y$ is a log-normally
 distributed random variable with mean and covariance
 \begin{align}
   m_y
-  &= (0.5,0.5,0.65),
+  &= \begin{pmatrix}0.5\\0.5\\0.65
+  \end{pmatrix},
   &C_y
   &=\begin{pmatrix}
     2.5&-0.75&0\\
     -0.75&2.5&0\\
     0&0&4.2
   \end{pmatrix}
-           \times 10^{-3}.
+         \times 10^{-3}.
 \end{align}
 \Cref{fig:example_profit_distributions} shows the distribution of
 profit for three combinations of prices. There is not a given outcome
@@ -430,10 +431,10 @@ relate to the coherent risk measures from mathematical finance.
 \begin{mydef}[Superlinear expectation]
   A nonlinear expectation $\mathbb{U}$ is superlinear if
   \begin{enumerate}
-    \item[3.] $\mathbb{U}[X+Y]\geq \mathbb{U}[X] +\mathbb{U}{Y}$ for
-      each $X,Y$, and
-    \item[4.] $\mathbb{U}[\lambda X] = \lambda\mathbb{U}[X]$ for
-      $\lambda\geq 0$.
+  \item[3.] $\mathbb{U}[X+Y]\geq \mathbb{U}[X] +\mathbb{U}{Y}$ for
+    each $X,Y$, and
+  \item[4.] $\mathbb{U}[\lambda X] = \lambda\mathbb{U}[X]$ for
+    $\lambda\geq 0$.
   \end{enumerate}
 \end{mydef}
 
@@ -612,12 +613,12 @@ lower super-quantile $\mathbb{U}_\gamma$.
   \begin{align}\label{eq:optim_formulations_md}
     x_{md}(\lambda)
     &=\argmax_{x\in\mathcal{X}}\{\mathbb{E}[f(x,y)]-\lambda\sqrt{\mbox{Var}[f(x,y)]}\}
-    &\lambda\geq 0,\\
+    &\lambda\geq 0,\\\label{eq:optim_formulations_eu}
     % &&\text{(mean-deviation)},\\
     x_{eu}(\mu)
     &=\argmax_{x\in\mathcal{X}}\{
       \mathbb{E}[1-e^{-\mu f(x,y)}]\}
-    &\mu>0,\\
+    &\mu>0,\\\label{eq:optim_formulations_sq}
     % &&\text{(exponential utility)},\\
     x_{sq}(\gamma)
     &=\argmax_{x\in\mathcal{X}}
@@ -649,29 +650,31 @@ on their practical implications instead of solely focusing on
 theoretical properties of the different formulations.
 
 \begin{example}[Pricing problem]
-  Let us investigate the implication of
-  \todo[inline]{Smooth out transition}
-  Let us consider a particular decision problem and compare the
-  decisions of~\eqref{eq:optim_formulations}.
+  Let us consider situation one of the retail example in
+  \Cref{sec:one_motivating_example}, where the product manager wants
+  to maximise profit $f(x,y)$, but only knows the distribution of $y$.
 
-  Retailers often face uncertain unit costs for their products, which
-  we model with a random variable $y\in\mathbb{R}^2$.
-  Denote the mean and covariance of
-  $y$ by $m_y$ and $C_y$ respectively. Then
-  \begin{align}
+  Note that the mean and standard deviation of the profit is
+  \begin{equation}
     \mathbb{E}[f(x,y)]
-    &= \langle x-m_y,q(x) \rangle,
-    &\mbox{Var}[f(x,y)]
-    &= \langle q(x),C_y q(x) \rangle.
-  \end{align}
-
-
+    = \langle x-m_y,q(x) \rangle,\qquad
+    \mbox{Var}[f(x,y)]
+    = \langle q(x),C_y q(x) \rangle.
+  \end{equation}
   Thus, the mean-deviation method with
   $\mathbb{D}[X]=\sqrt{\mbox{Var}[X]}$ has a closed form objective and
   one only needs information about the two first moments of $y$ to solve
   the mean-deviation problem~\eqref{eq:optim_formulations_md}.
+  The solution to the expected utility and lower super-quantile
+  problems~\eqref{eq:optim_formulations_eu}
+  and~\eqref{eq:optim_formulations_sq} require that we approximate the
+  objectives, for example, with Monte-Carlo
+  \citep{caflisch1998monte}.
+  The super-quantile method also needs an extra smoothing step to
+  handle the $\max(\eta-f(x,y),0)$ term of~\eqref{eq:opt_avar},
+  introducing larger costs and implementational complexity.
 
-  We solve the optimisation problems in~\eqref{eq:min_xmd_xeu_xsq}
+  We solve the optimisation problems in~\eqref{eq:min_xmd_xeu_xsq} with
   uniformly spaced values $\mu\in[0,100]$ and $\gamma\in[1/100, 1]$.
   \Cref{fig:util_meandev_2d,fig:cvar_meandev_2d} show the
   corresponding values $\lambda(\mu)$ and $\lambda(\gamma)$, together
@@ -687,10 +690,13 @@ theoretical properties of the different formulations.
     \begin{subfigure}[t]{.5\textwidth}
       \includegraphics[width=\textwidth,axisratio=1.3]{util_meandev_3d_l}
     \end{subfigure}
-    \caption{The left plot shows the $\ell_2$-norm difference between the decision made
+    \caption{The left plot shows the difference between the decision made
       by the mean-deviation and exponential utility methods defined in
       \Cref{eq:optim_formulations}, using the corresponding
       $(\mu,\lambda)$-pairs from the right plot.
+      The discontinuity in the left plot corresponds to an abrupt
+      change in $x(\mu)$.%, and the corresponding $\lambda$ actually
+      % drops slightly, although this is not visible.
     }\label{fig:util_meandev_2d}
   \end{figure}
 
@@ -702,7 +708,7 @@ theoretical properties of the different formulations.
     \begin{subfigure}[t]{.5\textwidth}
       \includegraphics[width=\textwidth,axisratio=1.3]{cvar_meandev_3d_l}
     \end{subfigure}
-    \caption{The left plot shows the $\ell_2$-norm difference between the decision made
+    \caption{The left plot shows the difference between the decision made
       from the mean-deviation and super-quantile methods defined in
       \Cref{eq:optim_formulations}, using the corresponding
       $(\gamma,\lambda)$-pairs from the right plot.
@@ -831,7 +837,8 @@ optimal in the Pareto sense.
 Pareto optimality, therefore, means that we cannot decrease the value of
 one objective without increasing another.
 The point $x$ is locally Pareto optimal if it is Pareto optimal in
-some neighbourhood around $x$, see.\todo{reference fig}
+some neighbourhood around $x$. \Cref{fig:pareto_local_disconnected}
+shows an example of both Pareto and locally Pareto optimal points.
 \begin{mydef}[Pareto front]
   Define $F(x) = (f_1(x),\dots,f_m(x))$.
   The Pareto front, or efficient frontier $\mathcal{P}\subset
@@ -843,8 +850,9 @@ some neighbourhood around $x$, see.\todo{reference fig}
 \end{mydef}
 
 \begin{example}[Two-dimensional Pareto front]
-  \Cref{fig:multi_map} provides a visual representation of the
-  multi-objective concepts for a two-dimensional problem
+  \Cref{fig:multi_map} and \Cref{fig:pareto_local_disconnected}
+  provide visual representations of the
+  multi-objective concepts for two-dimensional problems
   $F:\mathcal{X}\to\mathbb{R}^2$.
   \begin{figure}[htbp]
     \centering
@@ -874,14 +882,48 @@ some neighbourhood around $x$, see.\todo{reference fig}
       \end{scope}
       \path[->, color=blue] (3.,1) edge node[left,color=blue,align=center] {Pareto\\front} (4.73,1);
     \end{tikzpicture}
-
-    \caption{An example of two objectives $f_1,f_2$ and the mapping
-      $F:\mathcal{X}\to\mathbb{R}^2$ given by $x\mapsto (f_1(x),f_2(x))$.
+    \caption{Pareto concepts for a mapping $F(x)=(f_1(x),f_2(x))$.
       The Pareto front is visualised by the bold line segment on the
       image $F(\mathcal{X})$.
     }\label{fig:multi_map}
   \end{figure}
+
+  \begin{figure}[htb]
+    \centering
+    \begin{tikzpicture}
+      \begin{axis}[width=0.6\textwidth, axis equal image,
+        xlabel=$f_1$,
+        ylabel=$f_2$,
+        domain=0.4:4.6,
+        ]
+        \addplot [samples=50,name path=A,domain=0.4:4.6,blue,draw opacity=0.1]
+        {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+        \path [name path=B]
+        (0.4,3.45) -- (4.6,3.45);
+        % (\pgfkeysvalueof{/pgfplots/xmin},\pgfkeysvalueof{/pgfplots/ymax}) --
+        % (\pgfkeysvalueof{/pgfplots/xmax},\pgfkeysvalueof{/pgfplots/ymax});
+        \addplot [blue, fill opacity = 0.1] fill between [of=A and B, soft clip={domain=0.4:4.6}] ;
+        \addplot[mark=none, domain=0.4:1.55, ultra thick]
+        {5*exp(-x)+2*exp(-0.5*(x-3)^2)}
+        node[pos=0.8, pin={[black]-100:Pareto}]{};
+        \addplot[mark=none, domain=3.65:4.6, ultra thick]
+        {5*exp(-x)+2*exp(-0.5*(x-3)^2)}
+        node[pos=0.6, pin={[black]-160:Pareto}]{};
+        \addplot[mark=none,domain=2.825:3.65,dashed, thick]
+        {5*exp(-x)+2*exp(-0.5*(x-3)^2)}
+        node[pos=0.4, pin={[black, pin edge={solid}]90:Locally
+          Pareto}]{};
+        \node [] at (axis cs:1.5,3) {$F(\mathcal{X})$};
+      \end{axis}
+    \end{tikzpicture}
+    \caption{A disconnected Pareto front of a continuous function $F$
+      that also admits locally Pareto optimal points.
+    }\label{fig:pareto_local_disconnected}
+  \end{figure}
 \end{example}
+
+
+
 
 \begin{example}[Retail application]\label{ex:retail_pareto}
   Consider the model from the retail problem described in
@@ -1076,8 +1118,10 @@ formulation makes use of the convex hull of the individual minima
     5e^{-x_1}+2e^{-\frac{1}{2}{(x_1-3)}^2} \leq x_2\}.
   \end{align}
   The Pareto front is disconnected and contains points that are
-  locally, but not globally, Pareto optimal.\todo{plot this as example
-    above and reword this sentence}
+  locally, but not globally, Pareto optimal. The Pareto front and the
+  image of $F(x)$ are shown in \Cref{fig:pareto_local_disconnected} with
+  a restricted domain $\mathcal{X}_{\textnormal{r}}=\{x\in {[0.4,4.6]}^2 \mid
+  5e^{-x_1}+2e^{-\frac{1}{2}{(x_1-3)}^2} \leq x_2\}$.
 
   All the three methods, weighted sum, varying constraints, and NBI, define
   subproblems parameterised by a value $\lambda\in{[0,1]}^{m}$. Without any
@@ -1094,18 +1138,27 @@ formulation makes use of the convex hull of the individual minima
           xlabel=$f_1$,
           ylabel=$f_2$,
           ]
-          \addplot[only marks, mark size=0.5] table {./data/pareto_disconnected_nbi_eq.dat};
+          \addplot[only marks, mark size=0.6] table
+          {./data/pareto_disconnected_nbi_eq.dat};
+          \addplot[mark=none, domain=0:1.55, orange]
+          {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+          \addplot[mark=none, domain=3.65:5, orange]
+          {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
         \end{axis}
       \end{tikzpicture}
       \caption{NBI}\label{fig:pareto_disconnected_nbi_eq}
     \end{subfigure}%
-\begin{subfigure}[t]{.5\textwidth}
+    \begin{subfigure}[t]{.5\textwidth}
       \begin{tikzpicture}
         \begin{axis}[width=0.9\textwidth,
           xlabel=$f_1$,
           ylabel=$f_2$,
           ]
-          \addplot[only marks, mark size=0.5] table
+          \addplot[mark=none, domain=0:1.55, orange]
+          {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+          \addplot[mark=none, domain=3.65:5, orange]
+          {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+          \addplot[only marks, mark size=0.6] table
           {./data/pareto_disconnected_eps.dat};
         \end{axis}
       \end{tikzpicture}
@@ -1117,7 +1170,11 @@ formulation makes use of the convex hull of the individual minima
           xlabel=$f_1$,
           ylabel=$f_2$,
           ]
-          \addplot[only marks, mark size=0.5] table
+          \addplot[mark=none, domain=0:1.55, orange]
+          {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+          \addplot[mark=none, domain=3.65:5, orange]
+          {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+          \addplot[only marks, mark size=0.6] table
           {./data/pareto_disconnected_ws.dat};
           \draw [red] (axis cs:0,5) circle [radius=0.09]
           node[right] {7 points};
@@ -1127,8 +1184,8 @@ formulation makes use of the convex hull of the individual minima
       \end{tikzpicture}
       \caption{Weighted sums}
     \end{subfigure}
-    \todo[inline]{Add Pareto front curve}
-    \caption{Approximations of a disconnected Pareto front.
+    \caption{Approximations of a disconnected Pareto front, together
+      with the Pareto front in orange.
       The NBI algorithm finds points that are not Pareto optimal, but
       is otherwise providing the best approximation of the Pareto front.
     }\label{fig:pareto_disconnected}
@@ -1175,7 +1232,11 @@ locally optimal points.
         xlabel=$f_1$,
         ylabel=$f_2$,
         ]
-        \addplot[only marks, mark size=0.5] table
+        \addplot[mark=none, domain=0:1.55, orange]
+        {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+        \addplot[mark=none, domain=3.65:5, orange]
+        {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+        \addplot[only marks, mark size=0.6] table
         {./data/pareto_disconnected_nbi_ineq.dat};
         \draw [red] (axis cs:1.59,1.75) circle [radius=0.09]
         node[below] {4 points};
