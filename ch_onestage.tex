@@ -995,7 +995,7 @@ shows an example of both Pareto and locally Pareto optimal points.
 \end{mydef}
 
 Algorithms often make use of particular points describing extremal
-values of the objectives on the Pareto front.
+values of the objectives on the Pareto front, and we use them
 \begin{mydef}
   Denote $\underline{x_i}$ as the individual minimiser of $f_i$, and
   $\underline{f_i}=f_i(\underline {x_i})$.
@@ -1005,19 +1005,20 @@ values of the objectives on the Pareto front.
   $\overline{f_i}=\max_{1\leq j\leq m}\{f_i(\underline{x_j})\}$.
   The nadir point is the vector $\overline F =\nobreak
   (\overline{f_1}, \dots, \overline{f_m})$.
-  The bounding box is the hypercube bounded below and above by the
-  utopia and nadir points.
+  % The bounding box is the hypercube bounded below and above by the
+  % utopia and nadir points.
 \end{mydef}
 
-\begin{example}[Two-dimensional bounding box]
+\begin{example}[Two-dimensional extremal points]
   \Cref{fig:pareto_drawing} illustrates an example of the utopia and
-  nadir points $\underline{F}$ and $\overline{F}$,
-  together with the bounding box for a two-dimensional problem $F:\mathcal{X}\to\mathbb{R}^2$.
+  nadir points $\underline{F}$ and $\overline{F}$ %, together with the bounding box
+  for a two-dimensional problem $F:\mathcal{X}\to\mathbb{R}^2$.
   \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.5\textwidth]{pareto_drawing}
-    \caption{An example Pareto front $\mathcal{P}$ of two objectives. The utopia and
-      nadir points $\underline{F}$ and $\overline{F}$ represent the
+    \caption{An example Pareto front $\mathcal{P}$ of two
+      objectives. The points $\underline{F}$ and $\overline{F}$
+      represent the
       lower and upper bound of what values
       $f_1$ and $f_2$ can take on $\mathcal{P}$.}\label{fig:pareto_drawing}
   \end{figure}
