@@ -6,73 +6,60 @@
 \chapter{Control strategies for a discrete time pricing
   problem}\label{ch:discrete_control}
 
+In the previous chapter we discussed one-stage decision problems.
+Let us now consider a sequential decision problem that has a random
+objective. The focus of this chapter will be on the temporal structure of the
+decisions, and the randomness in the objective is marginalised using
+the expected value.
+We consider another toy-problem for pricing
+products in retail to motivate the concepts and results in this
+chapter, however, the insights are applicable to other applications.
+The work which this chapter is based on has been submitted to
+``Proceedings of the Royal Society A''.\todo{Update with publication}
 
-\todo[inline]{Write discrete-time ADP chapter}
+When sales of a product are affected by randomness in demand,
+retailers can use dynamic pricing strategies to maximise their
+profits. In this chapter the pricing problem is formulated as a
+stochastic optimal control problem. The aim is to
+investigate Approximate Dynamic Programming algorithms
+\citep{powell2011approximate} for this
+problem. For realistic retail applications, modelling the problem
+and solving it to optimality is intractable. Thus practitioners make
+simplifying assumptions and design suboptimal policies, but a thorough
+investigation of the relative performance of these policies is
+lacking. To better understand such assumptions, we simulate the
+performance of two algorithms on a one-product system.
 
-Aim:
-\begin{itemize}
-\item Turn Royal Society paper into chapter form
-\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% START: Stuff that has been moved to thesis introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The process of pricing products in order to control demand and
+% maximise revenues has been undertaken for centuries. In recent
+% decades, data- and model-driven approaches have become increasingly
+% popular in order to advise on and automate the process for companies.
+% There are several success stories from early adopters, for example in
+% the airline industry.
+% American Airlines estimated in 1992 that the introduction of revenue
+% management software had, over the preceding three
+% years, contributed \$500 million of additional revenue per year,
+% and would continue to do so in the future~\cite{smith1992yield}.
+% In an example from Chilean retail, the authors of~\cite{bitran1998coordinating}
+% report an expected revenue improvement of 7\%-16\% from implementing
+% model-driven strategies.
+% For retailers with billions of pounds in revenues, small
+% improvements to their revenue-management processes can be worth millions
+% of pounds.
+% In addition unsold items add up to thousands of tonnes of waste per year, so
+% improving the control of demand for products is advantageous
+% for both retailers and the environment.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% END: Stuff that has been moved to thesis introduction
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-TODO:
-\begin{itemize}
-\item Copy Royal Society paper
-\item Note down what introductory stuff should be written in thesis
-\item Deal with notation
-\end{itemize}
 
-
-
-\begin{quote}
-  When sales of a product are affected by randomness in demand,
-  retailers can use dynamic pricing strategies to maximise their
-  profits. In this article the pricing problem is formulated as a
-  stochastic optimal control problem, where the optimal policy can be
-  found by solving the associated Bellman equation. The aim is to
-  investigate Approximate Dynamic Programming algorithms for this
-  problem. For realistic retail applications, modelling the problem
-  and solving it to optimality is intractable. Thus practitioners make
-  simplifying assumptions and design suboptimal policies, but a thorough
-  investigation of the relative performance of these policies is
-  lacking.
-
-  To better understand such assumptions, we simulate the performance
-  of two algorithms on a one-product system. It is found that for more
-  than \emph{half of the realisations} of the random disturbance, the
-  often-used, but approximate, Certainty Equivalent Control
-  policy yields larger profits than an optimal, maximum expected-value
-  policy. This approximate algorithm, however, performs significantly
-  worse in the remaining realisations, which colloquially can be
-  interpreted as a more risk-seeking
-  attitude by the retailer. Another policy, Open-Loop Feedback
-  Control, is shown to work well as a compromise between the Certainty
-  Equivalent Control and the optimal policy.
-\end{quote}
-
-\section{Introduction}
-The process of pricing products in order to control demand and
-maximise revenues has been undertaken for centuries. In recent
-decades, data- and model-driven approaches have become increasingly
-popular in order to advise on and automate the process for companies.
-There are several success stories from early adopters, for example in
-the airline industry.
-American Airlines estimated in 1992 that the introduction of revenue
-management software had, over the preceding three
-years, contributed \$500 million of additional revenue per year,
-and would continue to do so in the future~\cite{smith1992yield}.
-In an example from Chilean retail, the authors of~\cite{bitran1998coordinating}
-report an expected revenue improvement of 7\%-16\% from implementing
-model-driven strategies.
-For retailers with billions of pounds in revenues, small
-improvements to their revenue-management processes can be worth millions
-of pounds.
-In addition unsold items add up to thousands of tonnes of waste per year, so
-improving the control of demand for products is advantageous
-for both retailers and the environment.
-
-We are interested in strategies to  set the prices of
-products dynamically, and thus
-formulate the problem in a stochastic optimal control framework.
+% We are interested in strategies to  set the prices of
+% products dynamically, and thus
+% formulate the problem in a stochastic optimal control framework.
 Let $t$ denote equally spaced, discrete, dimensionless time points in $\{0,1,\dots,T\}$.
 Product stock levels $\hat{S}={(\hat{S}_t)}_{t=0}^T$ are controlled by a pricing process
 $\hat{\alpha}={(\hat{\alpha}_t)}_{t=0}^{T-1}$, and evolve according to a transition function $\hat{f}$ with random disturbance
@@ -91,10 +78,13 @@ cost of unsold stock.
 We use the subscript on $\mathbb{E}_{\hat{W}}$ to emphasise that the
 expectation is taken with respect to the random variables $\hat{W}_t$.
 The solution to this problem can be found by solving the associated
-Bellman equation, defined in~\eqref{eq:dynamic_programming_discrete}.
+Bellman equation, which we define
+in~\eqref{eq:dynamic_programming_discrete} of
+\Cref{subsec:adp_bellman_equation}.
+
 
 In practical applications in retail and other domains, it is almost always
-intractable to solve the control problem to optimality~\cite{farmer2017uncertainty}.
+intractable to solve the control problem to optimality~\citep{farmer2017uncertainty}.
 The modelling of a real system and decision process can become very
 complicated, and  we must  create a very
 large state space in order to make use of the Bellman equation.
@@ -107,18 +97,18 @@ probability distributions.
 From a software implementation perspective, writing code that can
 solve the Bellman equation efficiently can be much more complicated
 than other methods.
-Finally, the dimensions of the state, policy and exogenous
-information spaces, can quickly make a numerical solution to the Bellman
+Finally, the dimensions of the state, policy, and exogenous
+information spaces can quickly make a numerical solution to the Bellman
 equation intractable. An increase in the dimension can happen very
 quickly, even for one-product problems.
-In~\cite{bertsimas2001dynamic}, the authors model a simple
+\citet{bertsimas2001dynamic} model a simple
 one-product demand function with uncertainty in the function
 parameters, and present an eight-dimensional dynamic programming
 solution to the problem.
 Much of the focus in the research community has therefore been on
 developing tractable algorithms with comparable average performance to the
 optimal policies, see for
-example~\cite{powell2011approximate} or~\cite{bertsekas2012dynamic}
+example~\citet{powell2011approximate} or~\citet{bertsekas2012dynamic}
 for an overview.
 One can either create explicit policy functions off-line, at the
 start of the decision process, or implicitly through an automated
@@ -128,17 +118,17 @@ is the speed at which we can make our decisions in the
 future. In the classical pricing problems, the dynamics of the
 underlying system do not require instant pricing decisions. Thus,
 suboptimal decision rules that are created as they are needed, are often used
-instead~\cite{talluri2006theory}. Estimation of the system and optimisation of prices are
+instead~\citep{talluri2006theory}. Estimation of the system and optimisation of prices are
 normally separated, and constraints are more easily updated at each
 decision point.
 
 There are several proposed approximations in the
-literature, although for revenue management applications, much of the domain knowledge is kept within
-respective commercial organisations~\cite[Ch.~9]{talluri2006theory}.
+literature, although for revenue management applications much of the domain knowledge is kept within
+respective commercial organisations~\citep[Ch.~9]{talluri2006theory}.
 Many of the suboptimal pricing algorithms are justified on practical
-grounds~\cite{aviv2012dynamic}, or
-from asymptotic results~\cite{gallego1994optimal}.
-The aim of this article is to highlight the implications that suboptimal policy
+grounds~\citep{aviv2012dynamic}, or
+from asymptotic results~\citep{gallego1994optimal}.
+The aim of this chapter is to highlight the implications that suboptimal policy
 choices have on the distribution of the relevant objective, and not
 only marginalised quantities such as the expected value.
 In particular, we consider a one-product pricing problem and
@@ -160,7 +150,7 @@ risk attitude. Thus, we propose that it should be addressed at the same level as
 description of a decision-maker's risk attitude as expressed with
 utility functions or risk measures.
 
-The article is organised as follows:
+The chapter is organised as follows:
 In \Cref{sec:bellman_optimal_control} we formulate the
 pricing problem mathematically, and describe an algorithm to solve the
 problem via the associated Bellman equation. We also give an example
@@ -190,7 +180,7 @@ solve it numerically for an example system.
 
 Consider a system over discrete, equispaced, dimensionless time points
 $t=0,1,\dots,T$, with state
-$\hat{S}_t$ and pricing process $\hat{\alpha}$ such that the $\hat{\alpha}_t$ that take values in a closed
+$\hat{S}_t$ and pricing process $\hat{\alpha}$ such that the $\hat{\alpha}_t$ take values in a closed
 interval $\hat{A}=\nobreak[\hat{a}_{\mathrm{min}},\hat{a}_{\mathrm{max}}]$ of prices.\footnote{In
   practice, policy values may have additional constraints that depend
   on the current state,
@@ -206,7 +196,7 @@ Exogenous influences on demand are considered as randomness in the
 system, and are
 modelled in a multiplicative and dimensionless fashion by a stochastic process
 $W=(W_1,\dots,W_T)$ taking non-negative values. See, for
-example,~\cite[Ch.~7]{talluri2006theory} for a discussion of
+example,~\citet[Ch.~7]{talluri2006theory} for a discussion of
 demand models and the modelling of uncertainty.
 
 For a given pricing process $\hat{\alpha}$, the
@@ -251,9 +241,7 @@ problem:
   that is, $\hat{\alpha}^* = \argmax_{\hat{\alpha}\in\hat{\mathcal{A}}}\hat{J}(0,\hat{S}_0,\hat{\alpha})$.
 \end{mydef}
 We choose to maximise the expected profit over the period, which
-assumes a risk-neutral decision-maker.\footnote{For characterisations of
-  decision-makers and their risk attitude, see for
-  example~\cite[App.~G]{bertsekas2005dynamic}.}
+assumes a risk-neutral decision-maker.
 It is still
 important, however,
 to understand the distribution of profits for a given pricing policy
@@ -274,7 +262,7 @@ The units of stock will be  scaled with
 respect to
 the initial stock $\hat{S}_0$, and units of money will be scaled with respect to
 the upper bound on
-price, $\hat{a}_{\mathrm{max}}$.
+price, $\hat{a}_{\mathrm{max}}$, which we assume is finite.
 Let the corresponding dimensionless quantities be defined without hats.
 Then we set
 \begin{align}
@@ -314,11 +302,11 @@ Now we can define the dimensionless value function
 Finally, the dimensionless optimal control problem
 is to find $\alpha^*\in{\mathcal A}$, such that
 $J(0,1,\alpha^*)=v(0,1)$.
-For the remainder of this article, we work with the
+For the remainder of this chapter, we work with the
 non-dimensionalised system.%, and drop the hats from the
 % dimensionless quantities.
 
-\subsection{The Bellman equation}
+\subsection{The Bellman equation}\label{subsec:adp_bellman_equation}
 We choose $\mathcal A$ to be the set of Markovian policies for the
 problem. This means that for each $\alpha\in \mathcal
 A$, there exists a
@@ -328,10 +316,10 @@ $\alpha_t(\omega) =
 a(t,S_t^\alpha(\omega))$.
 Then,
 an approach to finding the value function above is to use the Dynamic
-Programming principle~\cite{bertsekas2005dynamic}, which states that $v$ can be defined
+Programming principle~\citep{bertsekas2005dynamic}, which states that $v$ can be defined
 recursively by
 \begin{equation}\label{eq:dynamic_programming_discrete}
-  v(t,s)=\max_{a\in A}\mathbb E_{W}\left[
+  v(t,s)=\max_{a\in A}\mathbb E_{W_{t+1}}\left[
     aQ(s,a,W_{t+1})
     +v\bigl(t+1,s-Q(s,a,W_{t+1})\bigr)\right].
 \end{equation}
@@ -341,8 +329,8 @@ terminal value $v(T,s)=-Cs$, and the optimal policy
 function $a(t,s)$ is given by the argmax for each $(t,s)$.
 The recursion~\eqref{eq:dynamic_programming_discrete} is called the
 \emph{Bellman equation}, and a discussion
-of its validity can be found, for example, in~\cite{bertsekas2005dynamic}.
-Analytical solutions to Bellman equations are only available in very
+of its validity can be found, for example, in~\citet{bertsekas2005dynamic}.
+Analytical solutions to Bellman equations are only available in
 rare cases, and  numerical approaches are normally needed to
 approximate the solutions.
 
@@ -364,11 +352,11 @@ problem, using the Bellman equation:\todo{Decorate with some algorithm environme
 \end{enumerate}
 The expectation above is approximated using Monte--Carlo simulation,
 for which the variance of the approximation error decreases by one over the
-number of samples used~\cite{caflisch1998monte}.
-In this article we use \num{1000} samples for the approximation of the
-expectation in step~(iv)(a).
+number of samples used~\citep{caflisch1998monte}.
+In this chapter we use \num{1000} samples for the approximation of the
+expectation in step~4(a).
 We choose to use piecewise
-linear interpolation for $I[v^K](s)$ in step~(iv)(c) with a grid of
+linear interpolation for $I[v^K](s)$ in step~4(c) with a grid of
 $K=201$ points.
 The calculation of the Bellman policy is only
 approximate. Tests, not included here, show that our choice of grid points and Monte--Carlo samples
@@ -381,10 +369,9 @@ Bellman equation from now on.
 In order to investigate the optimal pricing of a specific system, we
 choose to look at a family of commonly used demand functions of the form
 $q(a)=q_1e^{-q_2a}$, where $q_1,q_2>0$. For a discussion
-about their properties and usage in modelling demand, see~\cite[Ch.~7]{talluri2006theory}.
-All the numerical experiments in this article use this family of exponential
-demand functions, with price constraints $A=[0,1]$.\todo{If
-  $A=[0,\infty)$, we can rescale $a$ s.t. $q_2=1$.}
+about their properties and usage in modelling demand, see~\citet[Ch.~7]{talluri2006theory}.
+All the numerical experiments in this chapter use this family of exponential
+demand functions, with price constraints $A=[0,1]$.
 In the current section, and in
 \Cref{fig:markdown_bellman,fig:bellman_simulation,fig:bellman_det_policy_difference,fig:bellman_det_vals},
 we consider a particular choice of $q_1,q_2$ so that the demand
@@ -476,7 +463,7 @@ The plots in \Cref{fig:bellman_simulation} show the results of
 simulating the system \num{10000} times.\footnote{Preliminary
   investigations indicated that \num{1000}
   simulations is sufficient to obtain an accurate representation of
-  the distributions in this article. However, we have chosen to use
+  the distributions in this chapter. However, we have chosen to use
   more when this is computationally convenient.
 }
 
@@ -547,20 +534,20 @@ We consider two special cases known as the
 \emph{Certainty Equivalent Control} policy, which uses a point
 estimate of the system, and
 the \emph{Open-Loop Feedback Control} policy, which uses more
-information about the  future behaviour of the system~\cite[Ch.~6]{bertsekas2005dynamic}.
-For the example system in this article, it turns out that we can find
+information about the  future behaviour of the system~\citep[Ch.~6]{bertsekas2005dynamic}.
+For the example system in this chapter, it turns out that we can find
 the CEC policy analytically.
 Numerical comparison experiments between these policies and the optimal
 Bellman policy are
 made using the example pricing problem introduced in
 \Cref{subsec:bellman_example_markdown}. We also extend the comparison to
-cover a much larger range of parameters in the problem, to show that
+cover a much larger range of parameters in the problem, in order to show that
 the same results hold for a wide range of retail products.
 
 \subsection{The Certainty Equivalent Control policy}
 An often-used, tractable, algorithm for solving stochastic optimal control
-problems is the Certainty Equivalent Control (CEC) policy, as it is
-named in~\cite{bertsekas2005dynamic}.
+problems is the Certainty Equivalent Control (CEC) policy,
+as~\citet{bertsekas2005dynamic} calls it.
 It is also known as (deterministic) Model
 Predictive Control in the engineering community.
 The algorithm is particularly practical, because the optimisation
@@ -595,7 +582,7 @@ mean or mode of the $W_\tau$.
 
 For the one-product pricing problem, we can simplify the optimisation
 problem and in some cases obtain analytical solutions for the policy function.
-First, let us consider the expected value estimate $w_\tau=\mathbb E
+Consider the expected value estimate $w_\tau=\mathbb{E}
 [W_\tau]=1$ for $\tau=t+1,\dots T$.
 Then we can rewrite the maximisation problem to find
 the certainty equivalent value function,
@@ -616,8 +603,8 @@ Then, $a^*=a^C(t,s)$ is given by the policy function
   % ,\quad\text{s.t.}\quad q(a)\leq \frac{s}{T-t}.
 \end{equation}
 Let $\mathcal P_A$ be the projection operator from $\mathbb R$ onto the interval $A$.
-Let us consider two families of demand functions that are
-popular in the literature, see for example~\cite[Ch.~7]{talluri2006theory}.
+% Let us consider two families of demand functions that are
+% popular in the literature, see for example~\citet[Ch.~7]{talluri2006theory}.
 % If $q$ is of the form $a\mapsto q_1-q_2a$, with $q_1,q_2> 0$, then
 % the optimal policy $\alpha_t=a^C(t,S_t^\alpha)$ for the deterministic
 % problem is given by the function
@@ -773,7 +760,7 @@ profits in the remaining realisations.
   \vspace{1em}
   \begin{tikzpicture}[scale=0.8]
     \begin{axis}[
-      xlabel=$P(\alpha^B)-P(\alpha^C)$,
+      xlabel=$1-P(\alpha^C)/P(\alpha^B)$,
       ylabel=Count,
       title={Simulations of Bellman and CEC policies},
       every x tick scale label/.style={font=\boldmath\large,
@@ -781,7 +768,7 @@ profits in the remaining realisations.
           cs:0.98,5pt)},yshift=0em,left,inner sep=0pt,
       }
       ]
-      \addplot[red,hist={bins=30}] table [y expr = {(\thisrowno{0}-\thisrowno{1})},col sep=comma]
+      \addplot[red,hist={bins=30}] table [y expr = {(1-\thisrowno{1}/\thisrowno{0})},col sep=comma]
       {./data/markdown_bellman_det_vals.csv};
       \draw[dashed] (axis cs:0,-30) -- (axis cs:0,6000);
       \draw[<-] (axis cs:0.017,1000) -- (axis cs:0.015,2000)
@@ -789,19 +776,15 @@ profits in the remaining realisations.
       \draw[<-] (axis cs:-0.003,4000) -- (axis cs:0.005,4000) node[anchor=west] {$\alpha^C$ best};
     \end{axis}
   \end{tikzpicture}
-  \todo[inline]{Show relative difference
-    $(P(\alpha^B)-P(\alpha^C))/P(\alpha^B)$ instead?}
   \caption{This shows the distributions from \num{10000} samples of
     the profits of following the Bellman and CEC policies.
     The sample mean $\mathbb E_W[P(\alpha^B)-P(\alpha^C)]\approx 3.8\times
     10^{-3}$, confirms that Bellman is better on average, as it should be.
     Importantly, however, in more than half the samples the suboptimal policy
     outperforms the Bellman policy.
-    The distribution of $P(\alpha^B)-P(\alpha^C)$ appears to be bimodal.
+    The distribution of $1-P(\alpha^C)/P(\alpha^B)$ appears to be bimodal.
   }\label{fig:bellman_det_vals}
 \end{figure}
-
-\todo[inline]{Add OLFC section here with table similar to \Cref{tbl:paramcomparisons}?}
 
 \subsection{Bellman and CEC parameter comparisons}\label{sec:parameter_comparison}
 In the previous sections, our numerical experiments have only shown
@@ -855,7 +838,7 @@ maximum price $a=1$.
     the axes vary the parameters $q_1,q_2$ of the demand function
     $q(a)=q_1e^{-q_2a}$.
     The white dot on the bottom, left plot corresponds to the
-    parameters chosen for the experiments in this article. The gray
+    parameters chosen for the experiments in this chapter. The gray
     dots correspond to the parameters in \Cref{tbl:paramcomparisons}.
   }\label{fig:profit_diff_heatmaps}
 \end{figure}
@@ -867,7 +850,7 @@ in the region where the relative difference is around $0.016$ --- see the
 white dot in the
 bottom, left frame in \Cref{fig:profit_diff_heatmaps}.
 This difference is in the middle of that seen for all the
-combinations of parameters, so the conclusions made in the article
+combinations of parameters, so the conclusions made in the chapter
 can be considered as relevant for a wider range of systems.
 \Cref{tbl:paramcomparisons} provides further data to underscore
 the claim that the CEC policy
@@ -875,13 +858,13 @@ outperforms the Bellman policy for the
 majority of events, at the expense of a stronger underperformance
 for the remainder of the events. Notably, the CEC policy is better
 more than 50\% of the time for all the parameter
-combinations considered in this article.
+combinations considered in this chapter.
 We can also see from the table that the implicit risk-seeking attitude
 of the CEC policy increases with
 the relative $L^2$ distance, as its profit distribution widens compared to
 the Bellman policy.
 In particular, the frequency at which the CEC policy
-outperforms the Bellman policy increases, at the expense of a larger
+outperforms the Bellman policy increases at the expense of a larger
 underperformance, or tail loss, in the remaining realisations.
 The values in \Cref{tbl:paramcomparisons} were approximated using \num{10000} samples
 from $W$, and their corresponding parameter combinations are shown as
@@ -916,10 +899,10 @@ grey dots in \Cref{fig:profit_diff_heatmaps}.
 \end{table}
 
 \subsection{Open-Loop Feedback Control policy}
-We conclude this article with the example of the Open-Loop
-Feedback Control (OLFC) policy~\cite[Ch.~6]{bertsekas2005dynamic},
+We conclude this chapter with the example of the Open-Loop
+Feedback Control (OLFC) policy~\citep[Ch.~6]{bertsekas2005dynamic},
 also known as Stochastic Model
-Predictive Control~\cite{farmer2017uncertainty}. This is another suboptimal policy,
+Predictive Control~\citep{farmer2017uncertainty}. This is another suboptimal policy,
 similar to the CEC policy, but which better takes into account the uncertainty in the system.
 % In fact, one can think of CEC as a zeroth-order approximation to OLFC.\@
 The OLFC policy works as follows: At each decision time, a stochastic
@@ -940,7 +923,7 @@ pricing problem calculates the current price using the following steps:
 \item Set the price corresponding to the element
   $\mathbf{a}_t\in A$ of a maximiser to~\eqref{eq:olfc_optimisation_problem}.
 \end{enumerate}
-For this article, we approximate the expectation operator with
+For this chapter, we approximate the expectation operator with
 Monte--Carlo using \num{1000} samples, in the same way that the expectation
 in the Bellman policy is computed.
 Note that good approximations for the expectation in step two can be
@@ -964,31 +947,29 @@ Bellman policy.
   \centering
   \begin{tikzpicture}[scale=0.8]
     \begin{axis}[
-      xlabel=$P(\alpha^B)-P(\alpha^O)$,
+      xlabel=$1-P(\alpha^O)/P(\alpha^B)$,
       ylabel=Count,
       title={Simulations of Bellman and OLFC policies},
       every x tick scale label/.style={font=\boldmath\large,
         at={(xticklabel
           cs:0.98,5pt)},yshift=0em,left,inner sep=0pt,
-      }
+      },
+      %xmin = {-0.002}, xmax = {0.004}
       ]
-      \addplot[red,hist={bins=30}] table [y expr = {(\thisrowno{0}-\thisrowno{1})},col sep=comma]
+      \addplot[red,hist={bins=30}] table [y expr = {(1-\thisrowno{1}/\thisrowno{0})},col sep=comma]
       {./data/markdown_bellman_olfc_vals_1000.csv};
-      \draw[dashed] (axis cs:0,-30) -- (axis cs:0,2000);
+      \draw[dashed] (axis cs:0,-30) -- (axis cs:0,2200);
       % \draw[<-] (axis cs:0.017,1000) -- (axis cs:0.015,2000)
       % node[anchor=south] {$\alpha^B$ best};
       % \draw[<-] (axis cs:-0.003,4000) -- (axis cs:0.005,4000) node[anchor=west] {$\alpha^C$ best};
     \end{axis}
   \end{tikzpicture}
-  \todo[inline]{Show relative difference
-    $(P(\alpha^B)-P(\alpha^O))/P(\alpha^B)$ instead?}
   \caption{This shows the distributions from \num{10000} samples of
     the profits of following the Bellman and OLFC policies.
     The OLFC policy generates profits an order of magnitude closer to
     the Bellman policy than the CEC policy (\Cref{fig:bellman_det_vals}). This
     distribution appears to be unimodal.
   }\label{fig:bellman_olfc_vals}
-  \todo[inline]{Reference}
 \end{figure}
 
 For completeness, \Cref{tbl:paramcomparisons_olfc} includes the statistics of the relative
@@ -1022,8 +1003,8 @@ smaller than in the CEC comparison.
   \caption{Statistics comparing the relative profits of $P(\alpha^O)$
     against $P(\alpha^B)$ for six different
     parameter combinations. Note that the values are an order of magnitude
-    smaller than in the comparison between Bellman and CEC shown in \Cref{tbl:paramcomparisons}}\label{tbl:paramcomparisons_olfc}
-  \todo[inline]{reference}
+    smaller than in the comparison between Bellman and CEC shown in
+    \Cref{tbl:paramcomparisons}}\label{tbl:paramcomparisons_olfc}
 \end{table}
 
 Note that the CEC policy is a special case of the OLFC policy, where the
@@ -1038,8 +1019,8 @@ approximate the expectation~\eqref{eq:olfc_optimisation_problem}.
 %%%%%%
 % Conclusion
 %%%%%%%%%%%%%
-\section{Conclusion}\label{sec:conclusion}
-In this article we have looked at a mathematical formulation of a
+\section{Discussion}\label{sec:conclusion}
+In this chapter we have looked at a mathematical formulation of a
 retail pricing problem for profit maximisation, and have investigated the
 performance of two algorithms that balance practicality
 with degree of suboptimality. The motivation is to better understand
@@ -1060,13 +1041,13 @@ In the remaining realisations, however, the CEC policy resulted in
 much smaller profits. We interpret these results as an indication that
 the suboptimal policy is more risk-seeking than the optimal policy, in
 a colloquial sense of the term.
-The results in this article underscore the importance of looking at
+The results in this chapter underscore the importance of looking at
 the impact of
 different suboptimal algorithms have on the distribution of
 an objective, and not only the impact of
 marginalised statistics such as the expected value.
 
-The model problem in this article is fairly simple, and
+The model problem in this chapter is fairly simple, and
 we propose two specific lines for future research that
 take this analysis closer to practical models.
 First, to investigate multi-product problems where the demand and
@@ -1075,7 +1056,7 @@ Second, to introduce a state dependence in the uncertainty in the
 system, that is, to allow $W_{t+1}$ to depend explicitly on the values
 of $S_t$ and $\alpha_t$.
 We hope that these two extensions will lead to a better understanding of
-whether the effects seen in this article will be stronger or diluted
+whether the effects seen in this chapter will be stronger or diluted
 in real-life problems.
 
 
