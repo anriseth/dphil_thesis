@@ -152,18 +152,20 @@ substantial volume sold over small time periods, compared to the total
 period of interest. These assumptions can apply to many products sold
 by large retailers. In the monopoly setting, this thus leads to
 a continuum model similar to that of \citet{kalish1983monopolist}.
-For a given product, denote the amount of stock left at time $t$ by $S(t)$,
-and let $q(a)$ represent product demand at price $a$, per unit
+For a given product, denote the amount of stock left at time $\hat{t}$ by $\hat{S}(\hat{t})$,
+and let $\hat{q}(\hat{a})$ represent product demand at price $\hat{a}$, per unit
 time.
-For simplicity, we assume $q$ does not explicitly depend on time.
-In the continuum limit, the change in  stock at time $t$
-is thus $\mathrm{d}S(t)=-q(a)\,\mathrm{d}t$ when $S(t)>0$. When the
-stock runs out, that is, $S(t)=0$, we set $\mathrm{d}S(t)=0$.
+For simplicity, we assume $\hat{q}$ does not explicitly depend on time.
+In the continuum limit, the change in  stock at time $\hat{t}$
+is thus $\mathrm{d}\hat{S}(\hat{t})=-\hat{q}(\hat{a})\,\mathrm{d}t$
+when $\hat{S}(\hat{t})>0$. When the
+stock runs out, that is, $\hat{S}(\hat{t})=0$, we set $\mathrm{d}\hat{S}(\hat{t})=0$.
 For a pricing policy
-$\alpha(t)$, the remaining stock at time $t$ is then
-$S(t)=S(0)-\int_0^tq(\alpha(u))\,\mathrm{d}u$. In the remainder of the chapter,
+$\hat{\alpha}(\hat{t})$, the remaining stock at time $\hat{t}$ is then
+$\hat{S}(\hat{t})=\hat{S}(0)-\int_0^{\hat{t}}\hat{q}(\hat{\alpha}(\hat{u}))\,\mathrm{d}\hat{u}$. In
+the remainder of the chapter,
 we emphasise the dependence of remaining stock on a particular
-pricing policy $\alpha(t)$ using the superscript $S^\alpha$.
+pricing policy $\hat{\alpha}(\hat{t})$ using the superscript $\hat{S}^{\hat{\alpha}}$.
 
 At the start of the prediction period, it is not known exactly what
 the demand will be at future times. We will now discuss how to
@@ -172,46 +174,48 @@ approach of \citet{raman1995optimal} and \citet{wu2016dynamic} leads to negative
 sales with probability tending to $0.5$ as the time period goes to zero.
 Then, we propose a method that guarantees non-negative sales over all
 time periods.
-Let $W(t)$ denote a Brownian motion, and let $\sigma(t,s,a)$ be the volatility
+Let $\hat{W}(\hat{t})$ denote a Brownian motion, and let $\hat{\sigma}(\hat{t},\hat{s},\hat{a})$ be the volatility
 in demand as a function of time, stock, and price. Then
 one may say that the uncertainty in future
-sales is due to the changes in $W(t)$, in the following sense.
+sales is due to the changes in $\hat{W}(\hat{t})$, in the following sense.
 \begin{equation}\label{eq:brownian_noise}
-  \mathrm{d}S^\alpha(t) = -q(\alpha(t))\,\mathrm{d}t + \sigma(t,S(t),\alpha(t))\,\mathrm{d}W(t).
+  \mathrm{d}\hat{S}^{\hat{\alpha}}(\hat{t}) =
+  -\hat{q}(\hat{\alpha}(\hat{t}))\,\mathrm{d}\hat{t} +
+  \hat{\sigma}(\hat{t},\hat{S}(\hat{t}),\hat{\alpha}(\hat{t}))\,\mathrm{d}\hat{W}(\hat{t}).
 \end{equation}
 In \Cref{fig:brownian_paths} we can see six realizations of
-$S^\alpha(t)$ under
-this model, using $q(a)=1$ and $\sigma(t,s,a)=0.05$. As we zoom in on
+$\hat{S}^{\hat{\alpha}}(\hat{t})$ under
+this model, using $\hat{q}(\hat{a})=1$ and $\hat{\sigma}(\hat{t},\hat{s},\hat{a})=0.05$. As we zoom in on
 the sales paths, it is obvious that the stock often
 increases over short time periods, corresponding to negative sales.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.5\textwidth,axisratio=1.25]{sde_brownian_sols}%
   \includegraphics[width=0.5\textwidth,axisratio=1.25]{sde_brownian_sols_zoom}
-  \caption{Evolutions of stock $S^\alpha(t)$ for a constant
-    demand forecast $q(a)=1$ with different sample paths $\omega_k$
+  \caption{Evolutions of stock $\hat{S}^{\hat{\alpha}}(\hat{t})$ for a constant
+    demand forecast $\hat{q}(\hat{a})=1$ with different sample paths $\omega_k$
     of a Brownian motion.
     The right hand figure shows that over small timescales, sales are
     often negative.
     All values are described in dimensionless quantities for
-    simplicity, see Subsection~\ref{subsec:nondimensionalization}.
+    simplicity, see \Cref{subsec:nondimensionalization}.
   }\label{fig:brownian_paths}
 \end{figure}
-We now show that for any model with $\sigma>0$, the Brownian noise
+We now show that for any model with $\hat{\sigma}>0$, the Brownian noise
 model~\eqref{eq:brownian_noise} cause negative sales with high
 probability.
-For a given time period $[0,\Delta t)$, assume the demand and volatility are constant,
-$q(a)=\tilde q>0$ and $\sigma(t,s,a)=\tilde \sigma>0$.
-Then $S(\Delta t)=S(0)-\tilde q\Delta t + \tilde \sigma W(\Delta t)$.
-Sales are negative in this period if $S(\Delta t)>S(0)$, that is when
-$\tilde q\Delta t+\tilde \sigma W(\Delta t) < 0$.
+For a given time period $[0,\Delta{\hat{t}})$, assume the demand and volatility are constant,
+$\hat{q}(\hat{a})=\tilde q>0$ and $\hat{\sigma}(\hat{t},\hat{s},\hat{a})=\tilde \sigma>0$.
+Then $\hat{S}(\Delta{\hat{t}})=\hat{S}(0)-\tilde q\Delta{\hat{t}} + \tilde{\sigma} \hat{W}(\Delta{\hat{t}})$.
+Sales are negative in this period if $\hat{S}(\Delta{\hat{t}})>\hat{S}(0)$, that is when
+$\tilde{q}\Delta{\hat{t}}+\tilde{\sigma} \hat{W}(\Delta{\hat{t}}) < 0$.
 The distribution of Brownian motion is normally distributed as
-$W(\Delta t)\sim \mathcal N(0,\Delta t)$. So $W(\Delta t)$ is equal in
-distribution to $\sqrt{\Delta t}Z$, where $Z\sim \mathcal N(0,1)$, and thus
+$\hat{W}(\Delta{\hat{t}})\sim \mathcal{N}(0,\Delta{t})$. So $\hat{W}(\Delta{\hat{t}})$ is equal in
+distribution to $\sqrt{\Delta{\hat{t}}}Z$, where $Z\sim \mathcal{N}(0,1)$, and thus
 \begin{align}
-  \mathbb P(S(\Delta t)>S(0))
-  &=\mathbb P(Z\leq -\sqrt{\Delta t}\,\tilde q / \tilde \sigma)
-    \to 0.5^-,& \text{ as } \Delta t \to 0^+.
+  \mathbb{P}(\hat{S}(\Delta{\hat{t}})>\hat{S}(0))
+  &=\mathbb{P}(Z\leq -\sqrt{\Delta{\hat{t}}}\,\tilde q / \tilde \sigma)
+    \to 0.5^-,& \text{ as } \Delta{\hat{t}} \to 0^+.
 \end{align}
 
 We therefore argue that it is inappropriate to model the uncertainty
@@ -222,47 +226,50 @@ demand function.
 This chapter will focus on multiplicative demand
 uncertainty, which may arise from estimates of seasonality or
 long-term trends in demand. As such, we introduce a multiplicative
-parameter $g\geq 0$, and consider the demand function given by
-$(a,g)\mapsto q(a)g$. Assume that the parameter is not directly
+parameter $\hat{g}\geq 0$, and consider the demand function given by
+$({\hat{a}},\hat{g})\mapsto \hat{q}(\hat{a})\hat{g}$.
+Assume that the parameter is not directly
 affected by price, but  only represents exogenous information outside the
 retailer's control.
 For our purposes, we will model the multiplicative parameter as
-a geometric Brownian motion (GBM), $G(t) = \exp\left(
-  -\frac{\sigma^2}{2}t +\sigma W(t)\right)$, with volatility coefficient
-$\sigma\geq 0$. The GBM approach is also considered
+a geometric Brownian motion (GBM), $\hat{G}(\hat{t}) = \exp\left(
+  -\frac{1}{2}\hat{\sigma}^2\hat{t} +\hat{\sigma} \hat{W}(\hat{t})\right)$, with volatility coefficient
+$\hat{\sigma}\geq 0$. The GBM approach is also considered
 by \citet{xu2006monopolistic} for a different dynamic pricing problem from
 that presented in this chapter.
 We restrict ourselves to a GBM with no
 drift to focus on the impact of the uncertainty, rather than modelling
 time-dependent behaviour such as seasonality.
-For any $\Delta t\geq 0$, some relevant properties of $G(t)$ are as follows.
+For any $\Delta{\hat{t}}\geq 0$, some relevant properties of $\hat{G}(\hat{t})$ are as follows.
 \begin{align}
-  G(0)&=1,\\
-  \mathbb E[G(t+\Delta t)\mid G(t)]&=G(t),
+  \hat{G}(0)&=1,\\ &= \hat{W}(\hat{t}) / \sqrt{\hat{T}}
+  \mathbb{E}[\hat{G}(\hat{t}+\Delta{\hat{t}})\mid \hat{G}(\hat{t})]&=\hat{G}(\hat{t}),
                                    &\text{martingale property,}\\
-  \mbox{Var}[G(t+\Delta t)\mid G(t)]&={G(t)}^2(e^{\sigma^2 \Delta
-                                      t}-1), & \text{increasing variance.}
+  \mbox{Var}[\hat{G}(\hat{t}+\Delta{\hat{t}})\mid
+  \hat{G}(\hat{t})]&={\hat{G}(\hat{t})}^2(e^{\hat{\sigma}^2
+                     \Delta{\hat{t}}}-1), & \text{increasing variance.}
 \end{align}
-With this model, we expect future demand $q(a)G(t)$ at a given price $a\geq
+With this model, we expect future demand $\hat{q}(\hat{a})\hat{G}(\hat{t})$ at a given price $\hat{a}\geq
 0$ to be the current experienced demand, but with decreasing certainty
 the further ahead we forecast.
 The SDE governing the system, started at
-$S(0)>0$, $G(0)=1$, is
+$\hat{S}(0)>0$, $\hat{G}(0)=1$, is
 \begin{align}
   \begin{split}\label{eq:gbm_sde}
-    \mathrm{d}G(t)&=\sigma G(t)\,\mathrm{d}W(t),\\
-    \mathrm{d}S^\alpha(t)&=-q(\alpha(t))G(t)\,\mathrm{d}t,\qquad\text{stopped at zero}.
+    \mathrm{d}\hat{G}(\hat{t})&=\hat{\sigma} \hat{G}(\hat{t})\,\mathrm{d}\hat{W}(\hat{t}),\\
+    \mathrm{d}\hat{S}^{\hat{\alpha}}(\hat{t})&=-\hat{q}(\hat{\alpha}(\hat{t}))\hat{G}(\hat{t})\,
+    \mathrm{d}\hat{t},\qquad\text{stopped at zero}.
   \end{split}
 \end{align}
-The sample paths of $S^\alpha(t)$ following the GBM model, as shown in
+The sample paths of $\hat{S}^{\hat{\alpha}}(\hat{t})$ following the GBM model, as shown in
 \Cref{fig:sde_gbm_const_x}, are more regular
 than of the Brownian noise model.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.5\textwidth,axisratio=1.25]{sde_gbm_const_x}
-  \caption{Sample paths of $S^\alpha(t)$ following the GBM
-    model~\eqref{eq:gbm_sde}, with $q(\alpha(t))=1$, and GBM volatility
-    $\sigma = 0.1$. The paths are  more regular than that of the
+  \caption{Sample paths of $\hat{S}^{\hat{\alpha}}(\hat{t})$ following the GBM
+    model~\eqref{eq:gbm_sde}, with $\hat{q}(\hat{\alpha}(\hat{t}))=1$, and GBM volatility
+    $\hat{\sigma} = 0.1$. The paths are  more regular than that of the
     Brownian noise model shown in \Cref{fig:brownian_paths}.
   }\label{fig:sde_gbm_const_x}
 \end{figure}
@@ -274,34 +281,52 @@ We thus non-dimensionalise the model, which also helps to reduce the
 number of parameters in the decision problem.
 The units at play in our system are the time and the product price,
 for example measured in minutes and \pounds.
-If $s,a$, and $t$ denotes unscaled quantities of stock, price, and
+If $\hat{s},\hat{a}$, $\hat{t}$ denotes unscaled quantities of stock, price, and
 time respectively, we rescale them with dimensionless hat-quantities
 \begin{align}
-  \hat s&=\frac{s}{S(0)},&\hat t &=\frac{t}{T},
-  &\hat a &= \frac{a}{\bar a}.
+  s&=\frac{\hat{s}}{\hat{S}(0)},&t &=\frac{\hat{t}}{\hat{T}},
+  &a &= \frac{\hat{a}}{\bar{a}}.
 \end{align}
-Here, $S(0)$ is the initial quantity of stock, $T$ is the time-horizon
-for the pricing problem, and $\bar a$ is some reference price chosen
-to make typical prices $\hat a$ of order one.
+Here, $\hat{S}(0)$ is the initial quantity of stock, $\hat{T}$ is the time-horizon
+for the pricing problem, and $\bar{a}$ is some reference price chosen
+to make typical prices $a$ of order one.
+For typographical reasons, we define the upper limit of the time
+horizon as $T$, which means $T=1$ and that
+\begin{equation}
+  t\in[0,T].
+\end{equation}
 In order to write down a dimensionless formulation of the system's
 SDE~\eqref{eq:gbm_sde}, we need to work with the expected demand
-function and volatility parameter defined as
+function, volatility parameter, and Brownian motion defined as
 \begin{align}
-  \hat q(\hat a)&=\frac{T}{S(0)}q(\hat a \bar a),
-  &\hat \sigma &= \sqrt{T}\sigma.
+  q(a)&=\frac{\hat{T}}{\hat{S}(0)}\hat{q}(a \bar{a}),
+  &\sigma &= \sqrt{\hat{T}}\hat{\sigma},
+  &W(t) &= \frac{\hat{W}(\hat{t})}{ \sqrt{\hat{T}}}.
 \end{align}
-Thus, for a given pricing policy $\hat \alpha(\hat t)$, the
-system starts at $\hat S(0),\hat G(0)=1$, and evolves according to
+It follows that the multiplicative term is given by
+\begin{align}
+  \hat{G}(\hat{t})
+  &=\exp\left(
+    -{\textstyle\frac{1}{2}}\hat{\sigma}^2\hat{T}t +\hat{\sigma} \sqrt{\hat{T}}\,W(t)\right)\\
+  &=\exp\left(-{\textstyle\frac{1}{2}}\sigma^2t +\sigma W(t)\right).
+\end{align}
+So we define dimensionless versions of the process $\hat{G}(\hat{t})$
+using
+\begin{equation}
+  G(t)=\hat{G}(\hat{T}t),\quad g=\hat{g}.
+\end{equation}
+Thus, for a given pricing policy $\alpha(t)$, the
+system starts at $S(0),G(0)=1$, and evolves according to
 \begin{align}
   \begin{split}\label{eq:gbm_sde_nondim}
-    d\hat G(\hat t)&=\hat \sigma \hat G(\hat t)\,\mathrm{d}W(\hat t),\\
-    d\hat S^{\hat \alpha}(t)&=-\hat q(\hat \alpha(\hat t))\hat G(\hat
-    t)\,\mathrm{d}\hat t,\qquad\text{stopped at zero}.
+    d G(t)&=\sigma G(t)\,\mathrm{d}W(t),\\
+    dS^{\alpha}(t)&=-q(\alpha(t))G(t)\,\mathrm{d}t,
+    \qquad\text{stopped at zero}.
   \end{split}
 \end{align}
-This scaling means that we work solely with stock and time on the unit interval, $\hat S^{\hat \alpha}(\hat t),\hat t\in[0,1]$.
-In the remainder of the chapter, we will omit the hats, and assume all
-quantities are dimensionless.
+This scaling means that we work solely with stock and time on the unit
+interval, $S^{\alpha}(t),t\in[0,T]$.
+
 
 \section{Formulation of the decision
   problem}\label{sec:decision_formulation}
@@ -316,11 +341,11 @@ In \Cref{subsec:param_estim} we address the real-world restrictions of
 the continuous-time assumption.
 
 Let $C>0$ denote the handling cost per unit of stock at the terminal
-time. Define $T_h$ to be the hitting time $T_h=\min \{1, T_0\}$, where
+time. Define $T_h$ to be the hitting time $T_h=\min \{T, T_0\}$, where
 $T_0=\inf\{t\geq 0\mid S^\alpha(t)=0\}$.
 The total profit accrued from a pricing policy $\alpha(t)$ is then
 \begin{equation}\label{eq:profit_expression}
-  P(\alpha) = \int_0^{T_h}\alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u - CS^\alpha(1).
+  P(\alpha) = \int_0^{T_h}\alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u - CS^\alpha(T).
 \end{equation}
 Note that we focus on time horizons where we believe discounting
 future cash is negligible.
@@ -331,16 +356,16 @@ wants to maximise the expected value of profit, $\mathbb
 E[P(\alpha)]$.
 
 Further, we restrict the product price to be in some closed  interval
-$A\subset\mathbb R_{\geq 0}$.
+$A\subset\mathbb{R}_{\geq 0}$.
 In addition, we will only look for Markovian pricing policies in an
-admissible set $\mathcal A$. We say that $\alpha(t)$ is Markovian if
+admissible set $\mathcal{A}$. We say that $\alpha(t)$ is Markovian if
 there is a function of the form $a(t,s,g)$ such that for each event $\omega$,
 \begin{equation}
   \alpha(t)(\omega) = a(t,S^\alpha(t)(\omega), G(t)(\omega)) \in A.
 \end{equation}
 Thus, we seek pricing policies that set the price at time $t$, based
 on the knowledge of the state at that time. We also assume that
-$\mathcal A$ only contains pricing policies such that the integral
+$\mathcal{A}$ only contains pricing policies such that the integral
 in~\eqref{eq:profit_expression} exists and
 $P(\alpha)$ is integrable. We can now state the mathematical problem we
 seek to solve in the remainder of the chapter.
@@ -348,11 +373,11 @@ seek to solve in the remainder of the chapter.
   In order to maximise the retailer's expected profit, find a solution to
   the stochastic optimal control problem
   \begin{equation}\label{eq:pricing_problem}
-    \max_{\alpha\in \mathcal A}\,\mathbb E[P(\alpha)].
+    \max_{\alpha\in \mathcal{A}}\,\mathbb{E}[P(\alpha)].
   \end{equation}
 \end{mydef}
 Our chosen strategy for finding the corresponding pricing function $a^*(t,s,g)$
-of a maximiser $\alpha^*\in\mathcal A$ is to solve the associated HJB
+of a maximiser $\alpha^*\in\mathcal{A}$ is to solve the associated HJB
 equation for the pricing problem.
 For an explanation of the theory behind stochastic optimal control and
 HJB equations, see, for example, \citet{pham2009continuous}.
@@ -365,24 +390,25 @@ calculate the optimal pricing function $a^*(t,s,g)$.
 If at time $t$, we know the value of $S(t)$ and $G(t)$, then the value
 function represents the expected value of applying the optimal pricing
 policy for the remainder of the pricing period.
-We define the value function $v(t,s,g)$ for $t,s\in[0,1]$ and $g\geq 0$ by
+We define the value function $v(t,s,g)$ for $t\in[0,T]$, $s\in[0,1]$, and $g\geq 0$ by
 \begin{align}
   v(t,s,g) &=
-             \max_{\alpha \in \mathcal A}\,
-             \mathbb E_{t}\left[
-             \int_t^{T_h}\alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u-CS^\alpha(1)
+             \max_{\alpha \in \mathcal{A}}\,
+             \mathbb{E}_{t}\left[
+             \int_t^{T_h}\alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u-CS^\alpha(T)
              \right],\label{eq:def_value_interior}\\
   v(t,0,g)&= 0,\\
   v(t,s,0)&=-Cs.
 \end{align}
 The subscript on the expectation denotes that we condition on
 $S^\alpha(t)=s$ and $G(t)=g$.
-In the limit $t\to 1$, we see from~\eqref{eq:def_value_interior} that $v(1,s,g)=-Cs$.
-In the usual way, see for example \citet{pham2009continuous}, the HJB equation for $v$ is
+In the limit $t\to T$, we see from~\eqref{eq:def_value_interior} that $v(T,s,g)=-Cs$.
+In the usual way, see for example \citet{pham2009continuous}, the HJB
+equation for $v$ is
 \begin{equation}\label{eq:hjb_interior}
   v_t(t,s,g)+\frac{\sigma^2}{2} g^2v_{gg}(t,s,g)
-  +g\max_{a\in A}\{(a-v_s(t,s,g))q(a)\} = 0, \quad
-  (t,s,g)\in{(0,1)}^2\times\mathbb R_{>0}.
+  +g\max_{a\in A}\{(a-v_s(t,s,g))q(a)\} = 0. %, \quad
+  %(t,s,g)\in{(0,1)}^2\times\mathbb{R}_{>0}.
 \end{equation}
 The subscripts on $v$ denote partial derivatives with respect to the
 given argument. Together with the boundary and terminal conditions on
@@ -463,7 +489,7 @@ expansion $\frac{x}{1+x}\approx \frac{1}{4}(1+x)$ about $x=1$.
 This gives us the following expressions for the first two moments
 of $G(t_1)$:
 \begin{align}\label{eq:conditional_mean_g}
-  \mathbb E[G(t_1)\mid a_0,S(t_0),S(t_1)]
+  \mathbb{E}[G(t_1)\mid a_0,S(t_0),S(t_1)]
   &\approx \frac{S(t_0)-S(t_1)}{ q(a_0)\Delta t},\\
   \mbox{Var}[G(t_1)\mid a_0,S(t_0),S(t_1)]
   &\approx \frac{1}{4}{\left(\frac{S(t_0)-S(t_1)}{
@@ -519,25 +545,25 @@ in~\eqref{eq:def_value_interior}, the ansatz pricing policy must
 also be given by
 \begin{align}
   a^D(t,s,g)
-  &=\argmax_{a\in A}\left\{\int_t^1aq(a)g\,\mathrm{d}u -
-    C\left(s-\int_t^1q(a)g\,\mathrm{d}u\right) \,\big|\,  s \geq \int_t^1q(a)g\,\mathrm{d}u\right\}\\
-  &=\argmax_{a\in A}\left\{(1-t)(a+C)q(a)g-Cs \mid  s \geq
-    (1-t)q(a)g\right\}.
+  &=\argmax_{a\in A}\left\{\int_t^Taq(a)g\,\mathrm{d}u -
+    C\left(s-\int_t^Tq(a)g\,\mathrm{d}u\right) \,\big|\,  s \geq \int_t^Tq(a)g\,\mathrm{d}u\right\}\\
+  &=\argmax_{a\in A}\left\{(T-t)(a+C)q(a)g-Cs \mid  s \geq
+    (T-t)q(a)g\right\}.
 \end{align}
 The maximiser therefore satisfies the equality constraints that
-$s$ equals $(1-t)gq(a)$, is zero, or is in the interior of the feasible set,
+$s$ equals $(T-t)gq(a)$, is zero, or is in the interior of the feasible set,
 given by $A$.
 For $q(a)=q_1-a$, we can verify that this implies
 \begin{equation}\label{eq:astar_linear}
   a^D(t,s,g)=\begin{cases}
-    q_1-\frac{s}{(1-t)g}, &\text{if } 0\leq s\leq
-    (1-t)g\min\{q_1,\frac{1}{2}(q_1 +C)\},\\
+    q_1-\frac{s}{(T-t)g}, &\text{if } 0\leq s\leq
+    (T-t)g\min\{q_1,\frac{1}{2}(q_1 +C)\},\\
     \max(0,q_1-C)/2,&\text{otherwise.}
   \end{cases}
 \end{equation}
-It follows that $T_h=1$ when following the optimal pricing strategy.
-This is an intuitive result, because if $T_h<1$, one can increase the
-price until $T_h=1$ and $S^\alpha(1)=0$, which earns extra revenue at no extra cost.
+It follows that $T_h=T$ when following the optimal pricing strategy.
+This is an intuitive result, because if $T_h<T$, one can increase the
+price until $T_h=T$ and $S^\alpha(T)=0$, which earns extra revenue at no extra cost.
 The pricing policy suggested by the
 deterministic assumption provides the following, obvious, heuristic:
 First, find the price that maximises profits, ignoring inventory
@@ -550,7 +576,7 @@ approximation to a Poisson process demand model.
 
 \begin{example}\label{ex:acecplot}
   To demonstrate what form the pricing function may take,
-  \Cref{fig:hjbsol_a_cec} shows a plot of $a^D(t,s,1.0)$ for a given set of
+  \Cref{fig:hjbsol_a_cec} shows a plot of $a^D(t,s,1)$ for a given set of
   parameters. We have chosen the parameters so that the pricing
   problem starts at the most interesting point: at the kink separating
   the regimes where all the stock is sold out and where it is not.
@@ -560,10 +586,10 @@ approximation to a Poisson process demand model.
   \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.6\textwidth]{hjbsol_a_cec}
-    \caption*{$a^D(t,s,1.0)$}
-    \caption{Example optimal, deterministic, pricing function $a^D(t,s,1.0)$
+    \caption*{$a^D(t,s,1)$}
+    \caption{Example optimal, deterministic, pricing function $a^D(t,s,1)$
       from~\eqref{eq:astar_linear}, as a function of time and stock.
-      Notice how sensitive $a^D(t,s,1.0)$ is to changes in $s$, for large
+      Notice how sensitive $a^D(t,s,1)$ is to changes in $s$, for large
       $t$.
       The parameters used are $q_1=3/2$, and $C=1/2$.
       In \Cref{fig:hjbsol_a} we compare this function to the optimal price
@@ -579,24 +605,24 @@ On the interior of the $(t,s,g)$-domain, $a^D(t,s,g)$ must solve
 \begin{equation}
   \max_{a\in A} \{(a-v_s(t,s,g))(q_1-a)\}.
 \end{equation}
-Let $\mathcal P_A$ denote the projection of the real line to $A$. The
+Let $\mathcal{P}_A$ denote the projection of the real line to $A$. The
 objective is concave, and hence the maximiser is
 \begin{equation}\label{eq:astar_hjb_linear}
-  a^D(t,s,g) = \mathcal P_A\left[\frac{q_1+v_s}{2}\right].
+  a^D(t,s,g) = \mathcal{P}_A\left[\frac{q_1+v_s}{2}\right].
 \end{equation}
 Define $\Gamma$ to be the boundary of the terminal time problem,
-that is when $t=1$, $s=0$, or $g=0$.
+that is when $t=T$, $s=0$, or $g=0$.
 Let us assume that $C< q_1$, then the
 deterministic-case HJB equation for $v$ is
 \begin{align}\label{eq:hjb_linear}
   v_t(t,s,g)+
   \frac{g}{4}{( q_1-v_s(t,s,g))}^2
-  &=0,&(t,s,g)&\in{(0,1)}^2\times \mathbb R_{>0},\\
+  &=0, \\%&(t,s,g)&\in{(0,1)}^2\times \mathbb{R}_{>0},\\
   v(t,s,g) &= -Cs,&(t,s,g)&\in \Gamma.
 \end{align}
 If $C\geq q_1$, then there are regions where $a^D(t,s,g)=0$. In
 particular, this means that for $t,s,g$ such that
-$s>(1-t)gq_1$, $v$ must satisfy
+$s>(T-t)gq_1$, $v$ must satisfy
 \begin{equation}\label{eq:hjb_linear_Clarge}
   v_t(t,s,g) - gq_1v_s(t,s,g)=0.
 \end{equation}
@@ -607,10 +633,10 @@ function must satisfy
 \begin{align}\label{eq:v_func_linear_det}
   v^D(t,s,g)
   &=\begin{cases}
-    q_1s-\frac{s^2}{(1-t)g},
+    q_1s-\frac{s^2}{(T-t)g},
     &\text{if } 0\leq s\leq
-    (1-t)g\min\{q_1,\frac{1}{2}(q_1 +C)\},\\
-    -Cs + V(C)(1-t)g,
+    (T-t)g\min\{q_1,\frac{1}{2}(q_1 +C)\},\\
+    -Cs + V(C)(T-t)g,
     &\text{otherwise.}
   \end{cases}\\
   V(C)
@@ -631,15 +657,15 @@ With the same ansatz that was used for the linear demand function, we
 can also find the optimal, deterministic, pricing function for
 exponential demand $q(a)=q_1e^{-q_2a}$.
 Indeed, this is true for any demand function for which a closed form
-solution exists for $\max_{a\in A}\{(a+C)q(a))\}$ and $(1-t)gq(a)=s$.
+solution exists for $\max_{a\in A}\{(a+C)q(a))\}$ and $(T-t)gq(a)=s$.
 As with the linear demand, we can eliminate the parameter $q_2$ so that
 $q(a)=q_1e^{-a}$, given by replacing $q_2a$ by $a$.
 In the exponential demand case, with $A=[0,\infty)$, the ansatz gives
 us the optimal pricing function
 \begin{equation}\label{eq:afun_exp_cec}
   a^D(t,s,g)=\begin{cases}
-    \log{\frac{q_1g(1-t)}{s}},
-    &\text{if } 0\leq\frac{s}{q_1g(1-t)}\leq e^{C-1},\\
+    \log{\frac{q_1g(T-t)}{s}},
+    &\text{if } 0\leq\frac{s}{q_1g(T-t)}\leq e^{C-1},\\
     \max\left(0,1-C\right),&\text{otherwise}.
   \end{cases}
 \end{equation}
@@ -651,7 +677,7 @@ must satisfy the HJB equation
 \begin{align}
   v_t(t,s,g)
   +gq_1e^{-1-v_s(t,s,g)}
-  &=0,&(t,s,g)&\in{(0,1)}^2\times \mathbb R_{>0},\\
+  &=0, \\%&(t,s,g)&\in{(0,1)}^2\times \mathbb{R}_{>0},\\
   v(t,s,g) &= -Cs,&(t,s,g)&\in \Gamma.
 \end{align}
 The viscosity solution of the HJB equation, acquired from the ansatz $a^D(t,s,g)$
@@ -659,9 +685,9 @@ in~\eqref{eq:afun_exp_cec}, is
 \begin{align}
   v^D(t,s,g)
   &=\begin{cases}
-    s \log \frac{q_1g(1-t)}{s},
-    &\text{if } 0\leq \frac{s}{q_1g(1-t)}\leq e^{C-1},\\
-    -Cs+gV(C)(1-t),&\text{otherwise},
+    s \log \frac{q_1g(T-t)}{s},
+    &\text{if } 0\leq \frac{s}{q_1g(T-t)}\leq e^{C-1},\\
+    -Cs+gV(C)(T-t),&\text{otherwise},
   \end{cases}\\
   V(C)&=q_1e^{C-1}.
 \end{align}
@@ -677,12 +703,12 @@ expect the kink in the deterministic pricing function to smooth
 out. It turns out that the difference between an optimal
 policy and a heuristic policy based on the solution
 to the deterministic system is at most
-$\mathcal{O}(\sigma \sqrt{1-t})$. Further, numerical tests indicate that the
+$\mathcal{O}(\sigma \sqrt{T-t})$. Further, numerical tests indicate that the
 closed-form pricing functions found in the previous section will
 perform sufficiently well in most situations.
 
 We assume in the following that $(q_1+v_s)\in[0,2]$ for
-$t\in[0,1)$, $s,g>0$, so
+$t\in[0,T)$, $s,g>0$, so
 that the pricing function satisfies $a(t,s,g) = (q_1+v_s(t,s,g))/2$ as
 given by~\eqref{eq:astar_hjb_linear}.
 Using~\eqref{eq:hjb_interior} and~\eqref{eq:hjb_linear} it then
@@ -690,7 +716,7 @@ follows that $v$ should satisfy
 \begin{align}\label{eq:hjb_impact_uncertainty}
   v_t(t,s,g)+\frac{\sigma^2}{2} g^2v_{gg}(t,s,g)
   +\frac{g}{4}{(q_1-v_s)}^2
-  &= 0,&(t,s,g)&\in{(0,1)}^2\times \mathbb R_{>0},\\
+  &= 0, \\%&(t,s,g)&\in{(0,1)}^2\times \mathbb{R}_{>0},\\
   v(t,s,g) &= -Cs,&(t,s,g)&\in \Gamma.
 \end{align}
 
@@ -710,7 +736,7 @@ policy by $a^B(t,s,g)$ and $\alpha^B(t)$ respectively.
 
 \begin{example}\label{ex:function_impact_uncertainty}
   Let us consider the particular example system used in
-  Example~\ref{ex:acecplot}. %\Cref{ex:acecplot}.
+  \Cref{ex:acecplot}. %\Cref{ex:acecplot}.
   That is, a linear demand function $q(a)=q_1-a$, with $q_1=3/2$
   and $C=1/2$.
   We set the volatility level of $G(t)$ to $\sigma=0.1$, which
@@ -719,18 +745,18 @@ policy by $a^B(t,s,g)$ and $\alpha^B(t)$ respectively.
   \Cref{fig:hjbsol_a} shows the
   optimal pricing function for $g=1$, and a plot of the difference
   $a^B(t,s,g)-a^D(t,s,g)$. The only visible difference is along the kink
-  line, $s=g(1-t)$, where $a^B$ smooths out the transition between
+  line, $s=g(T-t)$, where $a^B$ smooths out the transition between
   the two regions, and hence sells the product at a slightly higher
   price.
   \begin{figure}[htb]
     \centering
     \begin{subfigure}[b]{0.5\textwidth}
       \includegraphics[width=\textwidth]{hjbsol_a_hjb}
-      \caption{$a^B(t,s,1.0)$}
+      \caption{$a^B(t,s,1)$}
     \end{subfigure}%
     \begin{subfigure}[b]{0.5\textwidth}
       \includegraphics[width=\textwidth]{hjbsol_a_cec_hjb}
-      \caption{$(a^D-a^B)(t,s,1.0)$}
+      \caption{$(a^D-a^B)(t,s,1)$}
     \end{subfigure}%
     \caption{The optimal pricing function ($a^B(t,s,g)$, left) smooths out the
       kink as compared to the deterministic heuristic ($a^D(t,s,g)$,
@@ -759,7 +785,7 @@ policy by $a^B(t,s,g)$ and $\alpha^B(t)$ respectively.
   \caption{A zoomed in comparison of $a^B(t,s,g)$ and $a^D(t,s,g)$
     in the transformed coordinate $\xi=s/g$.
     The difference between $a^B$ and $a^D$ is of order
-    $\sigma\sqrt{1-t}$ at the kink, and
+    $\sigma\sqrt{T-t}$ at the kink, and
     $-\sigma^2\xi/2$ as we move to the left in the
     plots.
     This example uses $q_1=3/2$, $C=1/2$, and $\sigma=0.2$.
@@ -773,20 +799,20 @@ results here, and refer to \Cref{fig:hjb_cec_zoom} for a visualisation
 of the differences between $a^B$ and $a^D$.
 \begin{myresult}\label{res:linear_asymptotics}
   Define $\beta=\min(q_1,(q_1+C)/2)$.
-  There is an inner layer around the surface $\frac{s}{g}=(1-t)\beta$ which
+  There is an inner layer around the surface $\frac{s}{g}=(T-t)\beta$ which
   smooths out the kink of the solution $a^D(t,s,g)$ that arise when
   $\sigma=0$. At the kink, the first-order correction in the pricing
-  function is of order $\mathcal{O}(\sigma\sqrt{1-t})$.
+  function is of order $\mathcal{O}(\sigma\sqrt{T-t})$.
   The width of the layer is of the order
-  $\mathcal{O}(\sigma{(1-t)}^{3/2})$, which connects the two pricing
+  $\mathcal{O}(\sigma{(T-t)}^{3/2})$, which connects the two pricing
   regimes identified in the deterministic case.
   As we move from the inner layer to larger values of
-  $\xi:=s/g>(1-t)\beta$, the solution
+  $\xi:=s/g>(T-t)\beta$, the solution
   tends to the value $\delta=\max(0,q_1-C)/2$, which coincides with
   $a^D$. As we move from the inner layer to smaller values of $\xi$,
   the leading order solution of the inner layer coincides with $a^D$.
   Further, there is a second order correction in the region
-  $\xi<(1-t)\beta$ equal to $-\sigma^2 \xi/2$.
+  $\xi<(T-t)\beta$ equal to $-\sigma^2 \xi/2$.
 \end{myresult}
 
 The first and second order corrections reflect the insights one can
@@ -814,7 +840,7 @@ pricing policy $\alpha^D(t)$.
   \centering
   \includegraphics{gbm_stats_a_diff}
   \caption{Statistics of the price paths from
-    Example~\ref{ex:impact_uncertainty}, %\Cref{ex:impact_uncertainty},
+    \Cref{ex:impact_uncertainty}, %\Cref{ex:impact_uncertainty},
     showing the $0.05,0.5$, and
     $0.95$ quantiles of $\alpha(t)$. From top to bottom, the optimal
     policy, the deterministic heuristic, and their difference.
@@ -827,7 +853,7 @@ pricing policy $\alpha^D(t)$.
 \end{figure}
 \begin{example}\label{ex:impact_uncertainty}
   Let us simulate the system from
-  Example~\ref{ex:function_impact_uncertainty}
+  \Cref{ex:function_impact_uncertainty}
   with the numerical approximation to $\alpha^B(t)$ and compare it to $\alpha^D(t)$.
   We draw \num{100000} sample paths from the underlying Brownian
   motion $W(t)$, and set the price to be constant on intervals of size $\Delta t = 0.01$
@@ -845,13 +871,13 @@ pricing policy $\alpha^D(t)$.
   policies make. Recall that the profit of following a policy
   $\alpha(t)$ is the random variable
   \begin{equation}
-    P(\alpha)=\int_0^{T_h}q(\alpha(u))\alpha(u)G(u)\,\mathrm{d}u-CS^\alpha(1).
+    P(\alpha)=\int_0^{T_h}q(\alpha(u))\alpha(u)G(u)\,\mathrm{d}u-CS^\alpha(T).
   \end{equation}
   From simulations we estimate the distribution of $P(\alpha)$ for the
   optimal and deterministic policies, and compare their performance.
   The improvement is negligible, as we see from the relative statistics
   \begin{align}
-    \mathbb E\left[1-P(\alpha^D)/P(\alpha^B)\right]
+    \mathbb{E}\left[1-P(\alpha^D)/P(\alpha^B)\right]
     &\approx 2\times 10^{-4},
     &\mbox{std}\left[1-P(\alpha^D)/P(\alpha^B)\right]
     &\approx 6\times 10^{-4},\\
@@ -874,7 +900,7 @@ pricing policy $\alpha^D(t)$.
     \caption{The histogram shows the distribution of the relative
       profit by using the deterministic pricing heuristic $\alpha^D(t)$
       to using the optimal policy $\alpha^B(t)$, as described in
-      Example~\ref{ex:impact_uncertainty}. %\Cref{ex:impact_uncertainty}.
+      \Cref{ex:impact_uncertainty}. %\Cref{ex:impact_uncertainty}.
       Positive values
       correspond to realizations of $W(t)$ where
       $\alpha^B(t)$ is better.
@@ -884,7 +910,7 @@ pricing policy $\alpha^D(t)$.
   \end{figure}
 \end{example}
 
-In Example~\ref{ex:impact_uncertainty} and
+In \Cref{ex:impact_uncertainty} and
 \Cref{fig:gbm_histogram_a_cec_hjb} it appears that the relative
 improvement in profits by pricing according to $\alpha^B(t)$, rather than the heuristic
 policy $\alpha^D(t)$, is negligible.
@@ -911,7 +937,7 @@ the order of \SIrange{0.01}{0.1}{\percent}.
   \end{tabular}
   \caption{Summary statistics of the relative profit difference
     $1-P(\alpha^D)/P(\alpha^B)$ from the model in
-    Example~\ref{ex:impact_uncertainty} with different levels of
+    \Cref{ex:impact_uncertainty} with different levels of
     uncertainty $\sigma$.
     The headings $Q_z$ denote the $z$-quantile of the distribution.
   }\label{tbl:profit_hjb_cec_statistics}
@@ -925,13 +951,13 @@ equation~\eqref{eq:hjb_impact_uncertainty} under the assumptions of
 Further, we assume that the value and pricing functions are sufficiently
 differentiable to carry out the operations below. The smoothing effect
 of the diffusion in the PDEs when $\sigma>0$ justifies this assumption.
-Result~\ref{res:linear_asymptotics} in \Cref{sec:stochastic_hjb}
+\Cref{res:linear_asymptotics} in \Cref{sec:stochastic_hjb}
 discusses the interpretation of the following results.
 
 Let us first reduce the dimension of the problem with a similarity
 transform working in reverse time, and then present a PDE satisfied by the pricing function.
-Consider the transformations $\xi(s,g) = s/g$, $\tau=1-t$, and
-$v(t,s,g)=g\phi(1-\tau,\xi(s,g))$, which satisfies
+Consider the transformations $\xi(s,g) = s/g$, $\tau=T-t$, and
+$v(t,s,g)=g\phi(T-\tau,\xi(s,g))$, which satisfies
 \begin{align}\label{eq:hjb_value_transform}
   \phi_\tau &= \frac{1}{2}\sigma^2\xi^2\phi_{\xi\xi} +
               \frac{1}{4}{(q_1 - \phi_\xi)}^2 \\
@@ -940,7 +966,7 @@ $v(t,s,g)=g\phi(1-\tau,\xi(s,g))$, which satisfies
   \phi_\xi(\tau,\infty) &= -C.
 \end{align}
 In the new coordinates, define the pricing function in terms of the
-function $\psi(\tau,\xi)$ so that $a^B(t,s,g)=\psi(1-\tau,\xi(s,g))$.
+function $\psi(\tau,\xi)$ so that $a^B(t,s,g)=\psi(T-\tau,\xi(s,g))$.
 Then $\psi = (q_1+\phi_\xi)/2$ satisfies the following PDE
 that arises from differentiating~\eqref{eq:hjb_value_transform} with
 respect to $\xi$.
@@ -1037,15 +1063,15 @@ More generally, the demand function $q(a)$ depends on multiple
 parameters that exhibit different levels of
 uncertainty and dynamics in time. Another parameter in the pricing
 problem is the unit cost $C$, where its value at the terminal time may
-depend on factors unknown at times $t<1$.
-Let $\theta(t)\in\mathbb R^n$ denote the vector of parameters that are
+depend on factors unknown at times $t<T$.
+Let $\theta(t)\in\mathbb{R}^n$ denote the vector of parameters that are
 relevant to the problem, and say the demand function  and the unit cost
 depend explicitly on $\theta$. We write $q(a;\theta)$ and $C(\theta)$
 for this dependence.
 Within the diffusion based stochastic framework, we can model the
-dynamics of $\theta(t)$ with functions $b(t,\theta)\in\mathbb R^n$,
-$\sigma(t,\theta)\in\mathbb R^{n\times p}$, and a vector-valued, uncorrelated,
-Brownian motion $W(t)\in\mathbb R^p$.
+dynamics of $\theta(t)$ with functions $b(t,\theta)\in\mathbb{R}^n$,
+$\sigma(t,\theta)\in\mathbb{R}^{n\times p}$, and a vector-valued, uncorrelated,
+Brownian motion $W(t)\in\mathbb{R}^p$.
 We assume that $\theta(t)$ does not depend on the pricing policy
 $\alpha(t)$ or the remaining
 stock $S^\alpha(t)$. Thus,
@@ -1055,20 +1081,20 @@ the system for the pricing problem is described by the SDE,
   \mathrm{d}S^\alpha(t)&=-q(\alpha(t);\theta(t)).
 \end{align}
 
-Let $\Theta\in\mathbb R^n$ denote the state space for
+Let $\Theta\in\mathbb{R}^n$ denote the state space for
 $\theta(t)$.
 Let $D_\theta v$ and $D_\theta^2v$ denote the gradient and Hessian of
 $v(t,s,\theta)$ with respect to $\theta$. We denote the transpose
 operator with a superscript asterisk, and introduce the
 volatility matrix $\Sigma(t,\theta) = \sigma(t,\theta){\sigma(t,\theta)}^*$.
 The HJB approach for the pricing problem is then to find
-$v:{[0,1]}^2\times\Theta\to\mathbb R$ which satisfies
+$v:{[0,1]}^2\times\Theta\to\mathbb{R}$ which satisfies
 \begin{align}
   v_t+{b(t,\theta)}^* D_\theta v
   + {\textstyle\frac{1}{2}}\mbox{tr}\left( \Sigma(t,\theta)
   D_\theta^2v \right)
   +\max_{a}\{q(a;\theta)(a-v_s)\}&=0,\\
-  v(1,s,\theta) &= -C(\theta)s.
+  v(T,s,\theta) &= -C(\theta)s.
 \end{align}
 Additional boundary conditions may be necessary, depending on
 $\theta(t)$. For example, the boundary condition for $g=0$ in our
@@ -1099,7 +1125,7 @@ demand, see, for example, \citet{lim2007relative} or \citet{feng2008risk}.
 
 In this section, we assume that the decision maker is evaluated based on
 the performance of the total profit from selling a product over the
-time interval $[0,1]$. Then, the pricing decision at time $t$ may also depend
+time interval $[0,T]$. Then, the pricing decision at time $t$ may also depend
 on how much revenue has been accrued at that time. So we
 introduce a state-variable $R^\alpha(t)$ representing the accrued
 revenue at time $t$, with dynamics
@@ -1108,23 +1134,23 @@ We consider risk-aversion based on
 an expected utility-maximizing decision maker.
 Given a utility function $U(x)$, the pricing problem is then to
 find a pricing policy $\alpha$ that maximises the expected utility
-$\mathbb E[U(R^\alpha(1)-C(\theta(1))S^\alpha(1))]$.
+$\mathbb{E}[U(R^\alpha(T)-C(\theta(T))S^\alpha(T))]$.
 For this utility function, the value function is defined as
 \begin{equation}
   v(t,s,\theta,r)=
-  \max_{\alpha\in\mathcal A}
-  \mathbb E_t\left[
-    U\left(R^\alpha(1)-C(\theta(1))S^\alpha(1)\right)
+  \max_{\alpha\in\mathcal{A}}
+  \mathbb{E}_t\left[
+    U\left(R^\alpha(T)-C(\theta(T))S^\alpha(T)\right)
   \right].
 \end{equation}
 The corresponding HJB problem is then to find
-$v:{[0,1]}^2\times \Theta\times{[0,\infty)}\to\mathbb R$ that solves
+$v:{[0,T]}\times{[0,1]}\times \Theta\times{[0,\infty)}\to\mathbb{R}$ that solves
 \begin{align}\label{eq:hjb_utility}
   v_t+{b(t,\theta)}^* D_\theta v
   + {\textstyle\frac{1}{2}}\mbox{tr}\left( \Sigma(t,\theta)
   D_\theta^2v \right)
   +\max_{a}\{q(a;\theta)(av_r-v_s)\}&=0,\\
-  v(1,s,\theta,r) &= U(r-C(\theta)s),
+  v(T,s,\theta,r) &= U(r-C(\theta)s),
 \end{align}
 plus additional boundary conditions. The impact of the risk-aversion
 on pricing decisions appears in the maximization term in the HJB
@@ -1140,12 +1166,12 @@ selling more stock, as represented by the $v_s$ term.
 % equivalent value of the terminal profit when following the optimal pricing policy.
 % For our purposes, the certainty equivalent utility of a random
 % variable $X$ can be defined as
-% $U^{-1}[\mathbb E[U(X)]]$, when $U$ is invertible. We thus define the certainty equivalent
+% $U^{-1}[\mathbb{E}[U(X)]]$, when $U$ is invertible. We thus define the certainty equivalent
 % value function, given state $(t,s,\theta,r)$, as
 % \begin{equation}
 %   e(t,s,\theta,r) = U^{-1}(v(t,s,\theta,r)).
 % \end{equation}
-% The terminal condition for this function is $e(1,s,\theta,r)=r-Cs$.
+% The terminal condition for this function is $e(T,s,\theta,r)=r-Cs$.
 % All derivatives of $v$ can then be written in terms of $e$
 % using the chain rule:
 % \begin{align}
@@ -1157,7 +1183,7 @@ selling more stock, as represented by the $v_s$ term.
 % Before we show the resulting PDE for $e(t,s,\theta,r)$, it is useful
 % to introduce the concept of Absolute Risk Aversion (ARA), as defined
 % by \citet{pratt1964risk}. For twice differentiable utility functions,
-% we denote the ARA coefficient $\mathcal X(x)=-U''(x)/U'(x)$ at wealth $x$
+% we denote the ARA coefficient $\mathcal{X}(x)=-U''(x)/U'(x)$ at wealth $x$
 % as a way of measuring the risk
 % aversion of the decision maker.
 % For strictly increasing utility functions $U(e)$, we can substitute
@@ -1171,17 +1197,17 @@ selling more stock, as represented by the $v_s$ term.
 %     D_\theta^2e \right)
 %   +\max_{a}\{q(a;\theta)(ae_r-e_s)\}
 %   &=
-%   {\textstyle\frac{1}{2}}\mathcal X(e)\,\mbox{tr}\left( \Sigma(t,\theta)
+%   {\textstyle\frac{1}{2}}\mathcal{X}(e)\,\mbox{tr}\left( \Sigma(t,\theta)
 %     [D_\theta e]{[D_\theta e]}^* \right),\\
-%   e(1,s,\theta,r) &= r-C(\theta)s,
+%   e(T,s,\theta,r) &= r-C(\theta)s,
 % \end{align}
 % plus additional boundary conditions.
 % We see that $e(t,s,r,\theta)$ is
 % therefore evolving in time in a similar manner to the risk-neutral
 % value function $v(t,s,r,\theta)$ in the previous sections, with an
 % additional term that depends on the decision maker's risk aversion
-% $\mathcal X(e)$.
-% Note that $\mathcal X(x)$ is always negative, zero, and positive for a
+% $\mathcal{X}(e)$.
+% Note that $\mathcal{X}(x)$ is always negative, zero, and positive for a
 % risk-averse, risk-neutral, and risk-seeking decision maker respectively.
 % In addition, we know that $\mbox{tr}(\Sigma(t,\theta)[D_\theta e]{[D_\theta e]}^*)\geq
 % 0$, since the matrix in the trace is positive semi-definite.
@@ -1191,8 +1217,8 @@ selling more stock, as represented by the $v_s$ term.
 %   risk-aversion, but the effect diminishes as we get closer to the
 %   terminal time.
 % \item Uncertainty in the system can have an order one impact on the
-%   certainty equivalent value if $\mathcal O(\mathcal X(e))=\mathcal
-%   O\left(\rho\left( {\Sigma(t,\theta)}^{-1}
+%   certainty equivalent value if $\mathcal{O}(\mathcal{X}(e))=\mathcal{O}
+%   \left(\rho\left( {\Sigma(t,\theta)}^{-1}
 %     \right)\right)$, where $\rho(M)$ denotes the spectral radius of a matrix.
 % \end{itemize}
 
@@ -1206,20 +1232,20 @@ selling more stock, as represented by the $v_s$ term.
 %   For brevity, we omit the dependence of $\theta$ on the demand
 %   function $q(a)$ and the unit cost $C$.
 %   First, note that if $R^\alpha(t)=r$, then
-%   $R^\alpha(1)=r+\int_t^{T_h}q(\alpha(u))\alpha(u)\,\mathrm{d}u$.
+%   $R^\alpha(T)=r+\int_t^{T_h}q(\alpha(u))\alpha(u)\,\mathrm{d}u$.
 %   Second, note that
-%   $U(R^\alpha(1)-CS^\alpha(1)) =  e^{-\gamma r}
-%   U\left( \int_t^{T_h}q(\alpha(u))\alpha(u)\,\mathrm{d}u-CS^\alpha(1) \right)$.
+%   $U(R^\alpha(T)-CS^\alpha(T)) =  e^{-\gamma r}
+%   U\left( \int_t^{T_h}q(\alpha(u))\alpha(u)\,\mathrm{d}u-CS^\alpha(T) \right)$.
 %   The certainty equivalent value function that satisfies the
 %   PDE~\eqref{eq:hjb_ceutility} can be written as
 %   \begin{align}
 %     e(t,s,\theta,r)
 %     &=-\frac{1}{\gamma} \log
-%     \left\{ -\max_{\alpha \in\mathcal A} \mathbb E_t
-%       \left[ U\left( R^\alpha(1)-CS^\alpha(1) \right)\right]\right\} \\
+%     \left\{ -\max_{\alpha \in\mathcal{A}} \mathbb{E}_t
+%       \left[ U\left( R^\alpha(T)-CS^\alpha(T) \right)\right]\right\} \\
 %     &= r - \frac{1}{\gamma}\log
-%     \left\{ -\max_{\alpha \in\mathcal A} \mathbb E_t
-%       \left[U\left( \int_t^{T_h}q(\alpha(u))\alpha(u)\,\mathrm{d}u-CS^\alpha(1) \right)\right]\right\}.
+%     \left\{ -\max_{\alpha \in\mathcal{A}} \mathbb{E}_t
+%       \left[U\left( \int_t^{T_h}q(\alpha(u))\alpha(u)\,\mathrm{d}u-CS^\alpha(T) \right)\right]\right\}.
 %   \end{align}
 %   There is no explicit dependence on $r$ in the maximization term, and
 %   thus $\alpha(t)$ will not depend on $R^\alpha(t)$.

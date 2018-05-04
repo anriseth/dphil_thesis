@@ -70,7 +70,7 @@ $\hat{W}={(\hat{W}_t)}_{t=1}^T$,
 The goal is to find an $\hat{\alpha}$ which maximises the expected net revenues over a
 given time horizon $T$,
 \begin{equation}
-  \max_{\hat{\alpha}}\mathbb E_{\hat{W}}\left[ \sum_{t=0}^T\hat{U}_t(\hat{S}_t,\hat{\alpha}_t,\hat{W}_{t+1})
+  \max_{\hat{\alpha}}\mathbb{E}_{\hat{W}}\left[ \sum_{t=0}^T\hat{U}_t(\hat{S}_t,\hat{\alpha}_t,\hat{W}_{t+1})
     - \overline{U}(\hat{S}_T)\right],
 \end{equation}
 where $\hat{U}_t$ denotes the revenue at time $t$, and $\overline{U}$ the
@@ -191,7 +191,7 @@ The state $\hat{S}_t$ is the stock of a product at time $t$, and
 $\hat{\alpha}_t$ the price for the product in the time period from $t$ to
 $t+1$. We model the amount of product sold over each time period according
 to a forecast demand
-function $\hat{q}:\hat{A}\to\mathbb R_+$, which is bounded, continuous and decreasing.
+function $\hat{q}:\hat{A}\to\mathbb{R}_+$, which is bounded, continuous and decreasing.
 Exogenous influences on demand are considered as randomness in the
 system, and are
 modelled in a multiplicative and dimensionless fashion by a stochastic process
@@ -224,7 +224,7 @@ by the value function $\hat{v}$, such that
 \begin{align}\label{eq:value_function_def}
   \hat{v}(t,\hat{s})&=\max_{\hat{\alpha}\in\hat{\mathcal{A}}} \hat{J}(t,\hat{s},\hat{\alpha}),\quad\text{where}\\
   \hat{J}(t,\hat{s},\hat{\alpha})&=
-                                   \mathbb E_{W}\left[ \sum_{\tau=t}^{T-1}
+                                   \mathbb{E}_{W}\left[ \sum_{\tau=t}^{T-1}
                                    \hat{\alpha}_\tau \hat{Q}(\hat{S}_\tau^{\hat{\alpha}},\hat{\alpha}_\tau,W_{\tau+1})
                                    - \hat{C}\hat{S}_T^{\hat{\alpha}} \mid \hat{S}_t^{\hat{\alpha}} = \hat{s}
                                    \right].
@@ -251,7 +251,7 @@ we investigate the performance of algorithms in
 If we assume that the random variables $W_t$ are independent, this
 stochastic optimal control problem can be solved by
 considering the optimality conditions that arise from the Dynamic
-Programming principle, also known as the Bellman equation.
+Programming principle, also known as the Bellman equation~\citep{bertsekas2005dynamic}.
 
 \subsection{Non-dimensionalisation of the system}
 We will now consider a non-dimensionalised
@@ -300,26 +300,23 @@ Now we can define the dimensionless value function
                  \label{eq:value_function_def_nondim2}
 \end{align}
 Finally, the dimensionless optimal control problem
-is to find $\alpha^*\in{\mathcal A}$, such that
+is to find $\alpha^*\in{\mathcal{A}}$, such that
 $J(0,1,\alpha^*)=v(0,1)$.
 For the remainder of this chapter, we work with the
 non-dimensionalised system.%, and drop the hats from the
 % dimensionless quantities.
 
 \subsection{The Bellman equation}\label{subsec:adp_bellman_equation}
-We choose $\mathcal A$ to be the set of Markovian policies for the
-problem. This means that for each $\alpha\in \mathcal
-A$, there exists a
-measurable function $a:[0,T)\times \mathbb R_+\to A$, such that for each possible outcome
+We choose $\mathcal{A}$ to be the set of Markovian policies for the
+problem. This means that for each $\alpha\in \mathcal{A}$, there exists a
+measurable function $a:[0,T)\times \mathbb{R}_+\to A$, such that for each possible outcome
 $\omega$, the process $\alpha$ is given by
-$\alpha_t(\omega) =
-a(t,S_t^\alpha(\omega))$.
-Then,
-an approach to finding the value function above is to use the Dynamic
+$\alpha_t(\omega) = a(t,S_t^\alpha(\omega))$.
+Then, an approach to finding the value function above is to use the Dynamic
 Programming principle~\citep{bertsekas2005dynamic}, which states that $v$ can be defined
 recursively by
 \begin{equation}\label{eq:dynamic_programming_discrete}
-  v(t,s)=\max_{a\in A}\mathbb E_{W_{t+1}}\left[
+  v(t,s)=\max_{a\in A}\mathbb{E}_{W_{t+1}}\left[
     aQ(s,a,W_{t+1})
     +v\bigl(t+1,s-Q(s,a,W_{t+1})\bigr)\right].
 \end{equation}
@@ -337,13 +334,13 @@ approximate the solutions.
 We implement the following algorithm to approximately solve the optimal control
 problem, using the Bellman equation:\todo{Decorate with some algorithm environment?}
 \begin{enumerate}
-\item Create a grid of equispaced points $0=s_1<s_2<\cdots<s_K=S_0$, and arrays $v^K\in\mathbb R^{K\times(T+1)}$,
-  $\alpha^K\in\mathbb R^{K\times T}$.
+\item Create a grid of equispaced points $0=s_1<s_2<\cdots<s_K=S_0$, and arrays $v^K\in\mathbb{R}^{K\times(T+1)}$,
+  $\alpha^K\in\mathbb{R}^{K\times T}$.
 \item Set $I[v^K](s)=-Cs$.
 \item Set $v^K[i,T]=I[v^K](s_i)$ for $i=1,\dots, K$.
 \item For $t = T-1,\dots,0$:
   \begin{enumerate}
-  \item Set $\displaystyle v^K[i,t]=\max_{a\in A}\mathbb E_{W_{t+1}}\left[ aQ(s_i,a,W_{t+1})
+  \item Set $\displaystyle v^K[i,t]=\max_{a\in A}\mathbb{E}_{W_{t+1}}\left[ aQ(s_i,a,W_{t+1})
       +I[v^K](s_i-Q(s,a,W_{t+1}))\right]$\\ for $i=1,\dots,K$.
   \item Set $\alpha^K[i,t]$ to the maximiser above.
   \item Set $I[v^K](s) = \mathrm{Interpolate}(s, {(s_i)}_i,{(v^K[i,t])}_i)$.
@@ -604,20 +601,20 @@ Then, $a^*=a^C(t,s)$ is given by the policy function
     \right)\right\}.
   % ,\quad\text{s.t.}\quad q(a)\leq \frac{s}{T-t}.
 \end{equation}
-Let $\mathcal P_A$ be the projection operator from $\mathbb R$ onto the interval $A$.
+Let $\mathcal{P}_A$ be the projection operator from $\mathbb{R}$ onto the interval $A$.
 % Let us consider two families of demand functions that are
 % popular in the literature, see for example~\citet[Ch.~7]{talluri2006theory}.
 % If $q$ is of the form $a\mapsto q_1-q_2a$, with $q_1,q_2> 0$, then
 % the optimal policy $\alpha_t=a^C(t,S_t^\alpha)$ for the deterministic
 % problem is given by the function
 % \begin{equation}
-%   a^C(t,s)=\mathcal P_A \left[ \max\left(
+%   a^C(t,s)=\mathcal{P}_A \left[ \max\left(
 %       \frac{q_1}{q_2}-\frac{s}{q_2(T-t)},\frac{1}{2}\left(\frac{q_1}{q_2}-C
 %       \right) \right) \right].
 % \end{equation}
 In the case when $q(a)=q_1e^{-q_2a}$, the policy function is
 \begin{equation}\label{eq:cec_policy}
-  a^C(t,s)=\mathcal P_A\left[
+  a^C(t,s)=\mathcal{P}_A\left[
     \max\left( \frac{1}{q_2}\log\left( \frac{q_1(T-t)}{s}\right),
       \frac{1}{q_2}-C  \right)\right].
 \end{equation}
@@ -712,7 +709,7 @@ We remind the reader that
 $P(\alpha) =
 \sum_{t=0}^{T-1}\alpha_tQ(S_t^\alpha,\alpha_t,W_{t+1})-CS_T^\alpha$.
 From the optimality of the Bellman policy function, we must have
-that $\mathbb E_W[P(\alpha^B)]\geq \mathbb
+that $\mathbb{E}_W[P(\alpha^B)]\geq \mathbb
 E_W[P(\alpha^C)]$. Violations of this result can happen due to
 numerical errors in approximating $\alpha^B$ and the expectations.
 Marginalising a random variable with the expectation operator, however,
@@ -780,7 +777,7 @@ profits in the remaining realisations.
   \end{tikzpicture}
   \caption{This shows the distributions from \num{10000} samples of
     the profits of following the Bellman and CEC policies.
-    The sample mean $\mathbb E_W[P(\alpha^B)-P(\alpha^C)]\approx 3.8\times
+    The sample mean $\mathbb{E}_W[P(\alpha^B)-P(\alpha^C)]\approx 3.8\times
     10^{-3}$, confirms that Bellman is better on average, as it should be.
     Importantly, however, in more than half the samples the suboptimal policy
     outperforms the Bellman policy.
@@ -811,7 +808,7 @@ using the $L^2$-norm with respect to the probability distribution
 induced by the disturbance $(W_1,W_2,\dots,W_T)$, that is
 \begin{equation}
   \left\|P(\alpha^B)-P(\alpha^C)\right\|_2
-  =\sqrt{\mathbb E_W\left[{( P(\alpha^B)-P(\alpha^C) )}^2 \right]}.
+  =\sqrt{\mathbb{E}_W\left[{( P(\alpha^B)-P(\alpha^C) )}^2 \right]}.
 \end{equation}
 
 To reduce the number of combinations of parameters, we choose only
@@ -876,8 +873,8 @@ grey dots in \Cref{fig:profit_diff_heatmaps}.
   \centering
   \begin{tabular}{llllcccc}
     \toprule
-    $C$ & $\gamma$ & $q_1$ & $q_2$ & $\mathcal Q_{0.05}$
-    &Median & $\mathcal Q_{0.95}$ &$L^2$\\
+    $C$ & $\gamma$ & $q_1$ & $q_2$ & $\mathcal{Q}_{0.05}$
+    &Median & $\mathcal{Q}_{0.95}$ &$L^2$\\
     \midrule
     $0.25$ & $0.05$ & $2.0$ & $4.0$  & \textbf{-0.4} & \textbf{-0.3} & \textbf{0.6} & \textbf{0.4}\\
     $0.25$ & $0.1$ & $1.33$ & $2.67$ & \textbf{-0.5} & \textbf{-0.0} & \textbf{0.6} & \textbf{0.3}\\
@@ -889,10 +886,10 @@ grey dots in \Cref{fig:profit_diff_heatmaps}.
     \bottomrule
   \end{tabular}
   \caption{Statistics comparing profits $P(\alpha^B)$ and $P(\alpha^C)$ for six different
-    parameter combinations. The columns $\mathcal Q_s$ represent the
+    parameter combinations. The columns $\mathcal{Q}_s$ represent the
     the $s^{\text{th}}$ quantile of the relative
     difference
-    $1-P(\alpha^C)/P(\alpha^B)$. %Median is the same as $\mathcal Q_{0.5}$.
+    $1-P(\alpha^C)/P(\alpha^B)$. %Median is the same as $\mathcal{Q}_{0.5}$.
     The values in the column $L^2$ refers to the relative $L^2$
     difference $\|P(\alpha^B)-P(\alpha^C)\|_2/\|P(\alpha^B)\|_2$
     from \Cref{fig:profit_diff_heatmaps}. Each of the parameter
@@ -918,7 +915,7 @@ pricing problem calculates the current price using the following steps:
 \item Observe the state $s$.
 \item Solve the optimisation problem
   \begin{equation}\label{eq:olfc_optimisation_problem}
-    \max_{\mathbf a\in A^{T-t}}\mathbb E_W\left[
+    \max_{\mathbf a\in A^{T-t}}\mathbb{E}_W\left[
       \sum_{\tau=t}^{T-1}\mathbf a_\tau Q(S_\tau^{\mathbf a},\mathbf
       a_\tau,w_{\tau+1})-CS_T^{\mathbf a} \bigm\vert S_t^{\mathbf a}=s \right].
   \end{equation}
@@ -984,8 +981,8 @@ smaller than in the CEC comparison.
   \centering
   \begin{tabular}{llllcccc}
     \toprule
-    $C$ & $\gamma$ & $q_1$ & $q_2$ & $\mathcal Q_{0.05}$
-    &Median & $\mathcal Q_{0.95}$ &$L^2$\\
+    $C$ & $\gamma$ & $q_1$ & $q_2$ & $\mathcal{Q}_{0.05}$
+    &Median & $\mathcal{Q}_{0.95}$ &$L^2$\\
     \midrule
     $0.25$ & $0.05$ & $2.0$ & $4.0$
                                    & \textbf{-0.6} & \textbf{0.1} & \textbf{1.2} & \textbf{0.6} \\
