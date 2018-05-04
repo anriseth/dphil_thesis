@@ -6,41 +6,19 @@
 \chapter{Continuous-time pricing with diffusion
   models}\label{ch:cts_control}
 
-\todo[inline]{Write continuous-time markdown chapter}
-
-TODO:
-\begin{itemize}
-\item Note down what introductory stuff should be written in thesis
-\item Deal with notation
-\end{itemize}
-
-\begin{quote}
-
-
-  We propose a new approach to modelling the randomness in the
-  dynamics of sales based on diffusion processes. The model assumes a
-  continuum approximation to the stock levels of the retailer which
-  should scale much better to large-inventory problems than the
-  existing Poisson process models in the revenue management literature.
-  The diffusion process approach also enables modelling of the demand
-  volatility, whereas Poisson process models do not.
-\end{quote}
-
-
-The previous chapter
-
-In this chapter, we formulate the pricing problem as a
-continuous-time stochastic optimal control problem, and find
-the optimal policy by solving the associated Hamilton-Jacobi-Bellman
-(HJB) partial differential equation (PDE).
-
-
+In the previous chapters we consider decisions with no, or a
+sequential but discrete, temporal structure.
+As the frequency of sequential decisions increase there may be an
+advantage in modelling the decision method using a continuum
+approximation.
+We consider a continuous-time version of the pricing problem from
+\Cref{ch:discrete_control} to motivate such decision problems.
 The work which this chapter is based on has been submitted to
 the ``IMA Journal of Management Mathematics''.\todo{Update with publication}
 
 Consider a monopolist retailer who wants to design a dynamic pricing policy
-for a product over a given period, in order to maximize their total
-revenue and minimize the cost associated with handling unsold items
+for a product over a given period, in order to maximise their total
+revenue and minimise the cost associated with handling unsold items
 at a given terminal time.
 Two important components in the decision process are the ability to
 take into account the uncertainty associated with future cost and demand and to
@@ -51,15 +29,15 @@ uncertainty.
 Assume the retailer sells large volumes of its product at
 high frequency compared to the total pricing period. In such a setting, it is
 appropriate to model the sales process in a continuum limit, both for
-product volume and for time, similar to~\cite{kalish1983monopolist}.
+product volume and for time, similar to \citet{kalish1983monopolist}.
 
 In the revenue management literature, most efforts to model demand uncertainty in
 continuous time have focused on Poisson
-processes. See, for example, the overviews by~\cite{bitran2003overview}
-or~\cite{aviv2012dynamic}.
+processes. See, for example, the overviews by \citet{bitran2003overview}
+or \citet{aviv2012dynamic}.
 We stress that in other communities, such as financial markets,
 diffusion processes and jump-diffusions are very common for modelling
-demand and spot-prices~\citep{benth2014stochastic}. The survey by~\cite{carmona2014survey}
+demand and spot-prices~\citep{benth2014stochastic}. The survey by \citet{carmona2014survey}
 gives an indication of how flexible more advanced models used for commodity
 markets can be. With this chapter, we wish to inspire the revenue
 management community to take advantage of this research when modelling
@@ -70,15 +48,15 @@ A pure Poisson process assumption is not compatible with taking a
 time-continuum limit for sales volume with demand uncertainty and may
 be better suited for demand
 modelling in industries with lower product sales volumes, such as
-the airline and hotel industries.
-\cite{maglaras2006dynamic},~\cite{schlosser2015dynamic1},
-and~\cite{schlosser2015dynamic2}
+the airline and hotel industries. Our model should therefore scale
+better to large-inventory problems, which is more relevant to retail chains.
+\citet{maglaras2006dynamic} and \citet{schlosser2015dynamic1,schlosser2015dynamic2}
 propose pricing heuristics similar to this
 chapter, by considering a deterministic model based on the asymptotic continuum
 limit of Poisson processes.
 To the author's knowledge, however,
 few attempts have been made to unify demand uncertainty with the continuum
-limit. For example,~\cite{raman1995optimal} and~\cite{wu2016dynamic}, model
+limit. For example, \citet{raman1995optimal} and \citet{wu2016dynamic} model
 demand uncertainty as increments of a Brownian motion. As we will show
 in this chapter, their approaches lead to demand processes that admit
 negative sales, with a probability approaching $1/2$ over
@@ -95,13 +73,13 @@ Our proposed approach can be combined with parameter estimation
 methods already used by retailers
 and also extends naturally to multiple products.
 Modelling the demand over time as a diffusion process has previously
-been done by~\cite{chambers1992estimation} at macroeconomic scale
+been done by \citet{chambers1992estimation} at macroeconomic scale
 with UK national data. His focus was on the data assimilation aspect and was not
 applied to a setting of optimal control.
 
 The retailer's dynamic pricing policies are stochastic processes that
 control the SDE which describes the depletion of stock. In this
-chapter, we seek an optimal pricing policy that maximizes the expected value of
+chapter, we seek an optimal pricing policy that maximises the expected value of
 the profit over a given pricing period.
 One way to find an optimal pricing policy is to solve an associated nonlinear partial
 differential equation (PDE), known as the Hamilton-Jacobi-Bellman (HJB) equation
@@ -109,9 +87,9 @@ differential equation (PDE), known as the Hamilton-Jacobi-Bellman (HJB) equation
 We provide closed-form solutions for the HJB equation in the
 deterministic case, for both linear
 and exponential demand functions. The solution identifies two pricing
-regimes, one where the retailer maximizes their profits without
+regimes, one where the retailer maximises their profits without
 depleting the inventory and another
-where the retailer aims to maximize the price and still deplete
+where the retailer aims to maximise the price and still deplete
 its inventory.
 \citet{xu2006monopolistic} have considered a continuous-time pricing
 problem where the uncertainty is modelled by a geometric Brownian
@@ -119,20 +97,20 @@ motion. Their expected demand function is unbounded, with the result that the
 optimal pricing strategy ensures that all stock is sold by the
 terminal time. The demand functions we consider are bounded, and by
 introducing a penalty on unsold stock we capture the pricing regime
-change that does not arise in~\cite{xu2006monopolistic}.
+change that does not arise in \citet{xu2006monopolistic}.
 
 In financial markets traders face a similar problem to
 that presented in this chapter, known as the optimal execution
 problem. There, a trader tries to sell, or purchase,
 a particular amount of an asset by a predetermined time. See, for example,
-\cite{predoiu2011optimal} for a particular formulation of this problem.
+\citet{predoiu2011optimal} for a particular formulation of this problem.
 Instead of controlling the price, the focus of the retailer pricing
 problem, the trader directly controls how much
 of the product to sell at a particular time. If the expected demand
 model is invertible, the retailer's pricing problem can be
 reformulated to control the expected amount of stock to sell at each
 time. This reformulation is sometimes chosen in the revenue management
-community as well, see, for example,~\cite{bitran2003overview}.
+community as well, see, for example, \citet{bitran2003overview}.
 In this chapter we focus on the formulation that writes the expected
 demand model in terms of the price.
 
@@ -151,7 +129,7 @@ For a risk-neutral decision maker, however, the differences in profit
 are insignificant for most cases that may be relevant in industry.
 
 
-The chapter is structured as follows: In \Cref{sec:modelling}, we
+The chapter is structured as follows. In \Cref{sec:cts_modelling}, we
 describe the modelling of the system and compare the new parameter uncertainty
 approach to the existing Brownian increments approach.
 Then, a formulation of the pricing problem and the associated HJB
@@ -164,16 +142,16 @@ system is shown in \Cref{sec:stochastic_hjb}.
 Extensions to the problem, such as other models for uncertainty, and
 risk aversion, are discussed in \Cref{sec:extensions}.
 Finally, we conclude and
-suggest avenues for further research in \Cref{sec:conclusion}.
+suggest avenues for further research in \Cref{sec:cts_conclusion}.
 
-\section{Modelling demand and uncertainty}\label{sec:modelling}
+\section{Modelling demand and uncertainty}\label{sec:cts_modelling}
 For a given, positive amount of initial stock of a product, we are interested in
 modelling the product sales over some finite time period.
 Assume that the initial quantity of stock is large, and that there is a
 substantial volume sold over small time periods, compared to the total
 period of interest. These assumptions can apply to many products sold
 by large retailers. In the monopoly setting, this thus leads to
-a continuum model similar to that of~\citet{kalish1983monopolist}.
+a continuum model similar to that of \citet{kalish1983monopolist}.
 For a given product, denote the amount of stock left at time $t$ by $S(t)$,
 and let $q(a)$ represent product demand at price $a$, per unit
 time.
@@ -190,7 +168,7 @@ pricing policy $\alpha(t)$ using the superscript $S^\alpha$.
 At the start of the prediction period, it is not known exactly what
 the demand will be at future times. We will now discuss how to
 represent this uncertainty in the model. First, we note that the Brownian noise
-approach in~\cite{raman1995optimal} and~\cite{wu2016dynamic} leads to negative
+approach of \citet{raman1995optimal} and \citet{wu2016dynamic} leads to negative
 sales with probability tending to $0.5$ as the time period goes to zero.
 Then, we propose a method that guarantees non-negative sales over all
 time periods.
@@ -252,7 +230,7 @@ For our purposes, we will model the multiplicative parameter as
 a geometric Brownian motion (GBM), $G(t) = \exp\left(
   -\frac{\sigma^2}{2}t +\sigma W(t)\right)$, with volatility coefficient
 $\sigma\geq 0$. The GBM approach is also considered
-by~\cite{xu2006monopolistic} for a different dynamic pricing problem from
+by \citet{xu2006monopolistic} for a different dynamic pricing problem from
 that presented in this chapter.
 We restrict ourselves to a GBM with no
 drift to focus on the impact of the uncertainty, rather than modelling
@@ -289,10 +267,10 @@ than of the Brownian noise model.
   }\label{fig:sde_gbm_const_x}
 \end{figure}
 
-\subsection{Non-dimensionalized system}\label{subsec:nondimensionalization}
+\subsection{Non-dimensionalised system}\label{subsec:nondimensionalization}
 In order to capture similarities between different pricing decisions, irrespective of units
 such as a particular currency, it is helpful to work in a dimensionless system.
-We thus non-dimensionalize the model, which also helps to reduce the
+We thus non-dimensionalise the model, which also helps to reduce the
 number of parameters in the decision problem.
 The units at play in our system are the time and the product price,
 for example measured in minutes and \pounds.
@@ -329,10 +307,10 @@ quantities are dimensionless.
   problem}\label{sec:decision_formulation}
 We restate the retailer's objective which
 guides the choice of pricing policy: Over some decision horizon, continuously
-adjust the price of a given product in order to maximize
+adjust the price of a given product in order to maximise
 the total profit, generated from sales revenue minus the cost of handling
 unsold items at the terminal time. We formulate this mathematically as
-a stochastic optimal control problem, for which the optimal pricing
+a continuous-time stochastic optimal control problem, for which the optimal pricing
 policy can be found by solving the associated HJB equation.
 In \Cref{subsec:param_estim} we address the real-world restrictions of
 the continuous-time assumption.
@@ -349,7 +327,7 @@ future cash is negligible.
 This profit is a random variable that depends on the path of the
 Brownian motion $W(t)$. %and the pricing policy $\alpha(t)$.
 In the context of this chapter, we assume a retailer that
-wants to maximize the expected value of profit, $\mathbb
+wants to maximise the expected value of profit, $\mathbb
 E[P(\alpha)]$.
 
 Further, we restrict the product price to be in some closed  interval
@@ -367,17 +345,17 @@ in~\eqref{eq:profit_expression} exists and
 $P(\alpha)$ is integrable. We can now state the mathematical problem we
 seek to solve in the remainder of the chapter.
 \begin{mydef}[Pricing problem]
-  In order to maximize the retailer's expected profit, find a solution to
+  In order to maximise the retailer's expected profit, find a solution to
   the stochastic optimal control problem
   \begin{equation}\label{eq:pricing_problem}
     \max_{\alpha\in \mathcal A}\,\mathbb E[P(\alpha)].
   \end{equation}
 \end{mydef}
 Our chosen strategy for finding the corresponding pricing function $a^*(t,s,g)$
-of a maximizer $\alpha^*\in\mathcal A$ is to solve the associated HJB
+of a maximiser $\alpha^*\in\mathcal A$ is to solve the associated HJB
 equation for the pricing problem.
 For an explanation of the theory behind stochastic optimal control and
-HJB equations, see, for example,~\cite{pham2009continuous}.
+HJB equations, see, for example, \citet{pham2009continuous}.
 The HJB equation is a nonlinear PDE, where the solution describes the
 value of being in a particular state. We will not worry about
 uniqueness of solutions to the HJB equation in this chapter. From the
@@ -400,7 +378,7 @@ We define the value function $v(t,s,g)$ for $t,s\in[0,1]$ and $g\geq 0$ by
 The subscript on the expectation denotes that we condition on
 $S^\alpha(t)=s$ and $G(t)=g$.
 In the limit $t\to 1$, we see from~\eqref{eq:def_value_interior} that $v(1,s,g)=-Cs$.
-In the usual way, see for example~\cite{pham2009continuous}, the HJB equation for $v$ is
+In the usual way, see for example \citet{pham2009continuous}, the HJB equation for $v$ is
 \begin{equation}\label{eq:hjb_interior}
   v_t(t,s,g)+\frac{\sigma^2}{2} g^2v_{gg}(t,s,g)
   +g\max_{a\in A}\{(a-v_s(t,s,g))q(a)\} = 0, \quad
@@ -422,7 +400,7 @@ exponential demand functions.
   the HJB equation~\eqref{eq:hjb_interior} in the classical sense.
   This is indeed the case for some examples in this chapter when $\sigma=0$,
   and we must therefore consider
-  the solutions in the viscosity sense. See~\cite{pham2009continuous}
+  the solutions in the viscosity sense. See \citet{pham2009continuous}
   for a description of viscosity solutions to HJB equations.
 \end{remark}
 
@@ -516,13 +494,13 @@ demand functions $q_l(a)$ and $q_e(a)$ respectively.
   q_e(a)&=q_1e^{-q_2a},&\text{for } q_1,q_2>0.
 \end{align}
 These demand functions are often used in the literature. For a discussion
-about their properties and usage in modelling demand, see~\cite[Ch.~7]{talluri2006theory}.
+about their properties and usage in modelling demand, see \citet[Ch.~7]{talluri2006theory}.
 With both demand functions, the optimal pricing function policy is to hold the
 price constant over the pricing horizon. They translate to the
 following intuition: For small amounts of stock, relative to demand,
 sell at the highest price so that all stock is depleted by the
 terminal time. As the amount of stock increases, the retailer should
-decrease the price, until it arrives at the price that maximizes the
+decrease the price, until it arrives at the price that maximises the
 profits balancing revenue and cost of unsold stock at the terminal
 time.
 
@@ -546,7 +524,7 @@ also be given by
   &=\argmax_{a\in A}\left\{(1-t)(a+C)q(a)g-Cs \mid  s \geq
     (1-t)q(a)g\right\}.
 \end{align}
-The maximizer therefore satisfies the equality constraints that
+The maximiser therefore satisfies the equality constraints that
 $s$ equals $(1-t)gq(a)$, is zero, or is in the interior of the feasible set,
 given by $A$.
 For $q(a)=q_1-a$, we can verify that this implies
@@ -562,11 +540,11 @@ This is an intuitive result, because if $T_h<1$, one can increase the
 price until $T_h=1$ and $S^\alpha(1)=0$, which earns extra revenue at no extra cost.
 The pricing policy suggested by the
 deterministic assumption provides the following, obvious, heuristic:
-First, find the price that maximizes profits, ignoring inventory
+First, find the price that maximises profits, ignoring inventory
 constraints. Second, if sales forecasts suggest you will deplete stock
 before the end of the time horizon at this price, increase it
 accordingly. This is consistent with the heuristic proposed
-by~\cite{schlosser2015dynamic1},~\cite{schlosser2015dynamic2}, which
+by \citet{schlosser2015dynamic1,schlosser2015dynamic2}, which
 he finds by considering a deterministic continuum
 approximation to a Poisson process demand model.
 
@@ -602,7 +580,7 @@ On the interior of the $(t,s,g)$-domain, $a^D(t,s,g)$ must solve
   \max_{a\in A} \{(a-v_s(t,s,g))(q_1-a)\}.
 \end{equation}
 Let $\mathcal P_A$ denote the projection of the real line to $A$. The
-objective is concave, and hence the maximizer is
+objective is concave, and hence the maximiser is
 \begin{equation}\label{eq:astar_hjb_linear}
   a^D(t,s,g) = \mathcal P_A\left[\frac{q_1+v_s}{2}\right].
 \end{equation}
@@ -667,7 +645,7 @@ us the optimal pricing function
 \end{equation}
 For completeness, we state the HJB equation for the exponential demand
 case when $C<1$, and provide the solution so that the optimality of~\eqref{eq:afun_exp_cec} can
-be verified. The maximizer of $\max_{a\in A}\{(a-v_s)q(a)\}$ in the
+be verified. The maximiser of $\max_{a\in A}\{(a-v_s)q(a)\}$ in the
 HJB equation is $a^D =  1+v_s$. Thus, the value function
 must satisfy the HJB equation
 \begin{align}
@@ -788,8 +766,9 @@ policy by $a^B(t,s,g)$ and $\alpha^B(t)$ respectively.
   }\label{fig:hjb_cec_zoom}
 \end{figure}
 \Cref{fig:hjbsol_a} indicates that one can do an asymptotic analysis
-of the impact of $0<\sigma \ll 1$ on the pricing function. The
-appendix provides details of the analysis. We summarise the
+of the impact of $0<\sigma \ll 1$ on the pricing
+function. \Cref{subsec:asymptotic_analysis} provides details of the
+analysis. We summarise the
 results here, and refer to \Cref{fig:hjb_cec_zoom} for a visualisation
 of the differences between $a^B$ and $a^D$.
 \begin{myresult}\label{res:linear_asymptotics}
@@ -938,278 +917,7 @@ the order of \SIrange{0.01}{0.1}{\percent}.
   }\label{tbl:profit_hjb_cec_statistics}
 \end{table}
 
-\section{Extensions of the pricing problem}\label{sec:extensions}
-For our one-product system with multiplicative parameter dynamics with uncertainty,
-two natural extensions to the pricing problem are: (i) To incorporate
-other forms of uncertainty, and (ii) formulate the problem for risk-averse
-decision makers. For example, the costs of handling unsold stock may
-not be known a priori, and risk-aversion may be modelled from an
-expected utility viewpoint.
-These extensions increase the input dimensions of the corresponding
-HJB equations, which we present without further discussion. We again
-refer readers interested in the
-derivation of the HJB equations to~\cite{pham2009continuous}.
-
-
-\subsection{Other forms of uncertainty}
-In the prior sections, the source of randomness in the system has come from
-the multiplicative term $G(t)$, modelled as a geometric Brownian
-motion martingale. A different non-negative stochastic process may be more appropriate, and the
-choice of dynamics can be guided by existing sales data.
-% If there is
-% an assumption that parameters in the demand function has a true
-% underlying value constant in time, then a mean-reverting process can
-% be more appropriate. For example, say $g^\dagger$ is the true value,
-% but stochasticity in the system means that the multiplicative term
-% deviates from this value. For some constant $b>0$
-% and a function $\sigma(t,g)\geq 0$, such a multiplicative term can be
-% modelled as the solution $G_m(t)$ to the SDE
-% \begin{equation}
-%   \mathrm{d}G_m(t)=b\cdot(g^\dagger-G_m(t))\,\mathrm{d}t+\sigma(t,G_m(t))\,\mathrm{d}W(t).
-% \end{equation}
-More generally, the demand function $q(a)$ depends on multiple
-parameters that exhibit different levels of
-uncertainty and dynamics in time. Another parameter in the pricing
-problem is the unit cost $C$, where its value at the terminal time may
-depend on factors unknown at times $t<1$.
-Let $\theta(t)\in\mathbb R^n$ denote the vector of parameters that are
-relevant to the problem, and say the demand function  and the unit cost
-depend explicitly on $\theta$. We write $q(a;\theta)$ and $C(\theta)$
-for this dependence.
-Within the diffusion based stochastic framework, we can model the
-dynamics of $\theta(t)$ with functions $b(t,\theta)\in\mathbb R^n$,
-$\sigma(t,\theta)\in\mathbb R^{n\times p}$, and a vector-valued, uncorrelated,
-Brownian motion $W(t)\in\mathbb R^p$.
-We assume that $\theta(t)$ does not depend on the pricing policy
-$\alpha(t)$ or the remaining
-stock $S^\alpha(t)$. Thus,
-the system for the pricing problem is described by the SDE,
-\begin{align}
-  d\theta(t)&=b(t,\theta(t))\,\mathrm{d}t + \sigma(t,\theta(t))\,\mathrm{d}W(t),\\
-  \mathrm{d}S^\alpha(t)&=-q(\alpha(t);\theta(t)).
-\end{align}
-
-Let $\Theta\in\mathbb R^n$ denote the state space for
-$\theta(t)$.
-Let $D_\theta v$ and $D_\theta^2v$ denote the gradient and Hessian of
-$v(t,s,\theta)$ with respect to $\theta$. We denote the transpose
-operator with a superscript asterisk, and introduce the
-volatility matrix $\Sigma(t,\theta) = \sigma(t,\theta){\sigma(t,\theta)}^*$.
-The HJB approach for the pricing problem is then to find
-$v:{[0,1]}^2\times\Theta\to\mathbb R$ which satisfies
-\begin{align}
-  v_t+{b(t,\theta)}^* D_\theta v
-  + {\textstyle\frac{1}{2}}\mbox{tr}\left( \Sigma(t,\theta)
-  D_\theta^2v \right)
-  +\max_{a}\{q(a;\theta)(a-v_s)\}&=0,\\
-  v(1,s,\theta) &= -C(\theta)s.
-\end{align}
-Additional boundary conditions may be necessary, depending on
-$\theta(t)$. For example, the boundary condition for $g=0$ in our
-multiplicative model from the previous sections.
-The value function and the pricing function now depend
-explicitly on each element in $\theta$, thus increasing the dimension
-of the corresponding HJB equation. Efficient algorithms for solving
-high-dimensional PDEs of this form exist. See, for example, the
-multigrid preconditioning approach by~\cite{reisinger2017boundary}, or
-the splitting into a sequence of lower-dimensional PDEs by~\cite{reisinger2017finite}.
-In higher dimensions, it is of even higher importance to critically
-balance computational cost with the suboptimality of
-approximations. As \Cref{sec:stochastic_hjb} shows, approximate
-policies can perform well. This underscores the importance of assessing whether
-new sources of randomness in the model have significant impact on the
-objective and the optimal policy.
-
-
-\subsection{Expected utility risk aversion}
-One may argue that for a retailer as a whole, an assumption of a
-risk-neutral decision maker is valid. For individual product managers,
-whose performance is evaluated over shorter time horizons, a degree of
-risk-aversion can be preferable. Formulations and investigations of the
-impact of risk-aversion on pricing policies is also noted as an
-interesting area of research by~\cite{bitran2003overview}.
-For investigations of the expected utility problem with Poisson process
-demand, see, for example, \citet{lim2007relative,feng2008risk}.
-
-In this section, we assume that the decision maker is evaluated based on
-the performance of the total profit from selling a product over the
-time interval $[0,1]$. Then, the pricing decision at time $t$ may also depend
-on how much revenue has been accrued at that time. So we
-introduce a state-variable $R^\alpha(t)$ representing the accrued
-revenue at time $t$, with dynamics
-$dR^\alpha(t)=\alpha(t)q(\alpha(t);\theta(t))\,\mathrm{d}t$.
-We consider risk-aversion based on
-an expected utility-maximizing decision maker.
-Given a utility function $U(x)$, the pricing problem is then to
-find a pricing policy $\alpha$ that maximizes the expected utility
-$\mathbb E[U(R^\alpha(1)-C(\theta(1))S^\alpha(1))]$.
-For this utility function, the value function is defined as
-\begin{equation}
-  v(t,s,\theta,r)=
-  \max_{\alpha\in\mathcal A}
-  \mathbb E_t\left[
-    U\left(R^\alpha(1)-C(\theta(1))S^\alpha(1)\right)
-  \right].
-\end{equation}
-The corresponding HJB problem is then to find
-$v:{[0,1]}^2\times \Theta\times{[0,\infty)}\to\mathbb R$ that solves
-\begin{align}\label{eq:hjb_utility}
-  v_t+{b(t,\theta)}^* D_\theta v
-  + {\textstyle\frac{1}{2}}\mbox{tr}\left( \Sigma(t,\theta)
-  D_\theta^2v \right)
-  +\max_{a}\{q(a;\theta)(av_r-v_s)\}&=0,\\
-  v(1,s,\theta,r) &= U(r-C(\theta)s),
-\end{align}
-plus additional boundary conditions. The impact of the risk-aversion
-on pricing decisions appears in the maximization term in the HJB
-equation, $\max_a\{q(a;\theta)(av_r-v_s)\}$. The $v_r$ term represents
-the relative importance of accruing more revenue to the utility of
-selling more stock, as represented by the $v_s$ term.
-% A different interpretation of the effect of
-% $v_r$ is as a taxation
-% of revenue, where $q(a;\theta)av_r$ represents the monetary value
-% after taxation (with the weird concept that ).
-
-% More insight can be made by looking at the evolution of the certainty
-% equivalent value of the terminal profit when following the optimal pricing policy.
-% For our purposes, the certainty equivalent utility of a random
-% variable $X$ can be defined as
-% $U^{-1}[\mathbb E[U(X)]]$, when $U$ is invertible. We thus define the certainty equivalent
-% value function, given state $(t,s,\theta,r)$, as
-% \begin{equation}
-%   e(t,s,\theta,r) = U^{-1}(v(t,s,\theta,r)).
-% \end{equation}
-% The terminal condition for this function is $e(1,s,\theta,r)=r-Cs$.
-% All derivatives of $v$ can then be written in terms of $e$
-% using the chain rule:
-% \begin{align}
-%   D_zv &= U'(e)D_ze,& \text{where }
-%   &z\in\{t,s,\theta,r\},\\
-%   D^2_\theta v&=U'(e)D^2_\theta e
-%   +U''(e)[D_\theta e]{[D_\theta e]}^*.
-% \end{align}
-% Before we show the resulting PDE for $e(t,s,\theta,r)$, it is useful
-% to introduce the concept of Absolute Risk Aversion (ARA), as defined
-% by~\cite{pratt1964risk}. For twice differentiable utility functions,
-% we denote the ARA coefficient $\mathcal X(x)=-U''(x)/U'(x)$ at wealth $x$
-% as a way of measuring the risk
-% aversion of the decision maker.
-% For strictly increasing utility functions $U(e)$, we can substitute
-% the expressions for the derivatives of $v$
-% into~\eqref{eq:hjb_utility}, and divide by
-% $U'(e)>0$ to obtain
-% \begin{align}\label{eq:hjb_ceutility}
-%   e_t
-%   +{b(t,\theta)}^* D_\theta e
-%   + {\textstyle\frac{1}{2}}\mbox{tr}\left( \Sigma(t,\theta)
-%     D_\theta^2e \right)
-%   +\max_{a}\{q(a;\theta)(ae_r-e_s)\}
-%   &=
-%   {\textstyle\frac{1}{2}}\mathcal X(e)\,\mbox{tr}\left( \Sigma(t,\theta)
-%     [D_\theta e]{[D_\theta e]}^* \right),\\
-%   e(1,s,\theta,r) &= r-C(\theta)s,
-% \end{align}
-% plus additional boundary conditions.
-% We see that $e(t,s,r,\theta)$ is
-% therefore evolving in time in a similar manner to the risk-neutral
-% value function $v(t,s,r,\theta)$ in the previous sections, with an
-% additional term that depends on the decision maker's risk aversion
-% $\mathcal X(e)$.
-% Note that $\mathcal X(x)$ is always negative, zero, and positive for a
-% risk-averse, risk-neutral, and risk-seeking decision maker respectively.
-% In addition, we know that $\mbox{tr}(\Sigma(t,\theta)[D_\theta e]{[D_\theta e]}^*)\geq
-% 0$, since the matrix in the trace is positive semi-definite.
-% This gives us the following two, expected, insights:
-% \begin{itemize}
-% \item The certainty equivalent value decreases with increasing
-%   risk-aversion, but the effect diminishes as we get closer to the
-%   terminal time.
-% \item Uncertainty in the system can have an order one impact on the
-%   certainty equivalent value if $\mathcal O(\mathcal X(e))=\mathcal
-%   O\left(\rho\left( {\Sigma(t,\theta)}^{-1}
-%     \right)\right)$, where $\rho(M)$ denotes the spectral radius of a matrix.
-% \end{itemize}
-
-% We finish the section with an  example of a particular family of utility functions, and
-% discuss the resulting pricing policy's dependence on revenue.
-% \begin{example}[Constant Absolute Risk Aversion]
-%   Consider utility functions with constant ARA, $\mathcal
-%   X(x)=\gamma>0$, of the form $U(x)=-e^{-\gamma x}$.
-%   For such utility functions, the optimal price is independent of the
-%   accrued revenue.
-%   For brevity, we omit the dependence of $\theta$ on the demand
-%   function $q(a)$ and the unit cost $C$.
-%   First, note that if $R^\alpha(t)=r$, then
-%   $R^\alpha(1)=r+\int_t^{T_h}q(\alpha(u))\alpha(u)\,\mathrm{d}u$.
-%   Second, note that
-%   $U(R^\alpha(1)-CS^\alpha(1)) =  e^{-\gamma r}
-%   U\left( \int_t^{T_h}q(\alpha(u))\alpha(u)\,\mathrm{d}u-CS^\alpha(1) \right)$.
-%   The certainty equivalent value function that satisfies the
-%   PDE~\eqref{eq:hjb_ceutility} can be written as
-%   \begin{align}
-%     e(t,s,\theta,r)
-%     &=-\frac{1}{\gamma} \log
-%     \left\{ -\max_{\alpha \in\mathcal A} \mathbb E_t
-%       \left[ U\left( R^\alpha(1)-CS^\alpha(1) \right)\right]\right\} \\
-%     &= r - \frac{1}{\gamma}\log
-%     \left\{ -\max_{\alpha \in\mathcal A} \mathbb E_t
-%       \left[U\left( \int_t^{T_h}q(\alpha(u))\alpha(u)\,\mathrm{d}u-CS^\alpha(1) \right)\right]\right\}.
-%   \end{align}
-%   There is no explicit dependence on $r$ in the maximization term, and
-%   thus $\alpha(t)$ will not depend on $R^\alpha(t)$.
-%   This result is to be expected, since the Constant Absolute Risk
-%   Aversion utility represents a decision maker that does not change
-%   their level of risk aversion based on the amount of current wealth.
-% \end{example}
-
-% In comparison to the risk-neutral system considered in the previous
-% sections, higher risk-aversion
-% would lead to leaving the price the same in the region where we are not expected
-% to sell out of the product, and increasing the price when we expect to sell
-% out of the product.
-
-\section{Conclusion}\label{sec:conclusion}
-This chapter focuses on continuum approximations for dynamic
-pricing problems under uncertainty.
-Most of the existing literature on continuous time dynamic pricing for
-revenue management is based on Poisson
-processes. This is suitable for many applications,
-however for large retailers, approximating the number of sales and
-stock as a continuum can simplify calculation of pricing rules.
-We present an approach for modelling the sales as a continuous time
-dynamical system, where the uncertainty in demand arises from
-stochastic processes.
-An advantage over the Poisson process model is that this approach
-allows us to directly model the demand volatility.
-Under this model, we consider a pricing problem where the retailer
-aims to deplete  inventory of a product at maximum profit.
-By formulating the problem as a stochastic optimal control problem,
-we can express the optimal pricing policy in terms of the solution to
-a nonlinear PDE.\@
-For linear and exponential demand functions, we find closed-form
-expressions for the pricing policy when the system is deterministic.
-It turns out that, for a risk-neutral decision maker, the
-deterministic pricing policy is a near-optimal heuristic for systems
-with demand uncertainty.
-Numerical errors in calculating the optimal pricing policy
-may in fact result in lower profits on average than with the heuristic
-pricing policy.
-% If the decision maker is highly risk averse, we show that this will
-% have a significant impact on the perceived utility of the profits,
-% and potentially reduce the applicability of the pricing heuristic.
-
-There are two topics of particular interest for future study.
-The first is to understand why demand uncertainty has such a
-small effect on the optimal pricing policy for risk-neutral decision
-makers, and whether constraints such as requiring monotone-in-time pricing
-policies may increase this effect. Second, a case study of the continuum
-model framework for multiple products and time-dependent demand is
-needed, in
-order to understand how well this approach can scale to revenue
-management implementations for retailers.
-
-
-\section*{Appendix: Asymptotic analysis}
+\subsection{Asymptotic analysis}\label{subsec:asymptotic_analysis}
 We carry out the asymptotic analysis of the pricing function
 that arises from the linear demand HJB
 equation~\eqref{eq:hjb_impact_uncertainty} under the assumptions of
@@ -1295,6 +1003,279 @@ $\phi=\phi^{(0)}+\sigma\phi^{(1)}+\sigma^2\phi^{(2)}+\cdots$
 in the outer region $\xi<\beta t$ reveals that $\phi^{(1)}=0$ and
 $\phi^{(2)}(t,\xi)=-\xi^2/2$. It follows that
 $\psi(t,\xi)\approx \psi^{(0)}(t,\xi)-\sigma^2 \xi/2$ in this region.
+
+\section{Extensions of the pricing problem}\label{sec:extensions}
+For our one-product system with multiplicative parameter dynamics with uncertainty,
+two natural extensions to the pricing problem are: (i) To incorporate
+other forms of uncertainty, and (ii) formulate the problem for risk-averse
+decision makers. For example, the costs of handling unsold stock may
+not be known a priori, and risk-aversion may be modelled from an
+expected utility viewpoint.
+These extensions increase the input dimensions of the corresponding
+HJB equations, which we present without further discussion. We again
+refer readers interested in the
+derivation of the HJB equations to \citet{pham2009continuous}.
+
+
+\subsection{Other forms of uncertainty}
+In the prior sections, the source of randomness in the system has come from
+the multiplicative term $G(t)$, modelled as a geometric Brownian
+motion martingale. A different non-negative stochastic process may be more appropriate, and the
+choice of dynamics can be guided by existing sales data.
+% If there is
+% an assumption that parameters in the demand function has a true
+% underlying value constant in time, then a mean-reverting process can
+% be more appropriate. For example, say $g^\dagger$ is the true value,
+% but stochasticity in the system means that the multiplicative term
+% deviates from this value. For some constant $b>0$
+% and a function $\sigma(t,g)\geq 0$, such a multiplicative term can be
+% modelled as the solution $G_m(t)$ to the SDE
+% \begin{equation}
+%   \mathrm{d}G_m(t)=b\cdot(g^\dagger-G_m(t))\,\mathrm{d}t+\sigma(t,G_m(t))\,\mathrm{d}W(t).
+% \end{equation}
+More generally, the demand function $q(a)$ depends on multiple
+parameters that exhibit different levels of
+uncertainty and dynamics in time. Another parameter in the pricing
+problem is the unit cost $C$, where its value at the terminal time may
+depend on factors unknown at times $t<1$.
+Let $\theta(t)\in\mathbb R^n$ denote the vector of parameters that are
+relevant to the problem, and say the demand function  and the unit cost
+depend explicitly on $\theta$. We write $q(a;\theta)$ and $C(\theta)$
+for this dependence.
+Within the diffusion based stochastic framework, we can model the
+dynamics of $\theta(t)$ with functions $b(t,\theta)\in\mathbb R^n$,
+$\sigma(t,\theta)\in\mathbb R^{n\times p}$, and a vector-valued, uncorrelated,
+Brownian motion $W(t)\in\mathbb R^p$.
+We assume that $\theta(t)$ does not depend on the pricing policy
+$\alpha(t)$ or the remaining
+stock $S^\alpha(t)$. Thus,
+the system for the pricing problem is described by the SDE,
+\begin{align}
+  d\theta(t)&=b(t,\theta(t))\,\mathrm{d}t + \sigma(t,\theta(t))\,\mathrm{d}W(t),\\
+  \mathrm{d}S^\alpha(t)&=-q(\alpha(t);\theta(t)).
+\end{align}
+
+Let $\Theta\in\mathbb R^n$ denote the state space for
+$\theta(t)$.
+Let $D_\theta v$ and $D_\theta^2v$ denote the gradient and Hessian of
+$v(t,s,\theta)$ with respect to $\theta$. We denote the transpose
+operator with a superscript asterisk, and introduce the
+volatility matrix $\Sigma(t,\theta) = \sigma(t,\theta){\sigma(t,\theta)}^*$.
+The HJB approach for the pricing problem is then to find
+$v:{[0,1]}^2\times\Theta\to\mathbb R$ which satisfies
+\begin{align}
+  v_t+{b(t,\theta)}^* D_\theta v
+  + {\textstyle\frac{1}{2}}\mbox{tr}\left( \Sigma(t,\theta)
+  D_\theta^2v \right)
+  +\max_{a}\{q(a;\theta)(a-v_s)\}&=0,\\
+  v(1,s,\theta) &= -C(\theta)s.
+\end{align}
+Additional boundary conditions may be necessary, depending on
+$\theta(t)$. For example, the boundary condition for $g=0$ in our
+multiplicative model from the previous sections.
+The value function and the pricing function now depend
+explicitly on each element in $\theta$, thus increasing the dimension
+of the corresponding HJB equation. Efficient algorithms for solving
+high-dimensional PDEs of this form exist. See, for example, the
+multigrid preconditioning approach by \citet{reisinger2017boundary}, or
+the splitting into a sequence of lower-dimensional PDEs by \citet{reisinger2017finite}.
+In higher dimensions, it is of even higher importance to critically
+balance computational cost with the suboptimality of
+approximations. As \Cref{sec:stochastic_hjb} shows, approximate
+policies can perform well. This underscores the importance of assessing whether
+new sources of randomness in the model have significant impact on the
+objective and the optimal policy.
+
+
+\subsection{Expected utility risk aversion}
+One may argue that for a retailer as a whole, an assumption of a
+risk-neutral decision maker is valid. For individual product managers,
+whose performance is evaluated over shorter time horizons, a degree of
+risk-aversion can be preferable. Formulations and investigations of the
+impact of risk-aversion on pricing policies is also noted as an
+interesting area of research by \citet{bitran2003overview}.
+For investigations of the expected utility problem with Poisson process
+demand, see, for example, \citet{lim2007relative} or \citet{feng2008risk}.
+
+In this section, we assume that the decision maker is evaluated based on
+the performance of the total profit from selling a product over the
+time interval $[0,1]$. Then, the pricing decision at time $t$ may also depend
+on how much revenue has been accrued at that time. So we
+introduce a state-variable $R^\alpha(t)$ representing the accrued
+revenue at time $t$, with dynamics
+$dR^\alpha(t)=\alpha(t)q(\alpha(t);\theta(t))\,\mathrm{d}t$.
+We consider risk-aversion based on
+an expected utility-maximizing decision maker.
+Given a utility function $U(x)$, the pricing problem is then to
+find a pricing policy $\alpha$ that maximises the expected utility
+$\mathbb E[U(R^\alpha(1)-C(\theta(1))S^\alpha(1))]$.
+For this utility function, the value function is defined as
+\begin{equation}
+  v(t,s,\theta,r)=
+  \max_{\alpha\in\mathcal A}
+  \mathbb E_t\left[
+    U\left(R^\alpha(1)-C(\theta(1))S^\alpha(1)\right)
+  \right].
+\end{equation}
+The corresponding HJB problem is then to find
+$v:{[0,1]}^2\times \Theta\times{[0,\infty)}\to\mathbb R$ that solves
+\begin{align}\label{eq:hjb_utility}
+  v_t+{b(t,\theta)}^* D_\theta v
+  + {\textstyle\frac{1}{2}}\mbox{tr}\left( \Sigma(t,\theta)
+  D_\theta^2v \right)
+  +\max_{a}\{q(a;\theta)(av_r-v_s)\}&=0,\\
+  v(1,s,\theta,r) &= U(r-C(\theta)s),
+\end{align}
+plus additional boundary conditions. The impact of the risk-aversion
+on pricing decisions appears in the maximization term in the HJB
+equation, $\max_a\{q(a;\theta)(av_r-v_s)\}$. The $v_r$ term represents
+the relative importance of accruing more revenue to the utility of
+selling more stock, as represented by the $v_s$ term.
+% A different interpretation of the effect of
+% $v_r$ is as a taxation
+% of revenue, where $q(a;\theta)av_r$ represents the monetary value
+% after taxation (with the weird concept that ).
+
+% More insight can be made by looking at the evolution of the certainty
+% equivalent value of the terminal profit when following the optimal pricing policy.
+% For our purposes, the certainty equivalent utility of a random
+% variable $X$ can be defined as
+% $U^{-1}[\mathbb E[U(X)]]$, when $U$ is invertible. We thus define the certainty equivalent
+% value function, given state $(t,s,\theta,r)$, as
+% \begin{equation}
+%   e(t,s,\theta,r) = U^{-1}(v(t,s,\theta,r)).
+% \end{equation}
+% The terminal condition for this function is $e(1,s,\theta,r)=r-Cs$.
+% All derivatives of $v$ can then be written in terms of $e$
+% using the chain rule:
+% \begin{align}
+%   D_zv &= U'(e)D_ze,& \text{where }
+%   &z\in\{t,s,\theta,r\},\\
+%   D^2_\theta v&=U'(e)D^2_\theta e
+%   +U''(e)[D_\theta e]{[D_\theta e]}^*.
+% \end{align}
+% Before we show the resulting PDE for $e(t,s,\theta,r)$, it is useful
+% to introduce the concept of Absolute Risk Aversion (ARA), as defined
+% by \citet{pratt1964risk}. For twice differentiable utility functions,
+% we denote the ARA coefficient $\mathcal X(x)=-U''(x)/U'(x)$ at wealth $x$
+% as a way of measuring the risk
+% aversion of the decision maker.
+% For strictly increasing utility functions $U(e)$, we can substitute
+% the expressions for the derivatives of $v$
+% into~\eqref{eq:hjb_utility}, and divide by
+% $U'(e)>0$ to obtain
+% \begin{align}\label{eq:hjb_ceutility}
+%   e_t
+%   +{b(t,\theta)}^* D_\theta e
+%   + {\textstyle\frac{1}{2}}\mbox{tr}\left( \Sigma(t,\theta)
+%     D_\theta^2e \right)
+%   +\max_{a}\{q(a;\theta)(ae_r-e_s)\}
+%   &=
+%   {\textstyle\frac{1}{2}}\mathcal X(e)\,\mbox{tr}\left( \Sigma(t,\theta)
+%     [D_\theta e]{[D_\theta e]}^* \right),\\
+%   e(1,s,\theta,r) &= r-C(\theta)s,
+% \end{align}
+% plus additional boundary conditions.
+% We see that $e(t,s,r,\theta)$ is
+% therefore evolving in time in a similar manner to the risk-neutral
+% value function $v(t,s,r,\theta)$ in the previous sections, with an
+% additional term that depends on the decision maker's risk aversion
+% $\mathcal X(e)$.
+% Note that $\mathcal X(x)$ is always negative, zero, and positive for a
+% risk-averse, risk-neutral, and risk-seeking decision maker respectively.
+% In addition, we know that $\mbox{tr}(\Sigma(t,\theta)[D_\theta e]{[D_\theta e]}^*)\geq
+% 0$, since the matrix in the trace is positive semi-definite.
+% This gives us the following two, expected, insights:
+% \begin{itemize}
+% \item The certainty equivalent value decreases with increasing
+%   risk-aversion, but the effect diminishes as we get closer to the
+%   terminal time.
+% \item Uncertainty in the system can have an order one impact on the
+%   certainty equivalent value if $\mathcal O(\mathcal X(e))=\mathcal
+%   O\left(\rho\left( {\Sigma(t,\theta)}^{-1}
+%     \right)\right)$, where $\rho(M)$ denotes the spectral radius of a matrix.
+% \end{itemize}
+
+% We finish the section with an  example of a particular family of utility functions, and
+% discuss the resulting pricing policy's dependence on revenue.
+% \begin{example}[Constant Absolute Risk Aversion]
+%   Consider utility functions with constant ARA, $\mathcal
+%   X(x)=\gamma>0$, of the form $U(x)=-e^{-\gamma x}$.
+%   For such utility functions, the optimal price is independent of the
+%   accrued revenue.
+%   For brevity, we omit the dependence of $\theta$ on the demand
+%   function $q(a)$ and the unit cost $C$.
+%   First, note that if $R^\alpha(t)=r$, then
+%   $R^\alpha(1)=r+\int_t^{T_h}q(\alpha(u))\alpha(u)\,\mathrm{d}u$.
+%   Second, note that
+%   $U(R^\alpha(1)-CS^\alpha(1)) =  e^{-\gamma r}
+%   U\left( \int_t^{T_h}q(\alpha(u))\alpha(u)\,\mathrm{d}u-CS^\alpha(1) \right)$.
+%   The certainty equivalent value function that satisfies the
+%   PDE~\eqref{eq:hjb_ceutility} can be written as
+%   \begin{align}
+%     e(t,s,\theta,r)
+%     &=-\frac{1}{\gamma} \log
+%     \left\{ -\max_{\alpha \in\mathcal A} \mathbb E_t
+%       \left[ U\left( R^\alpha(1)-CS^\alpha(1) \right)\right]\right\} \\
+%     &= r - \frac{1}{\gamma}\log
+%     \left\{ -\max_{\alpha \in\mathcal A} \mathbb E_t
+%       \left[U\left( \int_t^{T_h}q(\alpha(u))\alpha(u)\,\mathrm{d}u-CS^\alpha(1) \right)\right]\right\}.
+%   \end{align}
+%   There is no explicit dependence on $r$ in the maximization term, and
+%   thus $\alpha(t)$ will not depend on $R^\alpha(t)$.
+%   This result is to be expected, since the Constant Absolute Risk
+%   Aversion utility represents a decision maker that does not change
+%   their level of risk aversion based on the amount of current wealth.
+% \end{example}
+
+% In comparison to the risk-neutral system considered in the previous
+% sections, higher risk-aversion
+% would lead to leaving the price the same in the region where we are not expected
+% to sell out of the product, and increasing the price when we expect to sell
+% out of the product.
+
+\section{Discussion}\label{sec:cts_conclusion}
+This chapter focuses on continuum approximations for dynamic
+pricing problems under uncertainty.
+Most of the existing literature on continuous time dynamic pricing for
+revenue management is based on Poisson
+processes. This is suitable for many applications,
+however for large retailers, approximating the number of sales and
+stock as a continuum can simplify calculation of pricing rules.
+We present an approach for modelling the sales as a continuous time
+dynamical system, where the uncertainty in demand arises from
+stochastic processes.
+An advantage over the Poisson process model is that this approach
+allows us to directly model the demand volatility.
+Under this model, we consider a pricing problem where the retailer
+aims to deplete  inventory of a product at maximum profit.
+By formulating the problem as a stochastic optimal control problem,
+we can express the optimal pricing policy in terms of the solution to
+a nonlinear PDE.\@
+For linear and exponential demand functions, we find closed-form
+expressions for the pricing policy when the system is deterministic.
+It turns out that, for a risk-neutral decision maker, the
+deterministic pricing policy is a near-optimal heuristic for systems
+with demand uncertainty.
+Numerical errors in calculating the optimal pricing policy
+may in fact result in lower profits on average than with the heuristic
+pricing policy.
+% If the decision maker is highly risk averse, we show that this will
+% have a significant impact on the perceived utility of the profits,
+% and potentially reduce the applicability of the pricing heuristic.
+
+There are two topics of particular interest for future study.
+The first is to understand why demand uncertainty has such a
+small effect on the optimal pricing policy for risk-neutral decision
+makers, and whether constraints such as requiring monotone-in-time pricing
+policies may increase this effect. Second, a case study of the continuum
+model framework for multiple products and time-dependent demand is
+needed, in
+order to understand how well this approach can scale to revenue
+management implementations for retailers.
+
+
+
 
 \biblio{} % Bibliography when standalone
 \end{document}

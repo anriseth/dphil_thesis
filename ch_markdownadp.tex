@@ -20,7 +20,7 @@ the ``Proceedings of the Royal Society A''.\todo{Update with publication}
 When sales of a product are affected by randomness in demand,
 retailers can use dynamic pricing strategies to maximise their
 profits. In this chapter the pricing problem is formulated as a
-stochastic optimal control problem. The aim is to
+discrete-time stochastic optimal control problem. The aim is to
 investigate Approximate Dynamic Programming algorithms
 \citep{powell2011approximate} for this
 problem. For realistic retail applications, modelling the problem
@@ -357,7 +357,9 @@ In this chapter we use \num{1000} samples for the approximation of the
 expectation in step~4(a).
 We choose to use piecewise
 linear interpolation for $I[v^K](s)$ in step~4(c) with a grid of
-$K=201$ points.
+$K=201$ points. All numerical optimisation procedures in this chapter
+use the package Optim.jl \citep{mogensen2018optim} from the Julia
+programming language \citep{bezanson2017julia}.
 The calculation of the Bellman policy is only
 approximate. Tests, not included here, show that our choice of grid points and Monte--Carlo samples
 in the numerical examples yield high accuracy approximations.
