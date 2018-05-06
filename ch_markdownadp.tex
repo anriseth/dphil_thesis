@@ -312,9 +312,13 @@ problem. This means that for each $\alpha\in \mathcal{A}$, there exists a
 measurable function $a:[0,T)\times \mathbb{R}_+\to A$, such that for each possible outcome
 $\omega$, the process $\alpha$ is given by
 $\alpha_t(\omega) = a(t,S_t^\alpha(\omega))$.
-Then, an approach to finding the value function above is to use the Dynamic
-Programming principle~\citep{bertsekas2005dynamic}, which states that $v$ can be defined
-recursively by
+An approach to finding the value function above is to use the Dynamic
+Programming principle~\citep{bertsekas2005dynamic}. It states that
+if $\alpha = {(\alpha_u)}_{u=0}^{T-1}$ is an optimal policy for the
+problem over time points $u\in\{0,\dots,T-1\}$, then an optimal policy
+over the time points $u\in\{t,\dots,T-1\}$ is the restriction
+${(\alpha_u)}_{u=t}^{T-1}$ of $\alpha$.
+Thus, $v$ can be defined recursively by
 \begin{equation}\label{eq:dynamic_programming_discrete}
   v(t,s)=\max_{a\in A}\mathbb{E}_{W_{t+1}}\left[
     aQ(s,a,W_{t+1})

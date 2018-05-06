@@ -242,9 +242,11 @@ drift to focus on the impact of the uncertainty, rather than modelling
 time-dependent behaviour such as seasonality.
 For any $\Delta{\hat{t}}\geq 0$, some relevant properties of $\hat{G}(\hat{t})$ are as follows.
 \begin{align}
-  \hat{G}(0)&=1,\\ &= \hat{W}(\hat{t}) / \sqrt{\hat{T}}
-  \mathbb{E}[\hat{G}(\hat{t}+\Delta{\hat{t}})\mid \hat{G}(\hat{t})]&=\hat{G}(\hat{t}),
-                                   &\text{martingale property,}\\
+  \hat{G}(0)
+  &=1,\\
+  \mathbb{E}[\hat{G}(\hat{t}+\Delta{\hat{t}})\mid \hat{G}(\hat{t})]
+  &=\hat{G}(\hat{t}),
+  &\text{martingale property,}\\
   \mbox{Var}[\hat{G}(\hat{t}+\Delta{\hat{t}})\mid
   \hat{G}(\hat{t})]&={\hat{G}(\hat{t})}^2(e^{\hat{\sigma}^2
                      \Delta{\hat{t}}}-1), & \text{increasing variance.}
@@ -402,19 +404,97 @@ We define the value function $v(t,s,g)$ for $t\in[0,T]$, $s\in[0,1]$, and $g\geq
 \end{align}
 The subscript on the expectation denotes that we condition on
 $S^\alpha(t)=s$ and $G(t)=g$.
-In the limit $t\to T$, we see from~\eqref{eq:def_value_interior} that $v(T,s,g)=-Cs$.
-In the usual way, see for example \citet{pham2009continuous}, the HJB
-equation for $v$ is
-\begin{equation}\label{eq:hjb_interior}
-  v_t(t,s,g)+\frac{\sigma^2}{2} g^2v_{gg}(t,s,g)
-  +g\max_{a\in A}\{(a-v_s(t,s,g))q(a)\} = 0. %, \quad
-  %(t,s,g)\in{(0,1)}^2\times\mathbb{R}_{>0}.
+In the limit $t\to T$, we see from~\eqref{eq:def_value_interior} that
+$v(T,s,g)=-Cs$.
+
+We will derive the HJB equation for $v$ in a non-rigourous manner
+using a
+continuous-time analogue of the Dynamic Programming principle
+stated in \Cref{subsec:adp_bellman_equation}. For a rigorous proof,
+see, for example, \citet[Ch.~3]{pham2009continuous}.
+Let $\Delta{t}>0$ and denote $v^{(\Delta{t})} =
+v(t+\Delta{t},S^\alpha(t+\Delta{t}),G(t+\Delta{t}))$ for brevity.
+Then, similarly to~\eqref{eq:dynamic_programming_discrete} from
+\Cref{subsec:adp_bellman_equation}, we can
+split~\eqref{eq:def_value_interior} into two terms
+\begin{align}
+    v(t,s,g) = \max_{\alpha\in\mathcal{A}}\,
+    \mathbb{E}_{t}\left[
+      \int_t^{t+\Delta{t}} \alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u
+      + v^{(\Delta{t})}\right],
+\end{align}
+and therefore
+\begin{align}\label{eq:cts_bellman_principle_ineq}
+   \max_{\alpha\in\mathcal{A}}\,
+    \mathbb{E}_{t}\left[
+      \int_t^{t+\Delta{t}} \alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u
+      + v^{(\Delta{t})}-v(t,s,g)\right]
+    &=0, &&\textnormal{or}\\\label{eq:cts_bellman_principle_ineq}
+    \mathbb{E}_{t}\left[
+      \int_t^{t+\Delta{t}} \alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u
+      + v^{(\Delta{t})}-v(t,s,g)\right]
+    &\leq 0  &&\forall \alpha\in\mathcal{A},
+\end{align}
+with equality achieved for a maximiser $\alpha^*\in\mathcal{A}$.
+Consider an arbitrary $\alpha\in\mathcal{A}$ and let $a=\alpha(t)\in
+A$ denote its value at time $t$.
+We have the following Taylor-expansion of the
+integrand $\alpha(u)q(\alpha(u))G(u)$.
+\begin{equation}
+  \mathbb{E}_{t}\left[
+      \int_t^{t+\Delta{t}}
+      \alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u\right]
+    = \Delta{t}\,aq(a)g  + \mathcal{O}({\Delta{t}}^2)
 \end{equation}
+By It\^{o}'s lemma \citep[Ch.~1]{pham2009continuous}, a
+generalisation of the fundamental theorem of calculus, we know that
+\begin{align}
+  \mathbb{E}_t[v^{(\Delta{t})}]-v(t,s,g)
+  &= \mathbb{E}_t  \int_t^{t+\Delta{t}}
+     v_t
+    +{\textstyle\frac{\sigma^2g^2}{2}}
+    v_{gg}
+    -q(\alpha(u))g v_s)(u,S^{\alpha}(u),G(u))
+    \,\mathrm{d}u\\
+  &= \Delta{t}\left( v_t
+    +{\textstyle\frac{\sigma^2g^2}{2}}
+    v_{gg}
+    -q(a)g v_s \right)(t,s,g) + \mathcal{O}({\Delta{t}}^2).
+\end{align}
 The subscripts on $v$ denote partial derivatives with respect to the
-given argument. Together with the boundary and terminal conditions on
-$v$, this constitutes the HJB equation for the pricing problem.
-If we know $v$, the optimal pricing function can be calculated from
-the univariate optimization problem
+given argument.
+Introducing the Taylor expansion into~\eqref{eq:cts_bellman_principle_ineq}
+yields
+\begin{equation}
+  v_t
+  +{\textstyle\frac{\sigma^2g^2}{2}}
+  v_{gg}+
+  g(a-v_s)q(a)
+  +\mathcal{O}(\Delta{t})\leq 0,\qquad \forall a\in A.
+\end{equation}
+The upper bound is reached for a maximiser $a^*=\alpha^*(t)$, and thus
+taking $\Delta\to 0$ gives us the the local representation
+\begin{equation}
+  v_t+\frac{\sigma^2g^2}{2}v_{gg}
+  + g(a^*-v_s)q(a^*) = 0,
+\end{equation}
+valid for $t<T$ and $s,g>0$.
+Together with the boundary and terminal conditions on
+$v$, this constitutes the HJB equation for the pricing problem,
+\begin{align}\label{eq:hjb_interior}
+  v_t(t,s,g)+\frac{\sigma^2}{2} g^2v_{gg}(t,s,g)
+  +g\max_{a\in A}\{(a-v_s(t,s,g))q(a)\} &= 0,\\ %, \quad
+  % (t,s,g)\in{(0,1)}^2\times\mathbb{R}_{>0}.
+  v(T,s,g) &= -Cs,\\
+  v(t,0,g) &= 0,\\
+  v(t,s,0) &= 0.
+\end{align}
+
+If we know $v$, the optimal pricing policy
+$\alpha^*(t)=a(t,S^{\alpha}(t),G(t))$
+can be calculated
+from the
+the univariate optimisation problem
 \begin{equation}\label{eq:pricing_function_general}
   a^*(t,s,g) = \argmax_{a\in A}\{(a-v_s(t,s,g))q(a)\}.
 \end{equation}
@@ -531,7 +611,7 @@ profits balancing revenue and cost of unsold stock at the terminal
 time.
 
 \subsection{Linear demand function}
-When $q(a)=q_1-q_2a$ for $q_1,q_2>0$, the maximization in the HJB
+When $q(a)=q_1-q_2a$ for $q_1,q_2>0$, the maximisation in the HJB
 equation can be solved in closed form.
 To reduce the number of parameters, we can rescale the price per
 product with $q_2$ by setting $q_2a$ to $a$.
@@ -1131,7 +1211,7 @@ introduce a state-variable $R^\alpha(t)$ representing the accrued
 revenue at time $t$, with dynamics
 $dR^\alpha(t)=\alpha(t)q(\alpha(t);\theta(t))\,\mathrm{d}t$.
 We consider risk-aversion based on
-an expected utility-maximizing decision maker.
+an expected utility-maximising decision maker.
 Given a utility function $U(x)$, the pricing problem is then to
 find a pricing policy $\alpha$ that maximises the expected utility
 $\mathbb{E}[U(R^\alpha(T)-C(\theta(T))S^\alpha(T))]$.
@@ -1153,7 +1233,7 @@ $v:{[0,T]}\times{[0,1]}\times \Theta\times{[0,\infty)}\to\mathbb{R}$ that solves
   v(T,s,\theta,r) &= U(r-C(\theta)s),
 \end{align}
 plus additional boundary conditions. The impact of the risk-aversion
-on pricing decisions appears in the maximization term in the HJB
+on pricing decisions appears in the maximisation term in the HJB
 equation, $\max_a\{q(a;\theta)(av_r-v_s)\}$. The $v_r$ term represents
 the relative importance of accruing more revenue to the utility of
 selling more stock, as represented by the $v_s$ term.
@@ -1247,7 +1327,7 @@ selling more stock, as represented by the $v_s$ term.
 %     \left\{ -\max_{\alpha \in\mathcal{A}} \mathbb{E}_t
 %       \left[U\left( \int_t^{T_h}q(\alpha(u))\alpha(u)\,\mathrm{d}u-CS^\alpha(T) \right)\right]\right\}.
 %   \end{align}
-%   There is no explicit dependence on $r$ in the maximization term, and
+%   There is no explicit dependence on $r$ in the maximisation term, and
 %   thus $\alpha(t)$ will not depend on $R^\alpha(t)$.
 %   This result is to be expected, since the Constant Absolute Risk
 %   Aversion utility represents a decision maker that does not change

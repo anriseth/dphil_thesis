@@ -1,7 +1,9 @@
 \begin{tikzpicture}[]
 \begin{axis}[ylabel = {$S(t)$}, xmin = {0.0}, xmax = {1.0}, ymax = {1.0041853375173477}, xlabel = {$t$}, {unbounded coords=jump, xticklabel style={rotate = 0}, yticklabel style={rotate = 0},     xshift = 0.0mm,
     yshift = 0.0mm,
-grid = major}, ymin = {-0.0004252173920858734}]\addplot+ [color = {rgb,1:red,0.00000000;green,0.60560316;blue,0.97868012},
+grid = major}, ymin = {-0.0004252173920858734},
+legend pos = south west]
+\addplot+ [color = {rgb,1:red,0.00000000;green,0.60560316;blue,0.97868012},
 draw opacity=1.0,
 line width=1,
 solid,mark = none,
