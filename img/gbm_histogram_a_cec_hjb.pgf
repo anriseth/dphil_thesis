@@ -2,7 +2,7 @@
   \begin{axis}[ylabel = {Count},
     xmin = {-0.0006}, xmax = {0.0026},
     ymax = {9732.0},
-    xlabel = {$1.0-P(\alpha^D)/P(\alpha^B)$}, unbounded coords=jump,
+    xlabel = {$1-P(\alpha^D)/P(\alpha^B)$}, unbounded coords=jump,
     %scaled x ticks = false,
     xticklabel style={rotate = 0},
     xmajorgrids = true, %xtick  = {0.0,0.0005,0.001,0.0015,0.002},

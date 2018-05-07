@@ -6,8 +6,8 @@
 \chapter{Continuous-time pricing with diffusion
   models}\label{ch:cts_control}
 
-In the previous chapters we consider decisions with no, or a
-sequential but discrete, temporal structure.
+In the previous chapters we considered decisions with no, or a
+sequential, but discrete, temporal structure.
 As the frequency of sequential decisions increase there may be an
 advantage in modelling the decision method using a continuum
 approximation.
@@ -121,7 +121,7 @@ we identify the cases where the deterministic-case solution is appropriate.
 % solution is appropriate.
 Potentially significant changes to the
 pricing policy for the stochastic system are at the interface between
-the two pricing regimes: far away from this interface the
+the two pricing regimes --- far away from this interface the
 deterministic pricing policy is near-optimal. For example, the
 expected price path is decreasing when one takes into account
 uncertainty, while it is not for the deterministic heuristic.
@@ -183,7 +183,7 @@ sales is due to the changes in $\hat{W}(\hat{t})$, in the following sense.
   -\hat{q}(\hat{\alpha}(\hat{t}))\,\mathrm{d}\hat{t} +
   \hat{\sigma}(\hat{t},\hat{S}(\hat{t}),\hat{\alpha}(\hat{t}))\,\mathrm{d}\hat{W}(\hat{t}).
 \end{equation}
-In \Cref{fig:brownian_paths} we can see six realizations of
+In \Cref{fig:brownian_paths} we can see six realisations of
 $\hat{S}^{\hat{\alpha}}(\hat{t})$ under
 this model, using $\hat{q}(\hat{a})=1$ and $\hat{\sigma}(\hat{t},\hat{s},\hat{a})=0.05$. As we zoom in on
 the sales paths, it is obvious that the stock often
@@ -198,7 +198,7 @@ increases over short time periods, corresponding to negative sales.
     The right hand figure shows that over small timescales, sales are
     often negative.
     All values are described in dimensionless quantities for
-    simplicity, see \Cref{subsec:nondimensionalization}.
+    simplicity, see \Cref{subsec:nondimensionalisation}.
   }\label{fig:brownian_paths}
 \end{figure}
 We now show that for any model with $\hat{\sigma}>0$, the Brownian noise
@@ -210,7 +210,7 @@ Then $\hat{S}(\Delta{\hat{t}})=\hat{S}(0)-\tilde q\Delta{\hat{t}} + \tilde{\sigm
 Sales are negative in this period if $\hat{S}(\Delta{\hat{t}})>\hat{S}(0)$, that is when
 $\tilde{q}\Delta{\hat{t}}+\tilde{\sigma} \hat{W}(\Delta{\hat{t}}) < 0$.
 The distribution of Brownian motion is normally distributed as
-$\hat{W}(\Delta{\hat{t}})\sim \mathcal{N}(0,\Delta{t})$. So $\hat{W}(\Delta{\hat{t}})$ is equal in
+$\hat{W}(\Delta{\hat{t}})\sim \mathcal{N}(0,\Delta{\hat{t}})$. So $\hat{W}(\Delta{\hat{t}})$ is equal in
 distribution to $\sqrt{\Delta{\hat{t}}}Z$, where $Z\sim \mathcal{N}(0,1)$, and thus
 \begin{align}
   \mathbb{P}(\hat{S}(\Delta{\hat{t}})>\hat{S}(0))
@@ -276,7 +276,7 @@ than of the Brownian noise model.
   }\label{fig:sde_gbm_const_x}
 \end{figure}
 
-\subsection{Non-dimensionalised system}\label{subsec:nondimensionalization}
+\subsection{Non-dimensionalised system}\label{subsec:nondimensionalisation}
 In order to capture similarities between different pricing decisions, irrespective of units
 such as a particular currency, it is helpful to work in a dimensionless system.
 We thus non-dimensionalise the model, which also helps to reduce the
@@ -292,7 +292,9 @@ time respectively, we rescale them with dimensionless hat-quantities
 Here, $\hat{S}(0)$ is the initial quantity of stock, $\hat{T}$ is the time-horizon
 for the pricing problem, and $\bar{a}$ is some reference price chosen
 to make typical prices $a$ of order one.
-For typographical reasons, we define the upper limit of the time
+This scaling means that we work solely with stock and time on the unit
+interval, $S^{\alpha}(t),t\in[0,1]$.
+For typographical reasons we define the upper limit of the time
 horizon as $T$, which means $T=1$ and that
 \begin{equation}
   t\in[0,T].
@@ -326,8 +328,7 @@ system starts at $S(0),G(0)=1$, and evolves according to
     \qquad\text{stopped at zero}.
   \end{split}
 \end{align}
-This scaling means that we work solely with stock and time on the unit
-interval, $S^{\alpha}(t),t\in[0,T]$.
+
 
 
 \section{Formulation of the decision
@@ -335,7 +336,7 @@ interval, $S^{\alpha}(t),t\in[0,T]$.
 We restate the retailer's objective which
 guides the choice of pricing policy: Over some decision horizon, continuously
 adjust the price of a given product in order to maximise
-the total profit, generated from sales revenue minus the cost of handling
+the total profit generated from sales revenue minus the cost of handling
 unsold items at the terminal time. We formulate this mathematically as
 a continuous-time stochastic optimal control problem, for which the optimal pricing
 policy can be found by solving the associated HJB equation.
@@ -418,23 +419,25 @@ Then, similarly to~\eqref{eq:dynamic_programming_discrete} from
 \Cref{subsec:adp_bellman_equation}, we can
 split~\eqref{eq:def_value_interior} into two terms
 \begin{align}
-    v(t,s,g) = \max_{\alpha\in\mathcal{A}}\,
-    \mathbb{E}_{t}\left[
-      \int_t^{t+\Delta{t}} \alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u
-      + v^{(\Delta{t})}\right],
+  v(t,s,g) = \max_{\alpha\in\mathcal{A}}\,
+  \mathbb{E}_{t}\left[
+  \int_t^{t+\Delta{t}} \alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u
+  + v^{(\Delta{t})}\right],
 \end{align}
 and therefore
-\begin{align}\label{eq:cts_bellman_principle_ineq}
-   \max_{\alpha\in\mathcal{A}}\,
-    \mathbb{E}_{t}\left[
-      \int_t^{t+\Delta{t}} \alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u
-      + v^{(\Delta{t})}-v(t,s,g)\right]
-    &=0, &&\textnormal{or}\\\label{eq:cts_bellman_principle_ineq}
-    \mathbb{E}_{t}\left[
-      \int_t^{t+\Delta{t}} \alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u
-      + v^{(\Delta{t})}-v(t,s,g)\right]
-    &\leq 0  &&\forall \alpha\in\mathcal{A},
-\end{align}
+\begin{equation}
+  % \label{eq:cts_bellman_principle}
+  % \max_{\alpha\in\mathcal{A}}\,
+  % \mathbb{E}_{t}\left[
+  %   \int_t^{t+\Delta{t}} \alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u
+  %   + v^{(\Delta{t})}-v(t,s,g)\right]
+  % &=0, &&\textnormal{or}\\
+  \label{eq:cts_bellman_principle_ineq}
+  \mathbb{E}_{t}\left[
+    \int_t^{t+\Delta{t}} \alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u
+    + v^{(\Delta{t})}-v(t,s,g)\right]
+  \leq 0\quad  \forall \alpha\in\mathcal{A},
+\end{equation}
 with equality achieved for a maximiser $\alpha^*\in\mathcal{A}$.
 Consider an arbitrary $\alpha\in\mathcal{A}$ and let $a=\alpha(t)\in
 A$ denote its value at time $t$.
@@ -442,16 +445,16 @@ We have the following Taylor-expansion of the
 integrand $\alpha(u)q(\alpha(u))G(u)$.
 \begin{equation}
   \mathbb{E}_{t}\left[
-      \int_t^{t+\Delta{t}}
-      \alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u\right]
-    = \Delta{t}\,aq(a)g  + \mathcal{O}({\Delta{t}}^2)
+    \int_t^{t+\Delta{t}}
+    \alpha(u)q(\alpha(u))G(u)\,\mathrm{d}u\right]
+  = \Delta{t}\,aq(a)g  + \mathcal{O}({\Delta{t}}^2)
 \end{equation}
 By It\^{o}'s lemma \citep[Ch.~1]{pham2009continuous}, a
 generalisation of the fundamental theorem of calculus, we know that
 \begin{align}
   \mathbb{E}_t[v^{(\Delta{t})}]-v(t,s,g)
   &= \mathbb{E}_t  \int_t^{t+\Delta{t}}
-     v_t
+    (v_t
     +{\textstyle\frac{\sigma^2g^2}{2}}
     v_{gg}
     -q(\alpha(u))g v_s)(u,S^{\alpha}(u),G(u))
@@ -473,7 +476,7 @@ yields
   +\mathcal{O}(\Delta{t})\leq 0,\qquad \forall a\in A.
 \end{equation}
 The upper bound is reached for a maximiser $a^*=\alpha^*(t)$, and thus
-taking $\Delta\to 0$ gives us the the local representation
+taking $\Delta{t}\to 0$ gives us the the local representation
 \begin{equation}
   v_t+\frac{\sigma^2g^2}{2}v_{gg}
   + g(a^*-v_s)q(a^*) = 0,
@@ -485,9 +488,9 @@ $v$, this constitutes the HJB equation for the pricing problem,
   v_t(t,s,g)+\frac{\sigma^2}{2} g^2v_{gg}(t,s,g)
   +g\max_{a\in A}\{(a-v_s(t,s,g))q(a)\} &= 0,\\ %, \quad
   % (t,s,g)\in{(0,1)}^2\times\mathbb{R}_{>0}.
-  v(T,s,g) &= -Cs,\\
   v(t,0,g) &= 0,\\
-  v(t,s,0) &= 0.
+  v(t,s,0) &= -Cs,\\
+  v(T,s,g) &= -Cs.
 \end{align}
 
 If we know $v$, the optimal pricing policy
@@ -606,7 +609,7 @@ price constant over the pricing horizon. They translate to the
 following intuition: For small amounts of stock, relative to demand,
 sell at the highest price so that all stock is depleted by the
 terminal time. As the amount of stock increases, the retailer should
-decrease the price, until it arrives at the price that maximises the
+decrease the price until it arrives at the price that maximises the
 profits balancing revenue and cost of unsold stock at the terminal
 time.
 
@@ -767,7 +770,7 @@ in~\eqref{eq:afun_exp_cec}, is
   &=\begin{cases}
     s \log \frac{q_1g(T-t)}{s},
     &\text{if } 0\leq \frac{s}{q_1g(T-t)}\leq e^{C-1},\\
-    -Cs+gV(C)(T-t),&\text{otherwise},
+    -Cs+V(C)(T-t)g,&\text{otherwise},
   \end{cases}\\
   V(C)&=q_1e^{C-1}.
 \end{align}
@@ -801,15 +804,20 @@ follows that $v$ should satisfy
 \end{align}
 
 The numerical solution to the HJB equation is solved with the
-following procedure: (i)~Reformulate the PDE with the similarity
-transformation $\xi = s/g$ and $v = g\phi$. (ii)~Truncate the boundary
-for $\xi\to\infty$ and set an asymptotic Dirichlet boundary condition
-based on the deterministic-system solution. (iii)~Approximate
-the PDE for $\phi(t,\xi)$ with central finite differences and the
-\texttt{Tsit5} time stepping procedure in
-\texttt{DifferentialEquations.jl}
-\citep{rackauckas2017differentialequations}, implemented in the Julia
-programming language \citep{bezanson2017julia}.
+following procedure:
+\begin{enumerate}
+\item Reformulate the PDE with the similarity
+  transformation $\xi = s/g$ and $v = g\phi$.
+\item Truncate the boundary
+  for $\xi\to\infty$ and set an asymptotic Dirichlet boundary condition
+  based on the deterministic-system solution.
+\item Approximate
+  the PDE for $\phi(t,\xi)$ with central finite differences and the
+  \texttt{Tsit5} time stepping procedure in
+  \texttt{DifferentialEquations.jl}
+  \citep{rackauckas2017differentialequations}, implemented in the Julia
+  programming language \citep{bezanson2017julia}.
+\end{enumerate}
 We denote the computed pricing function and pricing
 policy by $a^B(t,s,g)$ and $\alpha^B(t)$ respectively.
 
@@ -930,6 +938,7 @@ pricing policy $\alpha^D(t)$.
     other for $\alpha^D(t)$, so prices are likely to stay constant
     at $1/2$.
   }\label{fig:gbm_stats_a}
+  \todo[inline]{Relative difference?}
 \end{figure}
 \begin{example}\label{ex:impact_uncertainty}
   Let us simulate the system from
@@ -958,22 +967,22 @@ pricing policy $\alpha^D(t)$.
   The improvement is negligible, as we see from the relative statistics
   \begin{align}
     \mathbb{E}\left[1-P(\alpha^D)/P(\alpha^B)\right]
-    &\approx 2\times 10^{-4},
-    &\mbox{std}\left[1-P(\alpha^D)/P(\alpha^B)\right]
+    &\approx 2\times 10^{-4},\\
+    \mbox{std}\left[1-P(\alpha^D)/P(\alpha^B)\right]
     &\approx 6\times 10^{-4},\\
     \mbox{Median}\left[1-P(\alpha^D)/P(\alpha^B)\right]
     &\approx -1\times 10^{-4}.
   \end{align}
   The calculated optimal pricing policy results in \SI{0.02}{\percent} higher profits
-  than the heuristic, on average. It even results in lower profits than the
-  heuristic more than \SI{50}{\percent} of the realizations.
+  than the heuristic on average. It even results in lower profits than the
+  heuristic for more than \SI{50}{\percent} of the realisations.
   \Cref{fig:gbm_histogram_a_cec_hjb} shows a histogram that approximates
   the distribution of the relative loss from using $\alpha^D(t)$
   over the optimal pricing policy. The differences between the two are
   small, however the distribution is non-symmetric:
   The heuristic $\alpha^D(t)$ results in slightly larger profit for more
   than half of
-  the realizations, at the expense of performing markedly worse for the remaining realizations.
+  the realisations, at the expense of performing markedly worse for the remaining realisations.
   \begin{figure}[htb]
     \centering
     \includegraphics[width=0.6\textwidth,axisratio=1.25]{gbm_histogram_a_cec_hjb}
@@ -982,7 +991,7 @@ pricing policy $\alpha^D(t)$.
       to using the optimal policy $\alpha^B(t)$, as described in
       \Cref{ex:impact_uncertainty}. %\Cref{ex:impact_uncertainty}.
       Positive values
-      correspond to realizations of $W(t)$ where
+      correspond to realisations of $W(t)$ where
       $\alpha^B(t)$ is better.
       The shape of the distribution is similar to the discrete-time pricing problem
       in \Cref{ch:discrete_control}.
@@ -1005,7 +1014,7 @@ the order of \SIrange{0.01}{0.1}{\percent}.
   \centering
   \begin{tabular}{lrrrrr}
     \toprule
-    $\sigma$ & mean & std & $Q_{0.05}$ & $Q_{0.5}$ & $Q_{0.95}$\\
+    $\sigma$ & mean & std & $\mathcal{Q}_{0.05}$ & $\mathcal{Q}_{0.5}$ & $\mathcal{Q}_{0.95}$\\
     \midrule
     0.05& 0.0 & 0.4 &-0.5&-0.2&0.9\\
     0.1&0.2& 0.6&-0.4&-0.1&1.4\\
@@ -1019,7 +1028,7 @@ the order of \SIrange{0.01}{0.1}{\percent}.
     $1-P(\alpha^D)/P(\alpha^B)$ from the model in
     \Cref{ex:impact_uncertainty} with different levels of
     uncertainty $\sigma$.
-    The headings $Q_z$ denote the $z$-quantile of the distribution.
+    The headings $\mathcal{Q}_z$ denote the $z$-quantile of the distribution.
   }\label{tbl:profit_hjb_cec_statistics}
 \end{table}
 
@@ -1037,7 +1046,7 @@ discusses the interpretation of the following results.
 Let us first reduce the dimension of the problem with a similarity
 transform working in reverse time, and then present a PDE satisfied by the pricing function.
 Consider the transformations $\xi(s,g) = s/g$, $\tau=T-t$, and
-$v(t,s,g)=g\phi(T-\tau,\xi(s,g))$, which satisfies
+$v(t,s,g)=g\,\phi(T-\tau,\xi(s,g))$, which satisfies
 \begin{align}\label{eq:hjb_value_transform}
   \phi_\tau &= \frac{1}{2}\sigma^2\xi^2\phi_{\xi\xi} +
               \frac{1}{4}{(q_1 - \phi_\xi)}^2 \\
@@ -1112,9 +1121,14 @@ $\psi(t,\xi)\approx \psi^{(0)}(t,\xi)-\sigma^2 \xi/2$ in this region.
 
 \section{Extensions of the pricing problem}\label{sec:extensions}
 For our one-product system with multiplicative parameter dynamics with uncertainty,
-two natural extensions to the pricing problem are: (i) To incorporate
-other forms of uncertainty, and (ii) formulate the problem for risk-averse
-decision makers. For example, the costs of handling unsold stock may
+two natural extensions to the pricing problem are
+\begin{enumerate}
+\item to incorporate
+  other forms of uncertainty, and
+\item to formulate the problem for risk-averse
+  decision makers.
+\end{enumerate}
+For example, the costs of handling unsold stock may
 not be known a priori, and risk-aversion may be modelled from an
 expected utility viewpoint.
 These extensions increase the input dimensions of the corresponding
@@ -1165,12 +1179,13 @@ Let $\Theta\in\mathbb{R}^n$ denote the state space for
 $\theta(t)$.
 Let $D_\theta v$ and $D_\theta^2v$ denote the gradient and Hessian of
 $v(t,s,\theta)$ with respect to $\theta$. We denote the transpose
-operator with a superscript asterisk, and introduce the
-volatility matrix $\Sigma(t,\theta) = \sigma(t,\theta){\sigma(t,\theta)}^*$.
+operator with a superscript $\intercal$, and introduce the
+volatility matrix $\Sigma(t,\theta) =
+\sigma(t,\theta)\Transpose{{\sigma(t,\theta)}}$.
 The HJB approach for the pricing problem is then to find
 $v:{[0,1]}^2\times\Theta\to\mathbb{R}$ which satisfies
 \begin{align}
-  v_t+{b(t,\theta)}^* D_\theta v
+  v_t+\Transpose{{b(t,\theta)}} D_\theta v
   + {\textstyle\frac{1}{2}}\mbox{tr}\left( \Sigma(t,\theta)
   D_\theta^2v \right)
   +\max_{a}\{q(a;\theta)(a-v_s)\}&=0,\\
@@ -1185,7 +1200,7 @@ of the corresponding HJB equation. Efficient algorithms for solving
 high-dimensional PDEs of this form exist. See, for example, the
 multigrid preconditioning approach by \citet{reisinger2017boundary}, or
 the splitting into a sequence of lower-dimensional PDEs by \citet{reisinger2017finite}.
-In higher dimensions, it is of even higher importance to critically
+In higher dimensions it is of even higher importance to critically
 balance computational cost with the suboptimality of
 approximations. As \Cref{sec:stochastic_hjb} shows, approximate
 policies can perform well. This underscores the importance of assessing whether
@@ -1226,17 +1241,19 @@ For this utility function, the value function is defined as
 The corresponding HJB problem is then to find
 $v:{[0,T]}\times{[0,1]}\times \Theta\times{[0,\infty)}\to\mathbb{R}$ that solves
 \begin{align}\label{eq:hjb_utility}
-  v_t+{b(t,\theta)}^* D_\theta v
+  v_t+\Transpose{{b(t,\theta)}} D_\theta v
   + {\textstyle\frac{1}{2}}\mbox{tr}\left( \Sigma(t,\theta)
   D_\theta^2v \right)
-  +\max_{a}\{q(a;\theta)(av_r-v_s)\}&=0,\\
-  v(T,s,\theta,r) &= U(r-C(\theta)s),
+  +\max_{a}\{q(a;\theta)(av_r-v_s)\}=0&,\\
+  v(T,s,\theta,r) = U(r-C(\theta)s)&,
 \end{align}
 plus additional boundary conditions. The impact of the risk-aversion
 on pricing decisions appears in the maximisation term in the HJB
 equation, $\max_a\{q(a;\theta)(av_r-v_s)\}$. The $v_r$ term represents
 the relative importance of accruing more revenue to the utility of
 selling more stock, as represented by the $v_s$ term.
+The risk-neutral case $U(x)=x$ that we have considered in the previous
+sections give $v_r=1$.
 % A different interpretation of the effect of
 % $v_r$ is as a taxation
 % of revenue, where $q(a;\theta)av_r$ represents the monetary value
@@ -1258,7 +1275,7 @@ selling more stock, as represented by the $v_s$ term.
 %   D_zv &= U'(e)D_ze,& \text{where }
 %   &z\in\{t,s,\theta,r\},\\
 %   D^2_\theta v&=U'(e)D^2_\theta e
-%   +U''(e)[D_\theta e]{[D_\theta e]}^*.
+%   +U''(e)[D_\theta e]\Transpose{{[D_\theta e]}}.
 % \end{align}
 % Before we show the resulting PDE for $e(t,s,\theta,r)$, it is useful
 % to introduce the concept of Absolute Risk Aversion (ARA), as defined
@@ -1272,13 +1289,13 @@ selling more stock, as represented by the $v_s$ term.
 % $U'(e)>0$ to obtain
 % \begin{align}\label{eq:hjb_ceutility}
 %   e_t
-%   +{b(t,\theta)}^* D_\theta e
+%   +\Transpose{{b(t,\theta)}} D_\theta e
 %   + {\textstyle\frac{1}{2}}\mbox{tr}\left( \Sigma(t,\theta)
 %     D_\theta^2e \right)
 %   +\max_{a}\{q(a;\theta)(ae_r-e_s)\}
 %   &=
 %   {\textstyle\frac{1}{2}}\mathcal{X}(e)\,\mbox{tr}\left( \Sigma(t,\theta)
-%     [D_\theta e]{[D_\theta e]}^* \right),\\
+%     [D_\theta e]\Transpose{{[D_\theta e]}} \right),\\
 %   e(T,s,\theta,r) &= r-C(\theta)s,
 % \end{align}
 % plus additional boundary conditions.
@@ -1289,7 +1306,7 @@ selling more stock, as represented by the $v_s$ term.
 % $\mathcal{X}(e)$.
 % Note that $\mathcal{X}(x)$ is always negative, zero, and positive for a
 % risk-averse, risk-neutral, and risk-seeking decision maker respectively.
-% In addition, we know that $\mbox{tr}(\Sigma(t,\theta)[D_\theta e]{[D_\theta e]}^*)\geq
+% In addition, we know that $\mbox{tr}(\Sigma(t,\theta)[D_\theta e]\Transpose{{[D_\theta e]}})\geq
 % 0$, since the matrix in the trace is positive semi-definite.
 % This gives us the following two, expected, insights:
 % \begin{itemize}
@@ -1346,7 +1363,7 @@ pricing problems under uncertainty.
 Most of the existing literature on continuous time dynamic pricing for
 revenue management is based on Poisson
 processes. This is suitable for many applications,
-however for large retailers, approximating the number of sales and
+however, for large retailers approximating the number of sales and
 stock as a continuum can simplify calculation of pricing rules.
 We present an approach for modelling the sales as a continuous time
 dynamical system, where the uncertainty in demand arises from

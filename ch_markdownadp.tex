@@ -313,9 +313,17 @@ measurable function $a:[0,T)\times \mathbb{R}_+\to A$, such that for each possib
 $\omega$, the process $\alpha$ is given by
 $\alpha_t(\omega) = a(t,S_t^\alpha(\omega))$.
 An approach to finding the value function above is to use the Dynamic
-Programming principle~\citep{bertsekas2005dynamic}. It states that
-if $\alpha = {(\alpha_u)}_{u=0}^{T-1}$ is an optimal policy for the
-problem over time points $u\in\{0,\dots,T-1\}$, then an optimal policy
+Programming principle~\citep{bertsekas2005dynamic}. It is also known
+as Bellman's principle of optimality, due to \citet{bellman1954theory}.
+\begin{quote}
+  \emph{Principle of Optimality}. An optimal policy has the property that
+  whatever the initial state and initial decisions are, the remaining decisions
+  must constitute an optimal policy with regard to the state resulting
+  from the first decisions.
+\end{quote}
+In the context of our problem, it states that
+if $\alpha = {(\alpha_u)}_{u=0}^{T-1}$ is an optimal policy over the time
+points $u\in\{0,\dots,T-1\}$, then an optimal policy
 over the time points $u\in\{t,\dots,T-1\}$ is the restriction
 ${(\alpha_u)}_{u=t}^{T-1}$ of $\alpha$.
 Thus, $v$ can be defined recursively by
