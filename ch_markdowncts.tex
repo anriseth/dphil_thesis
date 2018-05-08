@@ -393,7 +393,8 @@ calculate the optimal pricing function $a^*(t,s,g)$.
 If at time $t$, we know the value of $S(t)$ and $G(t)$, then the value
 function represents the expected value of applying the optimal pricing
 policy for the remainder of the pricing period.
-We define the value function $v(t,s,g)$ for $t\in[0,T]$, $s\in[0,1]$, and $g\geq 0$ by
+We define the value function $v(t,s,g)$ for $t \leq T$ and $s,g\geq
+0$ by
 \begin{align}
   v(t,s,g) &=
              \max_{\alpha \in \mathcal{A}}\,
