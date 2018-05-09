@@ -1,5 +1,5 @@
 \begin{tikzpicture}[]
-\begin{axis}[ylabel = {${\|x(\mu)-x(\lambda)\|}_2\, /\, {\|x(\mu)\|}_2$}, xmin =
+\begin{axis}[ylabel = {${\|x_{eu}^\mu-x_{md}^\lambda\|}_2\, /\, {\|x_{eu}^\mu\|}_2$}, xmin =
   {0.0}, xmax = {82.0}, ymax = {0.0025298231669588314}, xlabel =
   {$\mu$}, unbounded coords=jump,scaled x ticks = false,xticklabel
   style={rotate = 0},xmajorgrids = true,xtick =

@@ -49,23 +49,23 @@ optimisation.
 
 
 The different models for ordering decisions that we discuss in
-\Cref{sec:one_optim_random_outcomes} have distinct strengths and
+\Cref{sec:one_optim_random_outcomes} have various strengths and
 weaknesses. The models that are appealing
-from a theoretical point of view may be more expensive to compute and
+from a theoretical point of view may be more expensive to compute or
 approximate. There are situations where these methods can reach the
-same decisions as one another, with carefully adjusted parameters, as we show an
-example of in \Cref{sec:one_comparison_orderings}. The message of
+same decisions as one another, with appropriately adjusted parameters, as we show in
+an example in \Cref{sec:one_comparison_orderings}. The message of
 this chapter is
-that we should critically think about the complexity of the system we want
+that we should think critically about the complexity of the system we want
 to control before formulating the mathematical optimisation problem.
 
 \section{Motivating example}\label{sec:one_motivating_example}
-We will present a toy-problem for pricing three retail products, in
+We will present a simple problem for pricing three retail products, in
 order to motivate the three deviations from
 the deterministic, well-defined setting
 of~\eqref{eq:deterministic_setting} that we consider in this chapter.
 
-Consider a product manager who is in charge of three products.
+Consider a product manager who is in responsible for three products.
 The manager can change the prices
 $x=(x_1,x_2,x_3)$
 of the products in order to improve the profit or revenue for a given
@@ -80,14 +80,16 @@ deterministic and defined by the functions
 \begin{align}
   q_1(x) &= e^{-2x_1}(1-e^{-10x_2}),\\
   q_2(x) &= 0.9e^{-1.8x_2}(1-e^{-4x_1})(1-e^{-40x_3}),\\
-  q_3(x) &= 1.2e^{-2x_3}(1-e^{-15x_1})
+  q_3(x) &= 1.2e^{-2x_3}(1-e^{-15x_1}),
 \end{align}
 respectively.
 The term $e^{-2x_1}$  models the impact of price
 changes for product one, keeping product two's price constant.
 The term $1-e^{-10x_2}$ models the proportion of product one's
 demand that product two takes at price $x_2$.
-\Cref{fig:total_volume_2d} shows the demand $q_1(x)+q_2(x)$ when $x_3=1$.
+To illustrate the behaviour of the demand function,
+\Cref{fig:total_volume_2d} shows the total demand $q_1(x)+q_2(x)+q_3(x)$ when
+$x_3=1$.
 \begin{figure}[htbp]
   \centering
   \begin{tikzpicture}
@@ -95,7 +97,7 @@ demand that product two takes at price $x_2$.
       domain=0.2:1.3,
       xlabel={$x_1$},
       ylabel={$x_2$},
-      zlabel={$q_1(x)+q_2(x)$},
+      zlabel={$q_1(x)+q_2(x)+q_3(x)$},
       view={0}{90},
       colormap/viridis,
       colorbar,
@@ -105,10 +107,13 @@ demand that product two takes at price $x_2$.
       \addplot3[
       samples=80,
       contour gnuplot={number = 40,labels={false}}, thick]
-      {exp(-2*x)*(1-exp(-10*y)) + 0.9*exp(-1.8*y)*(1-exp(-4*x))*(1-exp(-40))};
+      {exp(-2*x)*(1-exp(-10*y)) +
+        0.9*exp(-1.8*y)*(1-exp(-4*x))*(1-exp(-40))
+        + 1.2*exp(-2)*(1-exp(-15*x))
+      };
     \end{axis}
   \end{tikzpicture}
-  \caption{The sum $q_1(x)+q_2(x)$ shows the demand for products one
+  \caption{The sum $q_1(x)+q_2(x)+q_3(x)$ shows the demand for products one
     and two with $x_3=1$.
     % The model is unlikely to be valid when $x_1$ and $x_2$ tend to
     % \num{0}, as it predicts
@@ -119,19 +124,19 @@ demand that product two takes at price $x_2$.
 Let us further model the costs associated with sales according to per-unit
 costs $y=(y_1,y_2,y_3)$.
 From the demand model we can define functions for the revenue $g(x)$ and profit
-$f(x,y)$ according to
+$f(x,y)$ as
 \begin{align}
   g(x)&=\langle x,q(x) \rangle,\\
   f(x,y)
       &=\langle x-y,q(x) \rangle,
-        \qquad\textnormal{where }\langle \cdot,\cdot \rangle
-        \textnormal{ is the usual inner product on } \mathbb{R}^n.
 \end{align}
+where $\langle \cdot,\cdot \rangle$ is the usual inner product on
+$\mathbb{R}^n$.
 
 Retailers must often decide the product price before they know the
 unit costs. We assume that we can model the costs with a random
 variable $y\in\mathbb{R}^3$, based on prior knowledge and data.
-Throughout the chapter, we  assume that $y$ is a log-normally
+Throughout this chapter, we  assume that $y$ is a log-normally
 distributed random variable with mean and covariance
 \begin{align}
   m_y
@@ -148,7 +153,7 @@ distributed random variable with mean and covariance
 \Cref{fig:example_profit_distributions} shows the distribution of
 profit for three combinations of prices. There is not a given outcome
 for each price, and the decision maker must therefore take into
-account all the outcomes that can happen with each decision.
+account all the outcomes that can happen following each decision.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.7\textwidth,axisratio=1.6]{montecarlo_profit_dist}
@@ -165,11 +170,11 @@ optimisation problem.
 \begin{enumerate}
 \item Maximise profit.
 \item Maximise revenue and ensure that profit is positive.
-\item Maximise both revenue and profit.
+\item In some way maximise both revenue and profit.
 \end{enumerate}
 They are all examples of decision problems with random outcomes.
-The third problem is easily identified as a decision problem with
-multiple objectives, however, the other examples can also be
+The third problem is a decision problem with
+multiple objectives. The other examples can also be
 formulated as multi-objective optimisation problems.
 
 \section{Optimisation with random outcomes}\label{sec:one_optim_random_outcomes}
@@ -191,12 +196,15 @@ $y\in\mathcal{Y}$ and can therefore find the optimal $x$ by optimising
 $f(\cdot,y)$.
 Say there is uncertainty in the correct value of the parameter $y$ that
 we model using a random variable in $\mathcal{Y}$.
-% on the Borel space of $\mathcal{Y}$, absolutely continuous with respect
-% to the Lebesgue measure.
+on the Borel space of $\mathcal{Y}$, absolutely continuous with respect
+to the Lebesgue measure.
 For a given $x\in\mathcal{X}$, $f(x,y)$ is now a random variable.
 Thus, it is no longer straightforward to order two decisions $x_1$ and
-$x_2$ by comparing $f(x_1,y)$ to $f(x_2,y)$, as illustrated in
-\Cref{fig:example_profit_distributions}.
+$x_2$ by comparing $f(x_1,y)$ to $f(x_2,y)$.
+\Cref{fig:example_profit_distributions} illustrates the challenge;
+if one decision provides higher variability in the outcomes than
+another, we must decide whether the chance of the better outcomes
+outweigh the chance of the worse outcomes.
 We will present three classes of optimisation problems that attempt to
 address the randomness of $f(x,y)$. They are \emph{expected
   utilities}, \emph{mean-deviation procedures} and \emph{nonlinear
@@ -229,7 +237,7 @@ theory of decisions that use expected utilities is covered in
 
 \begin{mydef}[Convexity]
   We say that $u(x)$ is \emph{convex} if
-  \begin{equation}
+  \begin{equation}\label{eq:convexity}
     u(\lambda x + (1-\lambda)x)\leq
     \lambda u(x) + (1-\lambda) u(x)\qquad \textnormal{for $\lambda\in[0,1]$ and
       $x\in\mathcal{S}$}
@@ -238,14 +246,15 @@ theory of decisions that use expected utilities is covered in
   \emph{concave}.
   The properties of $u(x)$ give rise to different types of decision models.
   A \emph{risk-seeking} decision model is one where $u(x)$
-  is strictly convex, a \emph{risk-neutral} decision model in one where $u(x)$ is
-  linear, and
-  if $u(x)$ is strictly concave it is called a \emph{risk-averse} decision model.
+  is strictly convex and a \emph{risk-averse} decision model is one where
+  $u(x)$ is strictly concave.
+  If $u(x)$ is linear, we have equality in~\eqref{eq:convexity}, and
+  the decision model is called \emph{risk-neutral}.
 \end{mydef}
 
 \begin{example}[Utility functions]
   Two popular utility functions are the exponential family
-  $u_1(x)=(1-e^{-\lambda x})/\lambda$ with $\lambda>0$ and the logarithmic
+  $u_1(x)=(1-e^{-\lambda x})/\lambda$ with $\lambda\in\mathbb{R}$ and the logarithmic
   utility $u_2(x)=\log(1+x)$.
   The exponential utility is defined on $\mathcal{S} =\mathbb{R}$,
   whilst the logarithmic utility is only valid on
@@ -288,6 +297,11 @@ $x_1,x_2\in\mathcal{X}$ are better.
     X\preceq Y \Leftrightarrow \mathbb{E}[u(X)] \leq \mathbb{E}[u(Y)].
   \end{equation}
 \end{mydef}
+The expectation operator $\mathbb{E}[X]$ is taken with respect to the
+probability distribution of the random variable $X$ that is derived
+from the underlying Radon--Nikodym derivative of the underlying
+Lebesgue Measure on $\mathcal{Y}$.
+
 \begin{remark}
   Utility-orderings are preserved by positive affine transformations.
   That is, the ordering defined by $u(x)$ is equivalent to the
@@ -302,10 +316,9 @@ modelling the decision maker's attitude to risk with utility functions.
   The optimal choice to maximise a given utility of $f$ is the
   solution of
   \begin{align}
-    x(u)=\argmax_{x\in\mathcal{X}} \mathbb{E}[u(f(x,y))].
+    x^u=\argmax_{x\in\mathcal{X}} \mathbb{E}[u(f(x,y))].
   \end{align}
 \end{problem}
-
 
 \subsection{Mean-deviation problems}
 The expected utility approach considers the mean outcome of a choice.
@@ -317,14 +330,42 @@ It can, therefore, be useful to take into account some measure of
 deviation from the mean of $f$ when $x$ is chosen.
 The mean-deviation approach aims to balance the expected value of $f$
 with uncertainty represented by a deviation measure.
+
+\begin{example}[Mean-variance optimisation]
+  \citet{markowitz1952portfolio} proposed to optimise in a way that
+  balances the expected value and variance of an outcome.
+  We can create a single objective function that combines
+  the expected value with a variance-penalty, weighted by some
+  parameter $\lambda>0$. The optimal decision in $\mathcal{X}$ is then
+  defined as
+  \begin{equation}\label{eq:mean_dev_weighted}
+    x^{\lambda}=\argmax_{x\in\mathcal{X}}\{\mathbb{E}[f(x,y)]-\lambda
+    \mbox{Var}[f(x,y)]\}.
+  \end{equation}
+  This implicitly defines an ordering of random variables based on
+  the functional $X\mapsto \mathbb{E}[X]-\lambda \mbox{Var}[X]$.
+  If $f$ is nonlinear, then $x^{\lambda}$ can be unstable to
+  small changes in $\lambda$. This is illustrated in
+  \Cref{ex:pareto_disconnected} of \Cref{sec:one_multi-objective}.
+  Small errors in determining the best
+  $\lambda$ to represent a decision-maker can cause large changes in
+  either of the objectives. \citet{marler2004survey} cover
+  more robust methods.
+\end{example}
+
+There are other measures of deviation than variance and other ways to
+weigh the expectation and deviation than a linear combination. We can
+therefore generalise the mean-variance
+optimisation~\eqref{eq:mean_dev_weighted} to a mean-deviation framework.
+
 \begin{mydef}[Deviation measure]
   Let $\mathbb{D}$ be a functional on a linear space of random
   variables which is closed under taking absolute values and contains
   the real numbers.
   Then $\mathbb{D}$ is a deviation measure if
   \begin{enumerate}
-  \item $\mathbb{D}[C] = 0$ for any constant $C$, and
-  \item $\mathbb{D}[X]>0$ for non-constant random variables $X$.
+  \item $\mathbb{D}[C] = 0$ for any real number $C$, and
+  \item $\mathbb{D}[X]>0$ for any non-constant random variable $X$.
   \end{enumerate}
 \end{mydef}
 Deviation measures on $L^2$ random variables were introduced by
@@ -368,7 +409,7 @@ is less strict on the properties of $\mathbb{D}$.
 
 \begin{problem}[Mean-deviation]
   An optimal decision that maximises the expected value of $f$, whilst
-  minimising the deviation $\mathbb{D}$ of $f$, is a minimiser to the
+  minimising the deviation $\mathbb{D}$ of $f$, is a solution to the
   bi-objective optimisation problem
   \begin{align}
     \max_{x\in\mathcal{X}}\{(\mathbb{E}[f(x,y)],\,-\mathbb{D}[f(x,y)])\}.
@@ -383,23 +424,7 @@ optimisation theory point of view and will do so in
 The review by \citet{marler2004survey} covers some of the theory,
 discusses what optimality means, and introduces approaches to solve
 such problems.
-A simple approach is to define a single objective function that combines
-the expected value with a deviation-penalty, weighted by some
-parameter $\lambda>0$. The optimal decision in $\mathcal{X}$ is then
-defined as
-\begin{equation}\label{eq:mean_dev_weighted}
-  x(\mathbb{D},\lambda)=\argmax_{x\in\mathcal{X}}\{\mathbb{E}[f(x,y)]-\lambda
-  \mathbb{D}[f(x,y)]\}.
-\end{equation}
-This implicitly defines an ordering of random variables based on
-the functional $X\mapsto \mathbb{E}[X]-\lambda \mathbb{D}[X]$.
-If $f$ is nonlinear, then $x(\mathbb{D},\lambda)$ can be unstable to
-small changes in $\lambda$. This is illustrated in
-\Cref{ex:pareto_disconnected} of \Cref{sec:one_multi-objective}.
-Small errors in determining the best
-$\lambda$ to represent a decision-maker can cause large changes in
-either of the objectives. \citet{marler2004survey} cover
-more robust methods.
+
 
 \subsection{Nonlinear expectations}\label{sec:nonlinear_expectations}
 A general framework that covers most of the remaining models
@@ -423,11 +448,11 @@ $\rho(X) = -\mathbb{U}[X]$.
   the real numbers.
   Then $\mathbb{U}$ is a nonlinear expectation if
   \begin{enumerate}
-  \item $\mathbb{U}[C] = C$ for any constant $C$, and
+  \item $\mathbb{U}[C] = C$ for any real number $C$, and
   \item $\mathbb{U}[X]\leq \mathbb{U}[Y]$ whenever $X\leq Y$ almost surely.
   \end{enumerate}
 \end{mydef}
-Note that the classic, linear expectation $\mathbb{E}$ also satisfies
+Note that the linear expectation $\mathbb{E}$ also satisfies
 the properties of a nonlinear expectation.
 A more restricted class of functionals called superlinear expectations
 relate to the coherent risk measures from mathematical finance.
@@ -490,7 +515,7 @@ measures are discussed by \citet{rockafellar2013fundamental}.
   The optimal choice to maximise a nonlinear expectation
   of $f$ is given by
   \begin{align}
-    x(\mathbb{U})=\argmax_{x\in\mathcal{X}} \mathbb{U}[f(x,y)].
+    x^{\mathbb{U}}=\argmax_{x\in\mathcal{X}} \mathbb{U}[f(x,y)].
   \end{align}
 \end{problem}
 
@@ -499,7 +524,7 @@ measures are discussed by \citet{rockafellar2013fundamental}.
   super-quantile optimisation problem arising from~\eqref{eq:def_avar}
   by introducing an auxiliary variable $\eta\in\mathbb{R}$.
   \begin{equation}\label{eq:opt_avar}
-    x_{sq}({\gamma})
+    x_{sq}^{\gamma}
     =\argmax_{x\in\mathcal{X},\eta\in\mathbb{R}}
     \left\{\eta - \frac{1}{\gamma}\mathbb{E}[\max(\eta-f(x,y),0)]\right\}.
   \end{equation}
@@ -614,16 +639,16 @@ optimisation problems of mean-deviation, exponential utility, and
 lower super-quantile $\mathbb{U}_\gamma$.
 \begin{subequations}\label{eq:optim_formulations}
   \begin{align}\label{eq:optim_formulations_md}
-    x_{md}(\lambda)
+    x_{md}^\lambda
     &=\argmax_{x\in\mathcal{X}}\{\mathbb{E}[f(x,y)]-\lambda\sqrt{\mbox{Var}[f(x,y)]}\}
     &\lambda\geq 0,\\\label{eq:optim_formulations_eu}
     % &&\text{(mean-deviation)},\\
-    x_{eu}(\mu)
+    x_{eu}^\mu
     &=\argmax_{x\in\mathcal{X}}\{
       \mathbb{E}[1-e^{-\mu f(x,y)}]\}
     &\mu>0,\\\label{eq:optim_formulations_sq}
     % &&\text{(exponential utility)},\\
-    x_{sq}(\gamma)
+    x_{sq}^\gamma
     &=\argmax_{x\in\mathcal{X}}
       \{\mathbb{U}_\gamma[f(x,y)]\}
     &\gamma\in(0,1].
@@ -636,9 +661,9 @@ the following way.
 For a given value $\mu>0$ or $\gamma\in(0,1]$, find the minimisers
 $\lambda(\mu)$ and $\lambda(\gamma)$ of
 \begin{equation}\label{eq:min_xmd_xeu_xsq}
-  \min_{\lambda\geq 0}\left\{\frac{{\|x_{md}(\lambda)-x_{eu}(\mu)\|}_2}{{{\|x_{eu}(\mu)}\|}_2}\right\},\quad
+  \min_{\lambda\geq 0}\left\{\frac{{\|x_{md}^\lambda-x_{eu}^\mu\|}_2}{{{\|x_{eu}^\mu}\|}_2}\right\},\quad
   \textnormal{ and}\quad
-  \min_{\lambda\geq 0}\left\{\frac{{\|x_{md}(\lambda)-x_{sq}(\gamma)\|}_2}{{{\|x_{sq}(\gamma)}\|}_2}\right\}.
+  \min_{\lambda\geq 0}\left\{\frac{{\|x_{md}^\lambda-x_{sq}^\gamma\|}_2}{{{\|x_{sq}^\gamma}\|}_2}\right\}.
 \end{equation}
 If the denominators are zero, we minimise the absolute differences instead.
 If the minimum is close to zero, it is an indication that either method
@@ -698,7 +723,7 @@ theoretical properties of the different formulations.
       \Cref{eq:optim_formulations}, using the corresponding
       $(\mu,\lambda)$-pairs from the right plot.
       The discontinuity in the left plot corresponds to an abrupt
-      change in $x(\mu)$.%, and the corresponding $\lambda$ actually
+      change in $x^\mu$.%, and the corresponding $\lambda$ actually
       % drops slightly, although this is not visible.
     }\label{fig:util_meandev_2d}
   \end{figure}
@@ -1123,7 +1148,7 @@ formulation makes use of the convex hull of the individual minima
 \begin{example}[Comparison of Pareto front
   approximations]\label{ex:pareto_disconnected}
   We will now investigate the approximations of the Pareto
-  front on a toy example using the three different methods.
+  front on a simple example using the three different methods.
   Define the function
   $F:{[0,5]}^2\to\mathbb{R}^2$ by $F=(f_1,f_2)$, with $f_i(x)=x_i$.
   Consider the bi-objective problem
