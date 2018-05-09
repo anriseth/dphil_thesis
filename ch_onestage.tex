@@ -345,7 +345,7 @@ with uncertainty represented by a deviation measure.
   This implicitly defines an ordering of random variables based on
   the functional $X\mapsto \mathbb{E}[X]-\lambda \mbox{Var}[X]$.
   If $f$ is nonlinear, then $x^{\lambda}$ can be unstable to
-  small changes in $\lambda$. This is illustrated in
+  small changes in $\lambda$, an effect illustrated in
   \Cref{ex:pareto_disconnected} of \Cref{sec:one_multi-objective}.
   Small errors in determining the best
   $\lambda$ to represent a decision-maker can cause large changes in
@@ -449,7 +449,8 @@ $\rho(X) = -\mathbb{U}[X]$.
   Then $\mathbb{U}$ is a nonlinear expectation if
   \begin{enumerate}
   \item $\mathbb{U}[C] = C$ for any real number $C$, and
-  \item $\mathbb{U}[X]\leq \mathbb{U}[Y]$ whenever $X\leq Y$ almost surely.
+  \item $\mathbb{U}[X]\leq \mathbb{U}[Y]$ whenever $X\leq Y$ almost
+    surely\footnote{$X\leq Y$ almost surely if $\mathbb{P}(\{\omega\mid X(\omega)\leq Y(\omega)\})=0$.}.
   \end{enumerate}
 \end{mydef}
 Note that the linear expectation $\mathbb{E}$ also satisfies
@@ -485,23 +486,24 @@ measures are discussed by \citet{rockafellar2013fundamental}.
   defined by
   $X\mapsto  \inf_{\omega\in\Omega}X(\omega)$, is superlinear and
   connects optimisation of nonlinear expectations to robust optimisation \citep{ben2009robust}.
-  % If there is an attached
-  % probability space on $\Omega$,
-  % we use the essential infimum.\todo{Define}
+  If there is an attached
+  probability space on $\Omega$,
+  we use the essential infimum
+  $\essinf_{\omega\in\Omega} X(\omega) = \sup\{x \mid \mathbb{P}(X<x)=0\}$.
 
   The quantile operator
-  $q_\lambda[X] = \inf\{x\mid\mathbb{P}(X\leq x)>
-  \lambda\}$, with $\lambda\in[0,1]$, satisfies the properties of a
+  $q_\gamma[X] = \inf\{x\mid\mathbb{P}(X\leq x)\geq
+  \gamma\}$, with $\gamma\in[0,1]$, satisfies the properties of a
   nonlinear expectation.
-  Note that the operator is not necessarily concave, which has
+  Another name for the quantile operator is Value at Risk \citep{follmer2004stochastic}.
+  The operator is not necessarily concave, which has
   implications for the resulting optimisation problem.
   A concave lower bound on the quantile operator is
   the lower super-quantile,
   \begin{equation}\label{eq:def_avar}
-    \mathbb{U}_\lambda[X]=\frac{1}{\lambda}\int_0^\lambda q_t[X]\,\dt,
+    \mathbb{U}_\gamma[X]=\frac{1}{\gamma}\int_0^\gamma q_t[X]\,\dt,
   \end{equation}
-  which defines a superlinear expectation for $\lambda\in(0,1]$.
-  Another name for the quantile operator is Value at Risk.
+  which defines a superlinear expectation for $\gamma\in(0,1]$.
   The risk measures related to the lower super-quantile operator are also referred to as
   the Expected Shortfall, Average Value at Risk, and Conditional Value at Risk
   \citep{artzner1999coherent,rockafellar2002conditional,follmer2004stochastic,rockafellar2013fundamental}.
