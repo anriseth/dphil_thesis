@@ -533,7 +533,7 @@ measures are discussed by \citet{rockafellar2013fundamental}.
   Note that the objective is not necessarily smooth, due to the
   $\max(\eta-f(x,y),0)$ term. Theory of non-smooth optimisation
   can address this but may require sophisticated mathematical techniques, as
-  exemplified in \citep{kouri2016risk}.
+  exemplified by \citet{kouri2016risk}.
 \end{example}
 
 
@@ -566,7 +566,7 @@ with Taylor series and do not need to sample from $\mathcal{Y}$.
 
 
 The use of super-quantiles in revenue management has become popular
-the last ten years
+over the last eleven years
 \citep{wu2014risk,xue2015optimal,zhou2008optimal,ahmed2007coherent}.
 All of these articles argue for super-quantiles and dismiss
 optimisation formulations that use the mean and standard deviation
@@ -630,7 +630,7 @@ optimisation problem.
 \end{example}
 
 The review by \citet{nadarajah2014estimation} on estimation methods for
-lower super-quantiles provide further evidence that people use
+lower super-quantiles provides further evidence that people use
 the first two moments of a random variable to estimate nonlinear
 expectations for more generic distributions.
 
@@ -663,7 +663,7 @@ the following way.
 For a given value $\mu>0$ or $\gamma\in(0,1]$, find the minimisers
 $\lambda(\mu)$ and $\lambda(\gamma)$ of
 \begin{equation}\label{eq:min_xmd_xeu_xsq}
-  \min_{\lambda\geq 0}\left\{\frac{{\|x_{md}^\lambda-x_{eu}^\mu\|}_2}{{{\|x_{eu}^\mu}\|}_2}\right\},\quad
+  \min_{\lambda\geq 0}\left\{\frac{{\|x_{md}^\lambda-x_{eu}^\mu\|}_2}{{{\|x_{eu}^\mu}\|}_2}\right\}\quad
   \textnormal{ and}\quad
   \min_{\lambda\geq 0}\left\{\frac{{\|x_{md}^\lambda-x_{sq}^\gamma\|}_2}{{{\|x_{sq}^\gamma}\|}_2}\right\}.
 \end{equation}
@@ -753,7 +753,7 @@ theoretical properties of the different formulations.
   constraints}\label{sec:one_randomness_constraints}
 We briefly discuss the situation arising from the
 second decision problem posed in \Cref{sec:one_motivating_example},
-where the decision maker wants to maximise revenue but ensure that
+where the decision maker wants to maximise revenue and ensure that
 profit is positive.
 
 Introduce a deterministic objective $g:\mathcal{X}
@@ -788,7 +788,7 @@ framework for risk measures introduced by \citet{artzner1999coherent}.
                  \mathbb{E}[f(x,y)]\geq f_{\textnormal{min}}\},
     &\textnormal{(Expectation)}\\
     \mathcal{A}&=\{x\in\mathcal{X} \mid
-                 \inf_{\omega\in\Omega}f(x,y(\omega))\geq
+                 \essinf_{\omega\in\Omega}f(x,y(\omega))\geq
                  f_{\textnormal{min}}\},
     &\textnormal{(Worst-case)}\\
     \mathcal{A} &= \{x\in\mathcal{X}\mid
@@ -821,10 +821,16 @@ minimise\footnote{We choose to work within a minimisation-framework
 $\mathcal{X}$. The two main challenges that arise are how to understand
 the trade-offs between the objectives, and to define an ordering
 between decisions $x\in\mathcal{X}$.  One approach to the first
-challenge is to find the Pareto front, or efficient
+challenge is to find the Pareto front, indifference curve, or efficient
 frontier, of the objectives, which we cover in
 \Cref{sec:multi_pareto_front}. The second challenge is more difficult,
 as it involves modelling the decision maker's preferences.
+The concept of optimality that we present here is due to
+\citet{edgeworth1881mathematical} and \citet{pareto1906manuale}.
+\citet{keeney1976decisions} present multi-objective theory focusing on
+decision making in business from a utility theoretical point of view.
+For a mathematical discussion of multi-objective optimisation, see,
+for example, \citet{jahn2011vector}.
 
 Relevant concepts for multi-objective optimisation are defined in
 \Cref{sec:multi_terminology}.  The main contribution from this section
