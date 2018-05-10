@@ -246,17 +246,17 @@ A family of such measures of benefit are utility functions.
   A \emph{risk-seeking} decision model is one where $u(x)$
   is strictly convex and a \emph{risk-averse} decision model is one where
   $u(x)$ is strictly concave.
-  If $u(x)$ is linear, we have equality in~\eqref{eq:convexity}, and
+  If $u(x)$ is linear we have equality in~\eqref{eq:convexity} and
   the decision model is called \emph{risk-neutral}.
 \end{mydef}
 
 The work on utility theory dates back to \citet{cramer1728utility} and
 D.~\citet{bernoulli1738specimen}, who both developed a theory
 to address the St. Petersburg Paradox stated by Nicolaus I Bernoulli
-in 1713. He proposed a coin flipping game for which the
+in 1713. He proposed a coin flipping lottery for which the
 expected value is infinite, and the paradox arises from the
-argument, at the time, that players should pay the expected value to
-enter a game.
+argument, at the time, that a the expected value is a fair price to
+pay to participate in a lottery.
 Both \citeauthor{cramer1728utility} and
 D.~\citeauthor{bernoulli1738specimen} argued that the marginal benefit
 of money decreases as the amount of money increases and proposed to
@@ -314,7 +314,7 @@ $x_1,x_2\in\mathcal{X}$ are better.
 The expectation operator $\mathbb{E}[X]$ is taken with respect to the
 probability distribution of the random variable $X$ that is derived
 from the underlying Radon--Nikodym derivative of the underlying
-Lebesgue Measure on $\mathcal{Y}$.
+Lebesgue measure on $\mathcal{Y}$.
 
 \begin{remark}
   Utility-orderings are preserved by positive affine transformations.
@@ -346,7 +346,8 @@ The mean-deviation approach aims to balance the expected value of $f$
 with uncertainty represented by a deviation measure.
 
 \begin{example}[Mean-variance optimisation]
-  \citet{markowitz1952portfolio} proposed to optimise in a way that
+  \citet{markowitz1952portfolio} proposed to optimise $f(x,y)$ in
+  a prescribed way that
   balances the expected value and variance of an outcome.
   We can create a single objective function that combines
   the expected value with a variance-penalty, weighted by some
@@ -552,7 +553,7 @@ measures are discussed by \citet{rockafellar2013fundamental}.
 
 
 \subsection{Argument by paradox}
-The use of paradoxes has been popular in order to motivate different
+The use of paradoxes has been a popular way to motivate different
 decision making models. We have mentioned the St.~Petersburg paradox
 as a motivation to move from decisions purely made by expected values
 to using expected utilities.  Some proponents of expected utility
@@ -566,9 +567,9 @@ of utility theory.
 
 We will not state the four paradoxes here but refer the reader to
 \citet{ellsberg1961risk}, \citet{follmer2004stochastic}, and
-\citet{johnstone2013mean}.  The point is rather to note that the
-paradoxes pick particular cases that highlight when particular
-decision models fail. Instead of arguing for a universal model of how
+\citet{johnstone2013mean}.  Our point is to note that the
+paradoxes pick particular cases that highlight when a particular
+decision model fails. Instead of arguing for a universal model of how
 humans (ought to) behave, we argue that we should assess which models
 are suitable for each type of problem we address.
 
