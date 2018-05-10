@@ -226,9 +226,7 @@ sum, or integral, of all the realisations of the parameter in $\mathcal{Y}$.
 Expected utilities weigh the different realisations by combining the
 probability of an outcome with a measure of the benefit of $f$ for that
 outcome.
-A family of such measures of benefit are utility functions. The formal
-theory of decisions that use expected utilities is covered in
-\citet[Ch.~2]{follmer2004stochastic}.
+A family of such measures of benefit are utility functions.
 \begin{mydef}[Utility function]
   A function $u:\mathcal{S}\to\mathbb{R}$ on a set of outcomes
   $\mathcal{S}\subset \mathbb{R}$ defines a utility if
@@ -251,6 +249,22 @@ theory of decisions that use expected utilities is covered in
   If $u(x)$ is linear, we have equality in~\eqref{eq:convexity}, and
   the decision model is called \emph{risk-neutral}.
 \end{mydef}
+
+The work on utility theory dates back to \citet{cramer1728utility} and
+D.~\citet{bernoulli1738specimen}, who both developed a theory
+to address the St. Petersburg Paradox stated by Nicolaus I Bernoulli
+in 1713. He proposed a coin flipping game for which the
+expected value is infinite, and the paradox arises from the
+argument, at the time, that players should pay the expected value to
+enter a game.
+Both \citeauthor{cramer1728utility} and
+D.~\citeauthor{bernoulli1738specimen} argued that the marginal benefit
+of money decreases as the amount of money increases and proposed to
+model this with increasing but concave functions.
+An axiomatic approach to utility theory was devised by
+\citet{neumann1953theory}, and
+a recent account of the formal theory of preferences using utilities
+is provided by \citet[Ch.~2]{follmer2004stochastic}.
 
 \begin{example}[Utility functions]
   Two popular utility functions are the exponential family
@@ -581,6 +595,7 @@ dismiss the mean-deviation problem by formulating it in terms of the weighted su
 variance, and then argue that the units of these objects do not
 coincide.
 
+\todo[inline]{Mention some of the controversies}
 
 \subsection{Equivalence for the normal distribution}
 If $f(x,y)$ is normally distributed for each value of
