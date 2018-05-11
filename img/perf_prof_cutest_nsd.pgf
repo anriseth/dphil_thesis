@@ -1,0 +1,72 @@
+\begin{tikzpicture}[]
+\begin{axis}[ylabel = {$p_s(\tau)$},
+    xmin = {1}, xmax = {8}, ymax = {1}, xlabel = {$\tau$
+  ($\log_2$ scale)}, {unbounded coords=jump, log ticks with fixed
+  point, log basis x=2, xmajorgrids = true, yticklabel style={rotate =
+    0}, ymajorgrids = true,     xshift = 0.0mm,
+  yshift = 0.0mm}
+  , xmode = {log}, ymin = {0},
+  legend style={legend pos = south east, legend cell align = left, font=\footnotesize}]
+  \addplot+ [color = {rgb,1:red,0.00000000;green,0.60560316;blue,0.97868012},
+draw opacity=1.0,
+line width=1,
+solid,mark = none,
+mark size = 2.0,
+mark options = {
+    color = {rgb,1:red,0.00000000;green,0.00000000;blue,0.00000000}, draw opacity = 1.0,
+    fill = {rgb,1:red,0.00000000;green,0.60560316;blue,0.97868012}, fill opacity = 1.0,
+    line width = 1,
+    rotate = 0,
+    solid
+},const plot]coordinates {
+(1.0, 0.696969696969697)
+(1.0187641539954708, 0.7272727272727273)
+(1.1445121951219512, 0.7575757575757576)
+(1.23, 0.7878787878787878)
+(1.3082010582010581, 0.8181818181818182)
+(1.4935064935064934, 0.8484848484848485)
+(2.142857142857143, 0.8787878787878788)
+(3.4, 0.9090909090909091)
+(4.2075471698113205, 0.9393939393939394)
+(8.415094339622641, 1.0303030303030303)
+};
+\addlegendentry{O-ACCEL-B}
+\addplot+ [color = {rgb,1:red,0.67554396;green,0.55566233;blue,0.09423434},
+draw opacity=1.0,
+line width=1,
+solid,mark = none,
+mark size = 2.0,
+mark options = {
+    color = {rgb,1:red,0.00000000;green,0.00000000;blue,0.00000000}, draw opacity = 1.0,
+    fill = {rgb,1:red,0.67554396;green,0.55566233;blue,0.09423434}, fill opacity = 1.0,
+    line width = 1,
+    rotate = 0,
+    solid
+  },const plot,
+  mymark={square}{solid}]
+  coordinates {
+(1.0, 0.30303030303030304)
+(1.04, 0.3333333333333333)
+(1.1490384615384615, 0.36363636363636365)
+(1.2209302325581395, 0.3939393939393939)
+(1.272, 0.42424242424242425)
+(1.3327759197324414, 0.45454545454545453)
+(1.3352490421455938, 0.48484848484848486)
+(1.3364485981308412, 0.5151515151515151)
+(1.3928571428571428, 0.5454545454545454)
+(1.4776951672862453, 0.5757575757575758)
+(1.5899581589958158, 0.6060606060606061)
+(1.6, 0.6363636363636364)
+(1.6262626262626263, 0.6666666666666666)
+(2.172727272727273, 0.696969696969697)
+(2.205228758169935, 0.7272727272727273)
+(2.303030303030303, 0.7575757575757576)
+(2.480613165013526, 0.7878787878787878)
+(2.801526717557252, 0.8181818181818182)
+(2.9324960753532183, 0.8484848484848485)
+(8.415094339622641, 1.0303030303030303)
+};
+\addlegendentry{N-GMRES-B}
+\end{axis}
+
+\end{tikzpicture}

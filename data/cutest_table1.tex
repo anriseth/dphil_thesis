@@ -1,0 +1,73 @@
+\sisetup{tight-spacing=true,table-auto-round}
+\begin{tabular}{*{3}{l}*{2}{S[table-format=4]}
+*{2}{S[table-format=-1.1e-2]}c}
+  \toprule
+  \multicolumn{2}{c}{Problem}
+  & Solver & {Iter} & {$\Obj$-calls} & {$\Obj_{\textnormal{min}}$} &
+  {$\|\Grad_{\textnormal{min}}\|$} & Fail \\
+  \midrule
+\multirow{3}{*}{ARWHEAD} & $ n = \num{5000} $  & O-ACCEL-B & 9 & 20 & 0.00e+00 & 2.33e-06 &  \\
+ & $\Obj_0 = \num{1.5e+04} $  & L-BFGS & 6 & 21 & 0.00e+00 & 4.82e-07 &  \\
+ & ${\|\Grad_0\|} = \num{4.0e+04} $  & N-GMRES-B & 6 & 20 & 2.63e-09 & 2.14e-05 &  \\
+\addlinespace
+\multirow{3}{*}{BOX} & $ n = \num{10000} $  & O-ACCEL-B & 19 & 86 & -1.86e+03 & 1.95e-10 &  \\
+ & $\Obj_0 = \num{0.0e+00} $  & L-BFGS & 7 & 14 & -1.86e+03 & 4.00e-09 &  \\
+ & ${\|\Grad_0\|} = \num{5.0e-01} $  & N-GMRES-B & 30 & 105 & -1.86e+03 & 2.19e-09 &  \\
+\addlinespace
+\multirow{3}{*}{COSINE} & $ n = \num{10000} $  & O-ACCEL-B & 52 & 272 & -1.00e+04 & 7.14e-09 &  \\
+ & $\Obj_0 = \num{8.8e+03} $  & L-BFGS & 12 & 22 & -1.00e+04 & 3.10e-09 &  \\
+ & ${\|\Grad_0\|} = \num{9.6e-01} $  & N-GMRES-B & 29 & 80 & -1.00e+04 & 1.96e-09 &  \\
+\addlinespace
+\multirow{3}{*}{CRAGGLVY} & $ n = \num{5000} $  & O-ACCEL-B & 157 & 478 & 1.69e+03 & 4.71e-05 &  \\
+ & $\Obj_0 = \num{2.7e+06} $  & L-BFGS & 57 & 133 & 1.69e+03 & 4.01e-05 &  \\
+ & ${\|\Grad_0\|} = \num{5.6e+03} $  & N-GMRES-B & 229 & 760 & 1.69e+03 & 3.09e-05 &  \\
+\addlinespace
+\multirow{3}{*}{DIXMAANA} & $ n = \num{3000} $  & O-ACCEL-B & 48 & 223 & 1.00e+00 & 6.11e-10 &  \\
+ & $\Obj_0 = \num{2.9e+04} $  & L-BFGS & 6 & 12 & 1.00e+00 & 9.90e-16 &  \\
+ & ${\|\Grad_0\|} = \num{2.8e+01} $  & N-GMRES-B & 13 & 53 & 1.00e+00 & 1.47e-10 &  \\
+\addlinespace
+\multirow{3}{*}{DIXMAANB} & $ n = \num{3000} $  & O-ACCEL-B & 31 & 99 & 1.00e+00 & 3.16e-08 &  \\
+ & $\Obj_0 = \num{4.7e+04} $  & L-BFGS & 6 & 11 & 1.00e+00 & 2.25e-07 &  \\
+ & ${\|\Grad_0\|} = \num{4.0e+01} $  & N-GMRES-B & 35 & 228 & 1.00e+00 & 3.79e-10 &  \\
+\addlinespace
+\multirow{3}{*}{DIXMAANC} & $ n = \num{3000} $  & O-ACCEL-B & 30 & 105 & 1.00e+00 & 4.05e-08 &  \\
+ & $\Obj_0 = \num{8.2e+04} $  & L-BFGS & 7 & 14 & 1.00e+00 & 2.27e-08 &  \\
+ & ${\|\Grad_0\|} = \num{7.6e+01} $  & N-GMRES-B & 13 & 49 & 1.00e+00 & 4.40e-08 &  \\
+\addlinespace
+\multirow{3}{*}{DIXMAAND} & $ n = \num{3000} $  & O-ACCEL-B & 23 & 75 & 1.00e+00 & 1.47e-06 &  \\
+ & $\Obj_0 = \num{1.6e+05} $  & L-BFGS & 8 & 16 & 1.00e+00 & 2.55e-07 &  \\
+ & ${\|\Grad_0\|} = \num{1.5e+02} $  & N-GMRES-B & 16 & 78 & 1.00e+00 & 4.89e-07 &  \\
+\addlinespace
+\multirow{3}{*}{DIXMAANE} & $ n = \num{3000} $  & O-ACCEL-B & 394 & 1109 & 1.00e+00 & 2.61e-07 &  \\
+ & $\Obj_0 = \num{2.2e+04} $  & L-BFGS & 241 & 485 & 1.00e+00 & 2.67e-07 &  \\
+ & ${\|\Grad_0\|} = \num{2.7e+01} $  & N-GMRES-B & 885 & 2751 & 1.00e+00 & 2.60e-07 &  \\
+\addlinespace
+\multirow{3}{*}{DIXMAANF} & $ n = \num{3000} $  & O-ACCEL-B & 282 & 765 & 1.00e+00 & 3.47e-07 &  \\
+ & $\Obj_0 = \num{4.1e+04} $  & L-BFGS & 195 & 393 & 1.00e+00 & 3.73e-07 &  \\
+ & ${\|\Grad_0\|} = \num{3.9e+01} $  & N-GMRES-B & 567 & 1687 & 1.00e+00 & 3.87e-07 &  \\
+\addlinespace
+\multirow{3}{*}{DIXMAANG} & $ n = \num{3000} $  & O-ACCEL-B & 277 & 770 & 1.00e+00 & 6.93e-07 &  \\
+ & $\Obj_0 = \num{7.6e+04} $  & L-BFGS & 165 & 334 & 1.00e+00 & 6.88e-07 &  \\
+ & ${\|\Grad_0\|} = \num{7.5e+01} $  & N-GMRES-B & 570 & 1673 & 1.00e+00 & 7.16e-07 &  \\
+\addlinespace
+\multirow{3}{*}{DIXMAANH} & $ n = \num{3000} $  & O-ACCEL-B & 236 & 655 & 1.00e+00 & 1.51e-06 &  \\
+ & $\Obj_0 = \num{1.5e+05} $  & L-BFGS & 146 & 297 & 1.00e+00 & 1.49e-06 &  \\
+ & ${\|\Grad_0\|} = \num{1.5e+02} $  & N-GMRES-B & 620 & 1835 & 1.00e+00 & 1.38e-06 &  \\
+\addlinespace
+\multirow{3}{*}{DIXMAANK} & $ n = \num{3000} $  & O-ACCEL-B & 862 & 1877 & 1.00e+00 & 7.09e-07 &  \\
+ & $\Obj_0 = \num{7.4e+04} $  & L-BFGS & 392 & 787 & 1.00e+00 & 7.06e-07 &  \\
+ & ${\|\Grad_0\|} = \num{7.4e+01} $  & N-GMRES-B & 556 & 1640 & 1.00e+00 & 7.17e-07 &  \\
+\addlinespace
+\multirow{3}{*}{DIXMAANL} & $ n = \num{3000} $  & O-ACCEL-B & 267 & 685 & 1.00e+00 & 1.44e-06 &  \\
+ & $\Obj_0 = \num{1.5e+05} $  & L-BFGS & 240 & 485 & 1.00e+00 & 1.47e-06 &  \\
+ & ${\|\Grad_0\|} = \num{1.5e+02} $  & N-GMRES-B & 378 & 1096 & 1.00e+00 & 1.35e-06 &  \\
+\addlinespace
+\multirow{3}{*}{DIXMAANP} & $ n = \num{3000} $  & O-ACCEL-B & 1426 & 3149 & 1.00e+00 & 1.25e-06 &  \\
+ & $\Obj_0 = \num{7.1e+04} $  & L-BFGS & 549 & 1102 & 1.00e+00 & 1.25e-06 &  \\
+ & ${\|\Grad_0\|} = \num{1.3e+02} $  & N-GMRES-B & 1037 & 3091 & 1.00e+00 & 1.11e-06 &  \\
+\addlinespace
+\multirow{3}{*}{EDENSCH} & $ n = \num{2000} $  & O-ACCEL-B & 75 & 246 & 1.20e+04 & 1.83e-05 &  \\
+ & $\Obj_0 = \num{7.4e+06} $  & L-BFGS & 21 & 45 & 1.20e+04 & 1.96e-05 &  \\
+ & ${\|\Grad_0\|} = \num{2.2e+03} $  & N-GMRES-B & 54 & 200 & 1.20e+04 & 7.11e-06 &  \\
+\bottomrule
+\end{tabular}

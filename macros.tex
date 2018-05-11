@@ -3,6 +3,8 @@
 
 \theoremstyle{definition}
 \newtheorem{example}{Example}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}{Lemma}[chapter]
 \newtheorem{mydef}{Definition}[chapter]
 \newtheorem{problem}{Optimisation problem}[chapter]
 \newtheorem{remark}{Remark}[chapter]
@@ -23,6 +25,16 @@
 \newcommand{\df}[1]{\,\mathrm{d}{#1}}
 
 \newcommand{\Transpose}[1]{#1^\intercal}
+
+\newcommand{\Precon}{\mathcal{M}}
+\newcommand{\Obj}{f}
+\newcommand{\bx}{\vect{x}}
+\newcommand{\ba}{\vect{\alpha}}
+\newcommand{\Hess}[1]{H#1}
+\newcommand{\Grad}{g}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\Krylov}[1]{\mathcal{K}_{#1}(A,r^{(1)})}
+\newcommand{\OKrylov}[2]{\mathcal{K}_{#1}^O(#2)}
 
 \DeclareMathOperator*{\tr}{tr}
 \DeclareMathOperator*{\argmin}{arg\,min}

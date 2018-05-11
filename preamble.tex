@@ -5,8 +5,8 @@
 
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage{natbib}
-\usepackage{booktabs}
-\usepackage{hyperref}
+\usepackage{booktabs,colortbl,multirow}
+\usepackage[breaklinks=true]{hyperref}
 \usepackage{algorithm}
 \usepackage[noend]{algpseudocode}
 \usepackage{siunitx}
@@ -43,6 +43,24 @@
 \usetikzlibrary{external}
 \tikzexternalize[prefix=figures/]
 
+% Get tikz marks well spaced
+% https://tex.stackexchange.com/questions/231936/tikz-pgfplot-always-same-distance-between-marks\makeatother
+\usetikzlibrary{decorations.markings}
+\tikzset{
+  nomorepostactions/.code={\let\tikz@postactions=\pgfutil@empty},
+  mymark/.style 2 args={decoration={markings,
+      mark= between positions 0.05 and 1 step (1/10)*\pgfdecoratedpathlength with{%
+        \tikzset{#2,every mark}\tikz@options
+        \pgfuseplotmark{#1}%
+      },
+    },
+    postaction={decorate},
+    /pgfplots/legend image post style={
+      mark=#1,mark options={#2},every path/.append style={nomorepostactions}
+    },
+  },
+}
+
 \sisetup{
     group-digits=true,
     group-separator={\,},
@@ -65,9 +83,8 @@
   \oldalgorithmic}% Do what was always done with algorithmic environment
 \renewcommand{\theHALG@line}{ALG@line.\thealgorithmicH.\arabic{ALG@line}}
 
-
 % INPUT simplification for paper submission
-\def\input@path{{./img/},{./include/},{./}}
+\def\input@path{{./img/},{./include},{./data/},{./}}
 
 \makeatother
 

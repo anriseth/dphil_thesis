@@ -1,0 +1,77 @@
+\sisetup{tight-spacing=true,table-auto-round}
+\begin{tabular}{*{3}{l}*{2}{S[table-format=4]}
+*{2}{S[table-format=-1.1e-2]}c}
+  \toprule
+  \multicolumn{2}{c}{Problem}
+  & Solver & {Iter} & {$\Obj$-calls} & {$\Obj_{\textnormal{min}}$} &
+  {$\|\Grad_{\textnormal{min}}\|$} & Fail \\
+  \midrule
+\multirow{3}{*}{EG2} & $ n = \num{1000} $  & O-ACCEL-B & 6 & 14 & -9.99e+02 & 1.68e-06 &  \\
+ & $\Obj_0 = \num{-8.4e+02} $  & L-BFGS & 3 & 9 & -9.99e+02 & 4.06e-07 &  \\
+ & ${\|\Grad_0\|} = \num{5.4e+02} $  & N-GMRES-B & 6 & 14 & -9.99e+02 & 3.64e-06 &  \\
+\addlinespace
+\multirow{3}{*}{ENGVAL1} & $ n = \num{5000} $  & O-ACCEL-B & 47 & 250 & 5.55e+03 & 8.52e-07 &  \\
+ & $\Obj_0 = \num{2.9e+05} $  & L-BFGS & 33 & 366 & 5.55e+03 & 2.75e-06 & $\times$ \\
+ & ${\|\Grad_0\|} = \num{1.2e+02} $  & N-GMRES-B & 65 & 318 & 5.55e+03 & 7.60e-07 &  \\
+\addlinespace
+\multirow{3}{*}{FLETBV3M} & $ n = \num{5000} $  & O-ACCEL-B & 143 & 989 & -2.48e+05 & 4.83e-09 &  \\
+ & $\Obj_0 = \num{2.0e+02} $  & L-BFGS & 24 & 62 & -2.49e+05 & 5.12e-10 &  \\
+ & ${\|\Grad_0\|} = \num{7.1e-01} $  & N-GMRES-B & 92 & 756 & -2.49e+05 & 5.02e-09 &  \\
+\addlinespace
+\multirow{3}{*}{FMINSRF2} & $ n = \num{5625} $  & O-ACCEL-B & 1510 & 4384 & 1.00e+00 & 9.58e-09 & $\times$ \\
+ & $\Obj_0 = \num{2.8e+01} $  & L-BFGS & 1537 & 3367 & 1.00e+00 & 2.23e-10 &  \\
+ & ${\|\Grad_0\|} = \num{2.4e-02} $  & N-GMRES-B & 2000 & 4661 & 1.49e+00 & 9.13e-03 & $\times$ \\
+\addlinespace
+\multirow{3}{*}{FMINSURF} & $ n = \num{5625} $  & O-ACCEL-B & 1741 & 5007 & 1.00e+00 & 9.72e-09 & $\times$ \\
+ & $\Obj_0 = \num{2.9e+01} $  & L-BFGS & 781 & 1672 & 1.00e+00 & 2.21e-10 &  \\
+ & ${\|\Grad_0\|} = \num{2.3e-02} $  & N-GMRES-B & 2000 & 4440 & 1.64e+00 & 9.19e-03 & $\times$ \\
+\addlinespace
+\multirow{3}{*}{NCB20} & $ n = \num{5010} $  & O-ACCEL-B & 526 & 1610 & -1.13e+03 & 3.11e-08 &  \\
+ & $\Obj_0 = \num{1.0e+04} $  & L-BFGS & 467 & 1089 & -1.15e+03 & 1.29e-06 & $\times$ \\
+ & ${\|\Grad_0\|} = \num{4.0e+00} $  & N-GMRES-B & 2000 & 4093 & -1.14e+03 & 6.81e-01 & $\times$ \\
+\addlinespace
+\multirow{3}{*}{NCB20B} & $ n = \num{5000} $  & O-ACCEL-B & 1178 & 4121 & 7.35e+03 & 3.25e-08 &  \\
+ & $\Obj_0 = \num{1.0e+04} $  & L-BFGS & 1467 & 4173 & 7.35e+03 & 2.97e-05 & $\times$ \\
+ & ${\|\Grad_0\|} = \num{4.0e+00} $  & N-GMRES-B & 2000 & 3013 & 7.35e+03 & 2.72e-05 & $\times$ \\
+\addlinespace
+\multirow{3}{*}{NONDQUAR} & $ n = \num{5000} $  & O-ACCEL-B & 363 & 1044 & 1.86e-04 & 1.67e-04 &  \\
+ & $\Obj_0 = \num{5.0e+03} $  & L-BFGS & 208 & 436 & 9.30e-05 & 1.81e-04 &  \\
+ & ${\|\Grad_0\|} = \num{2.0e+04} $  & N-GMRES-B & 480 & 1394 & 3.77e-04 & 1.71e-04 &  \\
+\addlinespace
+\multirow{3}{*}{PENALTY3} & $ n = \num{200} $  & O-ACCEL-B & 283 & 1798 & 1.00e-03 & 1.50e-03 &  \\
+ & $\Obj_0 = \num{1.6e+09} $  & L-BFGS & 3 & 15 & 1.58e+09 & 1.59e+05 & $\times$ \\
+ & ${\|\Grad_0\|} = \num{1.6e+05} $  & N-GMRES-B & 2000 & 2165 & 2.37e+172 & 2.37e+172 & $\times$ \\
+\addlinespace
+\multirow{3}{*}{POWELLSG} & $ n = \num{5000} $  & O-ACCEL-B & 115 & 460 & 3.31e-06 & 1.22e-06 &  \\
+ & $\Obj_0 = \num{2.7e+05} $  & L-BFGS & 20 & 49 & 4.23e-10 & 5.52e-07 &  \\
+ & ${\|\Grad_0\|} = \num{3.1e+02} $  & N-GMRES-B & 105 & 308 & 3.16e-09 & 1.41e-08 &  \\
+\addlinespace
+\multirow{3}{*}{POWER} & $ n = \num{10000} $  & O-ACCEL-B & 186 & 637 & 4.03e+04 & 1.52e+04 &  \\
+ & $\Obj_0 = \num{2.5e+15} $  & L-BFGS & 38 & 107 & 4.93e+04 & 1.48e+04 &  \\
+ & ${\|\Grad_0\|} = \num{2.0e+12} $  & N-GMRES-B & 607 & 1868 & 7.46e+04 & 1.35e+04 &  \\
+\addlinespace
+\multirow{3}{*}{SCHMVETT} & $ n = \num{5000} $  & O-ACCEL-B & 74 & 208 & -1.50e+04 & 1.02e-08 &  \\
+ & $\Obj_0 = \num{-1.4e+04} $  & L-BFGS & 55 & 133 & -1.50e+04 & 9.19e-09 &  \\
+ & ${\|\Grad_0\|} = \num{1.1e+00} $  & N-GMRES-B & 78 & 239 & -1.50e+04 & 9.29e-09 &  \\
+\addlinespace
+\multirow{3}{*}{SINQUAD} & $ n = \num{5000} $  & O-ACCEL-B & 78 & 297 & -6.75e+06 & 4.94e-05 &  \\
+ & $\Obj_0 = \num{6.6e-01} $  & L-BFGS & 12 & 45 & -6.76e+06 & 1.38e-05 &  \\
+ & ${\|\Grad_0\|} = \num{5.0e+03} $  & N-GMRES-B & 95 & 483 & -6.75e+06 & 7.10e-06 &  \\
+\addlinespace
+\multirow{3}{*}{SPARSQUR} & $ n = \num{10000} $  & O-ACCEL-B & 134 & 598 & 1.69e-07 & 4.35e-06 &  \\
+ & $\Obj_0 = \num{1.4e+07} $  & L-BFGS & 26 & 91 & 1.36e-06 & 2.25e-04 &  \\
+ & ${\|\Grad_0\|} = \num{3.2e+04} $  & N-GMRES-B & 214 & 797 & 1.08e-06 & 1.82e-05 &  \\
+\addlinespace
+\multirow{3}{*}{TOINTGOR} & $ n = \num{50} $  & O-ACCEL-B & 201 & 538 & 1.37e+03 & 1.34e-06 &  \\
+ & $\Obj_0 = \num{5.1e+03} $  & L-BFGS & 126 & 265 & 1.37e+03 & 9.81e-07 &  \\
+ & ${\|\Grad_0\|} = \num{1.5e+02} $  & N-GMRES-B & 287 & 795 & 1.37e+03 & 1.29e-06 &  \\
+\addlinespace
+\multirow{3}{*}{TOINTPSP} & $ n = \num{50} $  & O-ACCEL-B & 277 & 963 & 2.26e+02 & 6.29e-08 &  \\
+ & $\Obj_0 = \num{1.8e+03} $  & L-BFGS & 127 & 334 & 2.26e+02 & 2.89e-07 &  \\
+ & ${\|\Grad_0\|} = \num{3.0e+01} $  & N-GMRES-B & 423 & 1287 & 2.26e+02 & 2.51e-07 &  \\
+\addlinespace
+\multirow{3}{*}{VARDIM} & $ n = \num{200} $  & O-ACCEL-B & 8 & 28 & 6.86e-02 & 1.15e+02 &  \\
+ & $\Obj_0 = \num{3.3e+16} $  & L-BFGS & 1 & 20 & 3.26e+16 & 1.94e+15 & $\times$ \\
+ & ${\|\Grad_0\|} = \num{1.9e+15} $  & N-GMRES-B & 4 & 39 & 5.33e+03 & 4.98e+05 &  \\
+\bottomrule
+\end{tabular}
