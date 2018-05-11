@@ -5,7 +5,48 @@
 
 \chapter{Conclusion}
 
-\todo[inline]{Write Conclusion}
+In this thesis we discuss aspects of the decision process, in
+particular, the mathematical formulation of optimisation problems and
+algorithms used by numerical solvers to approximate
+solutions to such problems.
+When mathematicians and practitioners use models with randomness, they
+often marginalise over random variables and then mostly ignore the
+full distribution of the outcomes. The argument is often that the
+marginalised value is a good representation of what the decision maker
+cares, or should care, about.
+It is the intention of this thesis to highlight that the distribution
+of the outcomes for relevant decisions can both guide the choice of
+optimisation formulation and provide information regarding the impact
+algorithm decisions have on modelled risk-attitudes.
+The examples we provide to motivate the work are mainly toy-problems
+related to pricing of retail products, however, the considerations
+apply equally to other decision processes with random outcomes.
+
+\Cref{ch:onestage} illustrates that when the distributions are
+uni-modal, or approximately normal, then formulating the optimisation
+problem using mean and standard deviation can yield the same decision
+as using semi-quantiles. This is advantageous from both an
+implementational and a computational point of view.
+\Cref{ch:discrete_control,ch:cts_control} provide further examples of
+how simplified formulations that ignore the randomness result in
+marginalised outcomes that are practically equal to the values from
+decisions based on the original formulation. A further investigation
+of the distribution of outcomes show that the simplified formulations
+result in the best outcomes for half of the realisations of the
+underlying random variables. In the remaining realisations they result
+in much worse outcomes, which we interpret as an algorithmic decision
+that has impacted the modelled risk-attitude.
+
+
+\todo[inline]{Optimisation algorithm}
+
+
+Further work
+\begin{itemize}
+\item Each chapter provides some suggestions for further work.
+\item Main thing --- use data and models from a real retailer to see
+  whether the same conclusions carry over to larger problems.
+\end{itemize}
 
 \biblio{} % Bibliography when standalone
 \end{document}
