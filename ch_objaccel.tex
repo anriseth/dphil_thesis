@@ -5,45 +5,81 @@
 
 \chapter{Objective acceleration for unconstrained optimisation}\label{ch:objaccel}
 
+We now move from modelling decision making processes
+to developing an algorithm that a computer
+can use to approximate the solution to an optimisation problem
+\begin{equation}
+  \min_{x\in\mathbb{R}^n} \Obj(x).
+\end{equation}
+A local minimum $x^*$ of $\Obj$ is one such that
+$\Obj(x^*)\leq \Obj(x)$ for all $x$ in a neighbourhood of $x^*$.  When
+$\Obj$ is sufficiently smooth the gradient at $x^*$ is zero,
+$\nabla\Obj(x^*)=0$.  Derivative based algorithms for minimising
+$\Obj$ are mainly iterative procedures that look for roots of
+$\nabla\Obj$.  Note that $\nabla\Obj(x)=0$ for local maximisers or
+saddle points $x$ as well. To find a local minimum the algorithms also
+attempt to always move in directions that decrease the value of
+$\Obj$.  Two common examples of such algorithms are the steepest
+descent and Newton methods \citep{nocedal2006numerical}.  The gradient
+represents the direction where $\Obj$ increases the most, so the
+negative gradient is the direction of steepest descent. Newton's
+method minimises a second-order Taylor approximation to the objective.
+Let the Hessian of $\Obj$ at $x$ be denoted by $\Hess{}(x)$.  Given a
+current guess $x$ of a local minimiser of $\Obj$, they propose a new
+guess $x^P$ according to
+\begin{align}
+  x^P(\lambda)
+  &= x - \lambda \nabla \Obj(x)
+  &\textnormal{(steepest descent)}&,\\
+  x^P(\lambda)
+  &= x-\lambda {\Hess{}(x)}^{-1}\nabla \Obj(x)
+  &\textnormal{(Newton's method)}&,
+\end{align}
+where $\lambda>0$ is determined according to a line search algorithm.
+Line search algorithms decide the step length for each iteration by
+approximately solving the one-dimensional optimisation problem
+\begin{equation}
+  \min_{\lambda>0} \Obj(x^P(\lambda)).
+\end{equation}
 
-\begin{quote}
-  Acceleration schemes can dramatically improve existing optimisation
-  procedures.  In most of the work on these schemes, such as nonlinear
-  Generalized Minimal Residual (N-GMRES), acceleration is based on
-  minimising the $\ell_2$ norm of some target on subspaces of
-  $\mathbb{R}^n$.  There are many numerical examples that show how
-  accelerating general purpose and domain-specific optimisers with
-  N-GMRES results in large improvements. We propose a natural
-  modification to N-GMRES, which significantly improves the
-  performance in a testing environment originally used to advocate
-  N-GMRES. Our proposed approach, which we refer to as O-ACCEL
-  (Objective Acceleration), is novel in that it minimises an
-  approximation to the \emph{objective function} on subspaces of
-  $\mathbb{R}^n$.  We prove that O-ACCEL reduces to the Full
-  Orthogonalisation Method for linear systems when the objective is
-  quadratic, which differentiates our proposed approach from existing
-  acceleration methods.  Comparisons with L-BFGS and N-CG indicate the
-  competitiveness of O-ACCEL. As it can be combined with
-  domain-specific optimisers, it may also be beneficial in areas where
-  L-BFGS or N-CG are not suitable.
-\end{quote}
+Newton's method has superior convergence properties to the steepest
+descent algorithm, but the cost of calculating and inverting the
+Hessian may be prohibitive in some applications.  To find a middle
+ground one can also try to approximate the inverse Hessian, known as
+quasi-Newton methods, or systematically cover the search directions,
+as nonlinear conjugate gradient methods do.  Further information on
+iterative algorithms and line search procedures is covered in
+\citet{nocedal2006numerical}.  In this chapter we will focus on a
+class of algorithms that are used in combination with other algorithms
+to somehow accelerate the guess $x^P$ towards a local minimiser.  We
+refer to them as acceleration methods.  In most of the work on these
+algorithms, such as nonlinear generalised minimal residual method
+(N-GMRES), acceleration is based on minimising the $\ell_2$ norm of
+some target subspaces of $\mathbb{R}^n$.  We propose a natural
+modification to N-GMRES, which significantly improve sthe performance
+in a testing environment originally used to advocate N-GMRES.  Our
+proposed approach, which we refer to as O-ACCEL (Objective
+acceleration), is novel in that it minimises an approximation to the
+objective function on subspaces of $\mathbb{R}^n$.
 
 
 The N-GMRES and O-ACCEL algorithms have been implemented in
-Optim~\citet{mogensen2018optim}. In this chapter we discuss the
-algorithm in the context of unconstrained
-optimisation. \todo[inline]{Start here.  Say that we can use Fminbox}
-The work which this chapter is based on has been submitted to
-the ``Numerical Linear Algebra with Applications''.\todo{Update with publication}
-It originally came about from an investigation of the nonlinear
-generalised minimal residual method (N-GMRES) for
-nonlinear solvers in reservoir simulation~\citep{riseth2015nonlinear}.
+Optim~\citet{mogensen2018optim} as part of the thesis work. In this
+chapter we discuss the algorithm in the context of unconstrained
+optimisation. The optimisation problems carried out in
+\Cref{ch:onestage,ch:discrete_control,ch:cts_control} are all
+constrained so that the decision variable lies in a compact box in
+$\mathbb{R}^n$. We can still use the algorithm proposed here for these
+problems as the inner optimiser of the box-constrained optimisation
+procedure \texttt{Fminbox} in Optim.  The work which this chapter is
+based on has been submitted to the ``Numerical Linear Algebra with
+Applications''.\todo{Update with publication} It originally came about
+from an investigation of the nonlinear generalised minimal residual
+method (N-GMRES) for nonlinear solvers in reservoir
+simulation~\citep{riseth2015nonlinear}.
 
 
-
-
-
-\section{Paper intro}
+\section{Acceleration methods overview}
 Gradient based optimisation algorithms normally iterate based on
 tractable approximations to the objective function at a particular
 point.
@@ -84,7 +120,9 @@ the context of a Broyden-type approximation of the inverse Jacobian.
 \citet{brune2015composing} show, with many numerical examples, that
 N-GMRES and Anderson acceleration can greatly improve convergence on
 nonlinear systems, when combined with an appropriate preconditioner
-(nonlinear solver).  In the setting of optimisation,
+(nonlinear solver), by reducing the number of function and Jacobian
+evaluations required to reach a given tolerance.
+In the setting of optimisation,
 \citet{sterck2012nonlinear} and \citet{sterck2016nonlinearly} show
 large improvements in convergence by applying N-GMRES acceleration to
 the computation of tensor decompositions.
@@ -980,7 +1018,7 @@ accelerating based on the gradient norm.
     for more problems.}\label{fig:perf_prof_cutest}
 \end{figure}
 
-\section{Conclusion}\label{sec:conclusion}
+\section{Discussion}\label{sec:conclusion}
 We have proposed a simple acceleration algorithm for optimisation,
 based on the nonlinear GMRES (N-GMRES) algorithm by
 \citet{washio1997krylov,sterck2013steepest}.  N-GMRES for optimisation
