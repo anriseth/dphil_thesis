@@ -18,7 +18,7 @@ $\nabla\Obj(x^*)=0$.  Derivative based algorithms for minimising
 $\Obj$ are mainly iterative procedures that look for roots of
 $\nabla\Obj$.  Note that $\nabla\Obj(x)=0$ for local maximisers or
 saddle points $x$ as well. To find a local minimum the algorithms also
-attempt to always move in directions that decrease the value of
+attempt to move in directions that decrease the value of
 $\Obj$.  Two common examples of such algorithms are the steepest
 descent and Newton methods \citep{nocedal2006numerical}.  The gradient
 represents the direction where $\Obj$ increases the most, so the
@@ -27,13 +27,13 @@ method minimises a second-order Taylor approximation to the objective.
 Let the Hessian of $\Obj$ at $x$ be denoted by $\Hess{}(x)$.  Given a
 current guess $x$ of a local minimiser of $\Obj$, they propose a new
 guess $x^P$ according to
-\begin{align}
+\begin{align}\label{eq:steepest_descent_step}
   x^P(\lambda)
   &= x - \lambda \nabla \Obj(x)
   &\textnormal{(steepest descent)}&,\\
   x^P(\lambda)
   &= x-\lambda {\Hess{}(x)}^{-1}\nabla \Obj(x)
-  &\textnormal{(Newton's method)}&,
+  &\textnormal{(Newton's method)}&,\label{eq:newton_step}
 \end{align}
 where $\lambda>0$ is determined according to a line search algorithm.
 Line search algorithms decide the step length for each iteration by
@@ -46,9 +46,9 @@ Newton's method has superior convergence properties to the steepest
 descent algorithm, but the cost of calculating and inverting the
 Hessian may be prohibitive in some applications.  To find a middle
 ground one can also try to approximate the inverse Hessian, known as
-quasi-Newton methods, or systematically cover the search directions,
+quasi-Newton methods, or systematically cover the search space,
 as nonlinear conjugate gradient methods do.  Further information on
-iterative algorithms and line search procedures is covered in
+iterative optimisation algorithms and line search procedures is covered by
 \citet{nocedal2006numerical}.  In this chapter we will focus on a
 class of algorithms that are used in combination with other algorithms
 to somehow accelerate the guess $x^P$ towards a local minimiser.  We
@@ -56,7 +56,7 @@ refer to them as acceleration methods.  In most of the work on these
 algorithms, such as nonlinear generalised minimal residual method
 (N-GMRES), acceleration is based on minimising the $\ell_2$ norm of
 some target subspaces of $\mathbb{R}^n$.  We propose a natural
-modification to N-GMRES, which significantly improve sthe performance
+modification to N-GMRES, which significantly improves the performance
 in a testing environment originally used to advocate N-GMRES.  Our
 proposed approach, which we refer to as O-ACCEL (Objective
 acceleration), is novel in that it minimises an approximation to the
@@ -64,18 +64,17 @@ objective function on subspaces of $\mathbb{R}^n$.
 
 
 The N-GMRES and O-ACCEL algorithms have been implemented in
-Optim~\citet{mogensen2018optim} as part of the thesis work. In this
+Optim \citep{mogensen2018optim} as part of the thesis work. In this
 chapter we discuss the algorithm in the context of unconstrained
 optimisation. The optimisation problems carried out in
 \Cref{ch:onestage,ch:discrete_control,ch:cts_control} are all
 constrained so that the decision variable lies in a compact box in
 $\mathbb{R}^n$. We can still use the algorithm proposed here for these
-problems as the inner optimiser of the box-constrained optimisation
+problems as an inner optimiser of the box-constrained optimisation
 procedure \texttt{Fminbox} in Optim.  The work which this chapter is
-based on has been submitted to the ``Numerical Linear Algebra with
+based on has been submitted to ``Numerical Linear Algebra with
 Applications''.\todo{Update with publication} It originally came about
-from an investigation of the nonlinear generalised minimal residual
-method (N-GMRES) for nonlinear solvers in reservoir
+from an investigation of N-GMRES for nonlinear solvers in reservoir
 simulation~\citep{riseth2015nonlinear}.
 
 
@@ -89,11 +88,12 @@ Acceleration algorithms aim to combine the strengths of existing
 solvers with information from previous iterates.  We propose an
 acceleration scheme that can be used on top of existing optimisation
 algorithms, which generates a subspace from previous iterates, over
-which it aims to optimise the objective function. We call the
-algorithm O-ACCEL, short for Objective Acceleration.
+which it aims to optimise the objective function.
+% We call the
+% algorithm O-ACCEL, short for Objective Acceleration.
 
 Our idea closely resembles the work of \citet{sterck2013steepest},
-which introduced the preconditioned nonlinear GMRES (N-GMRES)
+which introduced the preconditioned N-GMRES
 algorithm for optimisation. By using a more appropriate target to
 accelerate the optimisation than N-GMRES does, we show, with numerical
 examples, how O-ACCEL more efficiently accelerates the steepest
@@ -107,8 +107,8 @@ differential equations.  The name N-GMRES arises from the fact that
 steepest descent preconditioned N-GMRES is equivalent to the standard
 GMRES procedure for linear systems of equations
 \citep{washio1997krylov,sterck2013steepest}.  A similar idea, also
-arising from nonlinear equations, was described in
-\citet{anderson1965iterative} in \citeyear{anderson1965iterative}. See
+arising from nonlinear equations, was described by
+\citet{anderson1965iterative}. See
 \citet{walker2011anderson} for a note on the similarities of the
 methods, and \citet{fang2009two} which puts Anderson acceleration in
 the context of a Broyden-type approximation of the inverse Jacobian.
@@ -128,7 +128,7 @@ large improvements in convergence by applying N-GMRES acceleration to
 the computation of tensor decompositions.
 
 More recently, \citet{damien2016regularized} have developed another
-acceleration method for convex optimisation denoted regularized
+acceleration method for convex optimisation denoted regularised
 nonlinear acceleration (RNA), which \citet{cartis2017accelerating}
 have extended to the nonconvex case.  Acceleration techniques differ
 from one another in several ways, but, for convex quadratic
@@ -141,7 +141,7 @@ $\mathbb{R}^n$.  We believe this is a natural target to accelerate
 against, especially when the optimisation procedure is seeking descent
 directions.  For convex, quadratic functions we prove that O-ACCEL
 with a steepest descent preconditioner reduces to the full
-orthogonalisation method (FOM~\cite{saad2003iterative}), a Krylov
+orthogonalisation method (FOM,~\citet{saad2003iterative}), a Krylov
 subspace procedure for solving linear systems. This differentiates our
 method from the other acceleration techniques, which are related to
 the GMRES algorithm for linear systems.
@@ -175,7 +175,8 @@ minimiser.  We aim to find a local minima of the optimisation problem
 Let $\Precon(\Obj,x)$ denote an optimisation procedure for $\Obj$ with
 initial guess $x\in\mathbb{R}^n$. This optimisation procedure can, for
 example, be the application of one steepest descent, or Newton,
-step. We will refer to $\Precon$ as the preconditioner, because it is
+step~(\ref{eq:steepest_descent_step}, \ref{eq:newton_step}). We will refer to
+$\Precon$ as the preconditioner, because it is
 applied in the same fashion as a right preconditioner for iterative
 procedures of linear systems \citep{brune2015composing}.  Given a
 sequence of previously explored iterates $x^{(1)},\dots,x^{(k)}$, and
@@ -188,7 +189,7 @@ The acceleration step aims to minimise $\Obj$ over the subset
 $x^P+\OKrylov{k}{x^P}$, which can be interpreted as a generalisation
 from a line search to a hyperplane search.  Let
 $\alpha\in \mathbb{R}^k$, and set
-\begin{equation}
+\begin{equation}\label{eq:def_xA}
   x^A(\alpha) = x^P + \sum_{j=1}^k\alpha_j(x^{(j)}-x^P).
 \end{equation}
 Note that, when $k=1$, minimising $\Obj$ over $\OKrylov{k}{x^P}$ is
@@ -196,7 +197,9 @@ equivalent to the standard line search problem of minimising
 $\lambda \mapsto \Obj(x^{(1)}+\lambda (x^P-x^{(1)}))$.  The
 first-order condition for $\alpha$ to be a minimiser of the function
 $\alpha\mapsto \Obj(x^A(\alpha))$ is
-$\nabla_{\alpha} \Obj(x^P+\sum_{j=1}^k\alpha_j(x^{(j)}-x^P)) =0$.
+\begin{equation}
+  \nabla_{\alpha} \Obj(x^P+{\textstyle\sum_{j=1}^k}\alpha_j(x^{(j)}-x^P)) =0.
+\end{equation}
 Define the gradient $\Grad(x)=\nabla_x\Obj(x)$. For $l=1,\dots,k$,
 \begin{equation}\label{eq:deriv_objective_alpha}
   \frac{\partial }{\partial \alpha_l}
@@ -205,9 +208,9 @@ Define the gradient $\Grad(x)=\nabla_x\Obj(x)$. For $l=1,\dots,k$,
   (x^{(l)}-x^P),
 \end{equation}
 where superscript $\intercal$ denotes the transpose.  The O-ACCEL
-algorithm aims to linearize the first-order condition
+algorithm aims to linearise the first-order condition
 $\nabla_\alpha \Obj(x^A(\alpha))=0$ in the following way. Let
-$\Hess{}(x)$ denote the Hessian of $\Obj$ at $x$. By linearizing
+$\Hess{}(x)$ denote the Hessian of $\Obj$ at $x$. By linearising
 $\alpha\mapsto\nobreak\Grad(x^A(\alpha))$, we get
 \begin{align}\label{eq:grad_xA_approx}
   \begin{split}
@@ -304,8 +307,9 @@ iterates $w$ denotes the history size.  Setting an upper bound on the
 history size can be necessary due to storage constraints, or to
 prevent the local approximations of~\eqref{eq:grad_xA_approx}
 and~\eqref{eq:approx_hess} from using iterates far away from $x^P$. If
-the direction from $x^P$ to the accelerated step $x^A$ is not a
-descent direction, it indicates that the linearized approximation
+the direction from $x^P$ to the accelerated step $x^A$
+of~\eqref{eq:def_xA} is not a
+descent direction, it indicates that the linearised approximation
 around $x^P$ is bad for the currently stored iterates.  For
 simplicity, we therefore choose to reset the history size to $w=1$
 when we encounter such cases.
@@ -319,7 +323,7 @@ when we encounter such cases.
     \State $A\gets
     \Transpose{{\left(\vect{X}-\vect{X}^P\right)}}\tilde{\Hess{}}
     \left(\vect{X}-\vect{X}^P\right)$
-    \hfill {\footnotesize \Cref{sec:num_experiments}: $A\gets\Transpose{{(\vect{X}-\vect{X}^P)}}\left(
+    \hfill {\footnotesize In \Cref{sec:num_experiments}: $A\gets\Transpose{{(\vect{X}-\vect{X}^P)}}\left(
         \Grad(\vect{X})-\Grad(\vect{X}^P)
       \right)$}
     \State $b\gets -\Transpose{{(\vect{X}-\vect{X}^P)}}{\Grad(x^P)}$
@@ -382,9 +386,14 @@ larger history size.
 The FOM is an iterative procedure for solving a linear system $Ax=b$.
 With initial guess $x^{(1)}$ and residual $r^{(1)}=b-Ax^{(1)}$, define
 the Krylov subspace
-$\Krylov{k}=\mbox{span} \{r^{(1)},Ar^{(1)},\dots,A^{k-1}r^{(1)}\}$.
-The iterate $x^{(k+1)}$ of FOM is an element in $x^{(1)}+\Krylov{k}$
-such that $b-Ax^{(k+1)}\perp \Krylov{k}$.
+\begin{equation}
+  \Krylov{k}=\mbox{span} \{r^{(1)},Ar^{(1)},\dots,A^{k-1}r^{(1)}\}.
+\end{equation}
+The FOM iterate $x^{(k+1)}$ is an element in $x^{(1)}+\Krylov{k}$
+such that the residual is perpendicular to the Krylov subspace,
+\begin{equation}
+  b-Ax^{(k+1)}\perp \Krylov{k}.
+\end{equation}
 
 For convex, quadratic objectives
 $\Obj(x)=\frac{1}{2}\Transpose{x}Ax-\Transpose{x}b$, the gradient
@@ -404,7 +413,7 @@ $\lambda^{(k)}>0$.
   $Ax=b$.
 \end{theorem}
 
-We shall shortly prove the theorem after devising new expressions for
+We shall shortly prove the theorem after deriving new expressions for
 $\Krylov{k}$.  First, note that for any $x$, a reordering of terms can
 show that
 \begin{align}\label{eq:okrylov_2}
@@ -486,8 +495,8 @@ conjugate gradient (N-CG) variant with the Polak-Ribi\`{e}re update
 formula, and the two-loop recursion version of the limited-memory
 Broyden--Fletcher--Goldfarb--Shanno (L-BFGS) method
 \citep{nocedal2006numerical}.  The test problems considered in
-Sections~\ref{subsec:test_problems_sterck} to
-\ref{subsec:tensor_optim} are the same eight problems that were used
+\Cref{subsec:test_problems_sterck,subsec:experiment_design,subsec:perf_prof,subsec:tensor_optim}
+are the same eight problems that were used
 in \citet{sterck2013steepest} to advocate N-GMRES. We also include
 experiments from \num{33} CUTEst problems to further test the
 applicability of the algorithms.  The results are presented in the
@@ -527,8 +536,8 @@ solve the linear problem
 \end{equation}
 rather than the linear problem $A\alpha=b$ as defined in
 \Cref{alg:ngmreso}.  This is a Tikhonov type
-regularisation~\cite{neumaier1998solving}, often employed to
-regularize ill-conditioned problems.  \citet{washio1997krylov} shows
+regularisation \citep{neumaier1998solving}, often employed to
+regularise ill-conditioned problems.  \citet{washio1997krylov} shows
 that the error in the resulting $\alpha$ is negligible for the N-GMRES
 problem~\eqref{eq:ngmres_lin_sys} provided $\epsilon$ is much smaller
 than the smallest non-zero eigenvalue of the system matrix.  The error
@@ -633,7 +642,7 @@ Problem B. Problem A with paraboloid coordinate transformation,
   \end{split}
 \end{align}
 The minimiser is again $x^*$, with $\Obj(x^*)=0$. The gradient is
-$\Grad(x) = Dy(x-x^*) - 20(x_1-x_1^*) \times\newline \left(
+$\Grad(x) = Dy(x-x^*) - 20(x_1-x_1^*) \times \left(
   \sum_{j=2}^n{(Dy(x-x^*))}_j \right)
 \Transpose{\vecbracks{1,0,\dots,0}}$.
 
@@ -740,10 +749,10 @@ Mor\'{e}-Thuente line search implementations from the Poblano toolbox
 by \citet{dunlavy2010poblano}.  These may not be state of the art
 implementations, however, the main focus of this chapter is to
 investigate the performance of the N-GMRES and O-ACCEL
-algorithms. Future work will include testing the O-ACCEL algorithm
-with appropriate preconditioners on more comprehensive test sets,
-against state of the art implementations of gradient based
-optimisation algorithms.
+algorithms. % Future work will include testing the O-ACCEL algorithm
+% with appropriate preconditioners on more comprehensive test sets,
+% against state of the art implementations of gradient based
+% optimisation algorithms.
 
 All optimisation procedures employ the Mor\'{e}-Thuente line search
 with the following options: decrease tolerance $c_1=10^{-4}$ and
@@ -783,7 +792,7 @@ iterations.  The minimum value $\Obj^*$ is known for Problems A-F,
 however for Problem G we estimate $\Obj^*$ using the lowest value
 attained across all the optimisation procedures.  The results on the
 collection of \num{18000} test instances are discussed in
-\Cref{subsec:perf_prof}, whilst the Appendix provides tables of
+\Cref{subsec:perf_prof}, whilst \Cref{sec:objacc_tables} provides tables of
 results on the individual problems and problem sizes.
 
 Note that our reporting of the numerical experiments differ from those
@@ -793,7 +802,7 @@ evaluate the results based on performance profiles and tables of
 quantiles, instead of solely reporting the average number of
 evaluations to reach tolerance.  We believe the high number of test
 runs is important for more consistent values of the statistics
-reported in the Appendix across computers, further stabilised by using
+reported in \Cref{sec:objacc_tables} across computers, further stabilised by using
 quantiles rather than averages.
 
 \subsection{Performance profiles}\label{subsec:perf_prof}
@@ -808,7 +817,7 @@ problem $p\in\mathcal{P}$, and solver $s$, define
   t_{p,s} = \text{number of $\Obj$ evaluations required to reach
     tolerance.}
 \end{equation}
-In the numerical tests, we say that the solver has reached tolerance
+In the numerical tests we say that the solver has reached tolerance
 for the problem when the relative decrease in the objective value is
 at least $10^{-10}$, that is
 \begin{equation}\label{eq:def_performance_measure}
@@ -846,20 +855,7 @@ large values of $\tau$, the performance profile $p_s(\tau)$ indicates
 robustness, that is, what proportion of all the test problems were
 solved by the solver.
 
-\Cref{fig:perf_prof_all} plots the performance profile of the $n_s=6$
-solvers considered: N-CG, L-BFGS, and N-GMRES and O-ACCEL with
-steepest descent preconditioning using both a line search (A) and a
-fixed step size (B).  It is clear that O-ACCEL-B and L-BFGS are the
-best performers across the test set.  For \SI{44}{\percent} of the
-test problems they reach tolerance in the fewest $\Obj$ evaluations,
-and they also solve the largest proportion of problems within higher
-factors $\tau$ of the best performance ratio.  There is also a region
-where N-CG does particularly well, solving the largest proportion of
-problems within two to three times the highest performing solver.  The
-worst performers are N-GMRES-A and O-ACCEL-A, mainly due to the high
-amount of work that the line search must do to satisfy the Wolfe
-conditions along the steepest descent directions.
-\begin{figure}[htb]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.8\textwidth,axisratio=1.7]{perf_prof_all}
   \caption{Performance profiles, defined in~\eqref{eq:perf_profile},
@@ -873,6 +869,19 @@ conditions along the steepest descent directions.
     % so the flat lines provide lower bounds on the performance profiles.
   }\label{fig:perf_prof_all}
 \end{figure}
+\Cref{fig:perf_prof_all} plots the performance profile of the $n_s=6$
+solvers considered: N-CG, L-BFGS, and N-GMRES and O-ACCEL with
+steepest descent preconditioning using both a line search (A) and a
+fixed step size (B).  It is clear that O-ACCEL-B and L-BFGS are the
+best performers across the test set.  For \SI{44}{\percent} of the
+test problems they reach tolerance in the fewest $\Obj$ evaluations,
+and they also solve the largest proportion of problems within higher
+factors $\tau$ of the best performance ratio.  There is also a region
+where N-CG does particularly well, solving the largest proportion of
+problems within two to three times the highest performing solver.  The
+worst performers are N-GMRES-A and O-ACCEL-A, mainly due to the high
+amount of work that the line search must do to satisfy the Wolfe
+conditions along the steepest descent directions.
 
 It is notable that O-ACCEL-B is competitive with L-BFGS on the test
 set. Tests, not presented in this work, indicate that the L-BFGS
@@ -887,13 +896,13 @@ comparing N-GMRES and O-ACCEL, and in both cases show a significant
 improvement by minimising the objective. In fact, O-ACCEL reaches
 tolerance first on \SIrange{63}{71}{\percent} of the test problems.
 The instances where N-GMRES does better is primarily in Problems E, F,
-and G, as can be seen from \Cref{tbl:probEG} in the Appendix.  One of
+and G, as can be seen from \Cref{tbl:probEG} in \Cref{sec:objacc_tables}.  One of
 the findings of \citet{sterck2013steepest} was that N-GMRES with line
 search-steepest descent often stagnated or converged very slowly. From
 the left plot of \Cref{fig:perf_prof_nls_nsd}, we see that this issue
 is reduced with the O-ACCEL acceleration. It also turns out that
 O-ACCEL-A has a larger success rate over the test set than N-GMRES-A.
-\begin{figure}[htb]
+\begin{figure}[hbt]
   \centering
   \begin{minipage}{0.49\textwidth}
     \includegraphics[width=\textwidth,axisratio=1.5]{perf_prof_nls}
@@ -905,25 +914,31 @@ O-ACCEL-A has a larger success rate over the test set than N-GMRES-A.
   \caption{Performance profiles comparing N-GMRES and O-ACCEL with
     steepest descent with line search (A, left) and without (B,
     right).  O-ACCEL outperforms N-GMRES in both cases on our test
-    set.  Note that the lines of O-ACCEL-A and N-GMRES-A cross in
+    set.
+    Note that the lines of O-ACCEL-A and N-GMRES-A cross in
     \Cref{fig:perf_prof_all}, but not in the left figure here, because
     the performance profiles change depending on the set of solvers
-    considered.  }\label{fig:perf_prof_nls_nsd}
+    considered.
+  }\label{fig:perf_prof_nls_nsd}
 \end{figure}
 
 \subsection{The tensor optimisation problem from \citeauthor{sterck2013steepest}}\label{subsec:tensor_optim}
-The original motivation for N-GMRES to improve convergence for a
-tensor optimisation problem~\cite{sterck2012nonlinear}.
-\citet{sterck2012nonlinear} and \citet{sterck2013steepest} show that
+The original motivation for N-GMRES was to improve convergence for a
+tensor optimisation problem \citep{sterck2012nonlinear}.
+\citet{sterck2012nonlinear,sterck2013steepest} shows that
 using N-GMRES with a domain-specific ALS preconditioner is better than
 generic optimisers such as L-BFGS and N-CG.
-\citet{sterck2013steepest} states that ``In this problem, a rank-three
-canonical tensor approximation (with 450 variables) is sought for a
-three-way data tensor of size $50\times 50\times 50$. The data tensor
-is generated starting from a canonical tensor with specified rank and
-random factor matrices that are modified to have prespecified column
-colinearity, and noise is added. This is a standard canonical tensor
-decomposition test problem \citep{acar2011scalable}.''  For this
+\citet{sterck2013steepest} states that
+\begin{quote}
+  ``In this problem, a rank-three
+  canonical tensor approximation (with 450 variables) is sought for a
+  three-way data tensor of size $50\times 50\times 50$. The data tensor
+  is generated starting from a canonical tensor with specified rank and
+  random factor matrices that are modified to have prespecified column
+  colinearity, and noise is added. This is a standard canonical tensor
+  decomposition test problem \citep{acar2011scalable}.''
+\end{quote}
+For this
 chapter, we run the \num{1000} realisations of the test problem
 using the code provided by \citet{sterck2013steepest} with the
 parameter values described in \Cref{subsec:experiment_design}.  The
@@ -931,7 +946,7 @@ algorithms tested for this problem are vanilla ALS, N-GMRES-ALS,
 O-ACCEL-ALS, N-CG, and L-BFGS.  \Cref{fig:perf_prof_tensor_cp_all} and
 \Cref{tbl:quantiles_tensor_cp_all} show the performance profiles and
 quantiles for the number of $\Obj$ evaluations required to reach
-tolerance.  We see that O-ACCEL-ALS and N-GMRES-ALS performs better
+tolerance.  We see that O-ACCEL-ALS and N-GMRES-ALS perform better
 than the other algorithms, which underscores the advantage of applying
 these acceleration methods to domain-specific algorithms.
 \begin{figure}[htbp]
@@ -968,7 +983,7 @@ these acceleration methods to domain-specific algorithms.
 The test problems we have considered so far were taken from
 \citet{sterck2013steepest} and originally used to promote N-GMRES. We
 finish by presenting results from a numerical experiment using
-problems from the CUTEst problem set~\cite{gould2015cutest}.  For this
+problems from the CUTEst problem set \citep{gould2015cutest}.  For this
 experiment, we compare the solvers O-ACCEL-B, L-BFGS, and N-GMRES-B,
 with the parameter values described in
 \Cref{subsec:experiment_design}.  The minima are not known for many of
@@ -976,7 +991,7 @@ the CUTEst problems, and so we change the tolerance criterion to be
 defined in terms of the relative decrease of the gradient norm.  The
 performance measure used for this experiment is
 \begin{equation}\label{eq:def_performance_measure_cutest}
-  t_{p,s} = \min\{k\geq 1 \mid \|\Grad(x^{(k)})\|_\infty < 10^{-8}\|\Grad(x^{(0)})\|_\infty\}.
+  t_{p,s} = \min\{k\geq 1 \mid \|\Grad(x^{(k)})\|_\infty \leq 10^{-8}\|\Grad(x^{(0)})\|_\infty\}.
 \end{equation}
 A solver run is labelled as failed if it does not reach tolerance
 within \num{2000} iterations.
@@ -987,7 +1002,7 @@ that the Optim code yields the same results as the MATLAB code for
 Problems A--G.
 
 The \num{33} problems we consider are listed in
-\Cref{tbl:cutest_table1,tbl:cutest_table2} of the appendix together
+\Cref{tbl:cutest_table1,tbl:cutest_table2} of \Cref{sec:objacc_tables} together
 with the results of the numerical experiment.  We selected the
 problems with dimension $n=50$ to \num{10000} that satisfy the two
 criteria (i) the objective type is in the category ``other'' (ii) at
@@ -1020,18 +1035,18 @@ accelerating based on the gradient norm.
 
 \section{Discussion}\label{sec:conclusion}
 We have proposed a simple acceleration algorithm for optimisation,
-based on the nonlinear GMRES (N-GMRES) algorithm by
+based on the N-GMRES algorithm by
 \citet{washio1997krylov,sterck2013steepest}.  N-GMRES for optimisation
 aims to accelerate a solver step when solving the nonlinear system
 $\nabla\Obj(x)=0$ by minimising the residual in the $\ell_2$ norm over
 a subspace from previous iterates.  The acceleration step consists of
-solving a small linear system that arise from a linearisation of the
+solving a small linear system that arises from a linearisation of the
 gradient.
 
-We propose to take advantage of the structure in the optimisation
-problem, and instead accelerate based on the objective value
+We propose to take advantage of the structure of the optimisation
+problem and instead accelerate based on the objective value
 $\Obj(x)$.  This new approach, labelled O-ACCEL, shows a significant
-improvement to the original N-GMRES algorithm in numerical tests,
+improvement to the original N-GMRES algorithm in numerical tests when
 accelerating a steepest descent solver. The first test problems are
 taken from \citet{sterck2013steepest} and run under the same
 conditions that proved to be beneficial for N-GMRES.  Further tests on
@@ -1093,7 +1108,7 @@ The MATLAB code used in producing this chapter is available at
 implementations of the N-GMRES and O-ACCEL algorithms, and code
 to run Problems A--G as well as the tensor optimisation problem.
 
-\section{Tables of numerical results}
+\section{Tables of numerical results}\label{sec:objacc_tables}
 To supplement the performance profiles in the chapter, we include
 tables that present statistics of the solver performances for the
 individual test problems.
