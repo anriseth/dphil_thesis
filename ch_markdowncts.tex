@@ -6,9 +6,9 @@
 \chapter{Continuous-time pricing with diffusion
   models}\label{ch:cts_control}
 
-In the previous chapters we considered decisions with no, or a
-sequential, but discrete, temporal structure.
-As the frequency of sequential decisions increase there may be an
+In the previous chapters we considered decisions with no temporal
+structure or with a discrete, sequential temporal structure.
+As the frequency of sequential decisions increases there may be an
 advantage in modelling the decision method using a continuum
 approximation.
 We consider a continuous-time version of the pricing problem from
@@ -150,7 +150,7 @@ modelling the product sales over some finite time period.
 Assume that the initial quantity of stock is large, and that there is a
 substantial volume sold over small time periods, compared to the total
 period of interest. These assumptions can apply to many products sold
-by large retailers. In the monopoly setting, this thus leads to
+by large retailers. For example, in the monopoly setting, this leads to
 a continuum model similar to that of \citet{kalish1983monopolist}.
 For a given product, denote the amount of stock left at time $\hat{t}$ by $\hat{S}(\hat{t})$,
 and let $\hat{q}(\hat{a})$ represent product demand at price $\hat{a}$, per unit
@@ -202,7 +202,7 @@ increases over short time periods, corresponding to negative sales.
   }\label{fig:brownian_paths}
 \end{figure}
 We now show that for any model with $\hat{\sigma}>0$, the Brownian noise
-model~\eqref{eq:brownian_noise} cause negative sales with high
+model~\eqref{eq:brownian_noise} causes negative sales with high
 probability.
 For a given time period $[0,\Delta{\hat{t}})$, assume the demand and volatility are constant,
 $\hat{q}(\hat{a})=\tilde q>0$ and $\hat{\sigma}(\hat{t},\hat{s},\hat{a})=\tilde \sigma>0$.
@@ -409,7 +409,7 @@ $S^\alpha(t)=s$ and $G(t)=g$.
 In the limit $t\to T$, we see from~\eqref{eq:def_value_interior} that
 $v(T,s,g)=-Cs$.
 
-We will derive the HJB equation for $v$ in a non-rigourous manner
+We will derive the HJB equation for $v$ in a non-rigorous manner
 using a
 continuous-time analogue of the Dynamic Programming principle
 stated in \Cref{subsec:adp_bellman_equation}. For a rigorous proof,
@@ -889,7 +889,7 @@ of the differences between $a^B$ and $a^D$.
 \begin{myresult}\label{res:linear_asymptotics}
   Define $\beta=\min(q_1,(q_1+C)/2)$.
   There is an inner layer around the surface $\frac{s}{g}=(T-t)\beta$ which
-  smooths out the kink of the solution $a^D(t,s,g)$ that arise when
+  smooths out the kink of the solution $a^D(t,s,g)$ that arises when
   $\sigma=0$. At the kink, the first-order correction in the pricing
   function is of order $\mathcal{O}(\sigma\sqrt{T-t})$.
   The width of the layer is of the order
@@ -1129,7 +1129,7 @@ two natural extensions to the pricing problem are
   decision makers.
 \end{enumerate}
 For example, the costs of handling unsold stock may
-not be known a priori, and risk-aversion may be modelled from an
+not be known a priori, and risk aversion may be modelled from an
 expected utility viewpoint.
 These extensions increase the input dimensions of the corresponding
 HJB equations, which we present without further discussion. We again
@@ -1200,7 +1200,7 @@ of the corresponding HJB equation. Efficient algorithms for solving
 high-dimensional PDEs of this form exist. See, for example, the
 multigrid preconditioning approach by \citet{reisinger2017boundary}, or
 the splitting into a sequence of lower-dimensional PDEs by \citet{reisinger2017finite}.
-In higher dimensions it is of even higher importance to critically
+In higher dimensions it is of even greater importance to critically
 balance computational cost with the suboptimality of
 approximations. As \Cref{sec:stochastic_hjb} shows, approximate
 policies can perform well. This underscores the importance of assessing whether
@@ -1212,8 +1212,8 @@ objective and the optimal policy.
 One may argue that for a retailer as a whole, an assumption of a
 risk-neutral decision maker is valid. For individual product managers,
 whose performance is evaluated over shorter time horizons, a degree of
-risk-aversion can be preferable. Formulations and investigations of the
-impact of risk-aversion on pricing policies is also noted as an
+risk aversion can be preferable from their point of view. Formulations and investigations of the
+impact of risk aversion on pricing policies is also noted as an
 interesting area of research by \citet{bitran2003overview}.
 For investigations of the expected utility problem with Poisson process
 demand, see, for example, \citet{lim2007relative} or \citet{feng2008risk}.
@@ -1222,10 +1222,10 @@ In this section, we assume that the decision maker is evaluated based on
 the performance of the total profit from selling a product over the
 time interval $[0,T]$. Then, the pricing decision at time $t$ may also depend
 on how much revenue has been accrued at that time. So we
-introduce a state-variable $R^\alpha(t)$ representing the accrued
+introduce a state variable $R^\alpha(t)$ representing the accrued
 revenue at time $t$, with dynamics
 $dR^\alpha(t)=\alpha(t)q(\alpha(t);\theta(t))\,\mathrm{d}t$.
-We consider risk-aversion based on
+We consider risk aversion based on
 an expected utility-maximising decision maker.
 Given a utility function $U(x)$, the pricing problem is then to
 find a pricing policy $\alpha$ that maximises the expected utility
@@ -1247,7 +1247,7 @@ $v:{[0,T]}\times{[0,1]}\times \Theta\times{[0,\infty)}\to\mathbb{R}$ that solves
   +\max_{a}\{q(a;\theta)(av_r-v_s)\}=0&,\\
   v(T,s,\theta,r) = U(r-C(\theta)s)&,
 \end{align}
-plus additional boundary conditions. The impact of the risk-aversion
+plus additional boundary conditions. The impact of the risk aversion
 on pricing decisions appears in the maximisation term in the HJB
 equation, $\max_a\{q(a;\theta)(av_r-v_s)\}$. The $v_r$ term represents
 the relative importance of accruing more revenue to the utility of
@@ -1311,7 +1311,7 @@ sections give $v_r=1$.
 % This gives us the following two, expected, insights:
 % \begin{itemize}
 % \item The certainty equivalent value decreases with increasing
-%   risk-aversion, but the effect diminishes as we get closer to the
+%   risk aversion, but the effect diminishes as we get closer to the
 %   terminal time.
 % \item Uncertainty in the system can have an order one impact on the
 %   certainty equivalent value if $\mathcal{O}(\mathcal{X}(e))=\mathcal{O}
@@ -1352,7 +1352,7 @@ sections give $v_r=1$.
 % \end{example}
 
 % In comparison to the risk-neutral system considered in the previous
-% sections, higher risk-aversion
+% sections, higher risk aversion
 % would lead to leaving the price the same in the region where we are not expected
 % to sell out of the product, and increasing the price when we expect to sell
 % out of the product.
