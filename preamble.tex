@@ -68,10 +68,10 @@
 }
 
 %\crefname{chapter}{\S}{\S\S}
-\crefname{section}{\S}{\S\S}
+\crefname{section}{\S}{\S}
 % Prevent space between \S and numbers
 \crefformat{section}{\S#2#1#3}
-\crefrangeformat{section}{\S\S#3#1#4 to~#5#2#6}
+\crefrangeformat{section}{\S#3#1#4 to \S#5#2#6}
 
 \makeatletter
 % Fix problem with tikz-externalize and todonotes
