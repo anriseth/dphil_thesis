@@ -288,7 +288,7 @@ $\hat{S}(0)>0$, $\hat{G}(0)=1$, is
 The sample paths of $\hat{S}^{\hat{\alpha}}(\hat{t})$ following the GBM model, as shown in
 \Cref{fig:sde_gbm_const_x}, are more regular
 than of the Brownian noise model.
-\begin{figure}[htbp]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.5\textwidth,axisratio=1.25]{sde_gbm_const_x}
   \caption{Sample paths of $\hat{S}^{\hat{\alpha}}(\hat{t})$ following the GBM
@@ -617,7 +617,7 @@ estimator error when $\sigma=0.1$ and $\Delta t=0.01$
 is typically within \SI{1}{\percent}.
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.5\textwidth,axisratio=1.55]{gbm_estimate}
+  \includegraphics[width=0.6\textwidth,axisratio=1.55]{gbm_estimate}
   \caption{Distribution of the relative error in estimating $G(t)$ with
     $\sigma=0.1$ and $\Delta t= 0.01$, based on \num{100000} samples.}\label{fig:gbm_estimate}
 \end{figure}
@@ -865,7 +865,7 @@ policy by $a^B(t,s,g)$ and $\alpha^B(t)$ respectively.
   line, $s=g(T-t)$, where $a^B$ smooths out the transition between
   the two regions, and hence sells the product at a slightly higher
   price.
-  \begin{figure}[htb]
+  \begin{figure}[p]
     \centering
     \begin{subfigure}[b]{0.5\textwidth}
       \includegraphics[width=\textwidth]{hjbsol_a_hjb}
@@ -889,7 +889,13 @@ policy by $a^B(t,s,g)$ and $\alpha^B(t)$ respectively.
   \end{figure}
 \end{example}
 
-\begin{figure}[hbt]
+
+\subsection{Asymptotic analysis}\label{subsec:asymptotic_analysis}
+\Cref{fig:hjbsol_a} indicates that one can do an asymptotic analysis
+of the impact of $0<\sigma \ll 1$ on the pricing
+function. \Cref{fig:hjb_cec_zoom} provides another visualisation
+of the differences between $a^B$ and $a^D$ to aide the analysis.
+\begin{figure}[p]
   \centering
   \begin{subfigure}[b]{0.5\textwidth}
     \includegraphics[width=\textwidth,axisratio=1.2]{hjb_cec_zoom_02_05}
@@ -908,50 +914,174 @@ policy by $a^B(t,s,g)$ and $\alpha^B(t)$ respectively.
     This example uses $q_1=3/2$, $C=1/2$, and $\sigma=0.2$.
   }\label{fig:hjb_cec_zoom}
 \end{figure}
-\Cref{fig:hjbsol_a} indicates that one can do an asymptotic analysis
-of the impact of $0<\sigma \ll 1$ on the pricing
-function, and \Cref{subsec:asymptotic_analysis} provides details of the
-analysis. We summarise the
-results here, and refer to \Cref{fig:hjb_cec_zoom} for a visualisation
-of the differences between $a^B$ and $a^D$.
-\begin{myresult}\label{res:linear_asymptotics}
-  Define $\beta=\min(q_1,(q_1+C)/2)$.
-  There is an inner layer around the surface $\frac{s}{g}=(T-t)\beta$ which
-  smooths out the kink of the solution $a^D(t,s,g)$ that arises when
-  $\sigma=0$. At the kink, the first-order correction in the pricing
-  function is of order $\mathcal{O}(\sigma\sqrt{T-t})$.
-  The width of the layer is of the order
-  $\mathcal{O}(\sigma{(T-t)}^{3/2})$, which connects the two pricing
-  regimes identified in the deterministic case.
-  As we move from the inner layer to larger values of
-  $\xi:=s/g>(T-t)\beta$, the solution
-  tends to the value $\delta=\max(0,q_1-C)/2$, which coincides with
-  $a^D$. As we move from the inner layer to smaller values of $\xi$,
-  the leading order solution of the inner layer coincides with $a^D$.
-  Further, there is a second order correction in the region
-  $\xi<(T-t)\beta$ equal to $-\sigma^2 \xi/2$.
-\end{myresult}
+
+We summarise the results before showing the details of the asymptotic expansions.
+Define $\beta=\min(q_1,(q_1+C)/2)$.
+There is an inner layer around the surface $\frac{s}{g}=(T-t)\beta$ which
+smooths out the kink of the solution $a^D(t,s,g)$ that arises when
+$\sigma=0$. At the kink, the first-order correction in the pricing
+function is of order $\mathcal{O}(\sigma\sqrt{T-t})$.
+The width of the layer is of the order
+$\mathcal{O}(\sigma{(T-t)}^{3/2})$, which connects the two pricing
+regimes identified in the deterministic case.
+As we move from the inner layer to larger values of
+$\xi:=s/g>(T-t)\beta$, the solution
+tends to the value $\delta=\max(0,q_1-C)/2$, which coincides with
+$a^D$. As we move from the inner layer to smaller values of $\xi$,
+the leading order solution of the inner layer coincides with $a^D$.
+Further, there is a second order correction in the region
+$\xi<(T-t)\beta$ equal to $-\sigma^2 \xi/2$.
 
 The first and second order corrections reflect the insights one can
 arrive at when taking into account the deviations of actual future
-demand from expected demand.
-At the interface where we expect to sell all the inventory at the
-optimal lower-bound, ``infinite-inventory'' price $\delta$, taking
-into account the possibility of higher future demand means that we can
-increase the price.
-When the inventory is so low that we expect to sell it all at some
-price higher than $\delta$, taking into account the possibility
-of lower future demand means that we should price the product lower than in the
-deterministic-case in order to
-reduce the probability of having excess inventory at the terminal time.
+demand from expected demand.  At the interface where we expect to sell
+all the inventory at the optimal lower-bound, ``infinite-inventory''
+price $\delta$, taking into account the possibility of higher future
+demand means that we can increase the price.  When the inventory is so
+low that we expect to sell it all at some price higher than $\delta$,
+taking into account the possibility of lower future demand means that
+we should price the product lower than in the deterministic-case in
+order to reduce the probability of having excess inventory at the
+terminal time.
 
-The asymptotic results together with \Cref{fig:hjbsol_a} indicate that one can expect a price
-decrease over time when following the optimal pricing policy
-$\alpha^B(t)$.
-The numerical investigation in the next example verifies this, but highlights
-that there are negligible gains in total profit from pricing according to
-$\alpha^B(t)$ rather than the deterministic-case
-pricing policy $\alpha^D(t)$.
+We carry out the asymptotic analysis of the pricing function
+that arises from the linear demand HJB
+equation~\eqref{eq:hjb_impact_uncertainty} under the assumptions of
+\Cref{sec:stochastic_hjb}.
+Further, we assume that the value and pricing functions are sufficiently
+differentiable to carry out the operations below. The smoothing effect
+of the diffusion in the PDEs when $\sigma>0$ justifies this assumption.
+
+Let us first reduce the dimension of the problem with a similarity
+transform working in reverse time, and then present a PDE satisfied by the pricing function.
+Consider the transformations
+\begin{align}
+  \xi(s,g) &= s/g,\\
+  \tau(t)&=T-t,\\
+  v(t,s,g)&=g\,\phi(\tau(t),\xi(s,g)),
+\end{align}
+which require $\phi(\tau,\xi)$ to satisfy
+\begin{align}\label{eq:hjb_value_transform}
+  \phi_\tau &= \frac{1}{2}\sigma^2\xi^2\phi_{\xi\xi} +
+              \frac{1}{4}{(q_1 - \phi_\xi)}^2 \\
+  \phi(0,\xi) &= -C\xi\\
+  \phi(\tau,0)& = 0,\\
+  \phi_\xi(\tau,\infty) &= -C.
+\end{align}
+In the new coordinates, define the pricing function in terms of the
+function $\psi(\tau,\xi)$ so that $a^B(t,s,g)=\psi(\tau(t),\xi(s,g))$.
+Then $\psi = (q_1+\phi_\xi)/2$ satisfies the following PDE
+that arises from differentiating~\eqref{eq:hjb_value_transform} with
+respect to $\xi$.
+\begin{align}\label{eq:hjb_policy_transform}
+  \psi_\tau&= \frac{1}{2}\sigma^2 \xi^2
+             \psi_{\xi\xi} +
+             (\sigma^2\xi - q_1 + \psi)\psi_\xi,\\
+  \psi(\tau,0) &= q_1,\\
+  \psi(\tau,\infty) &= \delta:=\max(0,(q_1-C)/2).
+\end{align}
+When $\sigma=0$, we know from \Cref{sec:deterministic_hjb} that
+the viscosity solution $\psi^{(0)}$ is
+\begin{equation}\label{eq:psi_leading}
+  \psi^{(0)}(\tau,\xi)=\begin{cases}
+    q_1-\xi/\tau, &\text{if } 0\leq \xi\leq
+    \beta \tau,\\
+    \delta,&\text{if } \hfill \xi > \beta \tau,
+  \end{cases}
+  \qquad \textnormal{where } \beta:=\min(q_1,(q_1+C)/2).
+\end{equation}
+This leads us to consider an inner layer asymptotic analysis near
+the kink $\xi = \beta \tau$. Zoom in near the kink using the
+coordinates
+\begin{align}
+  x(\tau,\xi) &= (\xi-\beta \tau)/\sigma\\
+  \psi(\tau,\xi) &= \sigma
+                   u(\tau,x(\tau,\xi)) + \delta.
+\end{align}
+In the new coordinates~\eqref{eq:hjb_policy_transform} becomes
+\begin{align}
+  u_\tau %-\beta \sigma^{-\alpha} u_x}
+  &=\frac{1}{2}{(\sigma x + \beta \tau)}^2u_{xx}
+    +\sigma (\sigma x+\beta \tau)u_x  % -\beta
+    + uu_x,&\tau>0,\,x&> -\beta \tau/\sigma,
+\end{align}
+with matching conditions
+\begin{equation}
+  \lim_{x \to -\infty} u_x(\tau,x) = -1/\tau \qquad \textnormal{and}
+  \qquad \lim_{x\to \infty}u(\tau,x) = 0.
+\end{equation}
+The leading order equation for $u = u^{(0)}+\sigma u^{(1)}+\sigma^2 u^{(2)}+\cdots$ is therefore
+\begin{equation}
+  u^{(0)}_\tau = \frac{1}{2}{(\beta \tau)}^2u^{(0)}_{xx} + u^{(0)}u^{(0)}_x.
+\end{equation}
+This equation has a similarity solution using the transformations
+\begin{align}
+  \eta(\tau,x)&= x/\tau^{3/2},\\
+  u^{(0)}(\tau,x) &= \tau^{1/2}f(\eta(\tau,x)).
+\end{align}
+The function $f(\eta)$ must satisfy the boundary-value ODE
+\begin{align}\label{eq:bvp_ode_leading}
+  \beta^2f^{\prime\prime} + (3\eta + 2f)f^\prime - f
+  &= 0,\\
+  f&\to 0 &\textnormal{as } \eta&\to \infty,\\
+  f^\prime &\to -1&\textnormal{as } \eta&\to -\infty.
+\end{align}
+\Cref{fig:inner_leading_f} shows numerically computed solutions to the
+ODE for different values of $\beta$.
+\begin{figure}[hbt]
+  \centering
+  \includegraphics[width=0.5\textwidth,axisratio=1.5]{inner_asymptotics_f}
+  \caption{Numerically computed solutions of~\eqref{eq:bvp_ode_leading}.
+    Note the similarity to the optimal pricing function curves zoomed
+    in near the kink in \Cref{fig:hjb_cec_zoom}.
+  }\label{fig:inner_leading_f}
+\end{figure}
+
+We briefly note that we can find a closed form expression for the
+second-order correction in the outer region $\xi < \beta t$. Let $\psi
+= \psi^{(0)} + \sigma^2 \psi^{(1)} +
+\sigma^4\psi^{(2)}+\cdots$, where $\psi^{(0)}$ is given
+in~\eqref{eq:psi_leading} and we wish to find $\psi^{(1)}$.
+By substituting this expansion into~\eqref{eq:hjb_policy_transform} and
+matching the $\sigma^2$-terms we get the equation
+\begin{align}
+  \psi_\tau^{(1)}
+  &= \psi_\xi^{(0)}(\psi^{(1)}+\xi) + (\psi^{(0)}- q_1)\psi_\xi^{(1)},\\
+  \psi^{(1)}(\tau,0) &= 0.
+\end{align}
+When $\xi<\beta$ we have
+\begin{align}
+  \psi^{(0)}(\tau,\xi) &= q_1 - \xi/\tau,\\
+  \psi_\xi^{(0)}(\tau,\xi) &= -1/\tau.
+\end{align}
+The PDE for $\psi^{(1)}$ is therefore
+\begin{equation}
+  - \tau \psi_\tau^{(1)} =\psi^{(1)} + \xi + \xi\psi_\xi^{(1)}.
+\end{equation}
+The stationary solution to this equation is
+\begin{equation}
+  \psi^{(1)}(\tau,\xi) = -\xi/2,
+\end{equation}
+which also satisfies the boundary condition.
+Thus the optimal price in the region $\xi<\beta \tau$
+that takes into account the uncertainty $\sigma$ reduces the price
+from the deterministic-case solution,
+\begin{equation}
+  \psi(\tau,\xi)\approx \psi^{(0)}(\tau,\xi)-\sigma^2\xi/2.
+\end{equation}
+This explains the slightly lower prices observed from the comparison
+between $a^D$ and the numerical approximation to $a^B$ in the plots of
+\Cref{fig:hjb_cec_zoom}.
+
+
+
+\subsection{Example simulation}
+The asymptotic results together with \Cref{fig:hjbsol_a} indicate that
+one can expect a price decrease over time when following the optimal
+pricing policy $\alpha^B(t)$.  The numerical investigation in the next
+example verifies this, but highlights that there are negligible gains
+in total profit from pricing according to $\alpha^B(t)$ rather than
+the deterministic-case pricing policy $\alpha^D(t)$.
 
 \begin{figure}[htb]
   \centering
@@ -1059,93 +1189,6 @@ the order of \SIrange{0.01}{0.1}{\percent}.
     The headings $\mathcal{Q}_z$ denote the $z$-quantile of the distribution.
   }\label{tbl:profit_hjb_cec_statistics}
 \end{table}
-
-\subsection{Asymptotic analysis}\label{subsec:asymptotic_analysis}
-We carry out the asymptotic analysis of the pricing function
-that arises from the linear demand HJB
-equation~\eqref{eq:hjb_impact_uncertainty} under the assumptions of
-\Cref{sec:stochastic_hjb}.
-Further, we assume that the value and pricing functions are sufficiently
-differentiable to carry out the operations below. The smoothing effect
-of the diffusion in the PDEs when $\sigma>0$ justifies this assumption.
-\Cref{res:linear_asymptotics} in \Cref{sec:stochastic_hjb}
-discusses the interpretation of the following results.
-
-Let us first reduce the dimension of the problem with a similarity
-transform working in reverse time, and then present a PDE satisfied by the pricing function.
-Consider the transformations $\xi(s,g) = s/g$, $\tau=T-t$, and
-$v(t,s,g)=g\,\phi(T-\tau,\xi(s,g))$, which satisfies
-\begin{align}\label{eq:hjb_value_transform}
-  \phi_\tau &= \frac{1}{2}\sigma^2\xi^2\phi_{\xi\xi} +
-              \frac{1}{4}{(q_1 - \phi_\xi)}^2 \\
-  \phi(0,\xi) &= -C\xi\\
-  \phi(\tau,0)& = 0,\\
-  \phi_\xi(\tau,\infty) &= -C.
-\end{align}
-In the new coordinates, define the pricing function in terms of the
-function $\psi(\tau,\xi)$ so that $a^B(t,s,g)=\psi(T-\tau,\xi(s,g))$.
-Then $\psi = (q_1+\phi_\xi)/2$ satisfies the following PDE
-that arises from differentiating~\eqref{eq:hjb_value_transform} with
-respect to $\xi$.
-\begin{align}\label{eq:hjb_policy_transform}
-  \psi_\tau&= \frac{1}{2}\sigma^2 \xi^2
-             \psi_{\xi\xi} +
-             (\sigma^2\xi - q_1 + \psi)\psi_\xi,\\
-  \psi(\tau,0) &= q_1,\\
-  \psi(\tau,\infty) &= \delta:=\max(0,(q_1-C)/2).
-\end{align}
-When $\sigma=0$, we know from \Cref{sec:deterministic_hjb} that
-the viscosity solution $\psi^{(0)}$ is
-\begin{equation}\label{eq:psi_leading}
-  \psi^{(0)}(\tau,\xi)=\begin{cases}
-    q_1-\xi/\tau, &\text{if } 0\leq \xi\leq
-    \beta \tau,\\
-    \delta,&\text{if } \hfill \xi > \beta \tau,
-  \end{cases}
-  \qquad \textnormal{where } \beta:=\min(q_1,(q_1+C)/2).
-\end{equation}
-This leads us to consider an inner layer asymptotic analysis near
-the kink $\xi = \beta \tau$. Zoom in near the kink using the coordinates
-$x(\tau,\xi) = (\xi-\beta \tau)/\sigma$ and write $\psi(\tau,\xi) = \sigma
-u(\tau,x(\tau,\xi)) + \delta$. In the new
-coordinates~\eqref{eq:hjb_policy_transform} becomes
-\begin{align}
-  u_\tau %-\beta \sigma^{-\alpha} u_x}
-  &=\frac{1}{2}{(\sigma x + \beta \tau)}^2u_{xx}
-    +\sigma (\sigma x+\beta \tau)u_x  % -\beta
-    + uu_x,&\tau>0,\,x&> -\beta \tau/\sigma,
-\end{align}
-with matching conditions $\lim_{x \to -\infty} u_x(\tau,x) = -1/\tau$ and
-$\lim_{x\to \infty}u(\tau,x) = 0$.
-The leading order equation for $u = u^{(0)}+\sigma u^{(1)}+\sigma^2 u^{(2)}+\cdots$ is therefore
-\begin{equation}
-  u^{(0)}_\tau = \frac{1}{2}{(\beta \tau)}^2u^{(0)}_{xx} + u^{(0)}u^{(0)}_x.
-\end{equation}
-This equation has a similarity solution using the transformations
-$\eta(\tau,x)= x/\tau^{3/2}$ and $u^{(0)}(\tau,x) = \tau^{1/2}f(\eta(\tau,x))$.
-The function $f(\eta)$ must satisfy the boundary-value ODE
-\begin{align}\label{eq:bvp_ode_leading}
-  \beta^2f^{\prime\prime} + (3\eta + 2f)f^\prime - f
-  &= 0,\\
-  f&\to 0 &\textnormal{as } \eta&\to \infty,\\
-  f^\prime &\to -1&\textnormal{as } \eta&\to -\infty.
-\end{align}
-\Cref{fig:inner_leading_f} shows numerically computed solutions to the
-ODE for different values of $\beta$.
-\begin{figure}[hbt]
-  \centering
-  \includegraphics[width=0.5\textwidth,axisratio=1.5]{inner_asymptotics_f}
-  \caption{Numerically computed solutions of~\eqref{eq:bvp_ode_leading}.
-    Note the similarity to the optimal pricing function curves zoomed
-    in near the kink in \Cref{fig:hjb_cec_zoom}.
-  }\label{fig:inner_leading_f}
-\end{figure}
-
-We briefly note that an asymptotic expansion of
-$\phi=\phi^{(0)}+\sigma\phi^{(1)}+\sigma^2\phi^{(2)}+\cdots$
-in the outer region $\xi<\beta t$ reveals that $\phi^{(1)}=0$ and
-$\phi^{(2)}(t,\xi)=-\xi^2/2$. It follows that
-$\psi(t,\xi)\approx \psi^{(0)}(t,\xi)-\sigma^2 \xi/2$ in this region.
 
 \section{Extensions of the pricing problem}\label{sec:extensions}
 For our one-product system with multiplicative parameter dynamics with uncertainty,
@@ -1279,7 +1322,7 @@ equation,
 \begin{equation}
   \max_a\{q(a;\theta)(av_r-v_s)\}.
 \end{equation}
- The $v_r$ term represents
+The $v_r$ term represents
 the relative importance of accruing more revenue to the utility of
 selling more stock, as represented by the $v_s$ term.
 The risk-neutral case $U(x)=x$ that we have considered in the previous
