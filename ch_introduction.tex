@@ -7,9 +7,79 @@
 This doctoral thesis presents a collection of topics that are relevant
 in decision making under uncertainty, primarily motivated by
 problems in the retail industry.
-We will speak primarily about the decision process involved in setting the
-price of products, including demand modelling, estimation from data,
-handling of uncertainty, and optimisation algorithms.
+We will present algorithms for decision making that address different
+points in the decision making process.
+We consider a mathematical approach to this process that consist of
+five general steps, of which each chapter will touch on a subset.
+The steps are summarised as follows.
+\begin{enumerate}\label{enum:making_decisions}
+\item Objective --- statement of what the decision maker wants to achieve.
+\item Model of the system --- mathematical modelling of relevant aspects
+  needed to achieve the objective.
+\item Data assimilation --- incorporation of available observations in
+  the mathematical model.
+\item Risk preference --- mathematical modelling of the decision maker's risk
+  preference.
+\item Optimisation --- algorithms and approximations required to
+  evaluate different decisions.
+\end{enumerate}
+
+As we gain more knowledge of the system we wish to control and the
+impact of our decisions, the decision maker may refine their objective, or
+we may choose to address some of the steps differently.
+This interactive process is visualised in \Cref{fig:decision_process}.
+\begin{figure}[htbp]
+  \centering
+  \begin{tikzpicture}[node distance = 2.3cm, auto]
+    % Define block styles
+    \tikzstyle{block} = [rectangle, draw, fill=blue!20,
+    text width=5em, text centered, rounded corners, minimum height=4em]
+    \tikzstyle{line} = [draw, Latex-Latex]
+    \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=4cm,
+    minimum height=2em]
+    \tikzstyle{dashline} = [draw, dashed, -{Latex[length=2.5mm]}]
+
+    % Place nodes
+    \node [block] (objective) {Define objective};
+    \node [cloud, left of=objective, align=center] (decisionmaker) {Decision\\maker};
+    \node [cloud, right of=objective] (mathematician) {Mathematician};
+    \node [block, below of=objective] (modelling) {Model system};
+    \node [block, below of=modelling] (data) {Data integration};
+    \node [block, below of=data] (risk) {Risk preference};
+    \node [block, below of=risk] (optimisation) {Formulate optimisation};
+    % Draw edges
+    \path [line] (objective) -- (modelling);
+    \path [line] (modelling) -- (data);
+    \path [line] (data) -- (risk);
+    \path [line] (risk) -- (optimisation);
+    \path [dashline] (decisionmaker) -- (objective);
+    % \path [dashline] (decisionmaker) |- (risk);
+    \path [dashline] (optimisation)  -| (decisionmaker);
+    \path [dashline] (mathematician) |- (modelling);
+    \path [dashline] (mathematician) |- (data);
+    \path [dashline] (mathematician) |- (risk);
+    \path [dashline] (mathematician) |- (optimisation);
+  \end{tikzpicture}
+  \caption[Decision making steps]{The steps of a mathematical approach
+  to decision making. It can be an iterative approach, where the
+  decision maker refines their goals after learning more about the
+  system and resulting decision impact.}\label{fig:decision_process}
+\end{figure}
+
+The mathematical decision making process, as we have defined it, is
+general and can be applied to many decision problems. For a collection of
+examples and arguments for a mathematical approach to decisions in
+large organisations, see, for example \citet{keeney1976decisions} and
+\citet{farmer2017uncertainty}.
+We will use examples from the practice of revenue management to
+motivate the theory and illustrate the algorithmic
+approach to decision making that we present in this thesis.
+
+
+\section{Revenue management}
+% The examples provided will focus on the process of setting the
+% price of products; including demand modelling,
+% handling of uncertainty, and optimisation algorithms.
 
 The process of pricing products in order to control demand and
 maximise revenues has been undertaken for centuries. In recent
@@ -41,61 +111,23 @@ optimisation procedures, from a more mathematical point of view.
 revenue management process prevalent in the social sciences.
 A notable resource with more mathematical focus, which
 cover both theoretical and practical
-perspectives, is that of those of \citet{talluri2006theory}.
+perspectives, is provided by \citet{talluri2006theory}.
 Other approaches to pricing of retail products more akin to the
-mathematical modelling community can, for example, be found in~\cite{butler2014customer}.
-\todo[inline]{Mention proprietary knowledge, cite talluri}
+mathematical modelling community can, for example, be found
+in~\cite{butler2014customer}.
 
-\section{Outline of the thesis}
-\textbf{TODO:} Just use the stuff in ``Making decisions'' below?
+The objectives we focus on in this thesis are aspects of sales,
+revenue, and profit targets that can be influenced by pricing
+decisions.  At the core of such decisions lies models connecting price
+and demand of products.  In \Cref{sec:intro_model_demand} we summarise
+the classic approaches to demand modelling in revenue management, for
+reference in later chapters.  The demand models often include
+unobservable parameters that are inferred from data.  These models are
+used to forecast future demand, sometimes months in the future.  The
+uncertainty of future events, and estimates of model parameters, will
+be described as random variables.
 
-\section{Making decisions}
-The approach to decision making considered in this thesis consists of
-five general steps, of which each chapter will touch on a subset.
-The steps are summarised as follows.
-\begin{enumerate}
-\item Objective --- statement of what the decision maker wants to achieve.
-\item Model of the system --- mathematical modelling of relevant aspects
-  needed to achieve the objective.
-\item Data assimilation --- incorporation of available observations in
-  the mathematical model.
-\item Risk preference --- mathematical modelling of the decision maker's risk
-  preference.
-\item Optimisation --- algorithms and approximations required to
-  evaluate different decisions.
-\end{enumerate}
-\todo[inline]{TiKZ diagram from Trinity talk?}
-In \Cref{ch:onestage} we focus on the general discussion of the
-Objective, Risk preferences, and Optimisation.
-Following that, \Cref{ch:discrete_control} and
-\Cref{ch:cts_control} discuss  aspects of the steps Model of the system, Risk
-preferences, and Optimisation.
-These three chapters are closely linked to the application of pricing
-in retail, whilst the remaining chapters have a mathematical focus
-independent of particular application.
-% \Cref{ch:koopestim} looks at a novel way to handle the Data
-% assimilation step.
-Finally, \Cref{ch:objaccel} presents a new
-algorithm to improve the Optimisation step.\todo{Paragraph necessary?}
-
-The objectives we focus on in this thesis are aspects
-of sales, revenue, and profit targets that can be influenced by
-pricing decisions.\todo{Move to section?}
-At the core of such decisions lies models connecting price and demand of products.
-In \Cref{sec:intro_model_demand} we summarise the classic approaches
-to demand modelling in revenue management, for reference in later
-chapters.
-The demand models often include unobservable parameters that are
-inferred from data.
-These models are used to forecast future demand, sometimes months in
-the future.
-The uncertainty of future events, and estimates of model
-parameters, will be described as random variables within a probability
-theoretical framework. \Cref{sec:intro_prob_rvs} covers preliminary
-theory of probability, random variables and stochastic
-processes.\todo{Move to section?}
-
-\section{Modelling demand}\label{sec:intro_model_demand}
+\subsection{Modelling demand}\label{sec:intro_model_demand}
 We define demand as the quantity of a product that people are willing
 to buy per time period, at a particular price. For the purpose of our
 work, demand may change over time, even if the price is constant.
@@ -179,8 +211,6 @@ $q_{j,l}^{(2)}$ to be negative. \Cref{fig:demand_exponential_two}
 provides an example of demand for a given product when varying the
 its price and the price of one competing product, using the exponential demand function.
 
-\todo[inline]{Introduce my model, if we need it in chapter on
-  one-stage}
 \begin{figure}[htbp]
   \centering
   \begin{tikzpicture}
@@ -190,7 +220,11 @@ its price and the price of one competing product, using the exponential demand f
       ylabel={Price (product 2)},
       zlabel={Demand (product 1)},
       view={40}{20},
-      colormap/viridis
+      colormap/viridis,
+      xmajorgrids={true}, ymajorgrids={true}, zmajorgrids={true},
+      xtick={0.6,0.8,1,1.2,1.4},
+      ytick={0.6,0.8,1,1.2,1.4},
+      ztick={0.6,1,1.4,1.8},
       ]
       \addplot3[surf]
       {exp(1-0.2-1*x+0.2*y)};
@@ -253,39 +287,56 @@ We forecast the demand in period $t$ to be $Q(t,a)=q(t,a)W(t,a)$, and
 the total forecasted demand is thus the random variable $Q(1,a_1) +
 Q(2,a_2)$, where $a_t$ denotes the planned price in period $t$.
 
-\section{Decisions via optimisation}\label{sec:intro_decisions_through_optim}
-Optimisation is central to our approach to decision making, and will
-be integral to all the chapters in the thesis.
-We will cover optimisation in the context of multiple objectives,
-one-stage decision problems, sequential decision problems, parameter
-estimation, and in algorithm design.
-All the problems we consider will eventually confirm to a general
-form. For some decision set $\mathcal{X}$, and a mapping
-$\mathcal{F}:\mathcal{X}\to\mathbb{R}$ that is bounded below, we
-formulate the decision problem as finding a solution to
-\begin{equation}
-  \min_{x\in\mathcal{X}}\mathcal{F}(x).
-\end{equation}
-The set $\mathcal{X}$ may be a subset of a finite or
-infinite-dimensional space. Whenever the problem needs to be solved by
-a numerical approach, we discretise the set and consider
-finite-dimensional approximations $X\subset\mathbb{R}^n$, $f:X\to\mathbb{R}$ to
-$\mathcal{X}$ and $\mathcal{F}$ respectively.
-The set $X$ can be defined either implicitly, or explicitly, in the
-form of a collection of equality and inequality constraints,
-\begin{equation}
-  X = \{x\in\mathbb{R}^n\mid c_i(x)=0, c_k(x)\geq 0, \text{ for }
-  i\in\mathcal{I},\;j\in\mathcal{J}\}.
-\end{equation}
-\todo[inline]{Minimise vs maximise}
-\todo[inline]{Local minima}
-The theory of optimisation of functions on $\mathbb{R}^n$, and
-algorithms to approximate solutions to such problems, are well covered
-by~\citet{nocedal2006numerical}. We will often refer to this book in
-the context of optimisation.
+% \section{Decisions via optimisation}\label{sec:intro_decisions_through_optim}
+% Optimisation is central to our approach to decision making, and will
+% be integral to all the chapters in the thesis.
+% We will cover optimisation in the context of multiple objectives,
+% one-stage decision problems, sequential decision problems, parameter
+% estimation, and in algorithm design.
+% All the problems we consider will eventually confirm to a general
+% form. For some decision set $\mathcal{X}$, and a mapping
+% $\mathcal{F}:\mathcal{X}\to\mathbb{R}$ that is bounded below, we
+% formulate the decision problem as finding a solution to
+% \begin{equation}
+%   \min_{x\in\mathcal{X}}\mathcal{F}(x).
+% \end{equation}
+% The set $\mathcal{X}$ may be a subset of a finite or
+% infinite-dimensional space. Whenever the problem needs to be solved by
+% a numerical approach, we discretise the set and consider
+% finite-dimensional approximations $X\subset\mathbb{R}^n$, $f:X\to\mathbb{R}$ to
+% $\mathcal{X}$ and $\mathcal{F}$ respectively.
+% The set $X$ can be defined either implicitly, or explicitly, in the
+% form of a collection of equality and inequality constraints,
+% \begin{equation}
+%   X = \{x\in\mathbb{R}^n\mid c_i(x)=0, c_k(x)\geq 0, \text{ for }
+%   i\in\mathcal{I},\;j\in\mathcal{J}\}.
+% \end{equation}
+% \todo[inline]{Minimise vs maximise}
+% \todo[inline]{Local minima}
+% The theory of optimisation of functions on $\mathbb{R}^n$, and
+% algorithms to approximate solutions to such problems, are well covered
+% by~\citet{nocedal2006numerical}. We will often refer to this book in
+% the context of optimisation.
 
-\section{Preliminary probability and random variables}\label{sec:intro_prob_rvs}
-\todo[inline]{Do we need this?}
+% \section{Preliminary probability and random variables}\label{sec:intro_prob_rvs}
+% \todo[inline]{Do we need this?}
+
+\section{Outline of thesis}
+We present the chapters in this thesis by connecting them to the
+steps for making decisions that are listed
+on Page~\pageref{enum:making_decisions} and in \Cref{fig:decision_process}.
+In \Cref{ch:onestage} we focus on the general discussion of the
+Objective, Risk preferences, and Optimisation.
+Following that, \Cref{ch:discrete_control} and
+\Cref{ch:cts_control} discuss  aspects of the steps Model of the system, Risk
+preferences, and Optimisation.
+These three chapters are closely linked to the application of pricing
+in retail, whilst the remaining chapters have a mathematical focus
+independent of particular application.
+% \Cref{ch:koopestim} looks at a novel way to handle the Data
+% assimilation step.
+Finally, \Cref{ch:objaccel} presents a new
+algorithm to improve the Optimisation step.
 
 \biblio{} % Bibliography when standalone
 \end{document}
