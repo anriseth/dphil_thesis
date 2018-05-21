@@ -206,7 +206,7 @@ increases over short time periods, corresponding to negative sales.
   \centering
   \includegraphics[width=0.5\textwidth,axisratio=1.25]{sde_brownian_sols}%
   \includegraphics[width=0.5\textwidth,axisratio=1.25]{sde_brownian_sols_zoom}
-  \caption{Evolutions of stock $\hat{S}^{\hat{\alpha}}(\hat{t})$ for a constant
+  \caption[Evolutions of stock for a constant demand forecast.]{Evolutions of stock $\hat{S}^{\hat{\alpha}}(\hat{t})$ for a constant
     demand forecast $\hat{q}(\hat{a})=1$ with different sample paths $\omega_k$
     of a Brownian motion.
     The right hand figure shows that over small timescales, sales are
@@ -291,7 +291,7 @@ than of the Brownian noise model.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.5\textwidth,axisratio=1.25]{sde_gbm_const_x}
-  \caption{Sample paths of $\hat{S}^{\hat{\alpha}}(\hat{t})$ following the GBM
+  \caption[Sample paths of stock following the GBM model.]{Sample paths of $\hat{S}^{\hat{\alpha}}(\hat{t})$ following the GBM
     model~\eqref{eq:gbm_sde}, with $\hat{q}(\hat{\alpha}(\hat{t}))=1$, and GBM volatility
     $\hat{\sigma} = 0.1$. The paths are  more regular than that of the
     Brownian noise model shown in \Cref{fig:brownian_paths}.
@@ -618,7 +618,7 @@ is typically within \SI{1}{\percent}.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.6\textwidth,axisratio=1.55]{gbm_estimate}
-  \caption{Distribution of the relative error in estimating $G(t)$ with
+  \caption[Distribution of the relative error in estimating $G(t)$.]{Distribution of the relative error in estimating $G(t)$ with
     $\sigma=0.1$ and $\Delta t= 0.01$, based on \num{100000} samples.}\label{fig:gbm_estimate}
 \end{figure}
 
@@ -699,7 +699,7 @@ approximation to a Poisson process demand model.
     \centering
     \includegraphics[width=0.6\textwidth,axisratio=1.15]{hjbsol_a_cec}
     \caption*{$a^D(t,s,1)$}
-    \caption{Example optimal, deterministic, pricing function $a^D(t,s,1)$
+    \caption[Example optimal, deterministic pricing function.]{Example optimal, deterministic pricing function $a^D(t,s,1)$
       from~\eqref{eq:astar_linear}, as a function of time and stock.
       Notice how sensitive $a^D(t,s,1)$ is to changes in $s$, for large
       $t$.
@@ -875,7 +875,8 @@ policy by $a^B(t,s,g)$ and $\alpha^B(t)$ respectively.
       \includegraphics{hjbsol_a_cec_hjb}
       \caption{$(a^D-a^B)(t,s,1)$}
     \end{subfigure}%
-    \caption{The optimal pricing function ($a^B(t,s,g)$, left) smooths out the
+    \caption[Comparison of the optimal pricing function to the
+    deterministic-case function.]{The optimal pricing function ($a^B(t,s,g)$, left) smooths out the
       kink as compared to the deterministic heuristic ($a^D(t,s,g)$,
       \Cref{fig:hjbsol_a_cec}).
       The right plot shows the impact of uncertainty on the optimal
@@ -905,7 +906,8 @@ of the differences between $a^B$ and $a^D$ to aide the analysis.
     \includegraphics[width=\textwidth,axisratio=1.2]{hjb_cec_zoom_02_07}
     \caption{$t=0.3$}
   \end{subfigure}
-  \caption{A zoomed in comparison of $a^B(t,s,g)$ and $a^D(t,s,g)$
+  \caption[A zoomed in comparison of the Bellman and
+  deterministic-case functions.]{A zoomed in comparison of $a^B(t,s,g)$ and $a^D(t,s,g)$
     in the transformed coordinate $\xi=s/g$.
     The difference between $a^B$ and $a^D$ is of order
     $\sigma\sqrt{T-t}$ at the kink, and
@@ -1031,7 +1033,7 @@ ODE for different values of $\beta$.
 \begin{figure}[hbt]
   \centering
   \includegraphics[width=0.5\textwidth,axisratio=1.5]{inner_asymptotics_f}
-  \caption{Numerically computed solutions of~\eqref{eq:bvp_ode_leading}.
+  \caption[Numerically computed solutions of asymptotics problem.]{Numerically computed solutions of~\eqref{eq:bvp_ode_leading}.
     Note the similarity to the optimal pricing function curves zoomed
     in near the kink in \Cref{fig:hjb_cec_zoom}.
   }\label{fig:inner_leading_f}
@@ -1086,7 +1088,7 @@ the deterministic-case pricing policy $\alpha^D(t)$.
 \begin{figure}[htb]
   \centering
   \includegraphics{gbm_stats_a_diff}
-  \caption{Statistics of the price paths from
+  \caption[Statistics of the price paths from \Cref{ex:impact_uncertainty}.]{Statistics of the price paths from
     \Cref{ex:impact_uncertainty}, %\Cref{ex:impact_uncertainty},
     showing the $0.05,0.5$, and
     $0.95$ quantiles of $\alpha(t)$. From top to bottom, the optimal
@@ -1144,7 +1146,8 @@ the deterministic-case pricing policy $\alpha^D(t)$.
   \begin{figure}[htb]
     \centering
     \includegraphics[width=0.6\textwidth,axisratio=1.25]{gbm_histogram_a_cec_hjb}
-    \caption{The histogram shows the distribution of the relative
+    \caption[Profit sample distribution comparing the deterministic-case
+    pricing heuristic to the Bellman policy.]{The histogram shows the distribution of the relative
       profit by using the deterministic pricing heuristic $\alpha^D(t)$
       to using the optimal policy $\alpha^B(t)$, as described in
       \Cref{ex:impact_uncertainty}. %\Cref{ex:impact_uncertainty}.
@@ -1182,7 +1185,8 @@ the order of \SIrange{0.01}{0.1}{\percent}.
              & $\times 10^{-3}$&$\times 10^{-3}$&$\times 10^{-3}$&$\times 10^{-3}$&$\times 10^{-3}$\\
     \bottomrule
   \end{tabular}
-  \caption{Summary statistics of the relative profit difference
+  \caption[Profit statistics comparing the Bellman and
+  deterministic-case policies.]{Summary statistics of the relative profit difference
     $1-P(\alpha^D)/P(\alpha^B)$ from the model in
     \Cref{ex:impact_uncertainty} with different levels of
     uncertainty $\sigma$.

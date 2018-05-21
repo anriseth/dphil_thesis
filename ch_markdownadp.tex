@@ -486,7 +486,8 @@ pricing policy, is shown in \Cref{fig:markdown_bellman}.
     \end{tikzpicture}
     % \includegraphics[width=\textwidth]{markdown_controls_bellman}
   \end{subfigure}
-  \caption{The value function and corresponding
+  \caption[The value function and corresponding
+    optimal control function for the pricing problem.]{The value function and corresponding
     optimal control function for the pricing problem.
     The regions where the value function moves from a linear to a
     nonlinear regime
@@ -550,7 +551,7 @@ simulating the system \num{10000} times.\footnote{Preliminary
       \end{axis}
     \end{tikzpicture}
   \end{subfigure}%
-  \caption{Simulations of the pricing system, started at $S_0=1$
+  \caption[Simulations of the pricing system.]{Simulations of the pricing system, started at $S_0=1$
     and controlled by the optimal policy $\alpha$ shown in
     \Cref{fig:markdown_bellman}.
     The left figure is a box plot
@@ -737,7 +738,7 @@ lower than the CEC policy.
   %   \end{axis}
   % \end{tikzpicture}
   % \todo[inline]{Remove the relative difference comparison?}
-  \caption{Comparison of the CEC and Bellman policy functions $a^C$ and
+  \caption[Comparison of the CEC and Bellman policy functions.]{Comparison of the CEC and Bellman policy functions $a^C$ and
     $a^B$.
     The CEC function sets
     higher prices than the Bellman function for most of the values of $s$.
@@ -828,7 +829,8 @@ profits in the remaining realisations.
       \draw[<-] (axis cs:-0.003,4000) -- (axis cs:0.005,4000) node[anchor=west] {$\alpha^C$ best};
     \end{axis}
   \end{tikzpicture}
-  \caption{This shows the distributions from \num{10000} samples of
+  \caption[Sample profit distributions from following the Bellman and
+  CEC policies.]{This shows the distributions from \num{10000} samples of
     the profits of following the Bellman and CEC policies.
     The sample mean $\mathbb{E}_W[P(\alpha^B)-P(\alpha^C)]\approx 3.8\times
     10^{-3}$, confirms that Bellman is better on average, as it should be.
@@ -883,7 +885,8 @@ low-elasticity products where both policies suggest to sell at the
 maximum price $a=1$.
 \begin{figure}[htbp]
   \includegraphics[width=\textwidth]{profit_diff_heatmaps}
-  \caption{The relative $L^2$ difference
+  \caption[Relative profit $L^2$ difference between the CEC and
+  Bellman policies.]{The relative $L^2$ difference
     $\|P(\alpha^B)-P(\alpha^C)\|_2/\|P(\alpha^B)\|_2$ representing
     how different the CEC policy is from the optimal Bellman policy.
     Each plot defines a combination of $(C,\gamma)$, whilst
@@ -942,7 +945,7 @@ grey dots in \Cref{fig:profit_diff_heatmaps}.
         &&&&$\times 10^{-2}$&$\times 10^{-2}$&$\times 10^{-2}$&$\times 10^{-2}$\\
     \bottomrule
   \end{tabular}
-  \caption{Statistics comparing profits $P(\alpha^B)$ and $P(\alpha^C)$ for six different
+  \caption[Statistics comparing the profits of the Bellman and CEC policies.]{Statistics comparing profits $P(\alpha^B)$ and $P(\alpha^C)$ for six different
     parameter combinations. The columns $\mathcal{Q}_s$ represent the
     the $s^{\text{th}}$ quantile of the relative
     difference
@@ -1023,7 +1026,8 @@ Bellman policy.
       % \draw[<-] (axis cs:-0.003,4000) -- (axis cs:0.005,4000) node[anchor=west] {$\alpha^C$ best};
     \end{axis}
   \end{tikzpicture}
-  \caption{This shows the distributions from \num{10000} samples of
+  \caption[Sample profit distributions from following the Bellman and
+  OLFC policies.]{This shows the distributions from \num{10000} samples of
     the profits of following the Bellman and OLFC policies.
     The OLFC policy generates profits an order of magnitude closer to
     the Bellman policy than the CEC policy (\Cref{fig:bellman_det_vals}). This
@@ -1059,7 +1063,7 @@ smaller than in the CEC comparison.
         &&&&$\times 10^{-3}$&$\times 10^{-3}$&$\times 10^{-3}$&$\times 10^{-3}$\\
     \bottomrule
   \end{tabular}
-  \caption{Statistics comparing the relative profits of $P(\alpha^O)$
+  \caption[Statistics comparing the profits of the Bellman and CEC policies.]{Statistics comparing the relative profits of $P(\alpha^O)$
     against $P(\alpha^B)$ for six different
     parameter combinations. Note that the values are an order of magnitude
     smaller than in the comparison between Bellman and CEC shown in
