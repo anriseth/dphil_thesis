@@ -5,7 +5,7 @@
 
 \chapter{Conclusion}
 
-In this thesis we discuss aspects of the decision process, in
+In this thesis, we discuss aspects of the decision process, in
 particular, the mathematical formulation of optimisation problems and
 algorithms used by numerical solvers to approximate
 solutions to such problems.
@@ -25,28 +25,64 @@ apply equally to other decision processes with random outcomes.
 \Cref{ch:onestage} illustrates that when the distributions are
 uni-modal, or approximately normal, then formulating the optimisation
 problem using mean and standard deviation can yield the same decision
-as using semi-quantiles. This is advantageous from both an
+as using super-quantiles. This is advantageous from both an
 implementational and a computational point of view.
 \Cref{ch:discrete_control,ch:cts_control} provide further examples of
 how simplified formulations that ignore the randomness result in
 marginalised outcomes that are practically equal to the values from
 decisions based on the original formulation. A further investigation
-of the distribution of outcomes show that the simplified formulations
+of the distribution of outcomes shows that the simplified formulations
 result in the best outcomes for half of the realisations of the
-underlying random variables. In the remaining realisations they result
+underlying random variables. In the remaining realisations, they result
 in much worse outcomes, which we interpret as an algorithmic decision
 that has impacted the modelled risk-attitude.
+The optimisation problems that we formulate in this thesis need to
+be solved numerically using some optimisation routine using gradient
+information. In \Cref{ch:objaccel} we propose a new algorithm that can
+be combined with existing algorithms and we show, with several
+numerical experiments, that it reduces the computational cost of
+finding a solution with a prescribed accuracy.
+
+The examples that we use to illustrate the
+impact of decisions and distributions of outcomes are simplified
+problems of retail applications. They provide a template for types
+of investigations that can help the development of decision making
+infrastructure in real-world applications.
+In our examples, these investigations conclude that simplified
+formulations reduce computational cost with little impact on the
+objective, however, more complicated systems may behave differently.
+A natural avenue for further
+research is to consider a real-world system where the demand models
+and the distributional information is provided from a retailer. Within
+this system one could then:
+\begin{enumerate}
+\item Investigate the typical distributions of objectives that
+  arise based on this data;
+\item propose two to four optimisation formulations; and
+\item compare the computational cost, decisions, and distribution of
+  outcomes that arise from the different formulations.
+\end{enumerate}
+
+The presence of competitors or external decisions that we do not
+directly control is not discussed in this thesis. Competition is believed to
+have a significant impact on the objectives by decision maker's in
+business, and work to better understand such game theoretic matters
+are important. A difficulty with theoretical investigations of
+such situations is to that the researchers have too much control over
+the problem: they decide apriori both how the underlying system
+behaves and what policies the competitors can choose from.  We have
+contributed to an
+experiment that runs a pricing and
+modelling competition between several competitors
+\citep{geer2018dynamic}.  Each competitor writes an algorithm that,
+only based on data, dynamically prices a product over \num{1000}
+periods to maximise revenue without knowing apriori what algorithms
+the competitors use. We believe this provides a good way to test how
+the algorithms for decision-making behaves in unexpected environments,
+and recommend that similar competitions are run within the retailer
+before a new decision-making system goes ``live''.
 
 
-\todo[inline]{Optimisation algorithm}
-
-
-Further work
-\begin{itemize}
-\item Each chapter provides some suggestions for further work.
-\item Main thing --- use data and models from a real retailer to see
-  whether the same conclusions carry over to larger problems.
-\end{itemize}
 
 \biblio{} % Bibliography when standalone
 \end{document}
