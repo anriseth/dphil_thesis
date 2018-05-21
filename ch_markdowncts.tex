@@ -315,7 +315,7 @@ Here, $\hat{S}(0)\gg 1$ is the initial quantity of stock, $\hat{T}$ is the time-
 for the pricing problem, and $\bar{a}$ is some reference price chosen
 to make typical prices $a$ continuous and of order one.
 This scaling means that we work solely with stock and time on the unit
-interval, $S^{\alpha}(t),t\in[0,1]$.
+interval, $s,t\in[0,1]$.
 For typographical reasons we define the upper limit of the time
 horizon as $T$, which means $T=1$ and that
 \begin{equation}
@@ -697,7 +697,7 @@ approximation to a Poisson process demand model.
 
   \begin{figure}[htbp]
     \centering
-    \includegraphics[width=0.6\textwidth]{hjbsol_a_cec}
+    \includegraphics[width=0.6\textwidth,axisratio=1.15]{hjbsol_a_cec}
     \caption*{$a^D(t,s,1)$}
     \caption{Example optimal, deterministic, pricing function $a^D(t,s,1)$
       from~\eqref{eq:astar_linear}, as a function of time and stock.
@@ -868,11 +868,11 @@ policy by $a^B(t,s,g)$ and $\alpha^B(t)$ respectively.
   \begin{figure}[p]
     \centering
     \begin{subfigure}[b]{0.5\textwidth}
-      \includegraphics[width=\textwidth]{hjbsol_a_hjb}
+      \includegraphics{hjbsol_a_hjb}
       \caption{$a^B(t,s,1)$}
     \end{subfigure}%
     \begin{subfigure}[b]{0.5\textwidth}
-      \includegraphics[width=\textwidth]{hjbsol_a_cec_hjb}
+      \includegraphics{hjbsol_a_cec_hjb}
       \caption{$(a^D-a^B)(t,s,1)$}
     \end{subfigure}%
     \caption{The optimal pricing function ($a^B(t,s,g)$, left) smooths out the
@@ -1479,5 +1479,6 @@ management implementations for retailers.
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: t
+%%% TeX-engine: luatex
 %%% TeX-command-extra-options: "--shell-escape"
 %%% End:
