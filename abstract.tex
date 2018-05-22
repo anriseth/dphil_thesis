@@ -1,7 +1,51 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-\todo[inline]{Write abstract}
+We all want to make good decisions good decisions. The decision
+process requires understanding and prediction of systems that can
+involve complex interactions fraught with uncertainty. It is therefore
+the ultimate challenge for mathematics to come up with good practices
+to guide decision makers.  In this thesis we will investigate
+algorithms for different steps in the decision process, focusing on
+systems where we are uncertain about the outcomes but can quantify how
+likely they are using random variables.  Any decision one makes in
+such situations lead to a distribution of outcomes, and demands a way
+to describe how good a decision is.  The standard approach is to
+marginalise the distribution of outcomes into a single number that
+tries to summarise the value of each decision.  We will discuss three
+families of such methods; expected utilities, mean-deviation methods,
+and nonlinear expectations.  Mathematicians and decision makers alike
+get very fixated on this value, and this thesis argues that we should
+spend more time investigating the implication of our mathematical
+approach for the whole distribution of outcomes.
+
+We illustrate how to gain insight into how different mathematical
+formulations affect the distribution on one-stage and sequential
+decision problems in discrete and continuous time. The motivation for
+our work is product pricing decisions in retail, however, the insights
+apply equally to a wide range of decision problems.  We show that
+different ways to marginalise the distributions can result in the same
+decisions but with vary in complexity and computational
+cost. Sequential decision problems are often computationally
+intractable to solve to optimality and much research goes into
+developing algorithms that are suboptimal in the marginalised sense
+but work within the computational budget provided. If the performance
+of these algorithms are evaluated they are mainly judged based on the
+marginalised values, however, comparing the performance using the full
+distribution provide interesting information: We provide numerical
+examples from dynamic pricing applications where the suboptimal
+algorithm result in higher profit than the optimal algorithm in more
+than half the realisations, which is paid for with a more significant
+underperformance in the remaining realisations.
+
+All the problems discussed in this thesis lead to continuous
+optimisation problems. We develop a new algorithm that can be used on
+top of existing optimisation algorithms to reduce the cost of
+approximating solutions. The algorithm is tested on a range of
+optimisation problems and is shown to be competitive with existing
+methods.
+
+
 \end{document}
 
 %%% Local Variables:
