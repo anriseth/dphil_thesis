@@ -12,6 +12,7 @@
 \usepackage[noend]{algpseudocode}
 \usepackage{siunitx}
 \usepackage{setspace}
+\usepackage{usebib}
 
 \usepackage{subcaption}
 \usepackage{pgfplots}
@@ -27,6 +28,9 @@
 % Settings for packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newbibfield{journal}
+\newbibfield{submitted}
+\bibinput{references}
 
 \onehalfspacing{}
 \setcitestyle{authoryear,sort&compress,comma} % natbib

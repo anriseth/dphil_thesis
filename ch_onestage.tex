@@ -113,7 +113,7 @@ $x_3=1$.
       };
     \end{axis}
   \end{tikzpicture}
-  \caption[Demand for three products.]{The sum $q_1(x)+q_2(x)+q_3(x)$ shows the demand for products one
+  \caption[Demand for three products]{The sum $q_1(x)+q_2(x)+q_3(x)$ shows the demand for products one
     and two with $x_3=1$.
     % The model is unlikely to be valid when $x_1$ and $x_2$ tend to
     % \num{0}, as it predicts
@@ -157,7 +157,7 @@ account all the outcomes that can happen following each decision.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.7\textwidth,axisratio=1.6]{montecarlo_profit_dist}
-  \caption[Probability distribution of profit.]{The probability distribution of profit $f(x,y)$ for three
+  \caption[Probability distribution of profit]{The probability distribution of profit $f(x,y)$ for three
     sets of prices $x$.
     The decision maker should decide which decision is preferable by comparing
     several properties of the distributions.
@@ -293,7 +293,7 @@ is provided by \citet[Ch.~2]{follmer2004stochastic}.
         node[pos=0.4, pin={[black]0:$u(x)=\log(1+x)$}] {};
       \end{axis}
     \end{tikzpicture}
-    \caption[Comparison of the exponential and logarithmic utilities.]{Comparison of the exponential and logarithmic
+    \caption[Comparison of the exponential and logarithmic utilities]{Comparison of the exponential and logarithmic
       utilities. As $x$ approaches -1 from above, the utility to a logarithmic
       decision maker is modelled to be infinitely bad.
     }\label{fig:example_utilities}
@@ -756,7 +756,7 @@ theoretical properties of the different formulations.
     \begin{subfigure}[t]{.5\textwidth}
       \includegraphics[width=\textwidth,axisratio=1.3]{util_meandev_3d_l}
     \end{subfigure}
-    \caption[Comparison between two decision maker models.]{The left plot shows the difference between the decision made
+    \caption[Comparison between two decision maker models]{The left plot shows the difference between the decision made
       by the mean-deviation and exponential utility methods defined in
       \Cref{eq:optim_formulations}, using the corresponding
       $(\mu,\lambda)$-pairs from the right plot.
@@ -774,7 +774,7 @@ theoretical properties of the different formulations.
     \begin{subfigure}[t]{.5\textwidth}
       \includegraphics[width=\textwidth,axisratio=1.3]{cvar_meandev_3d_l}
     \end{subfigure}
-    \caption[Comparison between two decision maker models.]{The left plot shows the difference between the decision made
+    \caption[Comparison between two decision maker models]{The left plot shows the difference between the decision made
       from the mean-deviation and super-quantile methods defined in
       \Cref{eq:optim_formulations}, using the corresponding
       $(\gamma,\lambda)$-pairs from the right plot.
@@ -954,7 +954,7 @@ shows an example of both Pareto and locally Pareto optimal points.
       \end{scope}
       \path[->, color=blue] (3.,1) edge node[left,color=blue,align=center] {Pareto\\front} (4.73,1);
     \end{tikzpicture}
-    \caption[Pareto concepts for two-dimensional problem.]{Pareto concepts for a mapping $F(x)=(f_1(x),f_2(x))$.
+    \caption[Pareto concepts for two-dimensional problem]{Pareto concepts for a mapping $F(x)=(f_1(x),f_2(x))$.
       The Pareto front is visualised by the bold line segment on the
       image $F(\mathcal{X})$.
     }\label{fig:multi_map}
@@ -988,7 +988,7 @@ shows an example of both Pareto and locally Pareto optimal points.
         \node [] at (axis cs:1.5,3) {$F(\mathcal{X})$};
       \end{axis}
     \end{tikzpicture}
-    \caption[A disconnected Pareto front.]{A disconnected Pareto front of a continuous function $F$
+    \caption[A disconnected Pareto front]{A disconnected Pareto front of a continuous function $F$
       that also admits locally Pareto optimal points.
     }\label{fig:pareto_local_disconnected}
   \end{figure}
@@ -1037,7 +1037,8 @@ shows an example of both Pareto and locally Pareto optimal points.
         \end{axis}
       \end{tikzpicture}
     \end{subfigure}
-    \caption[Two Pareto fronts between competing objects for a retail example.]{The two plots show the Pareto front between two competing
+    \caption[Two Pareto fronts of competing objects for a retail
+    example]{The two plots show the Pareto front between two competing
       objectives. The left figure compares the expected profit of three
       products, compared to the standard deviation of profit.
       On the right, one can see the trade-offs that are made between
@@ -1097,7 +1098,7 @@ values of the objectives.
   \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.5\textwidth]{pareto_drawing}
-    \caption[An example Pareto front for two objectives.]{An example Pareto front $\mathcal{P}$ of two
+    \caption[An example Pareto front for two objectives]{An example Pareto front $\mathcal{P}$ of two
       objectives. The points $\underline{F}$ and $\overline{F}$
       represent the
       lower and upper bound of what values
@@ -1172,7 +1173,7 @@ formulation makes use of the convex hull of the individual minima
   \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.5\textwidth]{nbi_drawing2}
-    \caption[The Normal Boundary Intersection Method.]{The Normal Boundary Intersection method. It traces out the
+    \caption[The Normal Boundary Intersection method]{The Normal Boundary Intersection method. It traces out the
       Pareto front by moving from points of the CHIM along the normal
       direction $\hat n$.}\label{fig:nbi_drawing2}
   \end{figure}
@@ -1267,7 +1268,7 @@ formulation makes use of the convex hull of the individual minima
       \end{tikzpicture}
       \caption{Weighted sums}\label{fig:pareto_disconnected_ws}
     \end{subfigure}
-    \caption[Approximations of a disconnected Pareto front.]{Approximations of a disconnected Pareto front, together
+    \caption[Approximations of a disconnected Pareto front]{Approximations of a disconnected Pareto front, together
       with the Pareto front in orange.
       The NBI algorithm finds points that are not Pareto optimal, but
       is otherwise providing the best approximation of the Pareto front.
@@ -1325,7 +1326,7 @@ locally optimal points.
         node[below] {4 points};
       \end{axis}
     \end{tikzpicture}
-    \caption[The NBI extension.]{The NBI extension creates only locally Pareto optimal
+    \caption[The NBI extension]{The NBI extension creates only locally Pareto optimal
       points, in contrast to the NBI method, as seen in
       \Cref{fig:pareto_disconnected_nbi_eq}.
       There are four points lying on top of each other

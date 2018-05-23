@@ -24,28 +24,32 @@
 
 % set the number of sectioning levels that get number and appear in the contents
 \setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{3}
+\setcounter{tocdepth}{2}
 
 \pagenumbering{alph}
-%\hypersetup{pageanchor=false}
+% \hypersetup{pageanchor=false}
 
-\maketitle                  % create a title page from the preamble info
-\begin{dedication}
-  \subfile{dedication}        % include a dedication.tex file
-\end{dedication}
+{
+  \thispagestyle{empty}
 
-\begin{acknowledgements}
-  \subfile{acknowledgements}   % include an acknowledgements.tex file
-\end{acknowledgements}
+  \maketitle                  % create a title page from the preamble info
+  \begin{dedication}
+    \subfile{dedication}        % include a dedication.tex file
+  \end{dedication}
 
-\begin{abstract}
-  \subfile{abstract}          % include the abstract
-\end{abstract}
+  \begin{acknowledgements}
+    \subfile{acknowledgements}   % include an acknowledgements.tex file
+  \end{acknowledgements}
 
-% \begin{originality}
-%   \subfile{originality}
-% \end{originality}
+  \begin{abstract}
+    \subfile{abstract}          % include the abstract
+  \end{abstract}
 
+  % \begin{originality}
+  %   \subfile{originality}
+  % \end{originality}
+
+}
 \begin{romanpages}          % start roman page numbering
   \listoftodos
   \tableofcontents            % generate and include a table of contents
@@ -61,7 +65,7 @@
 \subfile{ch_onestage}
 \subfile{ch_markdownadp}
 \subfile{ch_markdowncts}
-%\subfile{ch_koopmanestimation}
+% \subfile{ch_koopmanestimation}
 \subfile{ch_objaccel}
 \subfile{ch_conclusion}
 

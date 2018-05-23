@@ -71,9 +71,11 @@ optimisation. The optimisation problems carried out in
 constrained so that the decision variable lies in a compact box in
 $\mathbb{R}^n$. We can still use the algorithm proposed here for these
 problems as an inner optimiser of the box-constrained optimisation
-procedure \texttt{Fminbox} in Optim.  The work which this chapter is
-based on has been submitted to ``Numerical Linear Algebra with
-Applications''.\todo{Update with publication} It originally came about
+procedure \texttt{Fminbox} in Optim.  The work which this chapter
+is based on
+% has been submitted to ``Numerical Linear Algebra with
+% Applications''.\todo{Update with publication} It
+originated
 from an investigation of N-GMRES for nonlinear solvers in reservoir
 simulation~\citep{riseth2015nonlinear}.
 
@@ -858,7 +860,7 @@ solved by the solver.
 \begin{figure}[ht]
   \centering
   \includegraphics[width=0.8\textwidth,axisratio=1.7]{perf_prof_all}
-  \caption[Performance profiles for Problems A--G.]{Performance profiles, defined in~\eqref{eq:perf_profile},
+  \caption[Performance profiles for Problems A--G]{Performance profiles, defined in~\eqref{eq:perf_profile},
     for Problems A--G.
     O-ACCEL preconditioned with a fixed-step steepest descent (B) and
     L-BFGS mostly
@@ -911,7 +913,7 @@ O-ACCEL-A has a larger success rate over the test set than N-GMRES-A.
   \begin{minipage}{0.49\textwidth}
     \includegraphics[width=\textwidth,axisratio=1.5]{perf_prof_nsd}
   \end{minipage}
-  \caption[Performance profiles for N-GMRES and O-ACCEL on Problems A--G.]{Performance profiles comparing N-GMRES and O-ACCEL with
+  \caption[Performance profiles for N-GMRES and O-ACCEL on Problems A--G]{Performance profiles comparing N-GMRES and O-ACCEL with
     steepest descent with line search (A, left) and without (B,
     right).  O-ACCEL outperforms N-GMRES in both cases on our test
     set.
@@ -952,7 +954,7 @@ these acceleration methods to domain-specific algorithms.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\textwidth,axisratio=1.7]{perf_prof_tensor_cp_all}
-  \caption[Performance profiles from the tensor optimisation test problem.]{Performance profiles from the tensor optimisation test
+  \caption[Performance profiles from the tensor optimisation test problem]{Performance profiles from the tensor optimisation test
     problem. O-ACCEL and N-GMRES perform significantly better than the
     other solvers.}\label{fig:perf_prof_tensor_cp_all}
 \end{figure}
@@ -973,7 +975,7 @@ these acceleration methods to domain-specific algorithms.
     N-GMRES-ALS&169.0&234.0&311.5\\
     \bottomrule
   \end{tabular}
-  \caption[Numerical results from the tensor optimisation test problem.]{Numerical results from the tensor optimisation test
+  \caption[Numerical results from the tensor optimisation test problem]{Numerical results from the tensor optimisation test
     problem showing statistics on number of $\Obj$ evaluations. O-ACCEL and N-GMRES perform significantly better than the
     other solvers.}\label{tbl:quantiles_tensor_cp_all}
 \end{table}
@@ -1027,7 +1029,7 @@ accelerating based on the gradient norm.
   \begin{minipage}{0.499\textwidth}
     \includegraphics[width=\textwidth,axisratio=1.5]{perf_prof_cutest_nsd}
   \end{minipage}
-  \caption[Performance profiles for the CUTEst test problems.]{Performance profiles for the CUTEst test problems from
+  \caption[Performance profiles for the CUTEst test problems]{Performance profiles for the CUTEst test problems from
     \Cref{tbl:cutest_table1,tbl:cutest_table2}.  L-BFGS is the highest
     performing most of the time, however, O-ACCEL-B reaches tolerance
     for more problems.}\label{fig:perf_prof_cutest}
@@ -1203,7 +1205,7 @@ tables is the infinity norm.
     \bottomrule
   \end{tabular}
   \caption[Quantiles reporting $\Obj$ evaluations to reach
-    tolerance for each solver.]{Quantiles reporting $\Obj$ evaluations to reach
+    tolerance for in Problems A--C]{Quantiles reporting $\Obj$ evaluations to reach
     tolerance for each solver. Grey rows highlight the solver with the
     best \num{0.5} qauntile.
     L-BFGS performs best for these easier problems.  In Problem A, the L-BFGS and
@@ -1252,7 +1254,7 @@ tables is the infinity norm.
     \bottomrule
   \end{tabular}
   \caption[Quantiles reporting $\Obj$ evaluations to reach
-    tolerance for each solver.]{Quantiles reporting $\Obj$ evaluations to reach
+    tolerance in Problem D]{Quantiles reporting $\Obj$ evaluations to reach
     tolerance for each solver. Grey rows highlight the solver with the
     best \num{0.5} qauntile.
     O-ACCEL-B handles Problem D best.}\label{tbl:probD}
@@ -1345,7 +1347,7 @@ tables is the infinity norm.
     \bottomrule
   \end{tabular}
   \caption[Quantiles reporting $\Obj$ evaluations to reach
-    tolerance for each solver.]{Quantiles reporting $\Obj$ evaluations to reach
+    tolerance in Problems E--G]{Quantiles reporting $\Obj$ evaluations to reach
     tolerance for each solver. Grey rows highlight the solver with the
     best \num{0.5} qauntile.
     N-GMRES performs best at the median range for two problems,

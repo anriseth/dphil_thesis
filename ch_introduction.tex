@@ -24,7 +24,7 @@ The steps are summarised as follows.
   evaluate different decisions.
 \end{enumerate}
 
-As we gain more knowledge of the system we wish to control and the
+As we gain more knowledge of the system we wish to control and of the
 impact of our decisions, the decision maker may refine their objective, or
 we may choose to address some of the steps differently.
 This interactive process is visualised in \Cref{fig:decision_process}.
@@ -63,7 +63,7 @@ This interactive process is visualised in \Cref{fig:decision_process}.
   \caption[Decision making steps]{The steps of a mathematical approach
   to decision making. It can be an iterative approach, where the
   decision maker refines their goals after learning more about the
-  system and resulting decision impact.}\label{fig:decision_process}
+  system and the resulting decision impact.}\label{fig:decision_process}
 \end{figure}
 
 The mathematical decision making process, as we have defined it, is
@@ -89,31 +89,31 @@ the airline industry.
 American Airlines estimated in 1992 that the introduction of revenue
 management software had, over the preceding three
 years, contributed \SI{500}[\$] million of additional revenue per year,
-and would continue to do so in the future~\cite{smith1992yield}.
-In an example from Chilean retail, the authors of~\cite{bitran1998coordinating}
+and would continue to do so in the future \citep{smith1992yield}.
+In an example from Chilean retail, \citet{bitran1998coordinating}
 report an expected revenue improvement of \SIrange{7}{16}{\percent} after implementing
 model-driven strategies.
 This range of financial impact due to implementation of pricing and revenue
-management systems are further supported in other studies, see \cite[Ch.~1.2]{phillips2005pricing}.
+management systems are further supported in other studies, see, for example, \citet[Ch.~1.2]{phillips2005pricing}.
 For retailers with billions of pounds in revenues, small
-improvements to their revenue-management processes can be worth millions
+improvements to their revenue management processes can be worth millions
 of pounds.
 In addition unsold items add up to thousands of tonnes of waste per year, so
 improving the control of demand for products is advantageous
 for both retailers and the environment.
 
-The theory and practice of pricing and revenue management is highly
-multi-disciplinary, and attracts research from a wide variety of
+The theory and practice of pricing and revenue management is
+multidisciplinary and attracts research from a wide variety of
 fields. Our focus will be on different aspects of the modelling and
 optimisation procedures, from a more mathematical point of view.
-\citet{phillips2005pricing} and \citet{ozer2012oxford} contain perspectives on the
+\citet{phillips2005pricing} and \citet{ozer2012oxford} present perspectives on the
 revenue management process prevalent in the social sciences.
 A notable resource with more mathematical focus, which
 cover both theoretical and practical
 perspectives, is provided by \citet{talluri2006theory}.
 Other approaches to pricing of retail products more akin to the
 mathematical modelling community can, for example, be found
-in~\cite{butler2014customer}.
+in \citet{butler2014customer}.
 
 The objectives we focus on in this thesis are aspects of sales,
 revenue, and profit targets that can be influenced by pricing
@@ -128,7 +128,7 @@ be described as random variables.
 
 \subsection{Modelling demand}\label{sec:intro_model_demand}
 We define demand as the quantity of a product that people are willing
-to buy per time period, at a particular price. For the purpose of our
+to buy, per time period, at a particular price. For the purpose of our
 work, demand may change over time, even if the price is constant.
 Time-dependent aspects of demand include periodic effects, such as
 seasonality and longer term trends.
@@ -136,23 +136,24 @@ In addition to pricing decisions, retailers can use advertisements and
 offers to improve sales. Such demand control mechanisms often have a
 more significant impact on sales than price changes in their own
 right. They are harder to forecast accurately, however, and will not
-be considered further in this thesis.
+be considered in this thesis.
 
 The relationship between price and demand are often described in a
 continuum fashion, rather than at discrete levels such as pounds or
 pence. We are interested in retailers with large-scale sales and
 aggregate demand models where treating the demand as a continuum gives
 a reasonable approximation.
-In both academia and industry, simple demand curves often used to
+In both academia and industry, simple demand curves are often used to
 model the price-demand relationship of
-products. See~\cite[Ch.~7.3]{talluri2006theory} or~\cite{phillips2005pricing}
-for a discussion of the most popular demand curves. They are often
+products. See \citet[Ch.~7.3]{talluri2006theory} or \citet{phillips2005pricing}
+for a discussion of the most popular demand curves. The curves are often
 chosen in order to simplify the parameter
 estimation procedure, in practice, or simplify the analysis, for academic purposes.
 
-We denote the demand for a given product at price $a\geq 0$, holding
-other aspects such as time and competitor product prices constant, by $q(a)$.
-This thesis will make use of a range of demand curves, in particular
+Let $q(a)$ denote the demand for a given product at price $a\geq 0$, holding
+other aspects such as time and competitor product prices constant.
+The following three demand curve families are often used in the
+revenue management literature.
 \begin{align}\label{eq:demand_fun_lin}
   q(a) &= q^{(1)}-q^{(2)}a,&q^{(1)},q^{(2)}&>0,&\text{linear demand}&,\\
   q(a) &= e^{q^{(1)}-q^{(2)}a},&q^{(1)}\in\mathbb{R},q^{(2)}&>0,&\text{exponential
@@ -184,7 +185,7 @@ current price, $a=1$.
       \addlegendentry{Power}
     \end{axis}
   \end{tikzpicture}
-  \caption[Comparison of demand curves.]{Comparison of demand curves. The units of price and time
+  \caption[Comparison of demand curves]{Comparison of demand curves. The units of price and time
     have been re-scaled so that $q(1)=1$.}\label{fig:demandfun_comparison}
 \end{figure}
 
@@ -193,7 +194,7 @@ demand of another product, we introduce cross-effects on the demand
 functions. For products $j=1,2,\dots,J$, denote their respective prices by
 $a=(a_1,a_2,\dots,a_J)$, and their demands by $q_j(a)$.
 One way to extend the demand curves in~\eqref{eq:demand_fun_lin}
-to~\eqref{eq:demand_fun_pow} to a multi-product case is, according to \cite{talluri2006theory},
+to~\eqref{eq:demand_fun_pow} to a multi-product case is, according to \citet{talluri2006theory},
 \begin{align}
   q_j(a)&=q_{j}^{(1)}-\sum_{l=1}^Jq_{j,l}^{(2)}a_l,
   &\text{linear demand}&,\\
@@ -207,7 +208,7 @@ The valid domains of the parameters vary. For example, a linear demand
 model where we believe that increasing the price of product $l$ has a
 positive effect on the demand of product $j$ constrains
 $q_{j,l}^{(2)}$ to be negative. \Cref{fig:demand_exponential_two}
-provides an example of demand for a given product when varying the
+provides an example of demand for a given product when varying
 its price and the price of one competing product, using the exponential demand function.
 
 \begin{figure}[htbp]
@@ -229,7 +230,7 @@ its price and the price of one competing product, using the exponential demand f
       {exp(1-0.2-1*x+0.2*y)};
     \end{axis}
   \end{tikzpicture}
-  \caption[Exponential demand function.]{Exponential demand function for product $1$, with one
+  \caption[Exponential demand function]{Exponential demand function for product $1$, with one
     competing product $j=2$.
     Units are rescaled so that $q_1(\vecbracks{1,1})=1$.
   }\label{fig:demand_exponential_two}
@@ -244,13 +245,14 @@ approximations to future demand are likely achieved with
 time-dependencies in the parameters.
 This estimation procedure is often guided by
 historic sales data collected by the retailer, using data assimilation
-techniques~\cite{law2015data} and time series analysis~\cite{chatfield2004analysis}.
+techniques \citep{law2015data,riseth2017operator} or time series analysis
+\citep{chatfield2004analysis}.
 % \todo[inline]{Provide example of time-dependent modelling? 1)
 %   Sinusoidal model, 2) Model based on neighbouring values, linear
 %   combination of previous time periods (in a periodic domain,
 %   i.e. both the most recent, and in previous years/months)}
 
-The models used in forecasting future demand at particular prices carry
+The models used to forecast future demand at particular prices carry
 a range of errors and uncertainty. First, estimates of parameter values are not
 exact. Second, the model form may be
 inappropriate. Third, exogenous events impact demand outcomes in a more general
@@ -280,8 +282,8 @@ To quantify the uncertainty in our model parameters, we associate
 each of $q^{(1)}(t)$, $q^{(2)}(t)$ a probability distribution, not
 necessarily independent.
 Let $W(t,a)$ denote a random field that expresses the uncertainty
-associated with extrapolating outside the observed price region, as
-well as exogenous events.
+associated with exogenous events and extrapolation outside the
+observed price region.
 We forecast the demand in period $t$ to be $Q(t,a)=q(t,a)W(t,a)$, and
 the total forecasted demand is thus the random variable $Q(1,a_1) +
 Q(2,a_2)$, where $a_t$ denotes the planned price in period $t$.
@@ -330,7 +332,7 @@ Following that, \Cref{ch:discrete_control} and
 \Cref{ch:cts_control} discuss  aspects of the steps ``model of the system'', ``risk
 preferences'', and ``optimisation''.
 These three chapters are closely linked to the application of pricing
-in retail, whilst the final chapter has a mathematical focus
+in retail, whilst the penultimate chapter has a mathematical focus
 independent of particular applications.
 % \Cref{ch:koopestim} looks at a novel way to handle the Data
 % assimilation step.

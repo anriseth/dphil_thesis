@@ -16,8 +16,8 @@ the expected value.
 We consider another simple problem for pricing
 products in retail to motivate the concepts and results in this
 chapter, however, the insights are applicable to other applications.
-The work which this chapter is based on has been submitted to
-the ``Proceedings of the Royal Society A''.\todo{Update with publication}
+% The work which this chapter is based on has been submitted to
+% the ``Proceedings of the Royal Society A''.\todo{Update with publication}
 
 When sales of a product are affected by randomness in demand,
 retailers can use dynamic pricing strategies to maximise their
@@ -487,7 +487,7 @@ pricing policy, is shown in \Cref{fig:markdown_bellman}.
     % \includegraphics[width=\textwidth]{markdown_controls_bellman}
   \end{subfigure}
   \caption[The value function and corresponding
-    optimal control function for the pricing problem.]{The value function and corresponding
+    optimal control function for the pricing problem]{The value function and corresponding
     optimal control function for the pricing problem.
     The regions where the value function moves from a linear to a
     nonlinear regime
@@ -551,7 +551,7 @@ simulating the system \num{10000} times.\footnote{Preliminary
       \end{axis}
     \end{tikzpicture}
   \end{subfigure}%
-  \caption[Simulations of the pricing system.]{Simulations of the pricing system, started at $S_0=1$
+  \caption[Simulations of the pricing system]{Simulations of the pricing system, started at $S_0=1$
     and controlled by the optimal policy $\alpha$ shown in
     \Cref{fig:markdown_bellman}.
     The left figure is a box plot
@@ -738,7 +738,7 @@ lower than the CEC policy.
   %   \end{axis}
   % \end{tikzpicture}
   % \todo[inline]{Remove the relative difference comparison?}
-  \caption[Comparison of the CEC and Bellman policy functions.]{Comparison of the CEC and Bellman policy functions $a^C$ and
+  \caption[Comparison of the CEC and Bellman policy functions]{Comparison of the CEC and Bellman policy functions $a^C$ and
     $a^B$.
     The CEC function sets
     higher prices than the Bellman function for most of the values of $s$.
@@ -830,7 +830,7 @@ profits in the remaining realisations.
     \end{axis}
   \end{tikzpicture}
   \caption[Sample profit distributions from following the Bellman and
-  CEC policies.]{This shows the distributions from \num{10000} samples of
+  CEC policies]{This shows the distributions from \num{10000} samples of
     the profits of following the Bellman and CEC policies.
     The sample mean $\mathbb{E}_W[P(\alpha^B)-P(\alpha^C)]\approx 3.8\times
     10^{-3}$, confirms that Bellman is better on average, as it should be.
@@ -886,7 +886,7 @@ maximum price $a=1$.
 \begin{figure}[htbp]
   \includegraphics[width=\textwidth]{profit_diff_heatmaps}
   \caption[Relative profit $L^2$ difference between the CEC and
-  Bellman policies.]{The relative $L^2$ difference
+  Bellman policies]{The relative $L^2$ difference
     $\|P(\alpha^B)-P(\alpha^C)\|_2/\|P(\alpha^B)\|_2$ representing
     how different the CEC policy is from the optimal Bellman policy.
     Each plot defines a combination of $(C,\gamma)$, whilst
@@ -945,7 +945,7 @@ grey dots in \Cref{fig:profit_diff_heatmaps}.
         &&&&$\times 10^{-2}$&$\times 10^{-2}$&$\times 10^{-2}$&$\times 10^{-2}$\\
     \bottomrule
   \end{tabular}
-  \caption[Statistics comparing the profits of the Bellman and CEC policies.]{Statistics comparing profits $P(\alpha^B)$ and $P(\alpha^C)$ for six different
+  \caption[Statistics comparing the profits of the Bellman and CEC policies]{Statistics comparing profits $P(\alpha^B)$ and $P(\alpha^C)$ for six different
     parameter combinations. The columns $\mathcal{Q}_s$ represent the
     the $s^{\text{th}}$ quantile of the relative
     difference
@@ -957,7 +957,7 @@ grey dots in \Cref{fig:profit_diff_heatmaps}.
   }\label{tbl:paramcomparisons}
 \end{table}
 
-\subsection{Open-Loop Feedback Control (OLFC) policy}
+\subsection{Open-Loop Feedback Control policy}
 We conclude this chapter with the example of the OLFC
 policy~\citep[Ch.~6]{bertsekas2005dynamic},
 also known as Stochastic Model
@@ -1027,7 +1027,7 @@ Bellman policy.
     \end{axis}
   \end{tikzpicture}
   \caption[Sample profit distributions from following the Bellman and
-  OLFC policies.]{This shows the distributions from \num{10000} samples of
+  OLFC policies]{This shows the distributions from \num{10000} samples of
     the profits of following the Bellman and OLFC policies.
     The OLFC policy generates profits an order of magnitude closer to
     the Bellman policy than the CEC policy (\Cref{fig:bellman_det_vals}). This
@@ -1063,7 +1063,7 @@ smaller than in the CEC comparison.
         &&&&$\times 10^{-3}$&$\times 10^{-3}$&$\times 10^{-3}$&$\times 10^{-3}$\\
     \bottomrule
   \end{tabular}
-  \caption[Statistics comparing the profits of the Bellman and CEC policies.]{Statistics comparing the relative profits of $P(\alpha^O)$
+  \caption[Statistics comparing the profits of the Bellman and OLFC policies]{Statistics comparing the relative profits of $P(\alpha^O)$
     against $P(\alpha^B)$ for six different
     parameter combinations. Note that the values are an order of magnitude
     smaller than in the comparison between Bellman and CEC shown in
