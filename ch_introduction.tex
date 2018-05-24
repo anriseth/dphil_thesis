@@ -124,7 +124,7 @@ reference in later chapters.  The demand models often include
 unobservable parameters that are inferred from data.  These models are
 used to forecast future demand, sometimes months in the future.  The
 uncertainty of future events, and estimates of model parameters, will
-be described as random variables.
+be described with random variables.
 
 \subsection{Modelling demand}\label{sec:intro_model_demand}
 We define demand as the quantity of a product that people are willing
@@ -278,8 +278,8 @@ way.
 % the uncertainty in our forecasts.
 A forecast is in essence an extrapolation of a validated model to a
 region of the input domain not yet experienced. We may still have an
-idea of what form the uncertainty of this extrapolation takes, which
-in this thesis will be described in terms of random variables.
+idea of what form the uncertainty this extrapolation takes, which
+we describe in terms of random variables.
 
 For example, consider a product for which we forecast the sales for
 two consecutive periods using the exponential demand model,
@@ -296,6 +296,9 @@ observed price region.
 We forecast the demand in period $t$ to be $Q(t,a)=q(t,a)W(t,a)$, and
 the total forecasted demand is thus the random variable $Q(1,a_1) +
 Q(2,a_2)$, where $a_t$ denotes the planned price in period $t$.
+Illustrations of the distributions of objectives and example models of
+$W(t,a)$ are provided in
+\Cref{ch:onestage,ch:discrete_control,ch:cts_control}.
 
 % \section{Decisions via optimisation}\label{sec:intro_decisions_through_optim}
 % Optimisation is central to our approach to decision making, and will
