@@ -28,7 +28,7 @@ function CvarModel(data::ModelData, y::MultivariateDistribution;
     @variable(m, x[i=1:n] >= 0, start=x0[i])
     @variable(m, η, start = sum(x0))
     @NLexpression(m, v[i=1:n], a[i]*exp(-B[i,i]*x[i])*
-                  prod(1-exp(-x[j]*B[i,j]) for j=1:n if (j != i) && !iszero(B[i,j])))
+                  prod(1-exp(-B[i,j]*x[j]/x[i]) for j=1:n if (j != i) && !iszero(B[i,j])))
     @NLparameter(m, λ == l)
     @NLparameter(m, α == smoothing)
 

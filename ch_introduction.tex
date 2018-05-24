@@ -210,7 +210,6 @@ positive effect on the demand of product $j$ constrains
 $q_{j,l}^{(2)}$ to be negative. \Cref{fig:demand_exponential_two}
 provides an example of demand for a given product when varying
 its price and the price of one competing product, using the exponential demand function.
-
 \begin{figure}[htbp]
   \centering
   \begin{tikzpicture}
@@ -235,6 +234,16 @@ its price and the price of one competing product, using the exponential demand f
     Units are rescaled so that $q_1(\vecbracks{1,1})=1$.
   }\label{fig:demand_exponential_two}
 \end{figure}
+
+\begin{remark}
+  Note that both the exponential
+  and power demand functions are unbounded: The demand of a product
+  $j$ goes to infinity if we take the price of some product $l\neq j$
+  to infinity, provided $q_{j,l}^{(2)}<0$. One way that practitioners
+  address this issue is to define hard constraints on the prices.
+  In \Cref{ch:onestage} we address this issue in a different way by
+  providing an alternative model for cross-effects.
+\end{remark}
 
 \subsection{Forecasting and uncertainty}
 Demand models, such as those presented above, have parameters that are

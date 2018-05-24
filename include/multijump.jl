@@ -1,7 +1,7 @@
 using JuMP, MultiJuMP
 # Define parameters
 a  = [1, 0.9, 1.2];
-B  = [2 10 0; 4 1.8 40; 15 0 2]
+B  = [2 2 0; 0.8 1.8 8; 3 0 2]
 μy = [0.5, 0.5, 0.65]
 Cy = [0.0025 -0.00075 0; -0.00075 0.0025 0; 0 0 0.0042]
 x0 = [1, 1, 1.3]
@@ -11,10 +11,11 @@ n  = length(x0)
 m = MultiModel()
 
 # JuMP commands create functions
-@variable(m, x[i=1:n] >= 0, start=x0[i])
+@variable(m, x[i=1:n] ≥ 0, start=x0[i])
 @NLexpressions m begin
-    demand[i=1:n],  (a[i]*exp(-B[i,i]*x[i])*prod(1-exp(-x[j]*B[i,j])
-                    for j=1:n if (j != i) && !iszero(B[i,j])))
+    demand[i=1:n],  (a[i]*exp(-B[i,i]*x[i])*
+                     prod(1-exp(-B[i,j]*x[j]/x[i])
+                          for j=1:n if (j != i) && !iszero(B[i,j])))
     profit[i=1:n],  (x[i]-μy[i])*demand[i]
     totalProfit,    sum(profit[i] for i=1:n)
     stdeviation,    (sqrt(sum(Cy[i,j]*demand[i]*demand[j]

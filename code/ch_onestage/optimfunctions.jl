@@ -147,12 +147,15 @@ end
 
 
 # Find (λ,μ)-pairs that generate the same solution
-μvals = 163
-μs = linspace(1, 82, μvals)
+#μvals = 162
+μs = 1:0.75:103
+μs = linspace(1,104,150)
+μvals = length(μs)
 λguess = 0.0
 λsutil, utilmin = expoutildist(μs, λguess)
 pltdistu, pltlu = plotutilmin(μs, λsutil, utilmin, true)
-
+# xutil = hcat(optimalx.(μs, modelmeanutil3d)...)'
+# xutilstd = hcat(optimalx.(λsutil, modelmeandev3d)...)'
 
 
 # Find (λ,γ)-pairs that generate the same solution

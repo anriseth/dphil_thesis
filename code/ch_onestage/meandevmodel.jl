@@ -22,7 +22,9 @@ function MeanDeviationModel(data::ModelData, μ::Array{Float64},
     @NLparameter(m, λ == l)
 
     @NLexpressions m begin
-        demand[i=1:n], a[i]*exp(-B[i,i]*x[i])*prod(1-exp(-x[j]*B[i,j]) for j=1:n if (j != i) && !iszero(B[i,j]))
+        demand[i=1:n], (a[i]*exp(-B[i,i]*x[i])*
+                        prod(1-exp(-B[i,j]*x[j]/x[i]) for j=1:n
+                             if (j != i) && !iszero(B[i,j])))
         Ef[i=1:n], (x[i]-μ[i])*demand[i]
         Varf, sum(Σ[i,j]*demand[i]*demand[j] for j=1:n for i=1:n if Σ[i,j] != 0)
         meandev, sum(Ef[i] for i=1:n) - λ*sqrt(Varf)

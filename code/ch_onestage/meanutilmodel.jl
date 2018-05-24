@@ -20,17 +20,17 @@ function MeanUtilityModel(data::ModelData, y::MultivariateDistribution;
     srand(0) # Reset seed for reproducibility
     ysamples = rand(y, N)
 
-    m = Model(solver=IpoptSolver(print_level=0))
+    m = Model(solver=IpoptSolver(print_level=0,tol=1e-10,obj_scaling_factor=100))
     x0 = 2mean(y)
     @variable(m, x[i=1:n] >= 0, start=x0[i])
 
     @NLexpression(m, v[i=1:n], a[i]*exp(-B[i,i]*x[i])*
-                  prod(1-exp(-x[j]*B[i,j]) for j=1:n if (j != i) && !iszero(B[i,j])))
+                  prod(1-exp(-B[i,j]*x[j]/x[i]) for j=1:n if (j != i) && !iszero(B[i,j])))
     @NLparameter(m, λ == l)
     @NLexpression(m, Eu,
-                  sum(exp(-λ*sum((x[i]-ysamples[i,sample])*v[i] for i=1:n)) for
-                  sample=1:N)/N)
-    @NLobjective(m, Min, Eu)
+                  (1-sum(exp(-λ*sum((x[i]-ysamples[i,sample])*v[i] for i=1:n)) for
+                  sample=1:N)/N)/λ)
+    @NLobjective(m, Max, Eu)
 
     # @NLexpression(m, Eu,
     #               sum{1-exp(-λ*sum{(x[i]-ysamples[i,sample])*v[i], i=1:n}),

@@ -3,8 +3,8 @@ using Distributions
 using Plots
 using JLD2
 
-varprof = true
-saveimg = false
+varprof = false
+saveimg = true
 savedata = true
 savedir = "./data/"
 method = :NBI # or :EPS or :WS
@@ -25,7 +25,7 @@ x0 = 2μy
 m = MultiModel(solver = IpoptSolver(max_iter = 100))
 @variable(m, x[i=1:n] >= 0, start=x0[i])
 @NLexpressions m begin
-    demand[i=1:n],  a[i]*exp(-B[i,i]*x[i])*prod(1-exp(-x[j]*B[i,j]) for j=1:n if (j != i) && !iszero(B[i,j]))
+    demand[i=1:n],  a[i]*exp(-B[i,i]*x[i])*prod(1-exp(-B[i,j]*x[j]/x[i]) for j=1:n if (j != i) && !iszero(B[i,j]))
     profit[i=1:n],  (x[i]-μy[i])*demand[i]
     totalProfit,    sum(profit[i] for i=1:n)
     stdeviation,    sqrt(sum(Cy[i,j]*demand[i]*demand[j] for j=1:n for i=1:n))
