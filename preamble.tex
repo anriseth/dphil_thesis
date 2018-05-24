@@ -1,7 +1,13 @@
+\newif\ifsubmission
+\submissiontrue
+
 \usepackage[l2tabu, orthodox]{nag}
 \usepackage{microtype}
-% \usepackage[disable]{todonotes}
+\ifsubmission
+\usepackage[disable]{todonotes}
+\else
 \usepackage{todonotes}
+\fi
 \usepackage{subfiles}
 
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
@@ -69,11 +75,11 @@
 }
 
 \sisetup{
-    group-digits=true,
-    group-separator={\,},
+  group-digits=true,
+  group-separator={\,},
 }
 
-%\crefname{chapter}{\S}{\S\S}
+% \crefname{chapter}{\S}{\S\S}
 \crefname{section}{\S}{\S}
 % Prevent space between \S and numbers
 \crefformat{section}{\S#2#1#3}
@@ -101,5 +107,7 @@
 %%% Local Variables:
 %%% mode: latex
 %%% TeX-master: "main"
+%%% TeX-engine: luatex
 %%% TeX-command-extra-options: "-shell-escape"
+%%% TeX-command-extra-options: "--shell-escape"
 %%% End:

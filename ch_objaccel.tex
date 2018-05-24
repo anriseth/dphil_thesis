@@ -1358,16 +1358,22 @@ tables is the infinity norm.
 \begin{table}[p]
   \scriptsize
   \centering
-  % \todo[inline]{Uncomment table inclusion}
+  \ifsubmission
   \input{cutest_table1}
+  \else
+  \todo[inline]{Uncomment table inclusion}
+  \fi
   \caption{Results from the CUTEst problems.}\label{tbl:cutest_table1}
 \end{table}
 
 \begin{table}[p]
   \scriptsize
   \centering
-  % \todo[inline]{Uncomment table inclusion}
+  \ifsubmission
   \input{cutest_table2}
+  \else
+  \todo[inline]{Uncomment table inclusion}
+  \fi
   \caption{Results from the CUTEst tests.}\label{tbl:cutest_table2}
 \end{table}
 

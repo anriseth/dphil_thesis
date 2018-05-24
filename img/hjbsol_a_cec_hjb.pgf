@@ -1,12 +1,17 @@
 \begin{tikzpicture}[]
-\begin{axis}[width={3in}, view={200}{30}, colorbar, colormap/viridis, colorbar/width=2.5mm, xmin={0}, xmax={1}, ymin={0}, ymax={1}, xlabel={$t$}, ylabel={$s$}, xtick={0.0,0.25,0.5,0.75,1.0}, ytick={0.0,0.25,0.5,0.75,1.0}, ztick={-0.02,-0.01,0.0}, xmajorgrids={true}, ymajorgrids={true}, zmajorgrids={true}, colorbar horizontal, colorbar style={
-                 at={(0,1.025)},
-                 anchor=below south west,
-                 xticklabel pos=upper,
-                 every x tick scale label/.style={font=\boldmath,
-                    at={(xticklabel cs:1,4pt)},xshift=1.2em,yshift=-0.5em,left,inner sep=0pt,
-                 }
-             }, every z tick scale label/.append style={font=\boldmath}]
+\begin{axis}[width={3in}, view={200}{30}, colorbar, colormap/viridis,
+  colorbar/width=2.5mm, xmin={0}, xmax={1}, ymin={0}, ymax={1},
+  xlabel={$t$}, ylabel={$s$}, xtick={0.0,0.25,0.5,0.75,1.0},
+  ytick={0.0,0.25,0.5,0.75,1.0}, ztick={-0.02,-0.01,0.0},
+  xmajorgrids={true}, ymajorgrids={true}, zmajorgrids={true}, colorbar
+  horizontal, colorbar style={
+    at={(0,1.05)},
+    anchor=below south west,
+    xticklabel pos=upper,
+    every x tick scale label/.style={font=\boldmath,
+      at={(xticklabel cs:1,4pt)},xshift=1.2em,yshift=-0.5em,left,inner sep=0pt,
+    }
+  }, every z tick scale label/.append style={font=\boldmath}]
     \addplot3[surf, shader=interp]
         coordinates {
             (0.005025125628140704, 0.005025125628140704, 2.5146543239262797e-5)

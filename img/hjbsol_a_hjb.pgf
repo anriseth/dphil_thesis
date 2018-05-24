@@ -6,7 +6,7 @@
     ztick={0.5,0.75,1.0,1.25,1.5}, xmajorgrids={true},
     ymajorgrids={true}, zmajorgrids={true}, colorbar horizontal,
     colorbar style={
-      at={(0,1.025)},
+      at={(0,1.05)},
       anchor=below south west,
       xticklabel pos=upper,
       every x tick scale label/.style={font=\boldmath,
