@@ -13,11 +13,11 @@ can use to approximate the solution to an optimisation problem
 \end{equation}
 A local minimum $x^*$ of $\Obj$ is one such that
 $\Obj(x^*)\leq \Obj(x)$ for all $x$ in a neighbourhood of $x^*$.  When
-$\Obj$ is sufficiently smooth the gradient at $x^*$ is zero,
+$\Obj$ is sufficiently smooth, the gradient at $x^*$ is zero,
 $\nabla\Obj(x^*)=0$.  Derivative based algorithms for minimising
 $\Obj$ are mainly iterative procedures that look for roots of
-$\nabla\Obj$.  Note that $\nabla\Obj(x)=0$ for local maximisers or
-saddle points $x$ as well. To find a local minimum the algorithms also
+$\nabla\Obj$.  Note that $\nabla\Obj(x)=0$ at local maximisers or
+saddle points $x$ as well. To find a local minimum, the algorithms also
 attempt to move in directions that decrease the value of
 $\Obj$.  Two common examples of such algorithms are the steepest
 descent and Newton methods \citep{nocedal2006numerical}.  The gradient
@@ -25,8 +25,8 @@ represents the direction where $\Obj$ increases the most, so the
 negative gradient is the direction of steepest descent. Newton's
 method minimises a second-order Taylor approximation to the objective.
 Let the Hessian of $\Obj$ at $x$ be denoted by $\Hess{}(x)$.  Given a
-current guess $x$ of a local minimiser of $\Obj$, they propose a new
-guess $x^P$ according to
+current guess $x$ of a local minimiser of $\Obj$, the two algorithms
+propose a new guess $x^P$ according to
 \begin{align}\label{eq:steepest_descent_step}
   x^P(\lambda)
   &= x - \lambda \nabla \Obj(x)
@@ -35,7 +35,7 @@ guess $x^P$ according to
   &= x-\lambda {\Hess{}(x)}^{-1}\nabla \Obj(x)
   &\textnormal{(Newton's method)}&,\label{eq:newton_step}
 \end{align}
-where $\lambda>0$ is determined according to a line search algorithm.
+where $\lambda>0$ is determined using a line search algorithm.
 Line search algorithms decide the step length for each iteration by
 approximately solving the one-dimensional optimisation problem
 \begin{equation}
@@ -49,11 +49,11 @@ ground one can also try to approximate the inverse Hessian, known as
 quasi-Newton methods, or systematically cover the search space,
 as nonlinear conjugate gradient methods do.  Further information on
 iterative optimisation algorithms and line search procedures is covered by
-\citet{nocedal2006numerical}.  In this chapter we will focus on a
+\citet{nocedal2006numerical}.  In this chapter, we will focus on a
 class of algorithms that are used in combination with other algorithms
-to somehow accelerate the guess $x^P$ towards a local minimiser.  We
+to, somehow, accelerate the guess $x^P$ towards a local minimiser.  We
 refer to them as acceleration methods.  In most of the work on these
-algorithms, such as nonlinear generalised minimal residual method
+algorithms, such as the nonlinear generalised minimal residual method
 (N-GMRES), acceleration is based on minimising the $\ell_2$ norm of
 some target subspaces of $\mathbb{R}^n$.  We propose a natural
 modification to N-GMRES, which significantly improves the performance
