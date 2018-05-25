@@ -78,14 +78,14 @@ Assume that the model for product demand $q(x)=(q_1(x),q_2(x),q_3(x))$
 for the three products over the time period is
 deterministic and defined by the functions
 \begin{align}
-  q_1(x) &= e^{-2x_1}(1-e^{-10x_2/x_1}),\\
-  q_2(x) &= 0.9e^{-1.8x_2}(1-e^{-4x_1/x_2})(1-e^{-40x_3/x_2}),\\
-  q_3(x) &= 1.2e^{-2x_3}(1-e^{-15x_1/x_3}),
+  q_1(x) &= e^{-2x_1}(1-e^{-2x_2/x_1}),\\
+  q_2(x) &= 0.9e^{-1.8x_2}(1-e^{-0.8x_1/x_2})(1-e^{-8x_3/x_2}),\\
+  q_3(x) &= 1.2e^{-2x_3}(1-e^{-3x_1/x_3}),
 \end{align}
 respectively.
 The term $e^{-2x_1}$  models the impact of price
 changes for product one, keeping product two's price constant.
-The term $1-e^{-10x_2/x_1}$ models the proportion of product one's
+The term $1-e^{-2x_2/x_1}$ models the proportion of product one's
 demand that product two takes when their relative price is $x_2/x_1$.
 To illustrate the behaviour of the demand function,
 \Cref{fig:total_volume_2d} shows the total demand $q_1(x)+q_2(x)+q_3(x)$ when
@@ -168,9 +168,11 @@ The following three decision problems require further modelling of a
 decision maker's preferences in order to set up a mathematical
 optimisation problem.
 \begin{enumerate}
-\item Maximise profit.
-\item Maximise revenue and ensure that profit is positive.
-\item In some way maximise both revenue and profit.
+  \begin{samepage}
+  \item Maximise profit.
+  \item Maximise revenue and ensure that profit is positive.
+  \item In some way maximise both revenue and profit.
+  \end{samepage}
 \end{enumerate}
 They are all examples of decision problems with random outcomes.
 The third problem is a decision problem with
@@ -195,7 +197,7 @@ In the deterministic setting, we know the parameter
 $y\in\mathcal{Y}$ and can therefore find the optimal $x$ by optimising
 $f(\cdot,y)$.
 Say there is uncertainty in the correct value of the parameter $y$ that
-we model using a random variable in $\mathcal{Y}$.
+we model using a random variable
 on the Borel space of $\mathcal{Y}$, absolutely continuous with respect
 to the Lebesgue measure.
 For a given $x\in\mathcal{X}$, $f(x,y)$ is now a random variable.
@@ -207,7 +209,7 @@ another, we must decide whether the chance of the better outcomes
 outweigh the chance of the worse outcomes.
 We will present three classes of optimisation problems that attempt to
 address the randomness of $f(x,y)$. They are \emph{expected
-  utilities}, \emph{mean-deviation procedures} and \emph{nonlinear
+  utilities}, \emph{mean-deviation procedures}, and \emph{nonlinear
   expectations}.
 % At the end, we comment on classic optimisation problems with constraints
 % that are random variables.
@@ -255,7 +257,7 @@ D.~\citet{bernoulli1738specimen}, who both developed a theory
 to address the St. Petersburg Paradox stated by Nicolaus I Bernoulli
 in 1713. He proposed a coin flipping lottery for which the
 expected value is infinite, and the paradox arises from the
-argument, at the time, that a the expected value is a fair price to
+argument, at the time, that the expected value is a fair price to
 pay to participate in a lottery.
 Both \citeauthor{cramer1728utility} and
 D.~\citeauthor{bernoulli1738specimen} argued that the marginal benefit
@@ -313,11 +315,11 @@ $x_1,x_2\in\mathcal{X}$ are better.
 \end{mydef}
 The expectation operator $\mathbb{E}[X]$ is taken with respect to the
 probability distribution of the random variable $X$ that is derived
-from the underlying Radon--Nikodym derivative of the underlying
+from the Radon--Nikodym derivative with respect to the
 Lebesgue measure on $\mathcal{Y}$.
 
 \begin{remark}
-  Utility-orderings are preserved by positive affine transformations.
+  Utility orderings are preserved by positive affine transformations.
   That is, the ordering defined by $u(x)$ is equivalent to the
   ordering defined by $x\mapsto au(x)+b$ for  $a>0$ and $b\in\mathbb{R}$.
 \end{remark}
@@ -371,7 +373,7 @@ with uncertainty represented by a deviation measure.
 There are other measures of deviation than variance and other ways to
 weigh the expectation and deviation than a linear combination. We can
 therefore generalise the mean-variance
-optimisation~\eqref{eq:mean_dev_weighted} to a mean-deviation framework.
+optimisation~\eqref{eq:mean_dev_weighted} to what we call a mean-deviation framework.
 
 \begin{mydef}[Deviation measure]
   Let $\mathbb{D}$ be a functional on a linear space of random
@@ -379,8 +381,10 @@ optimisation~\eqref{eq:mean_dev_weighted} to a mean-deviation framework.
   the real numbers.
   Then $\mathbb{D}$ is a deviation measure if
   \begin{enumerate}
-  \item $\mathbb{D}[C] = 0$ for any real number $C$, and
-  \item $\mathbb{D}[X]>0$ for any non-constant random variable $X$.
+    \begin{samepage}
+    \item $\mathbb{D}[C] = 0$ for any real number $C$, and
+    \item $\mathbb{D}[X]>0$ for any non-constant random variable $X$.
+    \end{samepage}
   \end{enumerate}
 \end{mydef}
 Deviation measures on $L^2$ random variables were introduced by
@@ -400,7 +404,7 @@ is less strict on the properties of $\mathbb{D}$.
     \qquad\qquad \text{($L^p$-deviations)}
   \end{equation}
 
-  In some maximisation settings, one might not be worried about
+  In some maximisation settings, one may worry about
   realisations of $f$ that are larger than its mean, especially if the
   random variable is not symmetric.
   The lower semi-deviation measure only investigates
@@ -410,7 +414,7 @@ is less strict on the properties of $\mathbb{D}$.
     &&\text{(Lower semi-deviation)}
   \end{align}
 
-  One can also combine two deviation-measures in order to capture
+  One can also combine two deviation measures in order to capture
   different aspects of a random variable.
   If $\mathbb{D}_1,\dots,\mathbb{D}_k$ are $k$ deviation measures and
   $\lambda_i>0$, then the following
@@ -431,7 +435,7 @@ is less strict on the properties of $\mathbb{D}$.
   \end{align}
 \end{problem}
 For a given deviation measure that models the decision maker's
-need for stability, one can formulate a bi-objective optimisation
+need for stability, we can formulate a bi-objective optimisation
 problem.
 We can approach the bi-objective problem from a multi-objective
 optimisation theory point of view and will do so in
@@ -463,9 +467,12 @@ $\rho(X) = -\mathbb{U}[X]$.
   the real numbers.
   Then $\mathbb{U}$ is a nonlinear expectation if
   \begin{enumerate}
-  \item $\mathbb{U}[C] = C$ for any real number $C$, and
-  \item $\mathbb{U}[X]\leq \mathbb{U}[Y]$ whenever $X\leq Y$ almost
-    surely\footnote{$X\leq Y$ almost surely if $\mathbb{P}(\{\omega\mid X(\omega)\leq Y(\omega)\})=0$.}.
+    \begin{samepage}
+    \item $\mathbb{U}[C] = C$ for any real number $C$, and
+    \item $\mathbb{U}[X]\leq \mathbb{U}[Y]$ whenever $X\leq Y$ almost
+      surely\footnote{$X\leq Y$ almost surely if
+        $\mathbb{P}(\{\omega\mid X(\omega)\leq Y(\omega)\})=0$.}.
+    \end{samepage}
   \end{enumerate}
 \end{mydef}
 Note that the linear expectation $\mathbb{E}$ also satisfies
@@ -475,10 +482,12 @@ relate to the coherent risk measures from mathematical finance.
 \begin{mydef}[Superlinear expectation]
   A nonlinear expectation $\mathbb{U}$ is superlinear if
   \begin{enumerate}
-  \item[3.] $\mathbb{U}[X+Y]\geq \mathbb{U}[X] +\mathbb{U}[Y]$ for
-    each $X,Y$, and
-  \item[4.] $\mathbb{U}[\lambda X] = \lambda\mathbb{U}[X]$ for
-    $\lambda\geq 0$.
+    \begin{samepage}
+    \item[3.] $\mathbb{U}[X+Y]\geq \mathbb{U}[X] +\mathbb{U}[Y]$ for
+      each $X,Y$, and
+    \item[4.] $\mathbb{U}[\lambda X] = \lambda\mathbb{U}[X]$ for
+      $\lambda\geq 0$.
+    \end{samepage}
   \end{enumerate}
 \end{mydef}
 
@@ -486,7 +495,9 @@ If $\mathbb{U}$ is a nonlinear expectation
 with $\mathbb{U}[X] < \mathbb{E}[X]$ for all non-constant $X$,
 then one can
 construct a deviation measure with the functional
-$\mathbb{D}[X]=\mathbb{E}[X]-\mathbb{U}[X]$.
+\begin{equation}
+  \mathbb{D}[X]=\mathbb{E}[X]-\mathbb{U}[X].
+\end{equation}
 Further connections between nonlinear expectations and deviation
 measures are discussed by \citet{rockafellar2013fundamental}.
 
@@ -499,16 +510,25 @@ measures are discussed by \citet{rockafellar2013fundamental}.
 
   The worst-case nonlinear expectation on the sample space $\Omega$,
   defined by
-  $X\mapsto  \inf_{\omega\in\Omega}X(\omega)$, is superlinear and
+  \begin{equation}
+    X\mapsto  \inf_{\omega\in\Omega}X(\omega),
+  \end{equation}
+  is superlinear and
   connects optimisation of nonlinear expectations to robust optimisation \citep{ben2009robust}.
   If there is an attached
   probability space on $\Omega$,
   we use the essential infimum
-  $\essinf_{\omega\in\Omega} X(\omega) = \sup\{x \mid \mathbb{P}(X<x)=0\}$.
+  \begin{equation}
+    \essinf_{\omega\in\Omega} X(\omega) = \sup\{x \mid
+    \mathbb{P}(X<x)=0\}.
+  \end{equation}
 
   The quantile operator
-  $q_\gamma[X] = \inf\{x\mid\mathbb{P}(X\leq x)\geq
-  \gamma\}$, with $\gamma\in[0,1]$, satisfies the properties of a
+  \begin{equation}
+    q_\gamma[X] = \inf\{x\mid\mathbb{P}(X\leq x)\geq
+    \gamma\},
+  \end{equation}
+  with $\gamma\in[0,1]$, satisfies the properties of a
   nonlinear expectation.
   Another name for the quantile operator is Value at Risk \citep{follmer2004stochastic}.
   The operator is not necessarily concave, which has
@@ -577,8 +597,8 @@ are suitable for each type of problem we address.
 \section{Different approaches lead to the same decision}\label{sec:one_comparison_orderings}
 % The aim of this section is to compare the
 % optimisation formulations introduced in the previous section.
-Can the mean-deviation formulation give the
-same result as the expected utility and nonlinear expectation methods?
+Can the mean-deviation formulation give rise to the same decision
+as the expected utility and nonlinear expectation methods?
 In this section we argue that there are cases where they do,
 focusing on the mean and standard deviation, exponential
 utility, and lower super-quantile.
@@ -734,14 +754,14 @@ theoretical properties of the different formulations.
   The solution to the expected utility and lower super-quantile
   problems~\eqref{eq:optim_formulations_eu}
   and~\eqref{eq:optim_formulations_sq} require that we approximate the
-  objectives, for example, with Monte-Carlo
+  objectives, for example, with Monte Carlo
   \citep{caflisch1998monte}.
   The super-quantile method also needs an extra smoothing step to
   handle the $\max(\eta-f(x,y),0)$ term of~\eqref{eq:opt_avar},
   introducing larger costs and implementational complexity.
 
   We solve the optimisation problems in~\eqref{eq:min_xmd_xeu_xsq} with
-  uniformly spaced values $\mu\in[0,100]$ and $\gamma\in[1/100, 1]$.
+  uniformly spaced values $\mu\in[0,104]$ and $\gamma\in[1/100, 1]$.
   \Cref{fig:util_meandev_2d,fig:cvar_meandev_2d} show the
   corresponding values $\lambda(\mu)$ and $\lambda(\gamma)$, together
   with the difference in the objectives. The values of $\lambda$
@@ -790,7 +810,7 @@ theoretical properties of the different formulations.
 We briefly discuss the situation arising from the
 second decision problem posed in \Cref{sec:one_motivating_example},
 where the decision maker wants to maximise revenue and ensure that
-profit is positive.
+the profit is positive.
 
 Introduce a deterministic objective $g:\mathcal{X}
 \to\mathbb{R}$. In the deterministic setting, with a known parameter
@@ -801,7 +821,7 @@ $y\in\mathcal{Y}$, one often considers problems of the form
 \end{align}
 Then $f\geq f_{\textnormal{min}}$ is considered a constraint, which restricts the
 decision space to $\{x\in\mathcal{X}\mid f(x,y)\geq f_{\textnormal{min}}\}$.
-When there is uncertainty about the right parameter-value, this set is
+When there is uncertainty about the right parameter value, this set is
 not defined at the time of the decision but depends on future knowledge
 of the parameter.
 
@@ -1081,11 +1101,11 @@ Algorithms for approximating the Pareto front
 often make use of particular points describing extremal
 values of the objectives.
 \begin{mydef}
-  Denote $\underline{x_i}$ as the individual minimiser of $f_i$, and
-  $\underline{f_i}=f_i(\underline {x_i})$.
+  Denote by $\underline{x_i}$ the individual minimiser of $f_i$, and
+  set $\underline{f_i}=f_i(\underline {x_i})$.
   The point $\underline{F}=(\underline{f_1},\dots,\underline{f_m})$
   is the vector containing all individual minima.
-  Define the worst outcome for $f_i$ on the Pareto front as
+  Define the worst outcome for $f_i$ on the Pareto front by
   $\overline{f_i}=\max_{1\leq j\leq m}\{f_i(\underline{x_j})\}$.
   The point  $\overline{F} =
   (\overline{f_1}, \dots, \overline{f_m})$ is the vector containing
@@ -1110,7 +1130,7 @@ values of the objectives.
 \end{example}
 
 \subsection{Approximating the Pareto front}\label{sec:multi_pareto_front}
-The Pareto front contains all the information about trade-offs between the
+The Pareto front contains all the information about the trade-offs between the
 objectives. A decision $x$ to the multi-objective problem
 should be a Pareto optimal point, so the
 optimisation problem becomes one of searching over the set
@@ -1160,7 +1180,7 @@ The Normal Boundary Intersection (NBI) method by \citet{das1998normal} can
 create a more uniform spread of the Pareto points in both convex and
 non-convex regions of the Pareto front. Its optimisation problem
 formulation makes use of the convex hull of the individual minima
-(CHIM), defined below.
+(CHIM) defined below.
 \begin{mydef}[Convex hull of individual minima (CHIM)]
   Define a matrix $\Phi\in\mathbb{R}^{m\times m}$ with columns
   $\Phi_j = F(\underline{x_j})-\underline{F}$.
@@ -1390,7 +1410,7 @@ Lagrange multipliers of the constraints.
 To define an ordering of decisions, one should find a way to express
 the total value $u:\mathbb{R}^m\to\mathbb{R}$ of the multi-objective
 function $F$. The survey by \citet{marler2004survey} describes
-different choices of the function $u$ that has been used in the literature.
+different choices of the function $u$ that have been used in the literature.
 \citet{messac1996physical} attempts to create a total value function
 with an approach he calls Physical Programming. The decision
 maker defines what a ``desirable'', ``tolerable'',
@@ -1400,7 +1420,7 @@ may give us an easier framework to approximate a decision maker's preferences.
 
 The total value function $u(F)$ can be thought of as a
 multivariate utility function. To ensure that an optimal decision
-according to $u$ is also Pareto optimal, impose that $u$ is
+according to $u$ is also Pareto optimal, we impose that $u$ is
 strictly increasing in all of its arguments.
 If the decision problem involves randomness, one may already have
 tried to model the decision maker's risk-aversion for each objective.
