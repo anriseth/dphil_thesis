@@ -6,7 +6,7 @@
 \chapter{Control strategies for a discrete time pricing
   problem}\label{ch:discrete_control}
 
-In the previous chapter we discussed one-stage decision problems.
+In the previous chapter, we discussed one-stage decision problems.
 % Let us now consider a sequential decision problem that has an
 % objective that is influenced by randomness.
 The focus of this chapter
@@ -14,14 +14,14 @@ will be on the temporal structure of the
 decisions, and the randomness in the objective is marginalised using
 the expected value.
 We consider another simple problem for pricing
-products in retail to motivate the concepts and results in this
-chapter, however, the insights are applicable to other applications.
+products in retail to motivate the concepts and results.
+% in this chapter, however, the insights are applicable to other applications.
 % The work which this chapter is based on has been submitted to
 % the ``Proceedings of the Royal Society A''.\todo{Update with publication}
 
 When sales of a product are affected by randomness in demand,
 retailers can use dynamic pricing strategies to maximise their
-profits. In this chapter the pricing problem is formulated as a
+profits. In this chapter, the pricing problem is formulated as a
 discrete-time stochastic optimal control problem, for which the
 optimal pricing policy satisfies a recursive equation known as the
 Bellman equation~\citep{bertsekas2005dynamic}, defined in
@@ -38,14 +38,14 @@ performance of two algorithms on a one-product system.
 
 The aim of this chapter is to highlight the implications that
 suboptimal policy
-choices have on the distribution of the relevant objective, and not
+choices have on the distribution of the relevant objective and not
 only marginalised quantities such as the expected value.
 In particular, we consider a one-product pricing problem and
 investigate the optimal Bellman policy, an often-used suboptimal
 policy known as the \emph{Certainty Equivalent Control} (CEC)
 policy, and a compromise between optimality and practicality known as the
 \emph{Open-Loop Feedback Control} (OLFC) policy.
-Rather surprisingly, we find that, more than half the
+Rather surprisingly, we find that more than half the
 time, using the suboptimal CEC policy
 leads to a higher profit than using the Bellman policy, for a wide
 range of products. Of course, the
@@ -53,7 +53,7 @@ Bellman policy performs better on average, but
 this is due to the CEC policy generating a larger, lower tail on the
 distribution of profits than the Bellman policy.
 Heuristically, one can say that the CEC policy has a higher risk
-associated to it. We wish to emphasise that this indicates that a
+associated with it. We wish to emphasise that this indicates that a
 choice of approximate control policy is implicitly a statement of
 risk attitude. Thus, we propose that it should be addressed at the same level as a
 description of a decision maker's risk attitude as expressed with
@@ -167,9 +167,9 @@ the objective.
 
 The chapter is organised as follows.
 In \Cref{sec:bellman_optimal_control} we formulate the
-pricing problem mathematically, and describe an algorithm to solve the
+pricing problem mathematically and describe an algorithm to solve the
 problem via the associated Bellman equation. We also give an example
-of a problem with one product, and present the optimal pricing rules.
+of a problem with one product and present the optimal pricing rules.
 A discussion of the CEC and OLFC policies follows in
 \Cref{sec:suboptimal_approximations}, where we compare its
 performance to that of
@@ -1085,10 +1085,10 @@ approximate the expectation~\eqref{eq:olfc_optimisation_problem}.
 % Conclusion
 %%%%%%%%%%%%%
 \section{Discussion}\label{sec:adp_conclusion}
-In this chapter we have looked at a mathematical formulation of a
+In this chapter, we have looked at a mathematical formulation of a
 retail pricing problem for profit maximisation, and have investigated
 the performance of two algorithms that balance practicality
-with degree of suboptimality against an ``exact'' Bellman
+with the degree of suboptimality against an ``exact'' Bellman
 solution. The motivation is to better understand
 how well the suboptimal policies approximate the returns from the
 optimal policy.
@@ -1120,7 +1120,7 @@ The model problem in this chapter is simple, and
 we propose two specific lines for future research that
 take this analysis closer to practical models.
 First, to investigate two- and three-product problems where the demand and
-availability of one product depends on the other products.
+availability of one product depend on the other products.
 Second, to introduce a state dependence in the uncertainty in the
 system, that is, to allow $W_{t+1}$ to depend explicitly on the value
 of $W_t$.
