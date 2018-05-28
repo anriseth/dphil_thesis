@@ -9,7 +9,7 @@ in decision making under uncertainty, primarily motivated by
 problems in the retail industry.
 We will present algorithms for decision making that address different
 points in the decision making process.
-We consider a mathematical approach to this process that consist of
+We consider a mathematical approach to this process that consists of
 five general steps, of which each chapter will touch on a subset.
 The steps are summarised as follows.
 \begin{enumerate}\label{enum:making_decisions}
@@ -33,18 +33,18 @@ This interactive process is visualised in \Cref{fig:decision_process}.
   \begin{tikzpicture}[node distance = 2.3cm, auto]
     % Define block styles
     \tikzstyle{block} = [rectangle, draw, fill=blue!20,
-    text width=5em, text centered, rounded corners, minimum height=4em]
+    text width=7em, text centered, rounded corners, minimum height=4em]
     \tikzstyle{line} = [draw, Latex-Latex]
     \tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=4cm,
     minimum height=2em]
     \tikzstyle{dashline} = [draw, dashed, -{Latex[length=2.5mm]}]
 
     % Place nodes
-    \node [block] (objective) {Define objective};
+    \node [block] (objective) {Define\\objective};
     \node [cloud, left of=objective, align=center] (decisionmaker) {Decision\\maker};
     \node [cloud, right of=objective] (mathematician) {Mathematician};
     \node [block, below of=objective] (modelling) {Model system};
-    \node [block, below of=modelling] (data) {Data integration};
+    \node [block, below of=modelling] (data) {Data\\assimilation};
     \node [block, below of=data] (risk) {Risk preference};
     \node [block, below of=risk] (optimisation) {Formulate optimisation};
     % Draw edges
@@ -98,33 +98,32 @@ management systems are further supported in other studies, see, for example, \ci
 For retailers with billions of pounds in revenues, small
 improvements to their revenue management processes can be worth millions
 of pounds.
-In addition unsold items add up to thousands of tonnes of waste per year, so
-improving the control of demand for products is advantageous
+In addition unsold items add up to thousands of tonnes of waste per year. So
+improvements in the control of demand for products would be advantageous
 for both retailers and the environment.
 
 The theory and practice of pricing and revenue management is
 multidisciplinary and attracts research from a wide variety of
 fields. Our focus will be on different aspects of the modelling and
-optimisation procedures, from a more mathematical point of view.
+optimisation procedures, from a mathematical point of view.
 \citet{phillips2005pricing} and \citet{ozer2012oxford} present perspectives on the
 revenue management process prevalent in the social sciences.
 A notable resource with more mathematical focus, which
 cover both theoretical and practical
 perspectives, is provided by \citet{talluri2006theory}.
-Other approaches to pricing of retail products more akin to the
-mathematical modelling community can, for example, be found
-in \citet{butler2014customer}.
+Other mathematical approaches to pricing of retail products
+can, for example, be found in \citet{butler2014customer}.
 
 The objectives we focus on in this thesis are aspects of sales,
 revenue, and profit targets that can be influenced by pricing
-decisions.  At the core of such decisions lies models connecting price
+decisions.  At the core of such decisions are models connecting price
 and demand of products.  In \Cref{sec:intro_model_demand} we summarise
-the classic approaches to demand modelling in revenue management, for
+the established approaches to demand modelling in revenue management, for
 reference in later chapters.  The demand models often include
 unobservable parameters that are inferred from data.  These models are
-used to forecast future demand, sometimes months in the future.  The
-uncertainty of future events, and estimates of model parameters, will
-be described with random variables.
+used to forecast future demand, sometimes months into the future.  The
+uncertainty in future events, and in estimates of model parameters, will
+be described using random variables.
 
 \subsection{Modelling demand}\label{sec:intro_model_demand}
 We define demand as the quantity of a product that people are willing
@@ -133,12 +132,12 @@ work, demand may change over time, even if the price is constant.
 Time-dependent aspects of demand include periodic effects, such as
 seasonality and longer term trends.
 In addition to pricing decisions, retailers can use advertisements and
-offers to improve sales. Such demand control mechanisms often have a
+offers to affect sales. Such demand control mechanisms often have a
 more significant impact on sales than price changes in their own
 right. They are harder to forecast accurately, however, and will not
 be considered in this thesis.
 
-The relationship between price and demand are often described in a
+The relationship between price and demand is often described in a
 continuum fashion, rather than at discrete levels such as pounds or
 pence. We are interested in retailers with large-scale sales and
 aggregate demand models where treating the demand as a continuum gives
@@ -152,7 +151,8 @@ estimation procedure, in practice, or simplify the analysis, for academic purpos
 
 Let $q(a)$ denote the demand for a given product at price $a\geq 0$, holding
 other aspects such as time and competitor product prices constant.
-The following three demand curve families are often used in the
+The following three demand curve families, where $q^{(1)}$ and
+$q^{(2)}$ are parameters, are often used in the
 revenue management literature.
 \begin{align}\label{eq:demand_fun_lin}
   q(a) &= q^{(1)}-q^{(2)}a,&q^{(1)},q^{(2)}&>0,&\text{linear demand}&,\\
@@ -250,7 +250,7 @@ Demand models, such as those presented above, have parameters that are
 product specific, and which must be estimated before forecasts of
 demand can be made.
 As multi-month forecasts may be required by the retailer, better
-approximations to future demand are likely achieved with
+approximations to future demand are perhaps possible with
 time-dependencies in the parameters.
 This estimation procedure is often guided by
 historic sales data collected by the retailer, using data assimilation
@@ -262,8 +262,8 @@ techniques \citep{law2015data,riseth2017operator} or time series analysis
 %   i.e. both the most recent, and in previous years/months)}
 
 The models used to forecast future demand at particular prices carry
-a range of errors and uncertainty. First, estimates of parameter values are not
-exact. Second, the model form may be
+a range of errors and uncertainty. First, estimates of parameter
+values are affected by uncertainty and numerical errors. Second, the model form may be
 inappropriate. Third, exogenous events impact demand outcomes in a more general
 way.
 % These sources of uncertainty are all epistemic, meaning
@@ -276,10 +276,10 @@ way.
 % One may argue the philosophical point whether uncertainty that is
 % aleatory exists, however, it does not change our approach to modelling
 % the uncertainty in our forecasts.
-A forecast is in essence an extrapolation of a validated model to a
+A forecast is in essence an extrapolation of an evaluated model to a
 region of the input domain not yet experienced. We may still have an
 idea of what form the uncertainty this extrapolation takes, which
-we describe in terms of random variables.
+we model in terms of random variables.
 
 For example, consider a product for which we forecast the sales for
 two consecutive periods using the exponential demand model,
@@ -288,7 +288,7 @@ two consecutive periods using the exponential demand model,
   e^{q^{(1)}(t)-q^{(2)}(t)a},\qquad t=1,2.
 \end{equation}
 To quantify the uncertainty in our model parameters, we associate
-each of $q^{(1)}(t)$, $q^{(2)}(t)$ a probability distribution, not
+with each of $q^{(1)}(t)$, $q^{(2)}(t)$ a probability distribution, not
 necessarily independent.
 Let $W(t,a)$ denote a random field that expresses the uncertainty
 associated with exogenous events and extrapolation outside the

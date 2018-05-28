@@ -8,16 +8,18 @@ the ultimate challenge for mathematics to come up with good practices
 to guide decision makers.  In this thesis we will investigate
 algorithms for different steps in the decision process, focusing on
 systems where we are uncertain about the outcomes but can quantify how
-likely they are using random variables.  Any decision one makes in
-such situations lead to a distribution of outcomes and requires a way
-to describe how good a decision is.  The standard approach is to
+probable they are using random variables.  Any decision one makes in
+such a situation leads to a distribution of outcomes and requires a way
+to evaluate a decision.  The standard approach is to
 marginalise the distribution of outcomes into a single number that
 tries to summarise the value of each decision.  We will discuss three
 families of such methods; expected utilities, mean-deviation methods,
-and nonlinear expectations.  Mathematicians and decision makers alike
-get very fixated on this value, and this thesis argues that we should
-spend more time investigating the implication of our mathematical
-approach for the whole distribution of outcomes.
+and nonlinear expectations. After selecting a marginalisation
+approach, mathematicians and decision makers alike
+focus their analysis on the marginalised value but ignore the
+distribution. This thesis argues that we should also be investigating
+the implications of the chosen mathematical approach for the whole
+distribution of outcomes.
 
 We illustrate how to gain insight into the effect different mathematical
 formulations have on the distribution with one-stage and sequential
@@ -25,14 +27,14 @@ decision problems in discrete and continuous time. Product pricing
 decisions in retail motivate our work, however, the insights
 apply equally to a wide range of decision problems.  We show that
 different ways to marginalise the distributions can result in the same
-decisions but vary in complexity and computational
+decisions but each way has a different complexity and computational
 cost. Sequential decision problems are often computationally
 intractable to solve to optimality and much research goes into
-developing algorithms that are suboptimal in the marginalised sense
-but work within the computational budget provided. If the performance
-of these algorithms are evaluated they are mainly judged based on the
+developing algorithms that are suboptimal in the marginalised sense,
+but work within the computational budget available. If the performance
+of these algorithms is evaluated they are mainly judged based on the
 marginalised values, however, comparing the performance using the full
-distribution provide interesting information: We provide numerical
+distribution provides interesting information: We provide numerical
 examples from dynamic pricing applications where the suboptimal
 algorithm results in higher profit than the optimal algorithm in more
 than half of the realisations, which is paid for with a more significant
