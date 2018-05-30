@@ -4,13 +4,18 @@
 \begin{document}
 
 \chapter{Introduction}
-This doctoral thesis presents a collection of topics that are relevant
+We all want to make good decisions. The decision
+process requires understanding and prediction of systems that can
+involve complex interactions fraught with uncertainty. It is, therefore,
+a challenge for mathematics to come up with good practices
+to guide decision makers.
+This doctoral thesis contains a collection of topics that are relevant
 in decision making under uncertainty, primarily motivated by
 problems in the retail industry.
-We will present algorithms for decision making that address different
+We present algorithms for decision making that address different
 points in the decision making process.
-We consider a mathematical approach to this process that consists of
-five general steps, of which each chapter will touch on a subset.
+The mathematical approach to this process consists of
+five general steps, of which each chapter touch on a subset.
 The steps are summarised as follows.
 \begin{enumerate}\label{enum:making_decisions}
 \item Objective --- statement of what the decision maker wants to achieve.
@@ -24,10 +29,10 @@ The steps are summarised as follows.
   evaluate different decisions.
 \end{enumerate}
 
-As we gain more knowledge of the system we wish to control and of the
-impact of our decisions, the decision maker may refine their objective, or
+As we gain more knowledge of the system and the
+impact of our decisions, the decision maker may refine their objective or
 we may choose to address some of the steps differently.
-This interactive process is visualised in \Cref{fig:decision_process}.
+This interactive process is illustrated in \Cref{fig:decision_process}.
 \begin{figure}[htb]
   \centering
   \begin{tikzpicture}[node distance = 2.3cm, auto]
@@ -70,7 +75,7 @@ The mathematical decision making process, as we have defined it, is
 general and can be applied to many decision problems. For a collection
 of examples and arguments for a mathematical approach to decisions in
 large organisations, see, for example \citet{keeney1976decisions} and
-\citet{farmer2017uncertainty}.  We will use examples from the practice
+\citet{farmer2017uncertainty}.  We  use examples from the practice
 of revenue management to motivate the theory and illustrate the
 algorithmic approach to decision making that we present in this
 thesis.
@@ -81,9 +86,10 @@ thesis.
 % handling of uncertainty, and optimisation algorithms.
 
 The process of pricing products in order to control demand and
-maximise revenues has been undertaken for centuries. In recent
+maximise revenues has been undertaken for centuries
+\citep[Book~1]{smith1776inquiry}. In recent
 decades, data- and model-driven approaches have become increasingly
-popular in order to advise on and automate the process for companies.
+popular in order to advise product managers and automate the process for companies.
 There are several success stories from early adopters, for example in
 the airline industry.
 American Airlines estimated in 1992 that the introduction of revenue
@@ -95,16 +101,15 @@ report an expected revenue improvement of \SIrange{7}{16}{\percent} after implem
 model-driven strategies.
 This range of financial impact due to implementation of pricing and revenue
 management systems are further supported in other studies, see, for example, \citet[Ch.~1.2]{phillips2005pricing}.
-For retailers with billions of pounds in revenues, small
-improvements to their revenue management processes can be worth millions
-of pounds.
+For retailers with billions of pounds in revenues, a revenue improvement of
+less than a percent can be worth millions of pounds.
 In addition unsold items add up to thousands of tonnes of waste per year. So
-improvements in the control of demand for products would be advantageous
+improvements in the control of supply or demand for products would be advantageous
 for both retailers and the environment.
 
 The theory and practice of pricing and revenue management is
 multidisciplinary and attracts research from a wide variety of
-fields. Our focus will be on different aspects of the modelling and
+fields. Our focus is on different aspects of the modelling and
 optimisation procedures, from a mathematical point of view.
 \citet{phillips2005pricing} and \citet{ozer2012oxford} present perspectives on the
 revenue management process prevalent in the social sciences.
@@ -122,20 +127,20 @@ the established approaches to demand modelling in revenue management, for
 reference in later chapters.  The demand models often include
 unobservable parameters that are inferred from data.  These models are
 used to forecast future demand, sometimes months into the future.  The
-uncertainty in future events, and in estimates of model parameters, will
-be described using random variables.
+uncertainty in future events, and in estimates of model parameters, is
+described using random variables.
 
 \subsection{Modelling demand}\label{sec:intro_model_demand}
 We define demand as the quantity of a product that people are willing
 to buy, per time period, at a particular price. For the purpose of our
 work, demand may change over time, even if the price is constant.
-Time-dependent aspects of demand include periodic effects, such as
+For example, time-dependent aspects of demand include periodic effects, such as
 seasonality and longer term trends.
 In addition to pricing decisions, retailers can use advertisements and
 offers to affect sales. Such demand control mechanisms often have a
 more significant impact on sales than price changes in their own
-right. They are harder to forecast accurately, however, and will not
-be considered in this thesis.
+right. % They are harder to forecast accurately, however, and will not
+% be considered in this thesis.
 
 The relationship between price and demand is often described in a
 continuum fashion, rather than at discrete levels such as pounds or
@@ -149,7 +154,7 @@ for a discussion of the most popular demand curves. The curves are often
 chosen in order to simplify the parameter
 estimation procedure, in practice, or simplify the analysis, for academic purposes.
 
-Let $q(a)$ denote the demand for a given product at price $a\geq 0$, holding
+Let $q(a)\geq 0$ denote the demand for a given product at price $a\geq 0$, holding
 other aspects such as time and competitor product prices constant.
 The following three demand curve families, where $q^{(1)}$ and
 $q^{(2)}$ are parameters, are often used in the
@@ -160,14 +165,14 @@ revenue management literature.
                                                                   demand}&\text{, and}\\
   q(a) &= q^{(1)}a^{-q^{(2)}},&q^{(1)},q^{(2)}&>0,&\text{power demand}&.\label{eq:demand_fun_pow}
 \end{align}
-Note that these functions can only be considered as local
+Note that these functions should only be considered as local
 approximations to demand. That is, we use these models to predict
 aggregate demand responses in a neighborhood of the current
-price. Care must especially be taken if one is to use the power demand
+price. Care must be taken especially if one is to use the power demand
 function: The demand goes to infinity as price goes to zero, and
-revenues go to infinity as price goes to infinity for products with $q^{(2)}\in(0,1)$.
+revenues go to infinity as price goes to infinity if $q^{(2)}\in(0,1)$.
 \Cref{fig:demandfun_comparison} provides a comparison of the three
-demand curves, and shows that they behave very similarly close to the
+demand curves which behave similarly close to the
 current price, $a=1$.
 \begin{figure}[htbp]
   \centering
@@ -192,7 +197,7 @@ current price, $a=1$.
 In cases where we believe that the price of one product affects the
 demand of another product, we introduce cross-effects on the demand
 functions. For products $j=1,2,\dots,J$, denote their respective prices by
-$a=(a_1,a_2,\dots,a_J)$, and their demands by $q_j(a)$.
+$a_j$ and their demands by $q_j(a)$, where $a=(a_1,a_2,\dots,a_J)$.
 One way to extend the demand curves in~\eqref{eq:demand_fun_lin}
 to~\eqref{eq:demand_fun_pow} to a multi-product case is, according to \citet{talluri2006theory},
 \begin{align}
@@ -240,7 +245,8 @@ its price and the price of one competing product, using the exponential demand f
   and power demand functions are unbounded: The demand of a product
   $j$ goes to infinity if we take the price of some product $l\neq j$
   to infinity, provided $q_{j,l}^{(2)}<0$. One way that practitioners
-  address this issue is to define hard constraints on the prices.
+  address this issue is to define hard constraints on the prices, such as
+  keeping the new price within \SI{20}{\percent} of the current price.
   In \Cref{ch:onestage} we address this issue in a different way by
   providing an alternative model for cross-effects.
 \end{remark}
@@ -340,17 +346,40 @@ steps for making decisions that are listed
 on Page~\pageref{enum:making_decisions} and in \Cref{fig:decision_process}.
 In \Cref{ch:onestage} we focus on the general discussion of the
 ``objective'', ``risk preferences'', and ``optimisation''.
-Following that, \Cref{ch:discrete_control} and
-\Cref{ch:cts_control} discuss  aspects of the steps ``model of the system'', ``risk
-preferences'', and ``optimisation''.
-These three chapters are closely linked to the application of pricing
+\Cref{ch:onestage} contains much of the background material on formulating
+optimisation problems and can be considered an extension to this
+introductory chapter. We introduce one-stage optimisation problems with
+random outcomes and multi-objective optimisation.
+A comparison of risk preference methods shows that simple and more complicated
+methods can yield very similar decisions. Therefore, the choice of
+method should focus on implementational and computational aspects
+rather than theoretical arguments.
+In \Cref{ch:discrete_control} and
+\Cref{ch:cts_control} we present  aspects of the steps ``model of the system'', ``risk
+preferences'', and ``optimisation'' for sequential decision problems
+in discrete and continuous time.
+\Cref{ch:discrete_control,ch:cts_control} provide examples of
+how simplified formulations, that ignore the randomness, result in
+marginalised outcomes that are practically equal to the values from
+decisions based on the original formulation. A further investigation
+of the distribution of outcomes shows that the simplified formulations
+result in the best outcomes for half of the realisations of the
+underlying random variables. In the remaining realisations, they
+result in much worse outcomes, which we interpret as an algorithmic
+decision that has impacted the modelled risk-attitude.
+
+The first chapters are closely linked to the application of pricing
 in retail, whilst the penultimate chapter has a mathematical focus
 independent of particular applications.
 % \Cref{ch:koopestim} looks at a novel way to handle the Data
 % assimilation step.
 \Cref{ch:objaccel} presents a new
-algorithm to improve the optimisation step, and then we discuss
-the general implications of our findings in \Cref{ch:conclusion}.
+algorithm to improve the optimisation step. The algorithm can be
+be combined with existing algorithms and we show, with several
+numerical experiments, that it reduces the computational cost of
+finding a solution with a prescribed accuracy.
+The general implications the findings in this thesis are covered in
+\Cref{ch:conclusion}.
 
 \section{Statement of originality}
 \subfile{originality}

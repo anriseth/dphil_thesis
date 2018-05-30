@@ -49,7 +49,7 @@ ground one can also try to approximate the inverse Hessian, known as
 quasi-Newton methods, or systematically cover the search space,
 as nonlinear conjugate gradient methods do.  Further information on
 iterative optimisation algorithms and line search procedures is covered by
-\citet{nocedal2006numerical}.  In this chapter, we will focus on a
+\citet{nocedal2006numerical}.  In this chapter, we focus on a
 class of algorithms that are used in combination with other algorithms
 to, somehow, accelerate the guess $x^P$ towards a local minimiser.  We
 refer to them as acceleration methods.  In most of the work on these
@@ -177,12 +177,12 @@ minimiser.  We aim to find a local minima of the optimisation problem
 Let $\Precon(\Obj,x)$ denote an optimisation procedure for $\Obj$ with
 initial guess $x\in\mathbb{R}^n$. This optimisation procedure can, for
 example, be the application of one steepest descent, or Newton,
-step~(\ref{eq:steepest_descent_step}, \ref{eq:newton_step}). We will refer to
+step~(\ref{eq:steepest_descent_step}, \ref{eq:newton_step}). We  refer to
 $\Precon$ as the preconditioner, because it is
 applied in the same fashion as a right preconditioner for iterative
 procedures of linear systems \citep{brune2015composing}.  Given a
 sequence of previously explored iterates $x^{(1)},\dots,x^{(k)}$, and
-a proposed new guess $x^P = \Precon(\Obj,x^{(k)})$, we will try to
+a proposed new guess $x^P = \Precon(\Obj,x^{(k)})$, we try to
 accelerate the next iterate $x^{(k+1)}$ towards a minimiser.  Define
 \begin{equation}
   \OKrylov{k}{x^P}=\mbox{span}\{x^{(1)}-x^P,\dots,x^{(k)}-x^P\}.

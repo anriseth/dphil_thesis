@@ -23,7 +23,7 @@ at a given terminal time.
 Two important components in the decision process are the ability to
 take into account the uncertainty associated with future cost and demand and to
 optimally adjust for new knowledge as it arrives.
-We will illustrate how to address both components in this chapter,
+We illustrate how to address both components in this chapter,
 focusing on large-inventory limits and multiplicative demand
 uncertainty.
 Assume the retailer sells large volumes of its product at
@@ -58,7 +58,7 @@ limit of Poisson processes.
 To the author's knowledge, however,
 few attempts have been made to unify demand uncertainty with the continuum
 limit. For example, \citet{raman1995optimal} and \citet{wu2016dynamic} model
-demand uncertainty as increments of a Brownian motion. As we will show
+demand uncertainty as increments of a Brownian motion. As we show
 in this chapter, their approaches lead to demand processes that admit
 negative sales, with a probability approaching $1/2$ over
 infinitesimally small time periods. We believe this is an important
@@ -176,7 +176,7 @@ we emphasise the dependence of remaining stock on a particular
 pricing policy $\hat{\alpha}(\hat{t})$ using the superscript $\hat{S}^{\hat{\alpha}}$.
 
 At the start of the prediction period, it is not known exactly what
-the demand will be at future times. We will now discuss how to
+the demand will be at future times. We now discuss how to
 represent this uncertainty in the model. First, we note that the Brownian noise
 approach of \citet{raman1995optimal} and \citet{wu2016dynamic} leads to negative
 sales with probability tending to $0.5$ as the time period goes to zero.
@@ -237,7 +237,7 @@ We therefore argue that it is generally inappropriate to model the uncertainty
 in future demand with increments of a Brownian motion. Instead, the
 uncertainty in demand could be modelled more realistically by
 describing the evolution of parameters in the demand function.
-This chapter will focus on multiplicative demand
+This chapter focuses on multiplicative demand
 uncertainty, which may arise from estimates of seasonality or
 long-term trends in demand. As such, we introduce a multiplicative
 parameter $\hat{g}\geq 0$, and consider the demand function given by
@@ -246,7 +246,7 @@ Assume that the parameter is not directly
 affected by price, that occurs through $\hat{q}(\hat{a})$,
 but  only represents exogenous information outside the
 retailer's control.
-For our purposes, we will model the multiplicative parameter as
+For our purposes, we model the multiplicative parameter as
 a geometric Brownian motion (GBM),
 \begin{equation}
   \hat{G}(\hat{t}) = \exp\left(
@@ -383,7 +383,7 @@ E[P(\alpha)]$.
 
 Further, we restrict the product price to be in some closed  interval
 $A\subset\mathbb{R}_{\geq 0}$.
-In addition, we will only look for Markovian pricing policies in an
+In addition, we only look for Markovian pricing policies in an
 admissible set $\mathcal{A}$. We say that $\alpha(t)$ is Markovian if
 there is a function of the form $a(t,s,g)$ such that for each event $\omega$,
 \begin{equation}
@@ -408,7 +408,7 @@ equation for the pricing problem.
 For a detailed explanation of the theory behind stochastic optimal control and
 HJB equations, see, for example, \citet{pham2009continuous}.
 The HJB equation is a nonlinear PDE, where the solution describes the
-value of being in a particular state. We will not worry about
+value of being in a particular state. We do not worry about
 uniqueness of solutions to the HJB equation in this chapter. From the
 value function defined below, one can
 calculate the optimal pricing function $a^*(t,s,g)$.
@@ -432,7 +432,7 @@ $S^\alpha(t)=s$ and $G(t)=g$.
 In the limit $t\to T$, we see from~\eqref{eq:def_value_interior} that
 $v(T,s,g)=-Cs$.
 
-We will derive the HJB equation for $v$ in a non-rigorous manner
+We derive the HJB equation for $v$ in a non-rigorous manner
 using a
 continuous-time analogue of the Dynamic Programming principle
 stated in \Cref{subsec:adp_bellman_equation}. For a rigorous proof,
@@ -549,7 +549,7 @@ the price is piecewise constant and updated frequently at fixed time points
 $t_0<t_1<\cdots<T_h$.
 Further, we assume that stock levels are only observed at these time
 points. When computing an optimal pricing strategy
-we will still consider the continuous-time
+we still consider the continuous-time
 function~\eqref{eq:pricing_function_general} that can be computed from
 the HJB equation as
 the optimal pricing function for the problem. Such a continuous-time
@@ -679,7 +679,7 @@ price until $T_h=T$ and $S^\alpha(T)=0$, which earns extra revenue at no extra c
 The pricing policy suggested by the
 deterministic assumption provides the following, obvious, heuristics:
 First, find the price that maximises profits, ignoring inventory
-constraints. Second, if sales forecasts suggest you will deplete stock
+constraints. Second, if the sales forecast suggests that you will deplete stock
 before the end of the time horizon at this price, increase it
 accordingly. This is consistent with the heuristic proposed
 by \citet{schlosser2015dynamic1,schlosser2015dynamic2}, which

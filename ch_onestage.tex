@@ -28,7 +28,7 @@ as the optimisation problem\footnote{Maximisation problems can
 \begin{equation}\label{eq:deterministic_setting}
   \max_{x\in\mathcal{X}} f(x).
 \end{equation}
-In this chapter, however, we will discuss three ways that
+In this chapter, however, we discuss three ways that
 decision problems with random outcomes may deviate from this setting.
 \begin{enumerate}
 \item If there is a non-deterministic relationship between a decision
@@ -37,7 +37,7 @@ decision problems with random outcomes may deviate from this setting.
   $\mathcal{X}$ at the time we make the decision.
 \item If there are multiple objectives.
 \end{enumerate}
-We will argue that the second point arises when people try to add
+We argue that the second point arises when people try to add
 randomness to a deterministic model without reconsidering the
 modelling of the problem. One can view the first point as a decision
 problem with a possibly infinite number of objectives.
@@ -60,7 +60,7 @@ that we should think critically about the complexity of the system we want
 to control before formulating the mathematical optimisation problem.
 
 \section{Motivating example}\label{sec:one_motivating_example}
-We will present a simple problem for pricing three retail products, in
+We present a simple problem for pricing three retail products, in
 order to motivate the three deviations from
 the deterministic, well-defined setting
 of~\eqref{eq:deterministic_setting} that we consider in this chapter.
@@ -72,7 +72,7 @@ of the products in order to improve the profit or revenue for a given
 time period.
 To calculate the profit and revenue, we need to model the product
 demands as well as the costs associated with selling the products.
-For simplicity we will assume that the quantities we work with have
+For simplicity we assume that the quantities we work with have
 been non-dimensionalised.
 Assume that the model for product demand $q(x)=(q_1(x),q_2(x),q_3(x))$
 for the three products over the time period is
@@ -207,7 +207,7 @@ $x_2$ by comparing $f(x_1,y)$ to $f(x_2,y)$.
 if one decision provides higher variability in the outcomes than
 another, we must decide whether the chance of the better outcomes
 outweigh the chance of the worse outcomes.
-We will present three classes of optimisation problems that attempt to
+We present three classes of optimisation problems that attempt to
 address the randomness of $f(x,y)$. They are \emph{expected
   utilities}, \emph{mean-deviation procedures}, and \emph{nonlinear
   expectations}.
@@ -438,7 +438,7 @@ For a given deviation measure that models the decision maker's
 need for stability, we can formulate a bi-objective optimisation
 problem.
 We can approach the bi-objective problem from a multi-objective
-optimisation theory point of view and will do so in
+optimisation theory point of view and do so in
 \Cref{sec:one_multi-objective}.
 The review by \citet{marler2004survey} covers some of the theory,
 discusses what optimality means, and introduces approaches to solve
@@ -456,7 +456,7 @@ positions using
 risk measures, see,
 for example, \citet[Ch.~4]{follmer2004stochastic}.
 Risk measures are used in a minimisation setting related to losses,
-but we will use the term nonlinear expectations in the maximisation
+but we use the term nonlinear expectations in the maximisation
 setting. The examples of nonlinear expectations $\mathbb{U}$ considered
 in this section give rise to well-known risk measures $\rho$ by using the mapping
 $\rho(X) = -\mathbb{U}[X]$.
@@ -585,7 +585,7 @@ against expected utility theory are the Allais and Ellsberg paradoxes
 that point out ways that people do not behave according to the axioms
 of utility theory.
 
-We will not state the four paradoxes here but refer the reader to
+We do not state the four paradoxes here but refer the reader to
 \citet{ellsberg1961risk}, \citet{follmer2004stochastic}, and
 \citet{johnstone2013mean}.  Our point is to note that the
 paradoxes pick particular cases that highlight when a particular
@@ -1225,7 +1225,7 @@ formulation makes use of the convex hull of the individual minima
 
 \begin{example}[Comparison of Pareto front
   approximations]\label{ex:pareto_disconnected}
-  We will now investigate the approximations of the Pareto
+  We now investigate the approximations of the Pareto
   front on a simple example using the three different methods.
   Define the function
   $F:{[0,5]}^2\to\mathbb{R}^2$ by $F=(f_1,f_2)$, with $f_i(x)=x_i$.
