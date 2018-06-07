@@ -84,9 +84,9 @@ deterministic and defined by the functions
 \end{align}
 respectively.
 The term $e^{-2x_1}$  models the impact of price
-changes for product one, keeping product two's price constant.
-The term $1-e^{-2x_2/x_1}$ models the proportion of product one's
-demand that product two takes when their relative price is $x_2/x_1$.
+changes for product-one, keeping product-two's price constant.
+The term $1-e^{-2x_2/x_1}$ models the proportion of product-one's
+demand that product-two takes when their relative price is $x_2/x_1$.
 To illustrate the behaviour of the demand function,
 \Cref{fig:total_volume_2d} shows the total demand $q_1(x)+q_2(x)+q_3(x)$ when
 $x_3=1$.
@@ -133,7 +133,7 @@ $f(x,y)$ as
 where $\langle \cdot,\cdot \rangle$ is the usual inner product on
 $\mathbb{R}^n$.
 
-Retailers must often decide the product price before they know the
+Retailers may need to decide the product price before they know the
 unit costs. We assume that we can model the costs with a random
 variable $y\in\mathbb{R}^3$, based on prior knowledge and data.
 Throughout this chapter, we  assume that $y$ is a log-normally
@@ -151,9 +151,9 @@ distributed random variable with mean and covariance
          \times 10^{-3}.
 \end{align}
 \Cref{fig:example_profit_distributions} shows the distribution of
-profit for three combinations of prices. There is not a given outcome
+profit for three combinations of prices. There is no given outcome
 for each price, and the decision maker must therefore take into
-account all the outcomes that can happen following each decision.
+account all the outcomes that can follow each decision.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.7\textwidth,axisratio=1.6]{montecarlo_profit_dist}
@@ -165,7 +165,7 @@ account all the outcomes that can happen following each decision.
 \end{figure}
 
 The following three decision problems require further modelling of a
-decision maker's preferences in order to set up a mathematical
+decision maker's preferences in order to formulate a mathematical
 optimisation problem.
 \begin{enumerate}
   \begin{samepage}
@@ -206,7 +206,7 @@ $x_2$ by comparing $f(x_1,y)$ to $f(x_2,y)$.
 \Cref{fig:example_profit_distributions} illustrates the challenge;
 if one decision provides higher variability in the outcomes than
 another, we must decide whether the chance of the better outcomes
-outweigh the chance of the worse outcomes.
+outweigh the chance of the lesser outcomes.
 We present three classes of optimisation problems that attempt to
 address the randomness of $f(x,y)$. They are \emph{expected
   utilities}, \emph{mean-deviation procedures}, and \emph{nonlinear
@@ -257,7 +257,7 @@ D.~\citet{bernoulli1738specimen}, who both developed a theory
 to address the St. Petersburg Paradox stated by Nicolaus I Bernoulli
 in 1713. He proposed a coin flipping lottery for which the
 expected value is infinite, and the paradox arises from the
-argument, at the time, that the expected value is a fair price to
+assumption, at the time, that the expected value is a fair price to
 pay to participate in a lottery.
 Both \citeauthor{cramer1728utility} and
 D.~\citeauthor{bernoulli1738specimen} argued that the marginal benefit
@@ -305,7 +305,7 @@ is provided by \citet[Ch.~2]{follmer2004stochastic}.
 For a given utility function that models a decision maker's measure of
 benefit for the outcomes of $f$, one can define an ordering
 between random variables that decides which of two decisions
-$x_1,x_2\in\mathcal{X}$ are better.
+$x_1,x_2\in\mathcal{X}$ is best.
 \begin{mydef}[Expected utility ordering]
   A utility function $u(x)$ defines an ordering $\preceq$ between random
   variables $X$ and $Y$,
@@ -566,7 +566,7 @@ measures are discussed by \citet{rockafellar2013fundamental}.
     \left\{\eta - \frac{1}{\gamma}\mathbb{E}[\max(\eta-f(x,y),0)]\right\}.
   \end{equation}
   Note that the objective is not necessarily smooth, due to the
-  $\max(\eta-f(x,y),0)$ term. Theory of non-smooth optimisation
+  $\max(\eta-f(x,y),0)$ term. The theory of non-smooth optimisation
   can address this but may require sophisticated mathematical techniques, as
   exemplified by \citet{kouri2016risk}.
 \end{example}
@@ -598,7 +598,7 @@ are suitable for each type of problem we address.
 % The aim of this section is to compare the
 % optimisation formulations introduced in the previous section.
 Can the mean-deviation formulation give rise to the same decision
-as the expected utility and nonlinear expectation methods?
+as the expected utility or nonlinear expectation methods?
 In this section we argue that there are cases where they do,
 focusing on the mean and standard deviation, exponential
 utility, and lower super-quantile.
@@ -686,7 +686,7 @@ optimisation problem.
 \end{example}
 
 The review by \citet{nadarajah2014estimation} on estimation methods for
-lower super-quantiles provides further evidence that people use
+lower super-quantiles illustrates how people use
 the first two moments of a random variable to estimate nonlinear
 expectations for more generic distributions.
 
@@ -734,7 +734,7 @@ on their practical implications instead of solely focusing on
 theoretical properties of the different formulations.
 
 \begin{example}[Pricing problem]
-  Let us consider situation one of the retail example in
+  Let us consider the first decision problem in the retail example in
   \Cref{sec:one_motivating_example}, where the product manager wants
   to maximise profit $f(x,y)$, but only knows the distribution of $y$.
 
@@ -752,16 +752,16 @@ theoretical properties of the different formulations.
   The solution to the expected utility and lower super-quantile
   problems~\eqref{eq:optim_formulations_eu}
   and~\eqref{eq:optim_formulations_sq} require that we approximate the
-  objectives, for example, with Monte Carlo
-  \citep{caflisch1998monte}.
+  objectives, for example, with Monte Carlo\footnote{For a review of
+    Monte Carlo methods, see \citep{caflisch1998monte}.}.
   The super-quantile method also needs an extra smoothing step to
   handle the $\max(\eta-f(x,y),0)$ term of~\eqref{eq:opt_avar},
   introducing larger costs and implementational complexity.
 
   We solve the optimisation problems in~\eqref{eq:min_xmd_xeu_xsq} with
   uniformly spaced values $\mu\in[0,104]$ and $\gamma\in[1/100, 1]$.
-  The numerical approximations to these problems have been calculated
-  with the Julia programming language \citep{bezanson2017julia}.
+  The numerical approximations to these problems have been implemented
+  using the Julia programming language \citep{bezanson2017julia}.
   For the inner optimisation problems~\eqref{eq:optim_formulations_md}
   to~\eqref{eq:optim_formulations_sq} we use the mathematical
   programming modelling package JuMP
@@ -830,7 +830,7 @@ $y\in\mathcal{Y}$, one often considers problems of the form
 \end{align}
 Then $f\geq f_{\textnormal{min}}$ is considered a constraint, which restricts the
 decision space to $\{x\in\mathcal{X}\mid f(x,y)\geq f_{\textnormal{min}}\}$.
-When there is uncertainty about the right parameter value, this set is
+When there is uncertainty about the correct parameter value, this set is
 not defined at the time of the decision but depends on future knowledge
 of the parameter.
 
@@ -1455,7 +1455,7 @@ environment, using the four methods discussed in
 programming language and is based on the
 mathematical programming modelling package JuMP. It separates the
 challenge of expressing an
-optimisation problem from the algorithm-specific decision of solving
+optimisation problem from that of choosing an algorithm for solving
 the problem. \Cref{lst:multijump} shows an example of how to set up a
 multi-objective optimisation model with the MultiJuMP routines. The
 code works for any number of objectives, however, visualising a Pareto
