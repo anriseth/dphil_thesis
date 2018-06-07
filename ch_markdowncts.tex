@@ -9,8 +9,7 @@
 In the previous chapters we considered decisions with no temporal
 structure or with a discrete, sequential temporal structure.
 As the frequency of sequential decisions increases there may be an
-advantage in modelling the decision method using a continuum
-approximation.
+advantage in using a continuum approximation.
 We consider a continuous-time version of the pricing problem from
 \Cref{ch:discrete_control} to motivate such decision problems.
 % The work which this chapter is based on has been submitted to
@@ -74,7 +73,7 @@ Our proposed approach can be combined with parameter estimation
 methods already used by retailers
 and also extends naturally to multiple products.
 Modelling the demand over time as a diffusion process has previously
-been done by \citet{chambers1992estimation} at macroeconomic scale
+been done by \citet{chambers1992estimation} at the macroeconomic scale
 with UK national data. His focus was on the data assimilation aspect and was not
 applied to a setting of optimal control.
 
@@ -523,9 +522,7 @@ $v$, this constitutes the HJB equation for the pricing problem,
 
 If we know $v$, the optimal pricing policy
 $\alpha^*(t)=a(t,S^{\alpha}(t),G(t))$
-can be calculated
-from the
-the univariate optimisation problem
+can be calculated from the univariate optimisation problem
 \begin{equation}\label{eq:pricing_function_general}
   a^*(t,s,g) = \argmax_{a\in A}\{(a-v_s(t,s,g))q(a)\}.
 \end{equation}
