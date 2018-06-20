@@ -130,7 +130,7 @@
     \addplot+ [color = {rgb,1:red,0.88887350;green,0.43564919;blue,0.27812294},
     draw opacity=1.0,
     line width=1,
-    solid,mark = none,
+    dashed, mark = none, ultra thick,
     mark size = 2.0,
     mark options = {
       color = {rgb,1:red,0.00000000;green,0.00000000;blue,0.00000000}, draw opacity = 1.0,
@@ -482,7 +482,7 @@
     \addplot+ [color = {rgb,1:red,0.88887350;green,0.43564919;blue,0.27812294},
     draw opacity=1.0,
     line width=1,
-    solid,mark = none,
+    dashed, mark = none, ultra thick,
     mark size = 2.0,
     mark options = {
       color = {rgb,1:red,0.00000000;green,0.00000000;blue,0.00000000}, draw opacity = 1.0,
@@ -826,7 +826,7 @@
     \addplot+ [color = {rgb,1:red,0.88887350;green,0.43564919;blue,0.27812294},
     draw opacity=1.0,
     line width=1,
-    solid,mark = none,
+    dashed, mark = none, ultra thick,
     mark size = 2.0,
     mark options = {
       color = {rgb,1:red,0.00000000;green,0.00000000;blue,0.00000000}, draw opacity = 1.0,

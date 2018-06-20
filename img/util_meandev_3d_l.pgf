@@ -1,5 +1,5 @@
 \begin{tikzpicture}[]
-  \begin{axis}[ylabel = {$\lambda$}, xmin = {0}, xmax = {104.5},
+  \begin{axis}[ylabel = {$\lambda(\mu)$}, xmin = {0}, xmax = {104.5},
     ymax = {1.14},
     xlabel = {$\mu$}, unbounded
     coords=jump,scaled x ticks = false,xticklabel style={rotate =

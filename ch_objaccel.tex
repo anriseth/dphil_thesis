@@ -303,7 +303,7 @@ line search on the objective rather than the gradient norm.
 
 
 \subsection{Algorithm}
-The proposed acceleration procedure, which we call O-ACCEL, is
+The proposed acceleration procedure is
 described in \Cref{alg:ngmreso}.  The number of stored previous
 iterates $w$ denotes the history size.  Setting an upper bound on the
 history size can be necessary due to storage constraints, or to
@@ -492,10 +492,8 @@ In order to investigate the performance of the proposed algorithm, we
 implement it with two preconditioners $\Precon$. The first is steepest
 descent with line search, and the second is steepest descent with a
 fixed step length.  They are compared to the N-GMRES algorithm with
-the same preconditioners, and implementations of the nonlinear
-conjugate gradient (N-CG) variant with the Polak-Ribi\`{e}re update
-formula, and the two-loop recursion version of the limited-memory
-Broyden--Fletcher--Goldfarb--Shanno (L-BFGS) method
+the same preconditioners, and implementations of the N-CG variant with
+the Polak-Ribi\`{e}re update formula and the two-loop recursion version of the L-BFGS method
 \citep{nocedal2006numerical}.  The test problems considered in
 \Cref{subsec:test_problems_sterck,subsec:experiment_design,subsec:perf_prof,subsec:tensor_optim}
 are the same eight problems that were used
@@ -750,7 +748,7 @@ To closely follow the testing conditions of
 \citet{sterck2013steepest}, we use the N-CG, L-BFGS and
 Mor\'{e}-Thuente line search implementations from the Poblano toolbox
 by \citet{dunlavy2010poblano}.  These may not be state of the art
-implementations, however, the main focus of this chapter is to
+implementations, but the main focus of this chapter is to
 investigate the performance of the N-GMRES and O-ACCEL
 algorithms. % Future work will include testing the O-ACCEL algorithm
 % with appropriate preconditioners on more comprehensive test sets,
@@ -933,6 +931,7 @@ using N-GMRES with a domain-specific ALS preconditioner is better than
 generic optimisers such as L-BFGS and N-CG.
 \citet{sterck2013steepest} states that
 \begin{quote}
+  \singlespacing
   ``In this problem, a rank-three
   canonical tensor approximation (with 450 variables) is sought for a
   three-way data tensor of size $50\times 50\times 50$. The data tensor
@@ -991,7 +990,11 @@ experiment, we compare the solvers O-ACCEL-B, L-BFGS, and N-GMRES-B,
 with the parameter values described in
 \Cref{subsec:experiment_design}.  The minima are not known for many of
 the CUTEst problems, and so we change the tolerance criterion to be
-defined in terms of the relative decrease of the gradient norm.  The
+defined in terms of the relative decrease of the gradient
+norm.\footnote{Using the gradient norm as a tolerance criterion should, if anything, be
+  advantageous to N-GMRES because it minimises gradient norm whilst
+  O-ACCEL minimises the objective.}
+The
 performance measure used for this experiment is
 \begin{equation}\label{eq:def_performance_measure_cutest}
   t_{p,s} = \min\{k\geq 1 \mid \|\Grad(x^{(k)})\|_\infty \leq 10^{-8}\|\Grad(x^{(0)})\|_\infty\}.

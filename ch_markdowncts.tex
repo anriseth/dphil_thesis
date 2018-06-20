@@ -6,8 +6,8 @@
 \chapter{Continuous-time pricing with diffusion
   models}\label{ch:cts_control}
 
-In the previous chapters we considered decisions with no temporal
-structure or with a discrete, sequential temporal structure.
+In the previous two chapters we considered decisions with no temporal
+structure and with a discrete, sequential temporal structure.
 As the frequency of sequential decisions increases there may be an
 advantage in using a continuum approximation.
 We consider a continuous-time version of the pricing problem from
@@ -26,7 +26,7 @@ We illustrate how to address both components in this chapter,
 focusing on large-inventory limits and multiplicative demand
 uncertainty.
 Assume the retailer sells large volumes of its product at
-high frequency compared to the total pricing period. In such a setting, it is
+high frequency. In such a setting, it is
 appropriate to model the sales process in a continuum limit, both for
 product volume and for time, similar to \citet{kalish1983monopolist}.
 
@@ -150,7 +150,7 @@ modelling the product sales over some finite time period.
 Assume that the initial quantity of stock is large, and that there is a
 substantial volume sold over time periods that are small compared to the total
 period of interest. These assumptions can apply to many products sold
-by large retailers, such as tomatoes or milk. For example, in the monopoly setting, this leads to
+by large retailers, such as lettuce or milk. For example, in the monopoly setting, this leads to
 a continuum model similar to that of \citet{kalish1983monopolist}.
 For a given product, denote the amount of stock left at time $\hat{t}$ by $\hat{S}(\hat{t})$,
 and let $\hat{q}(\hat{a})$ represent product demand at price $\hat{a}$, per unit
@@ -241,7 +241,7 @@ uncertainty, which may arise from estimates of seasonality or
 long-term trends in demand. As such, we introduce a multiplicative
 parameter $\hat{g}\geq 0$, and consider the demand function given by
 $({\hat{a}},\hat{g})\mapsto \hat{q}(\hat{a})\hat{g}$.
-Assume that the parameter is not directly
+Assume that the parameter $\hat{g}$ is not directly
 affected by price, that occurs through $\hat{q}(\hat{a})$,
 but  only represents exogenous information outside the
 retailer's control.
@@ -305,7 +305,7 @@ number of parameters in the decision problem.
 The units at play in our system are the time and the product price,
 for example measured in weeks and \pounds.
 If $\hat{s},\hat{a}$, $\hat{t}$ denotes unscaled quantities of stock, price, and
-time respectively, we rescale them with dimensionless hat-quantities
+time respectively, we rescale them with dimensionless quantities
 \begin{align}
   s&=\frac{\hat{s}}{\hat{S}(0)},&t &=\frac{\hat{t}}{\hat{T}},
   &a &= \frac{\hat{a}}{\bar{a}}.
@@ -350,8 +350,6 @@ system starts at $S(0),G(0)=1$, and evolves according to
   \end{split}
 \end{align}
 
-
-
 \section{Formulation of the decision
   problem}\label{sec:decision_formulation}
 We restate the retailer's objective which
@@ -377,8 +375,7 @@ This profit is a random variable that depends on the event $\omega$
 or, equivalently, the path of the
 Brownian motion $W(t)$. %and the pricing policy $\alpha(t)$.
 In the context of this chapter, we assume a retailer that
-wants to maximise the expected value of profit, $\mathbb
-E[P(\alpha)]$.
+wants to maximise the expected profit $\mathbb{E}[P(\alpha)]$.
 
 Further, we restrict the product price to be in some closed  interval
 $A\subset\mathbb{R}_{\geq 0}$.
@@ -407,8 +404,9 @@ equation for the pricing problem.
 For a detailed explanation of the theory behind stochastic optimal control and
 HJB equations, see, for example, \citet{pham2009continuous}.
 The HJB equation is a nonlinear PDE, where the solution describes the
-value of being in a particular state. We do not worry about
-uniqueness of solutions to the HJB equation in this chapter. From the
+value of being in a particular state. We assume that there exists a
+solution to the HJB equation but do not worry about
+uniqueness in this chapter. From the
 value function defined below, one can
 calculate the optimal pricing function $a^*(t,s,g)$.
 
@@ -707,7 +705,7 @@ approximation to a Poisson process demand model.
   \end{figure}
 \end{example}
 
-To verify that $a^D(t,s,g)$ given by~\eqref{eq:astar_linear} indeed is
+To verify that $a^D(t,s,g)$ given by~\eqref{eq:astar_linear} is
 the solution to the deterministic
 pricing problem, we show that it satisfies the HJB equation.
 On the interior of the $(t,s,g)$-domain, $a^D(t,s,g)$ must solve
@@ -993,7 +991,7 @@ This leads us to consider an inner layer asymptotic analysis near
 the kink $\xi = \beta \tau$. Zoom in near the kink using the
 coordinates
 \begin{align}
-  x(\tau,\xi) &= (\xi-\beta \tau)/\sigma\\
+  x(\tau,\xi) &= (\xi-\beta \tau)/\sigma,\\
   \psi(\tau,\xi) &= \sigma
                    u(\tau,x(\tau,\xi)) + \delta.
 \end{align}

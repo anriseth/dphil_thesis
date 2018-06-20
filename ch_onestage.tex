@@ -41,10 +41,11 @@ We argue that the second point arises when people try to add
 randomness to a deterministic model without reconsidering the
 modelling of the problem. One can view the first point as a decision
 problem with a possibly infinite number of objectives.
-\Cref{sec:one_optim_random_outcomes,sec:one_comparison_orderings,sec:one_randomness_constraints}
+In
+\Cref{sec:one_optim_random_outcomes,sec:one_comparison_orderings,sec:one_randomness_constraints} we
 discuss common ways to model decision makers who face
 non-deterministic outcomes modelled with random variables, and
-\Cref{sec:one_multi-objective} summarises the theory of multi-objective
+in \Cref{sec:one_multi-objective} we summarise the theory of multi-objective
 optimisation.
 
 
@@ -73,7 +74,9 @@ time period.
 To calculate the profit and revenue, we need to model the product
 demands as well as the costs associated with selling the products.
 For simplicity we assume that the quantities we work with have
-been non-dimensionalised.
+been non-dimensionalised.\footnote{We illustrate the modelling and
+  non-dimensionalisation process in more detail
+  in \Cref{ch:discrete_control,ch:cts_control}.}
 Assume that the model for product demand $q(x)=(q_1(x),q_2(x),q_3(x))$
 for the three products over the time period is
 deterministic and defined by the functions
@@ -113,7 +116,7 @@ $x_3=1$.
       };
     \end{axis}
   \end{tikzpicture}
-  \caption[Demand for three products]{The sum $q_1(x)+q_2(x)+q_3(x)$ shows the demand for products one
+  \caption[Demand for three products]{The total demand $q_1(x)+q_2(x)+q_3(x)$ shows the demand for products one
     and two with $x_3=1$.
     % The model is unlikely to be valid when $x_1$ and $x_2$ tend to
     % \num{0}, as it predicts
@@ -198,8 +201,7 @@ $y\in\mathcal{Y}$ and can therefore find the optimal $x$ by optimising
 $f(\cdot,y)$.
 Say there is uncertainty in the correct value of the parameter $y$ that
 we model using a random variable
-on the Borel space of $\mathcal{Y}$, absolutely continuous with respect
-to the Lebesgue measure.
+taking values in $\mathcal{Y}$.
 For a given $x\in\mathcal{X}$, $f(x,y)$ is now a random variable.
 Thus, it is no longer straightforward to order two decisions $x_1$ and
 $x_2$ by comparing $f(x_1,y)$ to $f(x_2,y)$.
@@ -312,11 +314,9 @@ $x_1,x_2\in\mathcal{X}$ is best.
   \begin{equation}
     X\preceq Y \Leftrightarrow \mathbb{E}[u(X)] \leq \mathbb{E}[u(Y)].
   \end{equation}
+  The expectation operator $\mathbb{E}[X]$ is taken with respect to the
+  probability distribution of the random variable $X$.
 \end{mydef}
-The expectation operator $\mathbb{E}[X]$ is taken with respect to the
-probability distribution of the random variable $X$ that is derived
-from the Radon--Nikodym derivative with respect to the
-Lebesgue measure on $\mathcal{Y}$.
 
 \begin{remark}
   Utility orderings are preserved by positive affine transformations.
@@ -329,7 +329,7 @@ We can, therefore, formulate a well-defined optimisation problem by
 modelling the decision maker's attitude to risk with utility functions.
 
 \begin{problem}[Expected utility]
-  The optimal choice to maximise a given utility of $f$ is the
+  An optimal choice to maximise a given utility of $f$ is the
   solution of
   \begin{align}
     x^u=\argmax_{x\in\mathcal{X}} \mathbb{E}[u(f(x,y))].
@@ -418,7 +418,7 @@ is less strict on the properties of $\mathbb{D}$.
   different aspects of a random variable.
   If $\mathbb{D}_1,\dots,\mathbb{D}_k$ are $k$ deviation measures and
   $\lambda_i>0$, then the following
-  is also a deviation measure.
+  is also a deviation measure,
   \begin{align}
     \mathbb{D}[X]=\sum_{i=1}^k\lambda_i\mathbb{D}_i[X].
     &&\text{(Weighted deviations)}
@@ -474,9 +474,11 @@ $\rho(X) = -\mathbb{U}[X]$.
         $\mathbb{P}(\{\omega\mid X(\omega)\leq Y(\omega)\})=0$.}.
     \end{samepage}
   \end{enumerate}
+  Note that, contrary to the usual interpretation of the
+  English prefix ``non'', the linear expectation $\mathbb{E}$ also satisfies
+  the properties of a nonlinear expectation.
 \end{mydef}
-Note that the linear expectation $\mathbb{E}$ also satisfies
-the properties of a nonlinear expectation.
+
 A more restricted class of functionals called superlinear expectations
 relate to the coherent risk measures from mathematical finance.
 \begin{mydef}[Superlinear expectation]
@@ -503,10 +505,16 @@ measures are discussed by \citet{rockafellar2013fundamental}.
 
 \begin{example}[Nonlinear expectations]
   With $\lambda>0$, the functional
-  $\mathbb{U}_\lambda[X]=-\frac{1}{\lambda}\log\mathbb{E}[e^{-\lambda
-    X}]$, is called an entropic nonlinear expectation.
-  It is connected to the exponential utility function $u_\lambda$, since
-  $\mathbb{U}_\lambda[X]= u_\lambda^{-1}(\mathbb{E}[u_\lambda(X)])$.
+  \begin{equation}
+    \mathbb{U}_\lambda[X]=-\frac{1}{\lambda}\log\mathbb{E}[e^{-\lambda
+      X}]
+  \end{equation}
+  is called an entropic nonlinear expectation.
+  It is connected to the exponential utility function
+  $u_\lambda(x)=(1-e^{-\lambda x})/\lambda$, since
+  \begin{equation}
+    \mathbb{U}_\lambda[X]= u_\lambda^{-1}(\mathbb{E}[u_\lambda(X)]).
+  \end{equation}
 
   The worst-case nonlinear expectation on the sample space $\Omega$,
   defined by
@@ -549,7 +557,7 @@ measures are discussed by \citet{rockafellar2013fundamental}.
 
 
 \begin{problem}[Nonlinear expectation]
-  The optimal choice to maximise a nonlinear expectation
+  An  optimal choice to maximise a nonlinear expectation
   of $f$ is given by
   \begin{align}
     x^{\mathbb{U}}=\argmax_{x\in\mathcal{X}} \mathbb{U}[f(x,y)].
@@ -591,7 +599,7 @@ We do not state the four paradoxes here but refer the reader to
 paradoxes pick particular cases that highlight when a particular
 decision model fails. Instead of arguing for a universal model of how
 humans (ought to) behave, we argue that we should assess which models
-are suitable for each type of problem we address.
+are suitable for each type of decision problem we address.
 
 
 \section{Different approaches lead to the same decision}\label{sec:one_comparison_orderings}
@@ -602,6 +610,11 @@ as the expected utility or nonlinear expectation methods?
 In this section we argue that there are cases where they do,
 focusing on the mean and standard deviation, exponential
 utility, and lower super-quantile.
+Our purpose is to highlight that one should investigate the structure of
+a problem and choose among the computationally tractable options based
+on their practical implications instead of solely focusing on
+theoretical properties of the different formulations.
+
 
 The exponential utility and lower super-quantile are often more costly
 to compute or approximate than the mean and variance, and require a
@@ -639,7 +652,7 @@ variance, and then argue that the units of these objects do not
 coincide.
 
 \subsection{Equivalence for the normal distribution}
-If $f(x,y)$ is normally distributed for each value of
+Fix the random variable $y$. If $f(x,y)$ is normally distributed for each value of
 $x\in\mathcal{X}$, then the properties of the random variable are fully
 described by the mean and variance functions $x\mapsto
 \mathbb{E}[f(x,y)]$ and $x\mapsto \mbox{Var}[f(x,y)]$. This
@@ -727,7 +740,8 @@ can be used to model the risk-preferences of a particular decision maker.
 \Cref{fig:util_meandev_2d} shows the result of such an investigation,
 and for the particular example considered the differences are small.
 In general, it is likely to be examples where the choice of
-optimisation formulation matters for the decision. The purpose of this
+optimisation formulation matters for the decision. We remind the
+reader that the purpose of this
 section is to highlight that one should investigate the structure of
 a problem and choose among the computationally tractable options based
 on their practical implications instead of solely focusing on
@@ -759,7 +773,7 @@ theoretical properties of the different formulations.
   introducing larger costs and implementational complexity.
 
   We solve the optimisation problems in~\eqref{eq:min_xmd_xeu_xsq} with
-  uniformly spaced values $\mu\in[0,104]$ and $\gamma\in[1/100, 1]$.
+  uniformly spaced  values \linebreak[4] $\mu\in[0,104]$ and $\gamma\in[1/100, 1]$.
   The numerical approximations to these problems have been implemented
   using the Julia programming language \citep{bezanson2017julia}.
   For the inner optimisation problems~\eqref{eq:optim_formulations_md}
@@ -785,10 +799,13 @@ theoretical properties of the different formulations.
     \begin{subfigure}[t]{.5\textwidth}
       \includegraphics[width=\textwidth,axisratio=1.3]{util_meandev_3d_l}
     \end{subfigure}
-    \caption[Comparison between two decision maker models]{The left plot shows the difference between the decision made
+    \caption[Comparison between two decision maker models]{The left
+      plot shows the relative difference between the decision made
       by the mean-deviation and exponential utility methods defined
-      in~\eqref{eq:optim_formulations_md} to~\eqref{eq:optim_formulations_sq}, using the corresponding
+      in~\eqref{eq:optim_formulations_md}
+      to~\eqref{eq:optim_formulations_sq}, using the corresponding
       $(\mu,\lambda)$-pairs from the right plot.
+      The values are obtained by solving~\eqref{eq:min_xmd_xeu_xsq}.
       % The discontinuity in the left plot corresponds to an abrupt
       % change in $x^\mu$.%, and the corresponding $\lambda$ actually
       % drops slightly, although this is not visible.
@@ -803,10 +820,13 @@ theoretical properties of the different formulations.
     \begin{subfigure}[t]{.5\textwidth}
       \includegraphics[width=\textwidth,axisratio=1.3]{cvar_meandev_3d_l}
     \end{subfigure}
-    \caption[Comparison between two decision maker models]{The left plot shows the difference between the decision made
+    \caption[Comparison between two decision maker models]{The left
+      plot shows the relative difference between the decision made
       from the mean-deviation and super-quantile methods defined
-      in~\eqref{eq:optim_formulations_md} to~\eqref{eq:optim_formulations_sq}, using the corresponding
+      in~\eqref{eq:optim_formulations_md}
+      to~\eqref{eq:optim_formulations_sq}, using the corresponding
       $(\gamma,\lambda)$-pairs from the right plot.
+      The values are obtained by solving~\eqref{eq:min_xmd_xeu_xsq}.
     }\label{fig:cvar_meandev_2d}
   \end{figure}
 \end{example}
@@ -835,7 +855,7 @@ not defined at the time of the decision but depends on future knowledge
 of the parameter.
 
 In the engineering community, it is popular to
-reinterpret non-deterministic ``constraints'' as deterministic via
+reinterpret such non-deterministic ``constraints'' as deterministic via
 expected utilities, mean-deviation methods or nonlinear
 expectations
 \citep{rockafellar2007coherent,rockafellar2015engineering}.
@@ -899,7 +919,7 @@ for example, \citet{jahn2011vector}.
 
 Relevant concepts for multi-objective optimisation are defined in
 \Cref{sec:multi_terminology}.  The main contribution from this section
-is a software package that lets users formulate
+is a software package named MultiJuMP that lets users formulate
 multi-objective optimisation problems.  An example in
 \Cref{sec:one_multijump} shows how it is used to create the data for
 the figures in this section.  The package approximates the Pareto
@@ -922,24 +942,10 @@ objectives can be made by combining the objectives' utilities.
 A key concept for multi-objective optimisation is the partial
 ordering of outcomes known as Pareto dominance. If a decision leads to
 an outcome that is not dominated by any other feasible outcome, it is
-optimal in the Pareto sense.
-\begin{mydef}[Pareto optimality]
-  A point $x\in\mathcal{X}$ is Pareto optimal for the problem
-  \begin{equation}
-    \min_{x\in\mathcal{X}}\{f_1(x),\dots,f_m(x)\}
-  \end{equation}
-  if there is no
-  $x^*\in\mathcal{X}$ such that
-  \begin{align}
-    f_i(x^*)&\leq f_i(x) &&\text{ for all } i = 1,\dots,m, \text{ and}\\
-    f_j(x^*)&<f_j(x) &&\text{ for at least one } j \in \{1,\dots,m\}.
-  \end{align}
-\end{mydef}
-Pareto optimality, therefore, means that we cannot decrease the value of
-one objective without increasing another.
-The point $x$ is locally Pareto optimal if it is Pareto optimal in
-some neighbourhood around $x$. \Cref{fig:pareto_local_disconnected}
-shows an example of both Pareto and locally Pareto optimal points.
+optimal in the Pareto sense. \Cref{fig:multi_map} and
+\Cref{fig:pareto_local_disconnected} provide visual representations of
+the multi-objective concepts for two-dimensional problems
+$F:\mathcal{X}\to\mathbb{R}^2$.
 
 \begin{figure}[htbp]
   \centering
@@ -974,6 +980,61 @@ shows an example of both Pareto and locally Pareto optimal points.
     image $F(\mathcal{X})$.
   }\label{fig:multi_map}
 \end{figure}
+\begin{figure}[hbtp]
+  \centering
+  \begin{tikzpicture}
+    \begin{axis}[width=0.6\textwidth, axis equal image,
+      xlabel=$f_1$,
+      ylabel=$f_2$,
+      domain=0.4:4.6,
+      ]
+      \addplot [samples=50,name path=A,domain=0.4:4.6,blue,draw opacity=0.1]
+      {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+      \path [name path=B]
+      (0.4,3.45) -- (4.6,3.45);
+      % (\pgfkeysvalueof{/pgfplots/xmin},\pgfkeysvalueof{/pgfplots/ymax}) --
+      % (\pgfkeysvalueof{/pgfplots/xmax},\pgfkeysvalueof{/pgfplots/ymax});
+      \addplot [blue, fill opacity = 0.1] fill between [of=A and B, soft clip={domain=0.4:4.6}] ;
+      \addplot[mark=none, domain=0.4:1.55, ultra thick]
+      {5*exp(-x)+2*exp(-0.5*(x-3)^2)}
+      node[pos=0.8, pin={[black]-100:Pareto}]{};
+      \addplot[mark=none, domain=3.65:4.6, ultra thick]
+      {5*exp(-x)+2*exp(-0.5*(x-3)^2)}
+      node[pos=0.6, pin={[black]-160:Pareto}]{};
+      \addplot[mark=none,domain=2.825:3.65,dashed, thick]
+      {5*exp(-x)+2*exp(-0.5*(x-3)^2)}
+      node[pos=0.4, pin={[black, pin edge={solid}]90:Locally
+        Pareto}]{};
+      \node [] at (axis cs:1.5,3) {$F(\mathcal{X})$};
+    \end{axis}
+  \end{tikzpicture}
+  \caption[A disconnected Pareto front]{A disconnected Pareto front of a continuous function $F$
+    that also admits locally Pareto optimal points.
+  }\label{fig:pareto_local_disconnected}
+\end{figure}
+
+\begin{mydef}[Pareto optimality]
+  A point $x\in\mathcal{X}$ is Pareto optimal for the problem
+  \begin{equation}
+    \min_{x\in\mathcal{X}}\{f_1(x),\dots,f_m(x)\}
+  \end{equation}
+  if there is no
+  $x^*\in\mathcal{X}$ such that
+  \begin{align}
+    f_i(x^*)&\leq f_i(x) &&\text{ for all } i = 1,\dots,m, \text{ and}\\
+    f_j(x^*)&<f_j(x) &&\text{ for at least one } j \in \{1,\dots,m\}.
+  \end{align}
+\end{mydef}
+Pareto optimality, therefore, means that we cannot decrease the value of
+one objective without increasing another.
+The point $x$ is locally Pareto optimal if it is Pareto optimal in
+some neighbourhood around $x$. As such, a Pareto point is also a local
+Pareto point, but the converse is not necessarily
+true. \Cref{fig:pareto_local_disconnected}
+shows an example of both Pareto and locally Pareto optimal points.
+
+
+
 \begin{mydef}[Pareto front]
   Define $F(x) = (f_1(x),\dots,f_m(x))$.
   The Pareto front, or efficient frontier $\mathcal{P}\subset
@@ -984,45 +1045,6 @@ shows an example of both Pareto and locally Pareto optimal points.
   \end{align}
 \end{mydef}
 
-\begin{example}[Two-dimensional Pareto front]
-  \Cref{fig:multi_map} and \Cref{fig:pareto_local_disconnected}
-  provide visual representations of the
-  multi-objective concepts for two-dimensional problems
-  $F:\mathcal{X}\to\mathbb{R}^2$.
-
-  \begin{figure}[htb]
-    \centering
-    \begin{tikzpicture}
-      \begin{axis}[width=0.6\textwidth, axis equal image,
-        xlabel=$f_1$,
-        ylabel=$f_2$,
-        domain=0.4:4.6,
-        ]
-        \addplot [samples=50,name path=A,domain=0.4:4.6,blue,draw opacity=0.1]
-        {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
-        \path [name path=B]
-        (0.4,3.45) -- (4.6,3.45);
-        % (\pgfkeysvalueof{/pgfplots/xmin},\pgfkeysvalueof{/pgfplots/ymax}) --
-        % (\pgfkeysvalueof{/pgfplots/xmax},\pgfkeysvalueof{/pgfplots/ymax});
-        \addplot [blue, fill opacity = 0.1] fill between [of=A and B, soft clip={domain=0.4:4.6}] ;
-        \addplot[mark=none, domain=0.4:1.55, ultra thick]
-        {5*exp(-x)+2*exp(-0.5*(x-3)^2)}
-        node[pos=0.8, pin={[black]-100:Pareto}]{};
-        \addplot[mark=none, domain=3.65:4.6, ultra thick]
-        {5*exp(-x)+2*exp(-0.5*(x-3)^2)}
-        node[pos=0.6, pin={[black]-160:Pareto}]{};
-        \addplot[mark=none,domain=2.825:3.65,dashed, thick]
-        {5*exp(-x)+2*exp(-0.5*(x-3)^2)}
-        node[pos=0.4, pin={[black, pin edge={solid}]90:Locally
-          Pareto}]{};
-        \node [] at (axis cs:1.5,3) {$F(\mathcal{X})$};
-      \end{axis}
-    \end{tikzpicture}
-    \caption[A disconnected Pareto front]{A disconnected Pareto front of a continuous function $F$
-      that also admits locally Pareto optimal points.
-    }\label{fig:pareto_local_disconnected}
-  \end{figure}
-\end{example}
 
 
 
@@ -1052,7 +1074,10 @@ shows an example of both Pareto and locally Pareto optimal points.
           ytick = {0,0.04,0.08,0.12},
           yticklabels = {0,0.04,0.08,0.12},
           ]
-          \addplot[thick] table {./data/pareto_std_prof_3_nbi.dat};
+          \addplot[thick, name path=A] table {./data/pareto_std_prof_3_nbi.dat};
+          \path [name path=B]
+          (0,0) -- (0.010315778171513777, 0);
+          \addplot [blue, fill opacity = 0.1] fill between [of=A and B];
         \end{axis}
       \end{tikzpicture}
     \end{subfigure}%
@@ -1066,7 +1091,10 @@ shows an example of both Pareto and locally Pareto optimal points.
           ytick = {-0.05,0,0.05,0.10,0.15},
           yticklabels = {-0.05,0,0.05,0.10,0.15},
           ]
-          \addplot[thick] table {./data/pareto_prof_rev_nbi.dat};
+          \addplot[thick, name path=A] table {./data/pareto_prof_rev_nbi.dat};
+          \path [name path=B]
+          (0.32641909158288274, -0.06495390495848799) -- (0.475009911450716, -0.06495390495848799);
+          \addplot [blue, fill opacity = 0.1] fill between [of=A and B];
         \end{axis}
       \end{tikzpicture}
     \end{subfigure}
@@ -1075,7 +1103,7 @@ shows an example of both Pareto and locally Pareto optimal points.
       objectives. The left figure compares the expected profit of three
       products, compared to the standard deviation of profit.
       On the right, one can see the trade-offs that are made between
-      a risk-neutral profit maximisation and a revenue maximisation.
+      an expected profit maximisation and a revenue maximisation.
       The code used to generate the left Pareto front is given in
       \Cref{lst:multijump} later in the chapter.
     }\label{fig:pareto_std_prof_rev}
@@ -1111,7 +1139,7 @@ Algorithms for approximating the Pareto front
 often make use of particular points describing extremal
 values of the objectives.
 \begin{mydef}
-  Denote by $\underline{x_i}$ the individual minimiser of $f_i$, and
+  Denote by $\underline{x_i}$ an individual minimiser of $f_i$, and
   set $\underline{f_i}=f_i(\underline {x_i})$.
   The point $\underline{F}=(\underline{f_1},\dots,\underline{f_m})$
   is the vector containing all individual minima.
@@ -1142,11 +1170,12 @@ values of the objectives.
 \subsection{Approximating the Pareto front}\label{sec:multi_pareto_front}
 The Pareto front contains all the information about the trade-offs between the
 objectives. A decision $x$ to the multi-objective problem
-should be a Pareto optimal point, so the
+should be a Pareto optimal point, so the generic
 optimisation problem becomes one of searching over the set
 $\mathcal{P}$ of co-dimension one. If $\mathcal{X}$ or the objectives are non-convex,
-$\mathcal{P}$ can have non-convex regions and be
-disconnected.
+$\mathcal{P}$ can have non-convex regions. For some problems,
+$\mathcal{P}$ can be disconnected, as is illustrated in
+\Cref{fig:pareto_local_disconnected}.
 There are several ways to approximate the Pareto front. The simplest
 methods use a weighted sum or vary constraints on the objectives.
 
@@ -1163,6 +1192,7 @@ objective. By varying $\lambda$  we may find new points on the Pareto front.
 This approach often works better if the objectives are normalised by the
 mapping $f_i\leftarrow (f_i-\underline
 {f_i})/(\overline{f_i}-\underline{f_i})$.
+
 There are two major problems with the weighted sum approach. First,
 it cannot find Pareto points on non-convex parts of the Pareto
 front \citep{messac2000aggregate}.
@@ -1255,12 +1285,17 @@ formulation makes use of the convex hull of the individual minima
           xlabel=$f_1$,
           ylabel=$f_2$,
           ]
-          \addplot[only marks, mark size=0.6] table
-          {./data/pareto_disconnected_nbi_eq.dat};
+          \addplot [samples=50,name path=A,domain=0:5,blue,draw opacity=0.1]
+          {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+          \path [name path=B]
+          (0,5.022) -- (5,5.022);
+          \addplot [blue, fill opacity = 0.1] fill between [of=A and B, soft clip={domain=0:5}];
           \addplot[mark=none, domain=0:1.55, orange]
           {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
           \addplot[mark=none, domain=3.65:5, orange]
           {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+          \addplot[only marks, mark size=0.6] table
+          {./data/pareto_disconnected_nbi_eq.dat};
         \end{axis}
       \end{tikzpicture}
       \caption{NBI}\label{fig:pareto_disconnected_nbi_eq}
@@ -1271,6 +1306,11 @@ formulation makes use of the convex hull of the individual minima
           xlabel=$f_1$,
           ylabel=$f_2$,
           ]
+          \addplot [samples=50,name path=A,domain=0:5,blue,draw opacity=0.1]
+          {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+          \path [name path=B]
+          (0,5.022) -- (5,5.022);
+          \addplot [blue, fill opacity = 0.1] fill between [of=A and B, soft clip={domain=0:5}];
           \addplot[mark=none, domain=0:1.55, orange]
           {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
           \addplot[mark=none, domain=3.65:5, orange]
@@ -1287,6 +1327,11 @@ formulation makes use of the convex hull of the individual minima
           xlabel=$f_1$,
           ylabel=$f_2$,
           ]
+          \addplot [samples=50,name path=A,domain=0:5,blue,draw opacity=0.1]
+          {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+          \path [name path=B]
+          (0,5.022) -- (5,5.022);
+          \addplot [blue, fill opacity = 0.1] fill between [of=A and B, soft clip={domain=0:5}];
           \addplot[mark=none, domain=0:1.55, orange]
           {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
           \addplot[mark=none, domain=3.65:5, orange]
@@ -1316,7 +1361,7 @@ formulation makes use of the convex hull of the individual minima
   locally Pareto optimal. This is because the underlying optimisation
   algorithm for each sub-problem finds local solutions
   to~\eqref{eq:pareto_constraint_method}.
-  NBI provides a uniform spread that gives us the most
+  The NBI method provides a uniform spread that gives us the most
   information for the same number of sub-problem optimisations,
   however, it also produces some points that are not locally
   Pareto optimal.
@@ -1349,6 +1394,11 @@ locally optimal points.
         xlabel=$f_1$,
         ylabel=$f_2$,
         ]
+        \addplot [samples=50,name path=A,domain=0:5,blue,draw opacity=0.1]
+        {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
+        \path [name path=B]
+        (0,5.022) -- (5,5.022);
+        \addplot [blue, fill opacity = 0.1] fill between [of=A and B, soft clip={domain=0:5}];
         \addplot[mark=none, domain=0:1.55, orange]
         {5*exp(-x)+2*exp(-0.5*(x-3)^2)};
         \addplot[mark=none, domain=3.65:5, orange]
@@ -1378,8 +1428,8 @@ The NBI extension implemented in the package MultiJuMP, described in
 border of disconnected components of the Pareto front, as illustrated
 in \Cref{fig:pareto_disconnected_nbi_ineq}.
 \citet{eichfelder2009adaptive} has devised an adaptive algorithm based
-on Pascoletti-Serafini scalarization that can better handle non-convex
-and disconnected Pareto fronts.
+on Pascoletti-Serafini scalarization that can handle non-convex
+and disconnected Pareto fronts better the algorithms presented here.
 
 
 
@@ -1446,7 +1496,7 @@ multi-objective optimisation problems involving randomness.
 
 \subsection{Approximating Pareto fronts with
   MultiJuMP}\label{sec:one_multijump}
-As part of the work on multi-objective optimisation, I have created a
+As part of the work on multi-objective optimisation, we have created a
 software package called MultiJuMP.  It is available online at
 \url{https://github.com/anriseth/MultiJuMP.jl.git}.  MultiJuMP
 approximates Pareto fronts in a numerical solver-independent
