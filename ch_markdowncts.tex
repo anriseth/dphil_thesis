@@ -466,16 +466,15 @@ It follows that
 with equality achieved for a maximiser $\alpha^*\in\mathcal{A}$.
 Consider an arbitrary $\alpha\in\mathcal{A}$ and let $a=\alpha(t)\in
 A$ denote its value at time $t$.
-We have the following Taylor-expansion of the
-integrand $\alpha(u)q(\alpha(u))G(u)$.
+We have the following Taylor-expansion of the expectation of the
+integral of $\alpha(u)q(\alpha(u))G(u)$.
 \begin{equation}
   \mathbb{E}_{t}\left[
     \int_t^{t+\Delta{t}}
     \alpha(u)q(\alpha(u))G(u)\,du\right]
   = \Delta{t}\,aq(a)g  + \mathcal{O}({\Delta{t}}^2)
 \end{equation}
-By It\^{o}'s lemma \citep[Ch.~1]{pham2009continuous}, a
-generalisation of the fundamental theorem of calculus, we know that
+By It\^{o}'s lemma \citep[Ch.~1]{pham2009continuous}, we know that
 \begin{align}
   \mathbb{E}_t[v^{(\Delta{t})}]-v(t,s,g)
   &= \mathbb{E}_t  \int_t^{t+\Delta{t}}
