@@ -421,11 +421,11 @@ show that
 \begin{align}\label{eq:okrylov_2}
   \OKrylov{k}{x}
   &=
-    \mbox{span}\{x-x^{(k)},x^{(k-1)},\dots,x^{(2)}-x^{(1)}\},\\
+    \mbox{span}\{x-x^{(k)},x^{(k)}-x^{(k-1)},\dots,x^{(2)}-x^{(1)}\},\\
     % &\textnormal{and}\\
   x+\OKrylov{k}{x}
   &= x^{(1)} +
-    \mbox{span}\{x-x^{(k)},x^{(k-1)},\dots,x^{(2)}-x^{(1)}\}.
+    \mbox{span}\{x-x^{(k)},x^{(k)}-x^{(k-1)},\dots,x^{(2)}-x^{(1)}\}.
     \label{eq:x_okrylov_2}
 \end{align}
 This motivates the next lemma, which connects the space on the right
@@ -433,7 +433,7 @@ hand side of~\eqref{eq:okrylov_2} to $\Krylov{k+1}$.
 \begin{lemma}\label{lem:fom_xp}
   Let $x^{(1)},\dots,x^{(k)}$ be a given sequence of FOM iterates for
   a linear system $Ax=b$.  Assume that
-  $\mbox{span}(x^{(k)}-x^{(k-1)},\dots,x^{(2)}-x^{(1)})=\Krylov{k}$,
+  $\mbox{span}{x^{(k)}-x^{(k-1)},\dots,x^{(2)}-x^{(1)}}=\Krylov{k}$,
   and let $x^P = x^{(k)}+\lambda r^{(k)}$ for some $\lambda>0$.  Then,
   \begin{equation}
     \mbox{span}\{x^P-x^{(k)},x^{(k)}-x^{(k-1)},\dots,x^{(2)}-x^{(1)}\}
@@ -1008,6 +1008,19 @@ package Optim. To be sure, we have also verified
 that the Optim code yields the same results as the MATLAB code for
 Problems A--G.
 
+\begin{figure}[htb]
+  \centering
+  \begin{minipage}{0.499\textwidth}
+    \includegraphics[width=\textwidth,axisratio=1.5]{perf_prof_cutest_all}
+  \end{minipage}%
+  \begin{minipage}{0.499\textwidth}
+    \includegraphics[width=\textwidth,axisratio=1.5]{perf_prof_cutest_nsd}
+  \end{minipage}
+  \caption[Performance profiles for the CUTEst test problems]{Performance profiles for the CUTEst test problems from
+    \Cref{tbl:cutest_table1,tbl:cutest_table2}.  L-BFGS is the highest
+    performing most of the time, however, O-ACCEL-B reaches tolerance
+    for more problems.}\label{fig:perf_prof_cutest}
+\end{figure}
 The \num{33} problems we consider are listed in
 \Cref{tbl:cutest_table1,tbl:cutest_table2} of \Cref{sec:objacc_tables} together
 with the results of the numerical experiment.  We selected the
@@ -1026,19 +1039,6 @@ of the steepest descent preconditioner on these problems.  Again,
 O-ACCEL-B performs better than N-GMRES-B, which underscores our claim
 that accelerating based on the objective function is better than
 accelerating based on the gradient norm.
-\begin{figure}[htb]
-  \centering
-  \begin{minipage}{0.499\textwidth}
-    \includegraphics[width=\textwidth,axisratio=1.5]{perf_prof_cutest_all}
-  \end{minipage}%
-  \begin{minipage}{0.499\textwidth}
-    \includegraphics[width=\textwidth,axisratio=1.5]{perf_prof_cutest_nsd}
-  \end{minipage}
-  \caption[Performance profiles for the CUTEst test problems]{Performance profiles for the CUTEst test problems from
-    \Cref{tbl:cutest_table1,tbl:cutest_table2}.  L-BFGS is the highest
-    performing most of the time, however, O-ACCEL-B reaches tolerance
-    for more problems.}\label{fig:perf_prof_cutest}
-\end{figure}
 
 \section{Discussion}\label{sec:accel_conclusion}
 We have proposed a simple acceleration algorithm for optimisation,
@@ -1170,7 +1170,7 @@ tables is the infinity norm.
     S[table-auto-round,table-format=4]}
     }
     \toprule
-    Algorithm
+    \multirow{2}{*}{Algorithm}
     &\multicolumn{3}{c}{B, $n=100$}
     &\multicolumn{3}{c}{B, $n=200$}\\
     \cmidrule(lr){2-4}\cmidrule(lr){5-7}
@@ -1193,7 +1193,7 @@ tables is the infinity norm.
     S[table-auto-round,table-format=4]}
     }
     \toprule
-    Algorithm
+    \multirow{2}{*}{Algorithm}
     &\multicolumn{3}{c}{C, $n=100$}
     &\multicolumn{3}{c}{C, $n=200$}\\
     \cmidrule(lr){2-4}\cmidrule(lr){5-7}
@@ -1211,8 +1211,9 @@ tables is the infinity norm.
   \end{tabular}
   \caption[Quantiles reporting $\Obj$ evaluations to reach
     tolerance in Problems A--C]{Quantiles reporting $\Obj$ evaluations to reach
-    tolerance for each solver. Grey rows highlight the solver with the
-    best \num{0.5} qauntile.
+    tolerance for each solver on test problems A--C from
+    \Cref{subsec:test_problems_sterck}. Grey rows highlight the solver with the
+    best \num{0.5} quantile.
     L-BFGS performs best for these easier problems.  In Problem A, the L-BFGS and
     O-ACCEL performance measures are so similar that the quantiles are
     the same.}\label{tbl:probAC}
@@ -1227,7 +1228,7 @@ tables is the infinity norm.
     S[table-auto-round,table-format=4]}
     }
     \toprule
-    Algorithm
+    \multirow{2}{*}{Algorithm}
     &\multicolumn{3}{c}{D, $n=500$}
     &\multicolumn{3}{c}{D, $n=1000$}\\
     \cmidrule(lr){2-4}\cmidrule(lr){5-7}
@@ -1242,7 +1243,7 @@ tables is the infinity norm.
     N-GMRES-B&141.0&163.0&193.0&142.0&167.0&193.0\\
     N-GMRES-A&284.0&349.0&508.0&290.0&349.0&470.5\\
     \midrule
-    Algorithm
+    \multirow{2}{*}{Algorithm}
     &\multicolumn{3}{c}{D, $n=50000$}
     &\multicolumn{3}{c}{D, $n=100000$}\\
     \cmidrule(lr){2-4}\cmidrule(lr){5-7}
@@ -1260,8 +1261,9 @@ tables is the infinity norm.
   \end{tabular}
   \caption[Quantiles reporting $\Obj$ evaluations to reach
     tolerance in Problem D]{Quantiles reporting $\Obj$ evaluations to reach
-    tolerance for each solver. Grey rows highlight the solver with the
-    best \num{0.5} qauntile.
+    tolerance for each solver on test problem D from
+    \Cref{subsec:test_problems_sterck}. Grey rows highlight the solver with the
+    best \num{0.5} quantile.
     O-ACCEL-B handles Problem D best.}\label{tbl:probD}
 \end{table}
 
@@ -1273,7 +1275,7 @@ tables is the infinity norm.
     S[table-auto-round,table-format=4]}
     }
     \toprule
-    Algorithm
+    \multirow{2}{*}{Algorithm}
     &\multicolumn{3}{c}{E, $n=100$}
     &\multicolumn{3}{c}{E, $n=200$}\\
     \cmidrule(lr){2-4}\cmidrule(lr){5-7}
@@ -1288,7 +1290,7 @@ tables is the infinity norm.
     N-GMRES-B&231.5&267.0&330.0&235.0&268.0&337.5\\
     N-GMRES-A&280.0&332.0&395.0&284.0&335.0&401.0\\
     \midrule
-    Algorithm
+    \multirow{2}{*}{Algorithm}
     &\multicolumn{3}{c}{E, $n=50000$}
     &\multicolumn{3}{c}{E, $n=100000$}\\
     \cmidrule(lr){2-4}\cmidrule(lr){5-7}
@@ -1311,7 +1313,7 @@ tables is the infinity norm.
     S[table-auto-round,table-format=4]}
     }
     \toprule
-    Algorithm
+    \multirow{2}{*}{Algorithm}
     &\multicolumn{3}{c}{F, $n=200$}
     &\multicolumn{3}{c}{F, $n=500$}\\
     \cmidrule(lr){2-4}\cmidrule(lr){5-7}
@@ -1335,7 +1337,7 @@ tables is the infinity norm.
     S[table-auto-round,table-format=4]}
     }
     \toprule
-    Algorithm
+    \multirow{2}{*}{Algorithm}
     &\multicolumn{3}{c}{G, $n=100$}
     &\multicolumn{3}{c}{G, $n=200$}\\
     \cmidrule(lr){2-4}\cmidrule(lr){5-7}
@@ -1353,8 +1355,9 @@ tables is the infinity norm.
   \end{tabular}
   \caption[Quantiles reporting $\Obj$ evaluations to reach
     tolerance in Problems E--G]{Quantiles reporting $\Obj$ evaluations to reach
-    tolerance for each solver. Grey rows highlight the solver with the
-    best \num{0.5} qauntile.
+    tolerance for each solver on test problems E--G from
+    \Cref{subsec:test_problems_sterck}. Grey rows highlight the solver
+    with the best \num{0.5} quantile.
     N-GMRES performs best at the median range for two problems,
     however it is less robust as can be seen from the upper quantile.
   }\label{tbl:probEG}
