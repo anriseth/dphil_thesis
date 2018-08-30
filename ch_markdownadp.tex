@@ -412,16 +412,16 @@ Bellman equation from now on.
 \subsection{A one-product example system}\label{subsec:bellman_example_markdown}
 In order to investigate the optimal pricing of a specific system, we
 choose to look at a family of commonly used demand functions of the form
-$q(a)=q_1e^{-q_2a}$, where $q_1,q_2>0$. For a discussion
+$q(a)=q^{(1)}e^{-q^{(2)}a}$, where $q^{(1)},q^{(2)}>0$. For a discussion
 about their properties and usage in modelling demand, see~\citet[Ch.~7]{talluri2006theory}.
 All the numerical experiments in this chapter use this family of exponential
 demand functions, with price constraint interval $A=[0,1]$.
 In the current section, and in
 \Cref{fig:markdown_bellman,fig:bellman_simulation,fig:bellman_det_policy_difference,fig:bellman_det_vals},
-we consider a particular choice  $q_1=e^2/3$ and $q_2=3$ so that the demand
+we consider a particular choice  $q^{(1)}=e^2/3$ and $q^{(2)}=3$ so that the demand
 function is given by $q(a)=\frac{1}{3}e^{2-3a}$.
 In \Cref{fig:profit_diff_heatmaps} and \Cref{tbl:paramcomparisons} a larger
-range of values for $q_1,q_2$ are considered.
+range of values for $q^{(1)},q^{(2)}$ are considered.
 
 We assume the exogenous disturbance process is a sequence of
 shifted, independent and identically Beta-distributed random
@@ -611,10 +611,10 @@ problem calculates the current price using the following steps:
   \item Take a best estimate $w_{t+1},\dots,w_T$ of ${(W_\tau)}_{t+1}^T$.
   \item Solve the optimisation problem
     \begin{equation}\label{eq:cec_optim_problem}
-      \max_{\mathbf a\in A^{T-t}}\left\{\sum_{\tau=t}^{T-1}\mathbf
-        a_\tau Q(S_\tau^{\mathbf a},\mathbf
-        a_\tau,w_{\tau+1})-CS_T^{\mathbf a}\right\},
-      \quad \text{s.t.}\quad S_t^{\mathbf a}=s,
+      \max_{\mathbf{a}\in A^{T-t}}\left\{\sum_{\tau=t}^{T-1}\mathbf{a}_\tau
+         Q(S_\tau^{\mathbf{a}},\mathbf{a}_\tau
+        ,w_{\tau+1})-CS_T^{\mathbf{a}}\right\},
+      \quad \text{s.t.}\quad S_t^{\mathbf{a}}=s,
     \end{equation}
     where $A^{T-t}$ is the $(T-t)$ times Cartesian product $A\times
     \cdots\times A$.
@@ -635,14 +635,18 @@ Then we can rewrite the maximisation problem to find
 the certainty equivalent value function,
 \begin{equation}
   \widetilde{v}(t,s)=
-  \max_{\mathbf a\in A^{T-t}}\left\{\sum_{\tau=t}^{T-1}(\mathbf
-    a_\tau+C)\min\left(s-\sum_{r=t}^{\tau-1}q(\mathbf a_r),q(\mathbf a_\tau)\right)-Cs\right\}.
-  % \quad \text{s.t.}\quad \sum_{\tau=t}^{T-1}q(\mathbf a_t)\leq s.
+  \max_{\mathbf{a}\in A^{T-t}}\left\{\sum_{\tau=t}^{T-1}(\mathbf{a}_\tau
+    +C)\min\left(s-\sum_{r=t}^{\tau-1}q(\mathbf{a}_r),q(\mathbf{a}_\tau)\right)-Cs\right\}.
+  % \quad \text{s.t.}\quad \sum_{\tau=t}^{T-1}q(\mathbf{a}_t)\leq s.
 \end{equation}
-The optimal choice here is to let $\mathbf a_\tau=a^*\in A$ for each
+The optimal choice here is to let $\mathbf{a}_\tau=a^*\in A$ for each
 $\tau$, such that the same amount of stock is forecast to be sold in
-each period.
-Then, $a^*=a^C(t,s)$ is given by the policy function
+each period. The optimality of a constant-in-time price follows from the Hotelling
+rule, due to \citet{hotelling1931economics}, which states that the
+price of an exhaustible resource must
+grow at a rate equal to the rate of interest. In our case the rate of
+interest is zero, and thus the price is constant.
+The optimal price $a^*=a^C(t,s)$ is given by the policy function
 \begin{equation}
   a^C(t,s)=\argmax_{a\in A} \left\{(a+C)\min\left(
       \frac{s}{T-t},q(a)
@@ -652,19 +656,19 @@ Then, $a^*=a^C(t,s)$ is given by the policy function
 Let $\mathcal{P}_A$ be the projection operator from $\mathbb{R}$ onto the interval $A$.
 % Let us consider two families of demand functions that are
 % popular in the literature, see for example~\citet[Ch.~7]{talluri2006theory}.
-% If $q$ is of the form $a\mapsto q_1-q_2a$, with $q_1,q_2> 0$, then
+% If $q$ is of the form $a\mapsto q^{(1)}-q^{(2)}a$, with $q^{(1)},q^{(2)}> 0$, then
 % the optimal policy $\alpha_t=a^C(t,S_t^\alpha)$ for the deterministic
 % problem is given by the function
 % \begin{equation}
 %   a^C(t,s)=\mathcal{P}_A \left[ \max\left(
-%       \frac{q_1}{q_2}-\frac{s}{q_2(T-t)},\frac{1}{2}\left(\frac{q_1}{q_2}-C
+%       \frac{q^{(1)}}{q^{(2)}}-\frac{s}{q^{(2)}(T-t)},\frac{1}{2}\left(\frac{q^{(1)}}{q^{(2)}}-C
 %       \right) \right) \right].
 % \end{equation}
-In the case when $q(a)=q_1e^{-q_2a}$, the policy function is
+In the case when $q(a)=q^{(1)}e^{-q^{(2)}a}$, the policy function is
 \begin{equation}\label{eq:cec_policy}
   a^C(t,s)=\mathcal{P}_A\left[
-    \max\left( \frac{1}{q_2}\log\left( \frac{q_1(T-t)}{s}\right),
-      \frac{1}{q_2}-C  \right)\right].
+    \max\left( \frac{1}{q^{(2)}}\log\left( \frac{q^{(1)}(T-t)}{s}\right),
+      \frac{1}{q^{(2)}}-C  \right)\right].
 \end{equation}
 We start with investigating policy functions for a
 single combination of the  system
@@ -675,8 +679,8 @@ range of parameters in \Cref{sec:parameter_comparison}.
 \subsubsection{Example system}\label{subsec:cec_comparison_example}
 The example system in \Cref{subsec:bellman_example_markdown}
 has a demand
-function of the form $q(a)=q_1e^{-q_2a}$, where $q_1=e^2/3$,
-$q_2=3$, $\gamma = 0.05$, and $C=1$. We can therefore
+function of the form $q(a)=q^{(1)}e^{-q^{(2)}a}$, where $q^{(1)}=e^2/3$,
+$q^{(2)}=3$, $\gamma = 0.05$, and $C=1$. We can therefore
 compare the optimal Bellman policy with the
 pricing policy that the CEC algorithm above implies.
 Denote the Bellman policy function by $a^B$ and the CEC policy
@@ -759,8 +763,8 @@ We remind the reader that
 $P(\alpha) =
 \sum_{t=0}^{T-1}\alpha_tQ(S_t^\alpha,\alpha_t,W_{t+1})-CS_T^\alpha$.
 From the optimality of the Bellman policy function, we must have
-that $\mathbb{E}_W[P(\alpha^B)]\geq \mathbb
-E_W[P(\alpha^C)]$, although in our case violations of this result can
+that $\mathbb{E}_W[P(\alpha^B)]\geq \mathbb{E}_W[P(\alpha^C)]$,
+although in our case violations of this result can
 happen because of
 numerical errors in approximating $\alpha^B$ and the expectations.
 Marginalising a random variable with the expectation operator, however,
@@ -843,13 +847,13 @@ profits in the remaining realisations.
 The experiment in the previous section only provides
 results for a fixed combination of the five parameters
 termination time $T$, unsold items cost $C$, uncertainty $\gamma$, and
-demand function parameters $q_1$ and $q_2$.
+demand function parameters $q^{(1)}$ and $q^{(2)}$.
 In this section we explore the differences between the Bellman policy
 and the CEC policy for a larger parameter range.
 The formula for $a^C$ in~\eqref{eq:cec_policy} indicates that the
 initial price is largely determined by the relationship between
-$\log(Tq_1)$ and $1/q_2$, and hence we choose to keep $T=3$ fixed whilst
-varying $q_1$ and $q_2$.
+$\log(Tq^{(1)})$ and $1/q^{(2)}$, and hence we choose to keep $T=3$ fixed whilst
+varying $q^{(1)}$ and $q^{(2)}$.
 We are interested in the difference between the profit following
 a Bellman policy $\alpha^B$ and a CEC policy $\alpha^C$.
 The policy $\alpha^B$ is computed numerically, and
@@ -869,7 +873,7 @@ $(C,\gamma)\in\{(0.5,0.05),(0.5,0.1),(1,0.05),(1,0.1)\}$.
 Then,
 for each combination of $(C,\gamma)$,
 we can create a heatmap of the difference between the two policy
-functions by varying the parameters $q_1,q_2$.
+functions by varying the parameters $q^{(1)},q^{(2)}$.
 The relative $L^2$ distance between the CEC and Bellman policy outcomes
 is shown in \Cref{fig:profit_diff_heatmaps}. The norms were approximated
 with \num{1000} samples from $(W_1,W_2,\dots,W_T)$.
@@ -887,8 +891,8 @@ maximum price $a=1$.
     $\|P(\alpha^B)-P(\alpha^C)\|_2/\|P(\alpha^B)\|_2$ representing
     how different the CEC policy is from the optimal Bellman policy.
     Each plot defines a combination of $(C,\gamma)$, whilst
-    the axes vary the parameters $q_1,q_2$ of the demand function
-    $q(a)=q_1e^{-q_2a}$.
+    the axes vary the parameters $q^{(1)},q^{(2)}$ of the demand function
+    $q(a)=q^{(1)}e^{-q^{(2)}a}$.
     The white dot on the bottom, left plot corresponds to the
     parameters chosen for the experiments in this chapter. The gray
     dots correspond to the parameters in \Cref{tbl:paramcomparisons}.
@@ -896,8 +900,8 @@ maximum price $a=1$.
 \end{figure}
 
 The parameters used to generate \Cref{fig:bellman_det_vals}
-were $C=1$, $\gamma=0.05$, $q_1=e^2/3\approx2.5$, and
-$q_2=\nobreak3$. This corresponds to a point
+were $C=1$, $\gamma=0.05$, $q^{(1)}=e^2/3\approx2.5$, and
+$q^{(2)}=\nobreak3$. This corresponds to a point
 in the region where the relative difference
 $\|P(\alpha^B)-P(\alpha^C)\|_2/\|P(\alpha^B)\|_2 \approx 0.016$ ---
 see the
@@ -930,7 +934,7 @@ grey dots in \Cref{fig:profit_diff_heatmaps}.
   \centering
   \begin{tabular}{llllcccc}
     \toprule
-    $C$ & $\gamma$ & $q_1$ & $q_2$ & $\mathcal{Q}_{0.05}$
+    $C$ & $\gamma$ & $q^{(1)}$ & $q^{(2)}$ & $\mathcal{Q}_{0.05}$
     &Median & $\mathcal{Q}_{0.95}$ &$L^2$\\
     \midrule
     $0.25$ & $0.05$ & $2.0$ & $4.0$  & \textbf{-0.4} & \textbf{-0.3} & \textbf{0.6} & \textbf{0.4}\\
@@ -971,9 +975,9 @@ pricing problem calculates the current price using the following steps:
   \item Observe the state $s$.
   \item Solve the optimisation problem
     \begin{equation}\label{eq:olfc_optimisation_problem}
-      \max_{\mathbf a\in A^{T-t}}\mathbb{E}_W\left[
-        \sum_{\tau=t}^{T-1}\mathbf a_\tau Q(S_\tau^{\mathbf a},\mathbf
-        a_\tau,w_{\tau+1})-CS_T^{\mathbf a} \bigm\vert S_t^{\mathbf a}=s \right].
+      \max_{\mathbf{a}\in A^{T-t}}\mathbb{E}_W\left[
+        \sum_{\tau=t}^{T-1}\mathbf{a}_\tau Q(S_\tau^{\mathbf{a}},\mathbf{a}_\tau
+        ,W_{\tau+1})-CS_T^{\mathbf{a}} \bigm\vert S_t^{\mathbf{a}}=s \right].
     \end{equation}
   \item Set the price corresponding to the element
     $\mathbf{a}_t\in A$ of a maximiser
@@ -1039,7 +1043,7 @@ smaller than in the CEC comparison.
   \centering
   \begin{tabular}{llllcccc}
     \toprule
-    $C$ & $\gamma$ & $q_1$ & $q_2$ & $\mathcal{Q}_{0.05}$
+    $C$ & $\gamma$ & $q^{(1)}$ & $q^{(2)}$ & $\mathcal{Q}_{0.05}$
     &Median & $\mathcal{Q}_{0.95}$ &$L^2$\\
     \midrule
     $0.25$ & $0.05$ & $2.0$ & $4.0$

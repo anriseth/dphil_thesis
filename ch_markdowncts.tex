@@ -51,7 +51,7 @@ modelling in industries with lower product sales volumes, such as
 the airline and hotel industries. Our model should therefore scale
 better to large-inventory problems, which is more relevant to retail chains.
 \citet{maglaras2006dynamic} and \citet{schlosser2015dynamic1,schlosser2015dynamic2}
-propose pricing heuristics similar to this
+propose pricing heuristics similar to those of this
 chapter, by considering a deterministic model based on the asymptotic continuum
 limit of Poisson processes.
 To the author's knowledge, however,
@@ -304,15 +304,16 @@ We thus non-dimensionalise the model, which also helps to reduce the
 number of parameters in the decision problem.
 The units at play in our system are the time and the product price,
 for example measured in weeks and \pounds.
-If $\hat{s},\hat{a}$, $\hat{t}$ denotes unscaled quantities of stock, price, and
+If $\hat{s},\hat{a}$, $\hat{t}$ denote unscaled quantities of stock, price, and
 time respectively, we rescale them with dimensionless quantities
 \begin{align}
   s&=\frac{\hat{s}}{\hat{S}(0)},&t &=\frac{\hat{t}}{\hat{T}},
   &a &= \frac{\hat{a}}{\bar{a}}.
 \end{align}
-Here, $\hat{S}(0)\gg 1$ is the initial quantity of stock, $\hat{T}$ is the time-horizon
+Here, $\hat{S}(0)$ is the initial quantity of stock, $\hat{T}$ is the time-horizon
 for the pricing problem, and $\bar{a}$ is some reference price chosen
-to make typical prices $a$ continuous and of order one.
+to make typical prices $a$ continuous and of order one. In the
+following sections we choose $\bar{a}$ based on the demand function.
 This scaling means that we work solely with stock and time on the unit
 interval, $s,t\in[0,1]$.
 For typographical reasons we define the upper limit of the time
@@ -622,8 +623,8 @@ In this section, we provide solutions to the pricing problem in the
 deterministic case, $\sigma = 0$, for families of linear and exponential
 demand functions $q_l(a)$ and $q_e(a)$ respectively.
 \begin{align}
-  q_l(a)&=q_1-q_2a,&\text{for } q_1,q_2>0,\\
-  q_e(a)&=q_1e^{-q_2a},&\text{for } q_1,q_2>0.
+  q_l(a)&=q^{(1)}-q^{(2)}a,&\text{for } q^{(1)},q^{(2)}>0,\\
+  q_e(a)&=q^{(1)}e^{-q^{(2)}a},&\text{for } q^{(1)},q^{(2)}>0.
 \end{align}
 These demand functions are often used in the literature. For a discussion
 about their properties and usage in modelling demand, see \citet[Ch.~7]{talluri2006theory}.
@@ -637,11 +638,11 @@ profits balancing revenue and cost of unsold stock at the terminal
 time.
 
 \subsection{Linear demand function}
-When $q(a)=q_1-q_2a$ for $q_1,q_2>0$, the maximisation in the HJB
+When $q(a)=q^{(1)}-q^{(2)}a$ for $q^{(1)},q^{(2)}>0$, the maximisation in the HJB
 equation can be solved in closed form.
 To reduce the number of parameters, we can rescale the price per
-product with $q_2$ by setting $q_2a$ to $a$.
-Then $q(a)=q_1-a$, and we set the pricing interval to $A=[0,q_1]$ so that the demand
+product with $q^{(2)}$ by setting $q^{(2)}a$ to $a$.
+Then $q(a)=q^{(1)}-a$, and we set the pricing interval to $A=[0,q^{(1)}]$ so that the demand
 function is non-negative.
 Now, use the ansatz that $a^D(t,s,g)$ sets the price so that
 $\alpha^D(t)$ is
@@ -659,12 +660,12 @@ also be given by
 The maximiser therefore satisfies the equality constraints that
 $s$ equals $(T-t)gq(a)$, is zero, or is in the interior of the feasible set,
 given by $A$.
-For $q(a)=q_1-a$, we can verify that this implies
+For $q(a)=q^{(1)}-a$, we can verify that this implies
 \begin{equation}\label{eq:astar_linear}
   a^D(t,s,g)=\begin{cases}
-    q_1-\frac{s}{(T-t)g}, &\text{if } 0\leq s\leq
-    (T-t)g\min\{q_1,\frac{1}{2}(q_1 +C)\},\\
-    \max(0,q_1-C)/2,&\text{otherwise.}
+    q^{(1)}-\frac{s}{(T-t)g}, &\text{if } 0\leq s\leq
+    (T-t)g\min\{q^{(1)},\frac{1}{2}(q^{(1)} +C)\},\\
+    \max(0,q^{(1)}-C)/2,&\text{otherwise.}
   \end{cases}
 \end{equation}
 It follows that $T_h=T$ when following the optimal pricing strategy.
@@ -687,7 +688,7 @@ approximation to a Poisson process demand model.
   problem starts at the most interesting point: at the kink separating
   the regimes where all the stock is sold out and where it is not.
   This corresponds to a combination of parameters such that
-  $\min(q_1,\frac{1}{2}(q_1+C))=1$.
+  $\min(q^{(1)},\frac{1}{2}(q^{(1)}+C))=1$.
 
   \begin{figure}[htbp]
     \centering
@@ -697,7 +698,7 @@ approximation to a Poisson process demand model.
       from~\eqref{eq:astar_linear}, as a function of time and stock.
       Notice how sensitive $a^D(t,s,1)$ is to changes in $s$, for large
       $t$.
-      The parameters used are $q_1=3/2$, and $C=1/2$.
+      The parameters used are $q^{(1)}=3/2$, and $C=1/2$.
       In \Cref{fig:hjbsol_a} we compare this function to the optimal price
       when $\sigma=0.1$.
     }\label{fig:hjbsol_a_cec}
@@ -709,28 +710,28 @@ the solution to the deterministic
 pricing problem, we show that it satisfies the HJB equation.
 On the interior of the $(t,s,g)$-domain, $a^D(t,s,g)$ must solve
 \begin{equation}
-  \max_{a\in A} \{(a-v_s(t,s,g))(q_1-a)\}.
+  \max_{a\in A} \{(a-v_s(t,s,g))(q^{(1)}-a)\}.
 \end{equation}
 Let $\mathcal{P}_A$ denote the projection of the real line to $A$. The
 objective is concave, and hence the maximiser is
 \begin{equation}\label{eq:astar_hjb_linear}
-  a^D(t,s,g) = \mathcal{P}_A\left[\frac{q_1+v_s}{2}\right].
+  a^D(t,s,g) = \mathcal{P}_A\left[\frac{q^{(1)}+v_s}{2}\right].
 \end{equation}
 Define $\Gamma$ to be the boundary of the terminal time problem,
 that is when $t=T$, $s=0$, or $g=0$.
-Let us assume that $C< q_1$, then the
+Let us assume that $C< q^{(1)}$, then the
 deterministic-case HJB equation for $v$ is
 \begin{align}\label{eq:hjb_linear}
   v_t(t,s,g)+
-  \frac{g}{4}{( q_1-v_s(t,s,g))}^2
+  \frac{g}{4}{( q^{(1)}-v_s(t,s,g))}^2
   &=0, \\%&(t,s,g)&\in{(0,1)}^2\times \mathbb{R}_{>0},\\
   v(t,s,g) &= -Cs,&(t,s,g)&\in \Gamma.
 \end{align}
-If $C\geq q_1$, then there are regions where $a^D(t,s,g)=0$. In
+If $C\geq q^{(1)}$, then there are regions where $a^D(t,s,g)=0$. In
 particular, this means that for $t,s,g$ such that
-$s>(T-t)gq_1$, $v$ must satisfy
+$s>(T-t)gq^{(1)}$, $v$ must satisfy
 \begin{equation}\label{eq:hjb_linear_Clarge}
-  v_t(t,s,g) - gq_1v_s(t,s,g)=0.
+  v_t(t,s,g) - gq^{(1)}v_s(t,s,g)=0.
 \end{equation}
 
 From the two expressions for $a^D(t,s,g)$ in~\eqref{eq:astar_linear}
@@ -739,17 +740,17 @@ function must satisfy
 \begin{align}\label{eq:v_func_linear_det}
   v^D(t,s,g)
   &=\begin{cases}
-    q_1s-\frac{s^2}{(T-t)g},
+    q^{(1)}s-\frac{s^2}{(T-t)g},
     &\text{if } 0\leq s\leq
-    (T-t)g\min\{q_1,\frac{1}{2}(q_1 +C)\},\\
+    (T-t)g\min\{q^{(1)},\frac{1}{2}(q^{(1)} +C)\},\\
     -Cs + V(C)(T-t)g,
     &\text{otherwise.}
   \end{cases}\\
   V(C)
   &= \begin{cases}
-    {\left[\frac{1}{2}(q_1+C)  \right]}^2,&C<
-    q_1,\\
-    q_1C,&C\geq q_1.
+    {\left[\frac{1}{2}(q^{(1)}+C)  \right]}^2,&C<
+    q^{(1)},\\
+    q^{(1)}C,&C\geq q^{(1)}.
   \end{cases}
 \end{align}
 This $v$ does indeed satisfy the deterministic HJB equation given
@@ -761,17 +762,17 @@ a solution in the viscosity sense, as noted in \Cref{rem:viscosity}.
 \subsection{Exponential demand function}
 With the same ansatz that was used for the linear demand function, we
 can also find the optimal, deterministic, pricing function for
-exponential demand $q(a)=q_1e^{-q_2a}$.
+exponential demand $q(a)=q^{(1)}e^{-q^{(2)}a}$.
 Indeed, this is true for any demand function for which a closed form
 solution exists for $\max_{a\in A}\{(a+C)q(a))\}$ and $(T-t)gq(a)=s$.
-As with the linear demand, we can eliminate the parameter $q_2$ so that
-$q(a)=q_1e^{-a}$, given by replacing $q_2a$ by $a$.
+As with the linear demand, we can eliminate the parameter $q^{(2)}$ so that
+$q(a)=q^{(1)}e^{-a}$, given by replacing $q^{(2)}a$ by $a$.
 In the exponential demand case, with $A=[0,\infty)$, the ansatz gives
 us the optimal pricing function
 \begin{equation}\label{eq:afun_exp_cec}
   a^D(t,s,g)=\begin{cases}
-    \log{\frac{q_1g(T-t)}{s}},
-    &\text{if } 0\leq\frac{s}{q_1g(T-t)}\leq e^{C-1},\\
+    \log{\frac{q^{(1)}g(T-t)}{s}},
+    &\text{if } 0\leq\frac{s}{q^{(1)}g(T-t)}\leq e^{C-1},\\
     \max\left(0,1-C\right),&\text{otherwise}.
   \end{cases}
 \end{equation}
@@ -782,7 +783,7 @@ HJB equation is $a^D =  1+v_s$. Thus, the value function
 must satisfy the HJB equation
 \begin{align}
   v_t(t,s,g)
-  +gq_1e^{-1-v_s(t,s,g)}
+  +gq^{(1)}e^{-1-v_s(t,s,g)}
   &=0, \\%&(t,s,g)&\in{(0,1)}^2\times \mathbb{R}_{>0},\\
   v(t,s,g) &= -Cs,&(t,s,g)&\in \Gamma.
 \end{align}
@@ -791,17 +792,17 @@ in~\eqref{eq:afun_exp_cec}, is
 \begin{align}
   v^D(t,s,g)
   &=\begin{cases}
-    s \log \frac{q_1g(T-t)}{s},
-    &\text{if } 0\leq \frac{s}{q_1g(T-t)}\leq e^{C-1},\\
+    s \log \frac{q^{(1)}g(T-t)}{s},
+    &\text{if } 0\leq \frac{s}{q^{(1)}g(T-t)}\leq e^{C-1},\\
     -Cs+V(C)(T-t)g,&\text{otherwise},
   \end{cases}\\
-  V(C)&=q_1e^{C-1}.
+  V(C)&=q^{(1)}e^{C-1}.
 \end{align}
 
 \section{Impact of uncertainty}\label{sec:stochastic_hjb}
 We now discuss to what degree multiplicative uncertainty changes
 our policy. In this section, we solve the HJB equation numerically with the linear
-demand function $q(a)=q_1-a$ defined on $A=[0,q_1]$, and compare the
+demand function $q(a)=q^{(1)}-a$ defined on $A=[0,q^{(1)}]$, and compare the
 resulting pricing policy to the
 deterministic-system policy from the previous section.
 With the diffusion term in the HJB equation, one can
@@ -813,15 +814,15 @@ $\mathcal{O}(\sigma \sqrt{T-t})$. Further, numerical tests indicate that the
 closed-form pricing functions found in the previous section
 perform sufficiently well in most situations.
 
-We assume in the following that $(q_1+v_s)\in[0,2]$ for
+We assume in the following that $(q^{(1)}+v_s)\in[0,2]$ for
 $t\in[0,T)$, $s,g>0$, so
-that the pricing function satisfies $a(t,s,g) = (q_1+v_s(t,s,g))/2$ as
+that the pricing function satisfies $a(t,s,g) = (q^{(1)}+v_s(t,s,g))/2$ as
 given by~\eqref{eq:astar_hjb_linear}.
 Using~\eqref{eq:hjb_interior} and~\eqref{eq:hjb_linear} it then
 follows that $v$ should satisfy
 \begin{align}\label{eq:hjb_impact_uncertainty}
   v_t(t,s,g)+\frac{\sigma^2}{2} g^2v_{gg}(t,s,g)
-  +\frac{g}{4}{(q_1-v_s)}^2
+  +\frac{g}{4}{(q^{(1)}-v_s)}^2
   &= 0, \\%&(t,s,g)&\in{(0,1)}^2\times \mathbb{R}_{>0},\\
   v(t,s,g) &= -Cs,&(t,s,g)&\in \Gamma.
 \end{align}
@@ -848,7 +849,7 @@ policy by $a^B(t,s,g)$ and $\alpha^B(t)$ respectively.
 \begin{example}\label{ex:function_impact_uncertainty}
   Let us consider the particular example system used in
   \Cref{ex:acecplot}. %\Cref{ex:acecplot}.
-  That is, a linear demand function $q(a)=q_1-a$, with $q_1=3/2$
+  That is, a linear demand function $q(a)=q^{(1)}-a$, with $q^{(1)}=3/2$
   and $C=1/2$.
   We set the volatility level of $G(t)$ to $\sigma=0.1$, which
   corresponds to a true demand near the terminal time within \SI{20}{\percent} of the
@@ -889,7 +890,7 @@ policy by $a^B(t,s,g)$ and $\alpha^B(t)$ respectively.
 \Cref{fig:hjbsol_a} indicates that one can do an asymptotic analysis
 of the impact of $0<\sigma \ll 1$ on the pricing
 function. \Cref{fig:hjb_cec_zoom} provides another visualisation
-of the differences between $a^B$ and $a^D$ to aide the analysis.
+of the differences between $a^B$ and $a^D$ to aid the analysis.
 \begin{figure}[p]
   \centering
   \begin{subfigure}[b]{0.5\textwidth}
@@ -907,12 +908,12 @@ of the differences between $a^B$ and $a^D$ to aide the analysis.
     $\sigma\sqrt{T-t}$ at the kink, and
     $-\sigma^2\xi/2$ as we move to the left in the
     plots.
-    This example uses $q_1=3/2$, $C=1/2$, and $\sigma=0.2$.
+    This example uses $q^{(1)}=3/2$, $C=1/2$, and $\sigma=0.2$.
   }\label{fig:hjb_cec_zoom}
 \end{figure}
 
 We summarise the results before showing the details of the asymptotic expansions.
-Define $\beta=\min(q_1,(q_1+C)/2)$.
+Define $\beta=\min(q^{(1)},(q^{(1)}+C)/2)$.
 There is an inner layer around the surface $\frac{s}{g}=(T-t)\beta$ which
 smooths out the kink of the solution $a^D(t,s,g)$ that arises when
 $\sigma=0$. At the kink, the first-order correction in the pricing
@@ -922,7 +923,7 @@ $\mathcal{O}(\sigma{(T-t)}^{3/2})$, which connects the two pricing
 regimes identified in the deterministic case.
 As we move from the inner layer to larger values of
 $\xi:=s/g>(T-t)\beta$, the solution
-tends to the value $\delta=\max(0,q_1-C)/2$, which coincides with
+tends to the value $\delta=\max(0,q^{(1)}-C)/2$, which coincides with
 $a^D$. As we move from the inner layer to smaller values of $\xi$,
 the leading order solution of the inner layer coincides with $a^D$.
 Further, there is a second order correction in the region
@@ -959,32 +960,32 @@ Consider the transformations
 which require $\phi(\tau,\xi)$ to satisfy
 \begin{align}\label{eq:hjb_value_transform}
   \phi_\tau &= \frac{1}{2}\sigma^2\xi^2\phi_{\xi\xi} +
-              \frac{1}{4}{(q_1 - \phi_\xi)}^2 \\
+              \frac{1}{4}{(q^{(1)} - \phi_\xi)}^2 \\
   \phi(0,\xi) &= -C\xi\\
   \phi(\tau,0)& = 0,\\
   \phi_\xi(\tau,\infty) &= -C.
 \end{align}
 In the new coordinates, define the pricing function in terms of the
 function $\psi(\tau,\xi)$ so that $a^B(t,s,g)=\psi(\tau(t),\xi(s,g))$.
-Then $\psi = (q_1+\phi_\xi)/2$ satisfies the following PDE
+Then $\psi = (q^{(1)}+\phi_\xi)/2$ satisfies the following PDE
 that arises from differentiating~\eqref{eq:hjb_value_transform} with
 respect to $\xi$.
 \begin{align}\label{eq:hjb_policy_transform}
   \psi_\tau&= \frac{1}{2}\sigma^2 \xi^2
              \psi_{\xi\xi} +
-             (\sigma^2\xi - q_1 + \psi)\psi_\xi,\\
-  \psi(\tau,0) &= q_1,\\
-  \psi(\tau,\infty) &= \delta:=\max(0,(q_1-C)/2).
+             (\sigma^2\xi - q^{(1)} + \psi)\psi_\xi,\\
+  \psi(\tau,0) &= q^{(1)},\\
+  \psi(\tau,\infty) &= \delta:=\max(0,(q^{(1)}-C)/2).
 \end{align}
 When $\sigma=0$, we know from \Cref{sec:deterministic_hjb} that
 the viscosity solution $\psi^{(0)}$ is
 \begin{equation}\label{eq:psi_leading}
   \psi^{(0)}(\tau,\xi)=\begin{cases}
-    q_1-\xi/\tau, &\text{if } 0\leq \xi\leq
+    q^{(1)}-\xi/\tau, &\text{if } 0\leq \xi\leq
     \beta \tau,\\
     \delta,&\text{if } \hfill \xi > \beta \tau,
   \end{cases}
-  \qquad \textnormal{where } \beta:=\min(q_1,(q_1+C)/2).
+  \qquad \textnormal{where } \beta:=\min(q^{(1)},(q^{(1)}+C)/2).
 \end{equation}
 This leads us to consider an inner layer asymptotic analysis near
 the kink $\xi = \beta \tau$. Zoom in near the kink using the
@@ -1042,12 +1043,12 @@ By substituting this expansion into~\eqref{eq:hjb_policy_transform} and
 matching the $\sigma^2$-terms we get the equation
 \begin{align}
   \psi_\tau^{(1)}
-  &= \psi_\xi^{(0)}(\psi^{(1)}+\xi) + (\psi^{(0)}- q_1)\psi_\xi^{(1)},\\
+  &= \psi_\xi^{(0)}(\psi^{(1)}+\xi) + (\psi^{(0)}- q^{(1)})\psi_\xi^{(1)},\\
   \psi^{(1)}(\tau,0) &= 0.
 \end{align}
 When $\xi<\beta$ we have
 \begin{align}
-  \psi^{(0)}(\tau,\xi) &= q_1 - \xi/\tau,\\
+  \psi^{(0)}(\tau,\xi) &= q^{(1)} - \xi/\tau,\\
   \psi_\xi^{(0)}(\tau,\xi) &= -1/\tau.
 \end{align}
 The PDE for $\psi^{(1)}$ is therefore
@@ -1229,14 +1230,14 @@ Let $\theta(t)\in\mathbb{R}^n$ denote the vector of parameters that are
 relevant to the problem, and say the demand function  and the unit cost
 depend explicitly on $\theta$. We write $q(a;\theta)$ and $C(\theta)$
 for this dependence.
-Within the diffusion based stochastic framework, we can model the
+Within the diffusion-based stochastic framework, we can model the
 dynamics of $\theta(t)$ with functions $b(t,\theta)\in\mathbb{R}^n$,
 $\sigma(t,\theta)\in\mathbb{R}^{n\times p}$, and a vector-valued, uncorrelated,
 Brownian motion $W(t)\in\mathbb{R}^p$.
 We assume that $\theta(t)$ does not depend on the pricing policy
 $\alpha(t)$ or the remaining
 stock $S^\alpha(t)$. Thus,
-the system for the pricing problem is described by the SDE,
+the system for the pricing problem is described by the SDE
 \begin{align}
   d\theta(t)&=b(t,\theta(t))\,dt + \sigma(t,\theta(t))\,dW(t),\\
   dS^\alpha(t)&=-q(\alpha(t);\theta(t)).

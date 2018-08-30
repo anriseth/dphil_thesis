@@ -170,7 +170,7 @@ work in \Cref{sec:accel_conclusion}.
 \section{Optimisation acceleration with O-ACCEL}\label{sec:algo_description}
 To fix notation, consider a twice continuously differentiable function
 $\Obj\in C^2(\mathbb{R}^n)$ that is bounded below and has at least one
-minimiser.  We aim to find a local minima of the optimisation problem
+minimiser.  We aim to find a local minimum of the optimisation problem
 \begin{equation}
   \min_{x\in\mathbb{R}^n}\Obj(x).
 \end{equation}
@@ -278,8 +278,8 @@ approximation of $\Grad(x^A)$ established
 from~\eqref{eq:grad_xA_approx} and~\eqref{eq:approx_hess} results in
 the linear least squares problem
 \begin{equation}
-  \min_{\alpha\in\mathbb
-    {R}^k}\Bigl\|\Grad(x^P)+\sum_{j=l}^k\alpha_l(\Grad(x^{(l)})-\Grad(x^P))\Bigr\|_2.
+  \min_{\alpha\in\mathbb{R}^k}\Bigl\|\Grad(x^P)+
+  \sum_{j=l}^k\alpha_l(\Grad(x^{(l)})-\Grad(x^P))\Bigr\|_2.
 \end{equation}
 Its solution can be found from the normal equation
 \begin{equation}\label{eq:ngmres_lin_sys}
@@ -1121,7 +1121,7 @@ tables that present statistics of the solver performances for the
 individual test problems.
 
 \Cref{tbl:probAC,tbl:probD,tbl:probEG} show the results from test problems A--G.
-Each of the problems were tested with different sizes $n$, and for
+Each of the problems was tested with different sizes $n$, and for
 each value $n$ the problems were run \num{1000} times in order to
 create statistics.  The tables report the \num{0.1}, \num{0.5}, and
 \num{0.9} quantiles of $\Obj$ evaluations to reach the objective value
