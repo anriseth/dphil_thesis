@@ -1,7 +1,7 @@
 \begin{tikzpicture}[]
   \begin{axis}[legend pos = {north west}, legend style = {font=\small},
     ylabel = {Density}, xmin = {0.135}, xmax = {0.245}, ymax = {41.51107186698439}, xlabel =
-  {$f(x,y)$}, unbounded coords=jump,scaled x ticks = false,xticklabel
+  {Value of the profit $f(x,Y)$}, unbounded coords=jump,scaled x ticks = false,xticklabel
   style={rotate = 0},xmajorgrids = true,xtick =
   {0.14,0.16,0.18,0.2,0.22,0.24},xticklabels =
   {0.14,0.16,0.18,0.20,0.22,0.24},xtick align = inside,axis lines* =

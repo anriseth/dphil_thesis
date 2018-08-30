@@ -15,7 +15,7 @@ The key concepts for defining an optimisation problem are
 \item a
   collection of allowed decisions, and
 \item an ordering between all
-  decisions.
+  decisions, induced by their corresponding outcomes.
 \end{itemize}
 
 If there is a deterministic relationship between decisions
@@ -23,19 +23,25 @@ $x\in\mathcal{X}$ and one, well-defined, objective
 $f:\mathcal{X}\to\mathbb{R}$, then we can model the decision problem
 as the optimisation problem\footnote{Maximisation problems can
   equivalently be solved as minimisation problems of the negative
-  objective, $\min_{x\in\mathcal{X}}-f(x)$. We change between the two
+  objective, $\inf_{x\in\mathcal{X}}-f(x)$. We change between the two
   depending on the application.}
 \begin{equation}\label{eq:deterministic_setting}
-  \max_{x\in\mathcal{X}} f(x).
+  \sup_{x\in\mathcal{X}} f(x).
 \end{equation}
+The set $\mathcal{X}$ may, for example, be a subset of the real line, a
+finite-dimensional vector space, or a set of functions.
+If $f$ attains its maximum on in the set $\mathcal{X}$, we can use the
+notation $\max_{x\in\mathcal{X}}f(x)$.
 In this chapter, however, we discuss three ways that
 decision problems with random outcomes may deviate from this setting.
 \begin{enumerate}
-\item If there is a non-deterministic relationship between a decision
-  $x$ and outcomes of the system.
-\item If we cannot  deterministically determine the allowed decisions
-  $\mathcal{X}$ at the time we make the decision.
-\item If there are multiple objectives.
+  \begin{samepage}
+  \item If there is a non-deterministic relationship between a decision
+    $x$ and outcomes of the system.
+  \item If we cannot  deterministically determine the allowed decisions
+    $\mathcal{X}$ at the time we make the decision.
+  \item If there are multiple objectives.
+  \end{samepage}
 \end{enumerate}
 We argue that the second point arises when people try to add
 randomness to a deterministic model without reconsidering the
@@ -141,7 +147,7 @@ unit costs. We assume that we can model the costs with a random
 variable $Y\in\mathbb{R}^3$, based on prior knowledge and data.
 Throughout this chapter, we  assume that $Y$ is a log-normally
 distributed random variable with mean and covariance
-\begin{align}
+\begin{align}\label{eq:mean_cov_y_example}
   m_Y
   &= \begin{pmatrix}0.5\\0.5\\0.65
   \end{pmatrix},
@@ -470,8 +476,8 @@ $\rho(X) = -\mathbb{U}[X]$.
     \begin{samepage}
     \item $\mathbb{U}[C] = C$ for any real number $C$, and
     \item $\mathbb{U}[X]\leq \mathbb{U}[Y]$ whenever $X\leq Y$ almost
-      surely\footnote{$X\leq Y$ almost surely if
-        $\mathbb{P}(\{\omega\mid X(\omega)\leq Y(\omega)\})=0$.}.
+      surely.\footnote{$X\leq Y$ almost surely if
+        $\mathbb{P}(\{\omega\mid X(\omega)\leq Y(\omega)\})=0$.}
     \end{samepage}
   \end{enumerate}
   Note that, contrary to the usual interpretation of the
@@ -628,7 +634,7 @@ deviation. The mean-deviation formulation may then be preferable in
 practical settings.
 This is, for example, illustrated in the articles by
 \citet{kouri2016risk} and \citet{alexanderian2017mean}, who address optimisation problems
-where each value $y\in\mathcal{Y}$ require the solution to partial
+where each value $y\in\mathcal{Y}$ requires the solution to partial
 differential equations.
 The lower super-quantile approach of \citet{kouri2016risk}
 requires the authors to draw samples from $\mathcal{Y}$ and find ways
@@ -646,7 +652,7 @@ on the grounds that they penalise better-than-expected outcomes.
 Distributions of profit in revenue management do in practice
 have a more significant lower tail than upper tail, due to inventory
 restrictions and fixed costs, which alleviates such problems.
-None of these references discuss to what extent super-quantiles change the
+None of these references discusses to what extent super-quantiles change the
 optimal decisions for their presented problems compared to a
 mean-deviation approach. \citet{choi2011multiproduct}
 dismiss the mean-deviation problem by formulating it in terms of the weighted sum of mean and
@@ -658,8 +664,8 @@ Fix the distribution of a random variable $Y$. If $f(x,Y)$ is normally distribut
 $x\in\mathcal{X}$, then the properties of the random variable are fully
 described by the mean and variance functions $x\mapsto
 \mathbb{E}[f(x,Y)]$ and $x\mapsto \mbox{Var}[f(x,Y)]$. This
-indicates that all the approaches above implicitly define a
-choice of ordering for the bi-objective mean-standard deviation
+indicates that the approaches above implicitly define a
+choice of ordering for the bi-objective mean--standard-deviation
 optimisation problem.
 
 \begin{example}[Lower super-quantile]\label{ex:avar_normal}
@@ -753,6 +759,8 @@ theoretical properties of the different formulations.
   Let us consider the first decision problem in the retail example in
   \Cref{sec:one_motivating_example}, where the product manager wants
   to maximise profit $f(x,Y)$, but only knows the distribution of $Y$.
+  The mean $m_Y$ and covariance matrix $C_Y$ of $Y$ are defined
+  in~\eqref{eq:mean_cov_y_example}.
 
   Note that the mean and standard deviation of the profit are
   \begin{equation}
@@ -762,7 +770,7 @@ theoretical properties of the different formulations.
     = \langle q(x),C_Y q(x) \rangle.
   \end{equation}
   Thus, the mean-deviation method with
-  $\mathbb{D}[X]=\sqrt{\mbox{Var}[X]}$ has a closed form objective and
+  $\mathbb{D}[X]=\sqrt{\mbox{Var}[X]}$ has a closed-form objective and
   one only needs information about the two first moments of $Y$ to solve
   the mean-deviation problem~\eqref{eq:optim_formulations_md}.
   The solution to the expected utility and lower super-quantile
@@ -808,6 +816,9 @@ theoretical properties of the different formulations.
       to~\eqref{eq:optim_formulations_sq}, using the corresponding
       $(\mu,\lambda)$-pairs from the right plot.
       The values are obtained by solving~\eqref{eq:min_xmd_xeu_xsq}.
+      The drop in the value of the left plot relates is due to
+      projecting the three-dimensional difference vector in
+      $\mathcal{X}$ down to one dimension.
       % The discontinuity in the left plot corresponds to an abrupt
       % change in $x^\mu$.%, and the corresponding $\lambda$ actually
       % drops slightly, although this is not visible.
