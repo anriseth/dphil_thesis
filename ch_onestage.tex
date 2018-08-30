@@ -138,14 +138,14 @@ $\mathbb{R}^n$.
 
 Retailers may need to decide the product price before they know the
 unit costs. We assume that we can model the costs with a random
-variable $y\in\mathbb{R}^3$, based on prior knowledge and data.
-Throughout this chapter, we  assume that $y$ is a log-normally
+variable $Y\in\mathbb{R}^3$, based on prior knowledge and data.
+Throughout this chapter, we  assume that $Y$ is a log-normally
 distributed random variable with mean and covariance
 \begin{align}
-  m_y
+  m_Y
   &= \begin{pmatrix}0.5\\0.5\\0.65
   \end{pmatrix},
-  &C_y
+  &C_Y
   &=\begin{pmatrix}
     2.5&-0.75&0\\
     -0.75&2.5&0\\
@@ -160,7 +160,7 @@ account all the outcomes that can follow each decision.
 \begin{figure}[htb]
   \centering
   \includegraphics[width=0.7\textwidth,axisratio=1.6]{montecarlo_profit_dist}
-  \caption[Probability distribution of profit]{The probability distribution of profit $f(x,y)$ for three
+  \caption[Probability distribution of profit]{The probability distribution of profit $f(x,Y)$ for three
     sets of prices $x$.
     The decision maker should decide which decision is preferable by comparing
     several properties of the distributions.
@@ -200,17 +200,17 @@ In the deterministic setting, we know the parameter
 $y\in\mathcal{Y}$ and can therefore find the optimal $x$ by optimising
 $f(\cdot,y)$.
 Say there is uncertainty in the correct value of the parameter $y$ that
-we model using a random variable
+we model using a random variable $Y$,
 taking values in $\mathcal{Y}$.
-For a given $x\in\mathcal{X}$, $f(x,y)$ is now a random variable.
+For a given $x\in\mathcal{X}$, $f(x,Y)$ is now a random variable.
 Thus, it is no longer straightforward to order two decisions $x_1$ and
-$x_2$ by comparing $f(x_1,y)$ to $f(x_2,y)$.
+$x_2$ by comparing $f(x_1,Y)$ to $f(x_2,Y)$.
 \Cref{fig:example_profit_distributions} illustrates the challenge;
 if one decision provides higher variability in the outcomes than
 another, we must decide whether the chance of the better outcomes
 outweigh the chance of the lesser outcomes.
 We present three classes of optimisation problems that attempt to
-address the randomness of $f(x,y)$. They are \emph{expected
+address the randomness of $f(x,Y)$. They are \emph{expected
   utilities}, \emph{mean-deviation procedures}, and \emph{nonlinear
   expectations}.
 % At the end, we comment on classic optimisation problems with constraints
@@ -332,7 +332,7 @@ modelling the decision maker's attitude to risk with utility functions.
   An optimal choice to maximise a given utility of $f$ is the
   solution of
   \begin{align}
-    x^u=\argmax_{x\in\mathcal{X}} \mathbb{E}[u(f(x,y))].
+    x^u=\argmax_{x\in\mathcal{X}} \mathbb{E}[u(f(x,Y))].
   \end{align}
 \end{problem}
 
@@ -340,7 +340,7 @@ modelling the decision maker's attitude to risk with utility functions.
 The expected utility approach considers the mean outcome of a choice.
 After one makes a decision $x\in\mathcal{X}$, the realisation of the
 parameter in $\mathcal{Y}$ only occurs once. If there is a large
-uncertainty in $f(x,y)$, or, if the distribution is multimodal, the
+uncertainty in $f(x,Y)$, or, if the distribution is multimodal, the
 average value may not be a good representation for the realised value of $f$.
 It can, therefore, be useful to take into account some measure of
 deviation from the mean of $f$ when $x$ is chosen.
@@ -348,7 +348,7 @@ The mean-deviation approach aims to balance the expected value of $f$
 with uncertainty represented by a deviation measure.
 
 \begin{example}[Mean-variance optimisation]
-  \citet{markowitz1952portfolio} proposed to optimise $f(x,y)$ in
+  \citet{markowitz1952portfolio} proposed to optimise $f(x,Y)$ in
   a prescribed way that
   balances the expected value and variance of an outcome.
   We can create a single objective function that combines
@@ -356,8 +356,8 @@ with uncertainty represented by a deviation measure.
   parameter $\lambda>0$. The optimal decision in $\mathcal{X}$ is then
   defined as
   \begin{equation}\label{eq:mean_dev_weighted}
-    x^{\lambda}=\argmax_{x\in\mathcal{X}}\{\mathbb{E}[f(x,y)]-\lambda
-    \mbox{Var}[f(x,y)]\}.
+    x^{\lambda}=\argmax_{x\in\mathcal{X}}\{\mathbb{E}[f(x,Y)]-\lambda
+    \mbox{Var}[f(x,Y)]\}.
   \end{equation}
   This implicitly defines an ordering of random variables based on
   the functional $X\mapsto \mathbb{E}[X]-\lambda \mbox{Var}[X]$.
@@ -431,7 +431,7 @@ is less strict on the properties of $\mathbb{D}$.
   minimising the deviation $\mathbb{D}$ of $f$, is a solution to the
   bi-objective optimisation problem
   \begin{align}
-    \max_{x\in\mathcal{X}}\{(\mathbb{E}[f(x,y)],\,-\mathbb{D}[f(x,y)])\}.
+    \max_{x\in\mathcal{X}}\{(\mathbb{E}[f(x,Y)],\,-\mathbb{D}[f(x,Y)])\}.
   \end{align}
 \end{problem}
 For a given deviation measure that models the decision maker's
@@ -560,7 +560,7 @@ measures are discussed by \citet{rockafellar2013fundamental}.
   An  optimal choice to maximise a nonlinear expectation
   of $f$ is given by
   \begin{align}
-    x^{\mathbb{U}}=\argmax_{x\in\mathcal{X}} \mathbb{U}[f(x,y)].
+    x^{\mathbb{U}}=\argmax_{x\in\mathcal{X}} \mathbb{U}[f(x,Y)].
   \end{align}
 \end{problem}
 
@@ -571,10 +571,10 @@ measures are discussed by \citet{rockafellar2013fundamental}.
   \begin{equation}\label{eq:opt_avar}
     x_{sq}^{\gamma}
     =\argmax_{x\in\mathcal{X},\eta\in\mathbb{R}}
-    \left\{\eta - \frac{1}{\gamma}\mathbb{E}[\max(\eta-f(x,y),0)]\right\}.
+    \left\{\eta - \frac{1}{\gamma}\mathbb{E}[\max(\eta-f(x,Y),0)]\right\}.
   \end{equation}
   Note that the objective is not necessarily smooth, due to the
-  $\max(\eta-f(x,y),0)$ term. The theory of non-smooth optimisation
+  $\max(\eta-f(x,Y),0)$ term. The theory of non-smooth optimisation
   can address this but may require sophisticated mathematical techniques, as
   exemplified by \citet{kouri2016risk}.
 \end{example}
@@ -620,7 +620,7 @@ theoretical properties of the different formulations.
 
 The exponential utility and lower super-quantile are often more costly
 to compute or approximate than the mean and variance, and require a
-full description of the distribution of $y$.
+full description of the distribution of $Y$.
 Say a given nonlinear expectation $\mathbb{U}$, or utility $u$,
 implies that the decision $x^*$ is optimal. Further, assume that we can get a
 decision close to $x^*$ from a bi-objective formulation using mean and standard
@@ -654,10 +654,10 @@ variance, and then argue that the units of these objects do not
 coincide.
 
 \subsection{Equivalence for the normal distribution}
-Fix the random variable $y$. If $f(x,y)$ is normally distributed for each value of
+Fix the distribution of a random variable $Y$. If $f(x,Y)$ is normally distributed for each value of
 $x\in\mathcal{X}$, then the properties of the random variable are fully
 described by the mean and variance functions $x\mapsto
-\mathbb{E}[f(x,y)]$ and $x\mapsto \mbox{Var}[f(x,y)]$. This
+\mathbb{E}[f(x,Y)]$ and $x\mapsto \mbox{Var}[f(x,Y)]$. This
 indicates that all the approaches above implicitly define a
 choice of ordering for the bi-objective mean-standard deviation
 optimisation problem.
@@ -689,11 +689,11 @@ optimisation problem.
     u(X) = 1 - e^{-\mu (\mathbb{E}[X] +
       \mathbb{D}[X] Z)}.
   \end{equation}
-  If $f(x,y)$ is normally distributed, the expected utility
+  If $f(x,Y)$ is normally distributed, the expected utility
   optimisation for $u$ is equivalent to solving
   \begin{equation}
-    \min_{x\in\mathcal{X}}  e^{-\mu\mathbb{E}[f(x,y)]}
-    \mathbb{E} \left[ e^{-\mu \mathbb{D}[f(x,y)] Z} \right].
+    \min_{x\in\mathcal{X}}  e^{-\mu\mathbb{E}[f(x,Y)]}
+    \mathbb{E} \left[ e^{-\mu \mathbb{D}[f(x,Y)] Z} \right].
   \end{equation}
   In the context of multi-objective optimisation, this arises from
   a particular choice of ordering of the mean-standard deviation
@@ -712,17 +712,17 @@ optimisation problems of mean-deviation, exponential utility, and
 lower super-quantile $\mathbb{U}_\gamma$.
 \begin{align}\label{eq:optim_formulations_md}
   x_{md}^\lambda
-  &=\argmax_{x\in\mathcal{X}}\{\mathbb{E}[f(x,y)]-\lambda\sqrt{\mbox{Var}[f(x,y)]}\}
+  &=\argmax_{x\in\mathcal{X}}\{\mathbb{E}[f(x,Y)]-\lambda\sqrt{\mbox{Var}[f(x,Y)]}\}
   &\lambda\geq 0,\\\label{eq:optim_formulations_eu}
   % &&\text{(mean-deviation)},\\
   x_{eu}^\mu
   &=\argmax_{x\in\mathcal{X}}\{
-    \mathbb{E}[1-e^{-\mu f(x,y)}]\}
+    \mathbb{E}[1-e^{-\mu f(x,Y)}]\}
   &\mu>0,\\\label{eq:optim_formulations_sq}
   % &&\text{(exponential utility)},\\
   x_{sq}^\gamma
   &=\argmax_{x\in\mathcal{X}}
-    \{\mathbb{U}_\gamma[f(x,y)]\}
+    \{\mathbb{U}_\gamma[f(x,Y)]\}
   &\gamma\in(0,1].
   % &&\text{(lower super-quantile)}.
 \end{align}
@@ -752,18 +752,18 @@ theoretical properties of the different formulations.
 \begin{example}[Pricing problem]
   Let us consider the first decision problem in the retail example in
   \Cref{sec:one_motivating_example}, where the product manager wants
-  to maximise profit $f(x,y)$, but only knows the distribution of $y$.
+  to maximise profit $f(x,Y)$, but only knows the distribution of $Y$.
 
   Note that the mean and standard deviation of the profit are
   \begin{equation}
-    \mathbb{E}[f(x,y)]
-    = \langle x-m_y,q(x) \rangle,\qquad
-    \mbox{Var}[f(x,y)]
-    = \langle q(x),C_y q(x) \rangle.
+    \mathbb{E}[f(x,Y)]
+    = \langle x-m_Y,q(x) \rangle,\qquad
+    \mbox{Var}[f(x,Y)]
+    = \langle q(x),C_Y q(x) \rangle.
   \end{equation}
   Thus, the mean-deviation method with
   $\mathbb{D}[X]=\sqrt{\mbox{Var}[X]}$ has a closed form objective and
-  one only needs information about the two first moments of $y$ to solve
+  one only needs information about the two first moments of $Y$ to solve
   the mean-deviation problem~\eqref{eq:optim_formulations_md}.
   The solution to the expected utility and lower super-quantile
   problems~\eqref{eq:optim_formulations_eu}
@@ -771,7 +771,7 @@ theoretical properties of the different formulations.
   objectives, for example, with Monte Carlo.\footnote{For a review of
     Monte Carlo methods, see \citep{caflisch1998monte}.}
   The super-quantile method also needs an extra smoothing step to
-  handle the $\max(\eta-f(x,y),0)$ term of~\eqref{eq:opt_avar},
+  handle the $\max(\eta-f(x,Y),0)$ term of~\eqref{eq:opt_avar},
   introducing larger costs and implementational complexity.
 
   We solve the optimisation problems in~\eqref{eq:min_xmd_xeu_xsq} with
@@ -868,18 +868,19 @@ $\min_{x\in\mathcal{A}} g(x)$.
 The acceptance set approach was one of the motivations for a formal
 framework for risk measures introduced by \citet{artzner1999coherent}.
 \begin{example}[Acceptance sets]
-  Popular choices of acceptance sets for the constraint $f(x,y)\geq
+  For $Y$ a random variable taking values in $\mathcal{Y}$,
+  popular choices of acceptance sets for the constraint $f(x,Y)\geq
   f_{\textnormal{min}}$ are
   \begin{align}
     \mathcal{A}&=\{x\in\mathcal{X} \mid
-                 \mathbb{E}[f(x,y)]\geq f_{\textnormal{min}}\},
+                 \mathbb{E}[f(x,Y)]\geq f_{\textnormal{min}}\},
     &\textnormal{(Expectation)}\\
     \mathcal{A}&=\{x\in\mathcal{X} \mid
-                 \essinf_{\omega\in\Omega}f(x,y(\omega))\geq
+                 \essinf_{\omega\in\Omega}f(x,Y(\omega))\geq
                  f_{\textnormal{min}}\},
     &\textnormal{(Worst-case)}\\
     \mathcal{A} &= \{x\in\mathcal{X}\mid
-                  \mathbb{P}(f(x,y)\geq f_{\textnormal{min}})\geq \epsilon\},
+                  \mathbb{P}(f(x,Y)\geq f_{\textnormal{min}})\geq \epsilon\},
                   \text{ given }\epsilon\in(0,1).
     &\textnormal{(Quantile)}
   \end{align}
@@ -888,8 +889,8 @@ framework for risk measures introduced by \citet{artzner1999coherent}.
 The acceptance set approach treats what was previously considered a
 hard constraint in terms of marginalised values that allow decisions $x\in\mathcal{X}$
 that may violate the originally intended constraint for some values of the random
-variable $y$. We believe that a better approach is to address this
-properly by modelling the trade-off between $g(x)$ and the outcomes of $f(x,y)$,
+variable $Y$. We believe that a better approach is to address this
+properly by modelling the trade-off between $g(x)$ and the outcomes of $f(x,Y)$,
 which is a multi-objective optimisation approach.
 
 \section{Multi-objective optimisation}\label{sec:one_multi-objective}
