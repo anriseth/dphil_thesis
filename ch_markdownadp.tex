@@ -24,11 +24,14 @@ profits. In this chapter, the pricing problem is formulated as a
 discrete-time stochastic optimal control problem, for which the
 optimal pricing policy satisfies a recursive equation known as the
 Bellman equation~\citep{bertsekas2005dynamic}, defined in
-\Cref{sec:bellman_optimal_control}.
+\Cref{sec:bellman_optimal_control}. A canonical example of a stochastic control
+problem that has a closed-form solution that can be found with the
+Bellman approach is the Merton portfolio problem due to
+\citet{merton1969lifetime} and \citet{samuelson1969lifetime}.
 % The aim is to
 % investigate Approximate Dynamic Programming algorithms
 % \citep{powell2011approximate} for this problem.
-For realistic retail applications, modelling the problem
+For realistic retail applications, however, modelling the problem
 and solving it to optimality in this way is intractable. Thus,
 practitioners make
 simplifying assumptions and design suboptimal policies, but a thorough
